@@ -39,6 +39,9 @@ public class MainActivity extends ListActivity {
     String name3 = "thomas";
     String name4 = "time compensated";
     String name5 = "name5";
+    
+    int rwe = 2;
+    int gsg = 6;
 	
  // JSON Node names
     private static final String TAG_MOUSEIA = "mouseia";
