@@ -39,7 +39,7 @@ public class MainActivity extends ListActivity {
     String name3 = "thomas";
     String name4 = "time compensated";
     String name5 = "jhjkfjkgf";
-    String name6 = "jhjkfjkgf";
+    String name6 = "name6";
     
     int rwe = 2;
     int gsg = 6;
