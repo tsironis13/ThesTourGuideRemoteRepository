@@ -35,6 +35,7 @@ public class MainActivity extends ListActivity {
     private static String url = "http://aetos.it.teithe.gr/~tsironis/json.php";
 	
     String myname = "Tsironis";
+    String myname2 = "Matoulas";
 	
  // JSON Node names
     private static final String TAG_MOUSEIA = "mouseia";
