@@ -36,6 +36,7 @@ public class MainActivity extends ListActivity {
 	
     String myname = "Tsironis";
     String myname2 = "Matoulas";
+    String name3 = "thomas";
 	
  // JSON Node names
     private static final String TAG_MOUSEIA = "mouseia";
