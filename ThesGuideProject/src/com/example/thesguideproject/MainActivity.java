@@ -38,7 +38,7 @@ public class MainActivity extends ListActivity {
     String myname2 = "Matoulas";
     String name3 = "thomas";
     String name4 = "time compensated";
-    String name5 = "name5";
+    String name5 = "jhjkfjkgf";
     
     int rwe = 2;
     int gsg = 6;
