@@ -46,6 +46,8 @@ public class MainActivity extends ListActivity {
     private static final String TAG_LINK = "link";
     private static final String TAG_PHONE = "tel";
     
+    int kalase = 666;
+    
     // contacts JSONArray
     JSONArray museum = null;
  
