@@ -34,6 +34,7 @@ public class MainActivity extends ListActivity {
     // URL to get contacts JSON
     private static String url = "http://aetos.it.teithe.gr/~tsironis/json.php";
 	
+    String myname = "Tsironis";
 	
  // JSON Node names
     private static final String TAG_MOUSEIA = "mouseia";
