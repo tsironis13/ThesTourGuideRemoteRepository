@@ -1275,6 +1275,7 @@ containing a value of this type.
         public static final int ic_plusone_tall_off_client=0x7f020073;
     }
     public static final class id {
+        public static final int actBarButton=0x7f060041;
         public static final int action_bar=0x7f06001f;
         public static final int action_bar_activity_content=0x7f060018;
         public static final int action_bar_container=0x7f06001e;
@@ -1286,7 +1287,7 @@ containing a value of this type.
         public static final int action_menu_divider=0x7f060019;
         public static final int action_menu_presenter=0x7f06001a;
         public static final int action_mode_close_button=0x7f060027;
-        public static final int action_settings=0x7f060045;
+        public static final int action_settings=0x7f060046;
         public static final int activity_chooser_view_content=0x7f060028;
         public static final int always=0x7f06000f;
         public static final int beginning=0x7f060014;
@@ -1307,17 +1308,17 @@ containing a value of this type.
         public static final int icon=0x7f06002d;
         public static final int ifRoom=0x7f06000e;
         public static final int image=0x7f06002a;
-        public static final int kodikos=0x7f060041;
-        public static final int link=0x7f060042;
+        public static final int kodikos=0x7f060042;
+        public static final int link=0x7f060043;
         public static final int listMode=0x7f060005;
         public static final int list_item=0x7f06002c;
-        public static final int map=0x7f060044;
+        public static final int map=0x7f060045;
         public static final int mapButton=0x7f060040;
         public static final int middle=0x7f060015;
         public static final int never=0x7f06000d;
         public static final int none=0x7f060000;
         public static final int normal=0x7f060001;
-        public static final int number=0x7f060043;
+        public static final int number=0x7f060044;
         public static final int progress_circular=0x7f06001b;
         public static final int progress_horizontal=0x7f06001c;
         public static final int radio=0x7f060032;
@@ -1447,6 +1448,7 @@ containing a value of this type.
         /**  Description of a share target (both in the list of such or the default share button) in a ShareActionProvider (share UI). [CHAR LIMIT=NONE] 
          */
         public static final int abc_shareactionprovider_share_with_application=0x7f070026;
+        public static final int actBarButton1=0x7f07002d;
         public static final int action_settings=0x7f07002a;
         public static final int app_name=0x7f070028;
         /**   Title for notification shown when GooglePlayServices needs to be

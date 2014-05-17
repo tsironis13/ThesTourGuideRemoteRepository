@@ -79,6 +79,7 @@ public class MainActivity extends ListActivity {
         
         
         Button mapButton = (Button) findViewById(R.id.mapButton);
+        Button actBarButton = (Button) findViewById(R.id.actBarButton);
         
         mapButton.setOnClickListener(new View.OnClickListener() {
 			
@@ -91,6 +92,15 @@ public class MainActivity extends ListActivity {
 		 });
         
         
+        actBarButton.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Intent actBarIntent = new Intent(MainActivity.this, ActBarTest.class);
+				startActivity(actBarIntent);
+			}
+		});
         
         
         
