@@ -3,26 +3,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
-    
-    <RelativeLayout 
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        >
+ 
         
         <Button
+            android:id="@+id/textButton"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
+            android:text="@string/text"
             >"
             
         </Button>"
         
-    </RelativeLayout>
-    
     <ViewFlipper
-		android:id="@+id/view_flipper"
-		android:layout_width="fill_parent"
-		android:layout_height="fill_parent" >
-	
+        android:id="@+id/view_flipper"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@+id/textButton" >
  
 	<RelativeLayout
 		android:layout_width="fill_parent"

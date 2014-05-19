@@ -315,8 +315,8 @@ int id action_context_bar 0x7f060020
 int id action_menu_divider 0x7f060019
 int id action_menu_presenter 0x7f06001a
 int id action_mode_close_button 0x7f060027
-int id action_search 0x7f06004b
-int id action_settings 0x7f06004a
+int id action_search 0x7f06004c
+int id action_settings 0x7f06004b
 int id activity_chooser_view_content 0x7f060028
 int id always 0x7f06000f
 int id beginning 0x7f060014
@@ -349,7 +349,7 @@ int id never 0x7f06000d
 int id none 0x7f060000
 int id normal 0x7f060001
 int id number 0x7f060045
-int id play 0x7f060049
+int id play 0x7f06004a
 int id progress_circular 0x7f06001b
 int id progress_horizontal 0x7f06001c
 int id radio 0x7f060032
@@ -369,15 +369,16 @@ int id showCustom 0x7f06000b
 int id showHome 0x7f060008
 int id showTitle 0x7f06000a
 int id split_action_bar 0x7f060021
-int id stop 0x7f060048
+int id stop 0x7f060049
 int id submit_area 0x7f06003c
 int id tabMode 0x7f060006
 int id terrain 0x7f060003
+int id textButton 0x7f060047
 int id title 0x7f06002e
 int id top_action_bar 0x7f060023
 int id up 0x7f060024
 int id useLogo 0x7f060007
-int id view_flipper 0x7f060047
+int id view_flipper 0x7f060048
 int id withText 0x7f060010
 int integer abc_max_action_buttons 0x7f080001
 int integer google_play_services_version 0x7f080000
@@ -465,6 +466,7 @@ int string kamara 0x7f070030
 int string location_client_powered_by_google 0x7f07001a
 int string mapButton1 0x7f07002c
 int string phoneNum 0x7f07002b
+int string text 0x7f070032
 int style AppBaseTheme 0x7f0b008b
 int style AppTheme 0x7f0b008c
 int style ButtonContainer 0x7f0b008e

@@ -3,6 +3,7 @@ package com.example.thesguideproject;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.GestureDetector;
@@ -11,6 +12,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.Toast;
 import android.widget.ViewFlipper;
 
 public class SplashScreen extends Activity{
@@ -20,6 +22,7 @@ public class SplashScreen extends Activity{
     private ViewFlipper mViewFlipper;  
     private Button playButton;
     private Button pauseButton;
+    private Button text;
     private Context mContext;
     
     private final GestureDetector detector = new GestureDetector(new SwipeGestureDetector());
@@ -30,6 +33,18 @@ public class SplashScreen extends Activity{
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.viewflipper);
+		
+		text = (Button) findViewById(R.id.textButton);
+		text.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				//Toast.makeText(getApplicationContext(), "Click event works.", Toast.LENGTH_SHORT).show();
+				Intent myIntent = new Intent(SplashScreen.this, MainActivity.class);
+				startActivity(myIntent);
+			}
+		});
 		
 		mViewFlipper = (ViewFlipper) this.findViewById(R.id.view_flipper);
         mViewFlipper.setOnTouchListener(new View.OnTouchListener() {

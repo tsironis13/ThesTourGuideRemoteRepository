@@ -11,5 +11,6 @@
 	<string name="curLocButton1">Press to see your current location</string>
 	<string name="kamara">Kamara</string>
 	<string name="alexandros">Alex statue</string>
+	<string name="text">text</string>
     
 </resources>
