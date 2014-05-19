@@ -3,7 +3,9 @@ package com.example.thesguideproject;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
+import android.os.Build;
 import android.os.Bundle;
 import android.widget.Toast;
 
@@ -31,7 +33,8 @@ public class MapTestActivity extends Activity {
 	 /**
      * function to load map. If map is not created it will create it for you
      * */
-    private void initilizeMap() {
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+	private void initilizeMap() {
         if (googleMap == null) {
             googleMap = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
  

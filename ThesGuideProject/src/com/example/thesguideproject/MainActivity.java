@@ -7,17 +7,25 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+
+
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
+import android.support.v7.widget.SearchView;
 import android.support.v4.app.Fragment;
+import android.annotation.TargetApi;
 import android.app.ListActivity;
 import android.app.ProgressDialog;
+import android.app.SearchManager;
+import android.app.SearchableInfo;
+import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,33 +39,23 @@ public class MainActivity extends ListActivity {
 
 	private ProgressDialog pDialog;
 	 
+	private static String tag = "Main Activity";
+	
     // URL to get contacts JSON
     private static String url = "http://aetos.it.teithe.gr/~tsironis/json.php";
 	
-    String myname = "Tsironis";
-    String myname2 = "Matoulas";
-    String name3 = "thomas";
-    String name4 = "time compensated";
-    String name5 = "jhjkfjkgf";
-    String name6 = "name6";
     
-    int rwe = 2;
-    int gsg = 6;
-	
- // JSON Node names
+    //JSON Node names
     private static final String TAG_MOUSEIA = "mouseia";
     private static final String TAG_ID = "id";
     private static final String TAG_LINK = "link";
     private static final String TAG_PHONE = "tel";
-    
-    int kalase = 666;
     
     // contacts JSONArray
     JSONArray museum = null;
  
     // Hashmap for ListView
     ArrayList<HashMap<String, String>> mouseiaList;
-    
     
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +65,7 @@ public class MainActivity extends ListActivity {
 		mouseiaList = new ArrayList<HashMap<String, String>>();
 		 
         ListView lv = getListView();
+        
         
      // Calling async task to get json
         new GetMouseia().execute();
@@ -199,10 +198,8 @@ public class MainActivity extends ListActivity {
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main, menu);
-		return true;
+		return false;
+		
 	}
 
 	@Override

@@ -7,5 +7,9 @@
     <string name="phoneNum">Phone number:</string>
     <string name="mapButton1">Press to see the map</string>
 	<string name="actBarButton1">Press to see the ActionBarTest activity</string>
+	<string name="action_search">Search</string>
+	<string name="curLocButton1">Press to see your current location</string>
+	<string name="kamara">Kamara</string>
+	<string name="alexandros">Alex statue</string>
     
 </resources>
