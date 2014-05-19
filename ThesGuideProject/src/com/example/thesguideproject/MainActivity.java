@@ -7,25 +7,17 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.example.myLocation.GPSTracker;
 
-
-import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.ActionBar;
-import android.support.v7.widget.SearchView;
-import android.support.v4.app.Fragment;
-import android.annotation.TargetApi;
+import android.app.Fragment;
 import android.app.ListActivity;
 import android.app.ProgressDialog;
-import android.app.SearchManager;
-import android.app.SearchableInfo;
-import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,17 +25,21 @@ import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
-import android.os.Build;
+import android.widget.Toast;
+
 
 public class MainActivity extends ListActivity {
-
+ 
+	
 	private ProgressDialog pDialog;
-	 
+
 	private static String tag = "Main Activity";
-	
-    // URL to get contacts JSON
+
+    //URL to get contacts JSON
     private static String url = "http://aetos.it.teithe.gr/~tsironis/json.php";
-	
+
+    //GPSTracker class
+    GPSTracker gps;
     
     //JSON Node names
     private static final String TAG_MOUSEIA = "mouseia";
@@ -57,57 +53,80 @@ public class MainActivity extends ListActivity {
     // Hashmap for ListView
     ArrayList<HashMap<String, String>> mouseiaList;
     
-	@Override
+    @Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
 		mouseiaList = new ArrayList<HashMap<String, String>>();
-		 
-        ListView lv = getListView();
+			ListView lv = getListView();
         
         
-     // Calling async task to get json
-        new GetMouseia().execute();
-		
-		/*if (savedInstanceState == null) {
+			// Calling async task to get json
+			new GetMouseia().execute();
+
+			/*if (savedInstanceState == null) {
 			getSupportFragmentManager().beginTransaction()
-					.add(R.id.container, new PlaceholderFragment()).commit();
-		}*/
-        
-        
+			.add(R.id.container, new PlaceholderFragment()).commit();
+			}*/
         
         Button mapButton = (Button) findViewById(R.id.mapButton);
         Button actBarButton = (Button) findViewById(R.id.actBarButton);
+        Button curLocButton = (Button) findViewById(R.id.curLocationButton);
         
         mapButton.setOnClickListener(new View.OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				Intent myIntent = new Intent(MainActivity.this, MapTestActivity.class);
-				startActivity(myIntent);
-			}
-		 });
+
+        	@Override
+        	public void onClick(View v) {
+        		// TODO Auto-generated method stub
+        		Intent myIntent = new Intent(MainActivity.this, MapTestActivity.class);
+        		startActivity(myIntent);
+        		}
+        	});
         
         
         actBarButton.setOnClickListener(new View.OnClickListener() {
+
+        	@Override
+        	public void onClick(View v) {
+        		// TODO Auto-generated method stub
+        		Intent actBarIntent = new Intent(MainActivity.this, ActBarTest.class);
+        		startActivity(actBarIntent);
+        		}
+        	});
+        
+        curLocButton.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
-			public void onClick(View v) {
+			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
-				Intent actBarIntent = new Intent(MainActivity.this, ActBarTest.class);
-				startActivity(actBarIntent);
-			}
+				// create class object
+                gps = new GPSTracker(MainActivity.this);
+ 
+                // check if GPS enabled    
+                if(gps.canGetLocation()){
+                     
+                    double latitude = gps.getLatitude();
+                    double longitude = gps.getLongitude();
+                     
+                    // \n is for new line
+                    Toast.makeText(getApplicationContext(), "Your Location is - \nLat: " + latitude + "\nLong: " + longitude, Toast.LENGTH_LONG).show();   
+                }else{
+                    // can't get location
+                    // GPS or Network is not enabled
+                    // Ask user to enable GPS/network in settings
+                    gps.showSettingsAlert();
+                }
+                 
+            }
+			
 		});
         
-        
-        
-	}
+}
 
-	 /**
-     * Async task class to get json by making HTTP call
-     * */
+/**
+* Async task class to get json by making HTTP call
+* */
     private class GetMouseia extends AsyncTask<Void, Void, Void> {
  
         @Override
@@ -186,49 +205,45 @@ public class MainActivity extends ListActivity {
              * Updating parsed JSON data into ListView
              * */
             ListAdapter adapter = new SimpleAdapter(MainActivity.this, mouseiaList,
-                    R.layout.list_item, new String[] { TAG_ID, TAG_LINK, TAG_PHONE }, new int[] 
-                    								 { R.id.kodikos, R.id.link, R.id.number });
+                    R.layout.list_item, new String[] { TAG_ID, TAG_LINK, TAG_PHONE }, new int[]
+                     { R.id.kodikos, R.id.link, R.id.number });
  
             setListAdapter(adapter);
             
         }
  
     }
-	
-	
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		return false;
-		
-	}
 
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
-		int id = item.getItemId();
-		if (id == R.id.action_settings) {
-			return true;
+
+    		@Override
+    		public boolean onCreateOptionsMenu(Menu menu) {
+    			return false;
+    		}
+
+    		@Override
+    		public boolean onOptionsItemSelected(MenuItem item) {
+    			// Handle action bar item clicks here. The action bar will
+    			// automatically handle clicks on the Home/Up button, so long
+    			// as you specify a parent activity in AndroidManifest.xml.
+    			int id = item.getItemId();
+    				if (id == R.id.action_settings) {
+    					return true;
+    				}
+    				return super.onOptionsItemSelected(item);
+    			}
+
+		/**
+		 * A placeholder fragment containing a simple view.
+		 */
+		public static class PlaceholderFragment extends Fragment {
+
+				public PlaceholderFragment() {}
+
+				@Override
+				public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+						View rootView = inflater.inflate(R.layout.fragment_main, container,false);
+						return rootView;
+				}
 		}
-		return super.onOptionsItemSelected(item);
-	}
-
-	/**
-	 * A placeholder fragment containing a simple view.
-	 */
-	public static class PlaceholderFragment extends Fragment {
-
-		public PlaceholderFragment() {
-		}
-
-		@Override
-		public View onCreateView(LayoutInflater inflater, ViewGroup container,
-				Bundle savedInstanceState) {
-			View rootView = inflater.inflate(R.layout.fragment_main, container,
-					false);
-			return rootView;
-		}
-	}
-
+   
 }

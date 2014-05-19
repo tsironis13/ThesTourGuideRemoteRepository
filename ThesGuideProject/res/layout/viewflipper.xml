@@ -3,86 +3,87 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
- 
-        
-        <Button
+
+
+
+		<Button
             android:id="@+id/textButton"
-            android:layout_height="wrap_content"
             android:layout_width="wrap_content"
-            android:text="@string/text"
-            >"
-            
-        </Button>"
+            android:layout_height="wrap_content"
+            android:text="@string/text" >
+
+        </Button>
         
+		<Spinner
+		    android:layout_width="wrap_content"
+		    android:layout_height="50dp"
+		    android:layout_toRightOf="@+id/textButton" />
+
     <ViewFlipper
         android:id="@+id/view_flipper"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_below="@+id/textButton" >
- 
-	<RelativeLayout
-		android:layout_width="fill_parent"
-		android:layout_height="fill_parent"
-		android:layout_marginTop="50dp" >
-		
-	<TextView
-		style="@style/ImageTitle"
-		android:text="@string/alexandros" />    
-	
-	<ImageView
-		android:layout_width="fill_parent"
-		android:layout_height="fill_parent"
-		android:layout_gravity="center"
-		android:adjustViewBounds="true"
-		android:scaleType="centerCrop"
-		android:src="@drawable/kamara" />
-    
-	<TextView
-		style="@style/ImageTitle"
-		android:text="@string/kamara" />
 
-	</RelativeLayout>
-	
-	
-	<RelativeLayout
-		android:layout_width="fill_parent"
-		android:layout_height="fill_parent"
-		android:layout_marginTop="50dp" >
- 
-	<ImageView
-		android:layout_width="fill_parent"
-		android:layout_height="fill_parent"
-		android:layout_gravity="center"
-		android:adjustViewBounds="true"
-		android:scaleType="centerCrop"
-		android:src="@drawable/alexandros" />
- 
-	<TextView
-		style="@style/ImageTitle"
-		android:text="@string/alexandros" />
-	</RelativeLayout>
- 
-	</ViewFlipper>
-	
-     <LinearLayout
-         style="@style/ButtonContainer"
-         android:layout_width="fill_parent" 
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_marginTop="50dp" >
+
+            <TextView
+                style="@style/ImageTitle"
+                android:text="@string/alexandros" />
+
+            <ImageView
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_gravity="center"
+                android:adjustViewBounds="true"
+                android:scaleType="centerCrop"
+                android:src="@drawable/kamara" />
+
+            <TextView
+                style="@style/ImageTitle"
+                android:text="@string/kamara" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_marginTop="50dp" >
+
+            <ImageView
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_gravity="center"
+                android:adjustViewBounds="true"
+                android:scaleType="centerCrop"
+                android:src="@drawable/alexandros" />
+
+            <TextView
+                style="@style/ImageTitle"
+                android:text="@string/alexandros" />
+        </RelativeLayout>
+    </ViewFlipper>
+
+    <LinearLayout
+        style="@style/ButtonContainer"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
         android:orientation="horizontal" >
 
-         <Button
-             android:id="@+id/stop"
-             android:layout_width="wrap_content"
-             android:layout_height="wrap_content"
-             android:background="@android:drawable/ic_media_pause" />
+        <Button
+            android:id="@+id/stop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:drawable/ic_media_pause" />
 
-         <Button
-             android:id="@+id/play"
-             android:layout_width="wrap_content"
-             android:layout_height="wrap_content"
-             android:background="@android:drawable/ic_media_play" />
+        <Button
+            android:id="@+id/play"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:drawable/ic_media_play" />
+    </LinearLayout>
 
-     </LinearLayout>
- 
 </RelativeLayout>
