@@ -1,5 +1,12 @@
 package com.example.thesguideproject;
 
+import java.util.ArrayList;
+
+import com.example.adapters.LocationsDataAdapter;
+import com.example.locationData.LocationData;
+import com.example.tasks.ImageTask;
+import com.example.tasks.JsonWebAPITask;
+
 import android.annotation.TargetApi;
 import android.app.SearchManager;
 import android.app.SearchableInfo;
@@ -9,8 +16,13 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.SearchView;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.TextView;
 
 public class ActBarTest extends ActionBarActivity{
 
@@ -19,8 +31,14 @@ public class ActBarTest extends ActionBarActivity{
 	//action Bar
   	private android.app.ActionBar actionBar;
   	
+  	private ArrayList<LocationData> locations;
+  	private ListView locationsList;
+  	private LayoutInflater layoutInflator;
+  	private ImageTask imgFetcher;
+  	
   	
 	
+	@SuppressWarnings("deprecation")
 	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -28,10 +46,28 @@ public class ActBarTest extends ActionBarActivity{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.actbartestlayout);
 		
+		this.locationsList = (ListView) findViewById(R.id.locations_list);
+		this.imgFetcher = new ImageTask(this);
+        this.layoutInflator = LayoutInflater.from(this);
+        
+        
+		JsonWebAPITask webtask = new JsonWebAPITask(ActBarTest.this);
+		webtask.execute();
+		
 		actionBar = getActionBar();
 		
 		//Enabling Back navigation on Action Bar icon
 	    getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+	    
+	    
+	 // Restore any already fetched data on orientation change. 
+        final Object[] data = (Object[]) getLastNonConfigurationInstance();
+        if(data != null) {
+        	this.locations = (ArrayList<LocationData>) data[0];
+        	this.imgFetcher = (ImageTask)data[1];
+         	locationsList.setAdapter(new LocationsDataAdapter(this,this.imgFetcher,this.layoutInflator, this.locations));
+        }
+	    
 	}
 
 
@@ -68,6 +104,24 @@ public class ActBarTest extends ActionBarActivity{
 		        searchView.setIconifiedByDefault(true); //// Do not iconify the widget; expand it by default
 		        
 		        return super.onCreateOptionsMenu(menu);
+	}
+	
+	
+	 /*
+     * Bundle to hold refs to row items views
+     */
+    public static class MyViewHolder{
+    	public TextView genre, nameEl;
+    	//public Button trackButton;
+    	public ImageView icon;
+    	public LocationData locations;
+    } 
+    
+
+    public void setTracks(ArrayList<LocationData> locationData) {
+		// TODO Auto-generated method stub
+		this.locations = locationData;
+		this.locationsList.setAdapter(new LocationsDataAdapter(this, this.imgFetcher, this.layoutInflator, this.locations));
 	}
 	
 	

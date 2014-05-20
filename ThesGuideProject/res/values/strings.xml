@@ -12,5 +12,6 @@
 	<string name="kamara">Kamara</string>
 	<string name="alexandros">Alex statue</string>
 	<string name="text">text</string>
+	<string name="image_desc">Location image</string>
     
 </resources>

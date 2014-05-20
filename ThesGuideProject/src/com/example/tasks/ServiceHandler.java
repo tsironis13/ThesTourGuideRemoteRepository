@@ -1,4 +1,4 @@
-package com.example.thesguideproject;
+package com.example.tasks;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
