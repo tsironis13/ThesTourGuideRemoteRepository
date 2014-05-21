@@ -7,16 +7,23 @@ import com.example.tasks.ImageTask;
 import com.example.thesguideproject.ActBarTest;
 import com.example.thesguideproject.ActBarTest.MyViewHolder;
 import com.example.thesguideproject.R;
+import com.example.thesguideproject.Test;
 
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-public class LocationsDataAdapter extends BaseAdapter{
+public class LocationsDataAdapter extends BaseAdapter implements OnClickListener{
 
 	private static String debugTag = "LocationsDataAdapter";
 	private ActBarTest activity;
@@ -59,7 +66,13 @@ public class LocationsDataAdapter extends BaseAdapter{
 			holder = new MyViewHolder();
 			holder.genre = (TextView) convertView.findViewById(R.id.locationName);
 			holder.icon = (ImageView) convertView.findViewById(R.id.locationImage);
-			holder.nameEl = (TextView)convertView.findViewById(R.id.nameEl);
+			holder.nameEl = (TextView) convertView.findViewById(R.id.nameEl);
+			//holder.latitude = (TextView) convertView.findViewById(R.id.latitudetv);
+			//holder.relLay = (RelativeLayout) convertView.findViewById(R.id.relativeLayout);
+			holder.detailsButton = (Button) convertView.findViewById(R.id.details_button);
+			holder.latitude = (TextView) convertView.findViewById(R.id.latitudetv);
+			holder.longtitude = (TextView) convertView.findViewById(R.id.longtitudetv);
+			holder.detailsButton.setTag(holder);
 			convertView.setTag(holder);
 		}
 		else{
@@ -70,6 +83,13 @@ public class LocationsDataAdapter extends BaseAdapter{
    		holder.locations = location;
    		holder.genre.setText(location.getGenre());
    		holder.nameEl.setText(location.getNameEl());
+   		//holder.relLay.setOnLongClickListener(this);
+   		//holder.latitude.setText(location.getLatitude());
+   		holder.detailsButton.setOnClickListener(this);
+   		
+   		
+   		//String lat = location.getLatitude();
+   		//Log.d(debugTag, "LATITUDE IS : " + lat);
    		if(location.getPhotoLink() != null) {
    			holder.icon.setTag(location.getPhotoLink());
    			Drawable dr = imgFetcher.loadImage(this, holder.icon);
@@ -82,5 +102,21 @@ public class LocationsDataAdapter extends BaseAdapter{
 		
 		return convertView;
 	}
+	
+	
+
+	@Override
+	public void onClick(View v) {
+		// TODO Auto-generated method stub
+		MyViewHolder holder = (MyViewHolder) v.getTag();
+		Intent intent = new Intent(this.activity, Test.class);
+		//String s = holder.locations.getGenre();
+		intent.putExtra("nameEl", holder.locations.getNameEl());
+		intent.putExtra("latitude", holder.locations.getLatitude());
+		intent.putExtra("longtitude", holder.locations.getLongtitude());
+		this.activity.startActivity(intent);
+		
+	}
+	
 
 }

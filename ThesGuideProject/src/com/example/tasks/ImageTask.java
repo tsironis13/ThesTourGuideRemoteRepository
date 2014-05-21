@@ -27,7 +27,7 @@ public class ImageTask {
         imageCache = new HashMap<String, Drawable>();
     }
     
-    public Drawable loadImage (BaseAdapter adapt, ImageView view)
+    public Drawable loadImage(BaseAdapter adapt, ImageView view)
     {
         this.adapt = adapt;
         String url = (String) view.getTag();

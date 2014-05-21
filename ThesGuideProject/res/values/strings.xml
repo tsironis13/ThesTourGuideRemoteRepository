@@ -13,5 +13,6 @@
 	<string name="alexandros">Alex statue</string>
 	<string name="text">text</string>
 	<string name="image_desc">Location image</string>
+	<string name="details">Details</string>
     
 </resources>

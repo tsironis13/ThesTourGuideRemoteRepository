@@ -22,6 +22,7 @@ import android.view.MenuInflater;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 public class ActBarTest extends ActionBarActivity{
@@ -111,19 +112,25 @@ public class ActBarTest extends ActionBarActivity{
      * Bundle to hold refs to row items views
      */
     public static class MyViewHolder{
-    	public TextView genre, nameEl;
+    	public TextView genre, nameEl, latitude, longtitude;
+    	//public RelativeLayout relLay;
     	//public Button trackButton;
+    	public Button detailsButton;
     	public ImageView icon;
     	public LocationData locations;
     } 
     
 
-    public void setTracks(ArrayList<LocationData> locationData) {
+    public void setTracks(ArrayList<LocationData> locData) {
 		// TODO Auto-generated method stub
-		this.locations = locationData;
+    	
+		this.locations = locData;
 		this.locationsList.setAdapter(new LocationsDataAdapter(this, this.imgFetcher, this.layoutInflator, this.locations));
 	}
 	
+    
+    
+    
 	
 	
 

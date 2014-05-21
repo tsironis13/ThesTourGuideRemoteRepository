@@ -1,39 +1,54 @@
 package com.example.thesguideproject;
 
-import java.util.ArrayList;
-
-import com.example.locationData.LocationData;
 import com.example.myLocation.GPSTracker;
-import com.example.tasks.JsonWebAPITask;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import android.annotation.TargetApi;
 import android.app.Activity;
-import android.os.Build;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.util.Log;
-import android.widget.Toast;
+import android.widget.TextView;
 
-public class MapTestActivity extends FragmentActivity {
+public class Test extends FragmentActivity{
 
 	// Google Map
     private GoogleMap googleMap;
     
     LatLng myPosition;
-    
+	
+    String name;
+    double doublelatitude;
+    double doublelongtitude;
+    String latitude;
+    String longtitude;
     
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.map_view);
+		setContentView(R.layout.testlayout);
+		
+		TextView t = (TextView) findViewById(R.id.testtv);
+		
+		Intent i = getIntent();
+		
+		
+		name = i.getStringExtra("nameEl");
+		latitude = i.getStringExtra("latitude");
+		longtitude = i.getStringExtra("longtitude");
+		
+		doublelatitude = Double.parseDouble(latitude);
+		doublelongtitude = Double.parseDouble(longtitude);
+		
+		t.setText(name);
+		
+		
+		
 		
 		// Getting reference to the SupportMapFragment of activity_main.xml
         SupportMapFragment fm = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
@@ -45,18 +60,20 @@ public class MapTestActivity extends FragmentActivity {
         googleMap.setMyLocationEnabled(true);
         googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
         
-        GPSTracker gpstr = new GPSTracker(MapTestActivity.this);
+        //GPSTracker gpstr = new GPSTracker(Test.this);
         
         // Getting latitude of the current location
-        double latitude = gpstr.getLatitude();
+        //double latitude = gpstr.getLatitude();
         
         // Getting longitude of the current location
-        double longitude = gpstr.getLongitude();
+        //double longitude = gpstr.getLongitude();
         
         // Creating a LatLng object for the current location
-        LatLng latLng = new LatLng(latitude, longitude);
+        
+        
+        LatLng latLng = new LatLng(doublelatitude, doublelongtitude);
 
-         myPosition = new LatLng(latitude, longitude);
+         myPosition = new LatLng(doublelatitude, doublelongtitude);
 
         googleMap.addMarker(new MarkerOptions().position(myPosition).title("Start"));
         
@@ -75,44 +92,13 @@ public class MapTestActivity extends FragmentActivity {
         //JsonWebAPITask object = new JsonWebAPITask();
        // String lat = object.getLatitudeandLongLatitudeoftheSpecificLocation();
         
-        CameraUpdate center= CameraUpdateFactory.newLatLng(new LatLng(latitude, longitude));
+        CameraUpdate center= CameraUpdateFactory.newLatLng(new LatLng(doublelatitude, doublelongtitude));
         CameraUpdate zoom= CameraUpdateFactory.zoomTo(16);
 
         googleMap.moveCamera(center);
         googleMap.animateCamera(zoom);
 		
-            try {
-            // Loading map
-            //initilizeMap();
- 
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
 	}
-	
-
-	
-	 /**
-     * function to load map. If map is not created it will create it for you
-     * */
-    /*@TargetApi(Build.VERSION_CODES.HONEYCOMB)
-	private void initilizeMap() {
-        if (googleMap == null) {
-            googleMap = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
- 
-            // check if map is created successfully or not
-            if (googleMap == null) {
-                Toast.makeText(getApplicationContext(),
-                        "Sorry! unable to create maps", Toast.LENGTH_SHORT).show();
-            }
-        }
-    }*/
- 
-    @Override
-    protected void onResume() {
-        super.onResume();
-       // initilizeMap();
-    }
 
 	
 	

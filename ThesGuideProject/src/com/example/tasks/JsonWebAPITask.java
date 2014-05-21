@@ -1,5 +1,6 @@
 package com.example.tasks;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -19,6 +20,7 @@ import android.widget.Toast;
 import com.example.locationData.LocationData;
 import com.example.thesguideproject.ActBarTest;
 import com.example.thesguideproject.MainActivity;
+import com.example.thesguideproject.MapTestActivity;
 import com.example.thesguideproject.R;
 
 /**
@@ -36,6 +38,8 @@ public class JsonWebAPITask extends AsyncTask<Void, Integer, String> {
     
     ServiceHandler sh = new ServiceHandler();
     
+    ArrayList<LocationData> locData = new ArrayList<LocationData>(); 
+    
     //JSON Node names
     private static final String TAG_LOCATIONS = "locations";
     private static final String TAG_GENRE = "museums";
@@ -43,6 +47,7 @@ public class JsonWebAPITask extends AsyncTask<Void, Integer, String> {
     private static final String TAG_PHOTO_LINK = "photo_link";
     private static final String TAG_NAME_EL = "name_el";
     
+    public JsonWebAPITask(){}
    
     public JsonWebAPITask(ActBarTest activity){
     	super();
@@ -77,17 +82,11 @@ public class JsonWebAPITask extends AsyncTask<Void, Integer, String> {
             }
         	
         }	
-        	
-        	
-        	
         	/*
         	ServiceHandler sh = new ServiceHandler();
- 
             // Making a request to url and getting response
             String jsonStr = sh.makeServiceCall(url, ServiceHandler.GET);
- 
             Log.d("Response: ", "> " + jsonStr);
- 
             if (jsonStr != null) {
                 try {
                     JSONObject jsonObj = new JSONObject(jsonStr);
@@ -131,8 +130,6 @@ public class JsonWebAPITask extends AsyncTask<Void, Integer, String> {
             }
  
             return null;*/
-        
- 
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
@@ -140,7 +137,7 @@ public class JsonWebAPITask extends AsyncTask<Void, Integer, String> {
             if (pDialog.isShowing())
                 pDialog.dismiss();
            
-            ArrayList<LocationData> locData = new ArrayList<LocationData>(); 
+           // ArrayList<LocationData> locData = new ArrayList<LocationData>(); 
              
             if(result.length() == 0){
     			AlertDialog.Builder builder = new AlertDialog.Builder(context);
@@ -167,15 +164,26 @@ public class JsonWebAPITask extends AsyncTask<Void, Integer, String> {
 					String genre = c.getString("genre");
 					String photo_link = c.getString("photo_link");
 					String name_el = c.getString("name_el");
+					String latitude = c.getString("latitude");
+					String longtitude = c.getString("longtitude");
 					
+					locData.add(new LocationData(genre, photo_link, name_el, latitude, longtitude));
 					
-					locData.add(new LocationData(genre, photo_link, name_el));
+					//LocationData l = locData.get(0);
+					//String lat = l.getLatitude();
+					//Log.d(debugTag, "Latitude is: " + lat);
+					
 				}
 				
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+            
+            
+          
+            //MapTestActivity m = new MapTestActivity();
+            //m.setList(locData);            
             /**
              * Updating parsed JSON data into ListView
              * */
@@ -186,8 +194,11 @@ public class JsonWebAPITask extends AsyncTask<Void, Integer, String> {
  
             setListAdapter(adapter); */
             this.activity.setTracks(locData);
+            
+         
         }
  
+        
     } 
 
 
