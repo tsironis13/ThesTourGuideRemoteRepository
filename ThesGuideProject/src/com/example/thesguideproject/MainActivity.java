@@ -35,6 +35,10 @@ public class MainActivity extends ListActivity {
  
 	private static String tag = "Main Activity";
  
+	
+	int kalaseeeeeeeeeeeeeeeeeeeeeee;
+	
+	
     //GPSTracker class
     GPSTracker gps;
    
