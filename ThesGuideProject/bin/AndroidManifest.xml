@@ -71,6 +71,10 @@
                 <category android:name="android.intent.category.DEFAULT" /> 
             </intent-filter>
             
+            <meta-data
+                android:name="android.app.default_searchable"
+                android:value="com.example.searchResults.SearchResultsActivity" />
+            
           	<meta-data
         	    android:name="android.support.PARENT_ACTIVITY"
         	    android:value="com.example.thesguideproject.MainActivity" />
@@ -78,6 +82,17 @@
             
         </activity>
         
+        <!-- Search results activity -->
+        <activity android:name="com.example.searchResults.SearchResultsActivity"
+            android:parentActivityName="com.example.thesguideproject.ActBarTest" >
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+ 
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable" />
+        </activity>
          
          <activity 
             android:name="com.example.thesguideproject.MainActivity"

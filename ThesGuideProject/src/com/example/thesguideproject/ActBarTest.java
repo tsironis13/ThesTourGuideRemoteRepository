@@ -92,7 +92,7 @@ public class ActBarTest extends ActionBarActivity{
 		        	Log.wtf(tag, "searchView is null");
 		        }
 		        
-		        //searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+		        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
 		        
 		        
 		        //SearchableInfo si = searchManager.getSearchableInfo(getComponentName());
