@@ -92,17 +92,20 @@ public class ActBarTest extends ActionBarActivity{
 		        	Log.wtf(tag, "searchView is null");
 		        }
 		        
-		        SearchableInfo si = searchManager.getSearchableInfo(getComponentName());
-		        if( si == null){
-		        	Log.wtf(tag, "failed to get searchable info");
-		        }
-		        else{
-		        	Log.wtf(tag, "success in getting the searchable info!!");
-		        }
+		        //searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+		        
+		        
+		        //SearchableInfo si = searchManager.getSearchableInfo(getComponentName());
+		        //if( si == null){
+		        	//Log.wtf(tag, "failed to get searchable info");
+		        //}
+		        //else{
+		        	//Log.wtf(tag, "success in getting the searchable info!!");
+		        //}
 		        //Properties in the SearchableInfo are used to display labels, hints, 
 		        //suggestions, create intents for launching search results screens
-		        searchView.setSearchableInfo(si);
-		        searchView.setIconifiedByDefault(true); //// Do not iconify the widget; expand it by default
+		        //searchView.setSearchableInfo(si);
+		        //searchView.setIconifiedByDefault(true); //// Do not iconify the widget; expand it by default
 		        
 		        return super.onCreateOptionsMenu(menu);
 	}

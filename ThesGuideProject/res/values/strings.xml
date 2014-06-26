@@ -14,5 +14,6 @@
 	<string name="text">text</string>
 	<string name="image_desc">Location image</string>
 	<string name="details">Details</string>
-    
+    <string name="search_hint">Search hint</string>
+	
 </resources>
