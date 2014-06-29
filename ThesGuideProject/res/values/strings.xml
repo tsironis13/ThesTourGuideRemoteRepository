@@ -15,5 +15,18 @@
 	<string name="image_desc">Location image</string>
 	<string name="details">Details</string>
     <string name="search_hint">Search hint</string>
+    <string name="mainButton">Main Layout</string>
+    <string name="button1test">Button 1</string>
+	<string name="button2test">Button 2</string>
+	<string name="spinnertest">Spinner 1</string>
+    <string name="relButton">Relative Layout Button</string>
+	<string name="spinner_title">Select Category</string>
 	
+	<string-array name="category_array">
+	    <item>Category 1</item>
+	    <item>Category 2</item>
+	    <item>Category 3</item>
+	    <item>Category 4</item>
+	</string-array>
+    
 </resources>

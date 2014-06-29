@@ -41,7 +41,12 @@
         android:text="@string/curLocButton1">    
     </Button>
     
-    
+    <Button 
+        android:id="@+id/mainLayoutButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/mainButton">
+    </Button>
     
     </LinearLayout>
     

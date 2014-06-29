@@ -35,10 +35,6 @@ public class MainActivity extends ListActivity {
  
 	private static String tag = "Main Activity";
  
-	
-	int kalaseeeeeeeeeeeeeeeeeeeeeee;
-	
-	
     //GPSTracker class
     GPSTracker gps;
    
@@ -65,6 +61,7 @@ public class MainActivity extends ListActivity {
         Button mapButton = (Button) findViewById(R.id.mapButton);
         Button actBarButton = (Button) findViewById(R.id.actBarButton);
         Button curLocButton = (Button) findViewById(R.id.curLocationButton);
+        Button mainLayoutButton = (Button) findViewById(R.id.mainLayoutButton);
         
         mapButton.setOnClickListener(new View.OnClickListener() {
 
@@ -118,6 +115,17 @@ public class MainActivity extends ListActivity {
                  
             }
 			
+		});
+        
+        
+        mainLayoutButton.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Intent mainIntent = new Intent(MainActivity.this, MainLayoutActivity.class);
+				startActivity(mainIntent);
+			}
 		});
         
 }
