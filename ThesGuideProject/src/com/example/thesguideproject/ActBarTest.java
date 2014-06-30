@@ -52,8 +52,8 @@ public class ActBarTest extends ActionBarActivity{
         this.layoutInflator = LayoutInflater.from(this);
         
         
-		JsonWebAPITask webtask = new JsonWebAPITask(ActBarTest.this);
-		webtask.execute();
+		//JsonWebAPITask webtask = new JsonWebAPITask(ActBarTest.this);
+		//webtask.execute();
 		
 		actionBar = getActionBar();
 		
@@ -66,7 +66,7 @@ public class ActBarTest extends ActionBarActivity{
         if(data != null) {
         	this.locations = (ArrayList<LocationData>) data[0];
         	this.imgFetcher = (ImageTask)data[1];
-         	locationsList.setAdapter(new LocationsDataAdapter(this,this.imgFetcher,this.layoutInflator, this.locations));
+         	//locationsList.setAdapter(new LocationsDataAdapter(this,this.imgFetcher,this.layoutInflator, this.locations));
         }
 	    
 	}
@@ -123,14 +123,14 @@ public class ActBarTest extends ActionBarActivity{
     	public LocationData locations;
     } 
     
-
+/*
     public void setTracks(ArrayList<LocationData> locData) {
 		// TODO Auto-generated method stub
     	
 		this.locations = locData;
 		this.locationsList.setAdapter(new LocationsDataAdapter(this, this.imgFetcher, this.layoutInflator, this.locations));
 	}
-	
+	*/
     
     
     

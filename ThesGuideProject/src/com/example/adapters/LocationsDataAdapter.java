@@ -6,6 +6,7 @@ import com.example.locationData.LocationData;
 import com.example.tasks.ImageTask;
 import com.example.thesguideproject.ActBarTest;
 import com.example.thesguideproject.ActBarTest.MyViewHolder;
+import com.example.thesguideproject.MainLayoutActivity;
 import com.example.thesguideproject.R;
 import com.example.thesguideproject.Test;
 
@@ -26,12 +27,12 @@ import android.widget.TextView;
 public class LocationsDataAdapter extends BaseAdapter implements OnClickListener{
 
 	private static String debugTag = "LocationsDataAdapter";
-	private ActBarTest activity;
+	private MainLayoutActivity activity;
 	private ImageTask imgFetcher;
 	private LayoutInflater layoutInflater;
 	private ArrayList<LocationData> locations;
 	
-	public LocationsDataAdapter(ActBarTest a, ImageTask i,  LayoutInflater l, ArrayList<LocationData> data){
+	public LocationsDataAdapter(MainLayoutActivity a, ImageTask i,  LayoutInflater l, ArrayList<LocationData> data){
 		this.activity = a;
 		this.imgFetcher = i;
 		this.layoutInflater = l;

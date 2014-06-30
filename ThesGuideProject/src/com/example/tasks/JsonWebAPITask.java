@@ -20,6 +20,7 @@ import android.widget.Toast;
 import com.example.locationData.LocationData;
 import com.example.thesguideproject.ActBarTest;
 import com.example.thesguideproject.MainActivity;
+import com.example.thesguideproject.MainLayoutActivity;
 import com.example.thesguideproject.MapTestActivity;
 import com.example.thesguideproject.R;
 
@@ -32,7 +33,7 @@ public class JsonWebAPITask extends AsyncTask<Void, Integer, String> {
     private static String url = "http://aetos.it.teithe.gr/~tsironis/json.php";
     
     private ProgressDialog pDialog;
-    private ActBarTest activity;
+    private MainLayoutActivity activity;
     private Context context;
     private static final String debugTag = "JsonWebAPITask";
     
@@ -48,12 +49,13 @@ public class JsonWebAPITask extends AsyncTask<Void, Integer, String> {
     private static final String TAG_NAME_EL = "name_el";
     
     public JsonWebAPITask(){}
-   
-    public JsonWebAPITask(ActBarTest activity){
+       
+    public JsonWebAPITask(MainLayoutActivity activity){
     	super();
     	this.activity = activity;
     	this.context = this.activity.getApplicationContext();
     }
+    
     
     // contacts JSONArray
     JSONArray locations = null;

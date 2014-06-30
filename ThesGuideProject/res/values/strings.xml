@@ -17,10 +17,14 @@
     <string name="search_hint">Search hint</string>
     <string name="mainButton">Main Layout</string>
     <string name="button1test">Button 1</string>
-	<string name="button2test">Button 2</string>
+	<string name="museumsbutton">Museums</string>
+	<string name="sightseeingsbutton">SightSeeings</string>
+	<string name="button4test">Button 4</string>
+    <string name="button5test">Button 5</string>
 	<string name="spinnertest">Spinner 1</string>
     <string name="relButton">Relative Layout Button</string>
-	<string name="spinner_title">Select Category</string>
+	<string name="spinnercategory_title">Select Category</string>
+	<string name="spinnersubcategory_title">Select Sub Category</string>
 	
 	<string-array name="category_array">
 	    <item>Category 1</item>
@@ -28,5 +32,12 @@
 	    <item>Category 3</item>
 	    <item>Category 4</item>
 	</string-array>
+	
+		<string-array name="subcategory_array">
+		    <item>Sub Category 1</item>
+		    <item>Sub Category 2</item>
+		    <item>Sub Category 3</item>
+		    <item>Sub Category 4</item>
+		</string-array>
     
 </resources>

@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+    
+ <ScrollView 
+     android:id="@+id/scrollview1"
+     android:layout_width="match_parent"
+     android:layout_height="30dp"
+     android:scrollbars="horizontal" >
+   
+    <HorizontalScrollView 
+        android:id="@+id/horizontalscrollview1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" 
+        android:scrollbarStyle="outsideInset" >
+      
+    	<LinearLayout
+        	android:id="@+id/linearlayout1"
+        	android:orientation="horizontal"
+        	android:layout_height="30dp"
+        	android:layout_width="wrap_content"
+        	android:background="#bbb" >
+        
+        
+       		   <Button
+            		android:id="@+id/button1"
+            		android:layout_width="wrap_content"
+            		android:layout_height="match_parent"
+            		android:background="#afc"
+                    android:text="@string/button1test">    
+               </Button>
+       
+       		   <View 
+       		       android:background="#000"
+       		       android:layout_width="1dp"
+       		       android:layout_height="match_parent">   
+       		   </View>
+       		   
+        	   <Button
+            		android:id="@+id/museumsbutton"
+            		android:layout_width="wrap_content"
+              		android:layout_height="match_parent"
+            		android:background="#fac"
+            		android:text="@string/museumsbutton">       
+        	   </Button>
+        		
+        	   <View 
+       		       android:background="#000"
+       		       android:layout_width="1dp"
+       		       android:layout_height="match_parent">   
+       		   </View>
+       		   
+        	   <Spinner 
+            		android:id="@+id/spinner1"
+            		android:layout_width="wrap_content"
+            		android:layout_height="match_parent"
+            		android:prompt="@string/spinnercategory_title"
+            		android:background="#cc2">
+        	   </Spinner>
+        	
+        	   <View 
+       		       android:background="#000"
+       		       android:layout_width="1dp"
+       		       android:layout_height="match_parent">   
+       		   </View>
+       		   
+        	   <Button
+            		android:id="@+id/sightseeingsbutton"
+            		android:layout_width="wrap_content"
+            		android:layout_height="match_parent"
+            		android:background="#fac"
+            		android:text="@string/sightseeingsbutton">       
+        	   </Button>
+        		
+        	   <View 
+       		       android:background="#000"
+       		       android:layout_width="1dp"
+       		       android:layout_height="match_parent">   
+       		   </View>
+       		   
+        	   <Button
+            		android:id="@+id/button4"
+            		android:layout_width="wrap_content"
+            		android:layout_height="match_parent"
+            		android:background="#fac"
+            		android:text="@string/button4test">       
+        	   </Button>
+        	   
+        	   <View 
+       		       android:background="#000"
+       		       android:layout_width="1dp"
+       		       android:layout_height="match_parent">   
+       		   </View>
+       		   
+        	   <Button
+            		android:id="@+id/button5"
+            		android:layout_width="wrap_content"
+            		android:layout_height="match_parent"
+            		android:background="#fac"
+            		android:text="@string/button5test">       
+        	   </Button>
+        
+        </LinearLayout>
+    
+      </HorizontalScrollView>
+    	
+   </ScrollView>
+
+   
+   <ListView 
+       android:id="@+id/listview1"
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
+       android:layout_below="@+id/scrollview1" >"
+       
+   </ListView>
+ 
+ 
+   
+    
+    
+</RelativeLayout>
