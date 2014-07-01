@@ -18,6 +18,7 @@ import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
 import com.example.locationData.LocationData;
+import com.example.sqlHelper.DatabaseHolder;
 import com.example.thesguideproject.ActBarTest;
 import com.example.thesguideproject.MainActivity;
 import com.example.thesguideproject.MainLayoutActivity;
@@ -44,7 +45,7 @@ public class JsonWebAPITask extends AsyncTask<Void, Integer, String> {
     //JSON Node names
     private static final String TAG_LOCATIONS = "locations";
     private static final String TAG_GENRE = "museums";
-    //private static final String TAG_ID = "id";
+    private static final String TAG_ID = "id";
     private static final String TAG_PHOTO_LINK = "photo_link";
     private static final String TAG_NAME_EL = "name_el";
     
@@ -163,19 +164,46 @@ public class JsonWebAPITask extends AsyncTask<Void, Integer, String> {
 				for(int i=0; i<locations.length(); i++){
 					JSONObject c = locations.getJSONObject(i);
 					
+					String id = c.getString("id");
+					int integer_id = Integer.parseInt(id);
 					String genre = c.getString("genre");
 					String photo_link = c.getString("photo_link");
 					String name_el = c.getString("name_el");
 					String latitude = c.getString("latitude");
 					String longtitude = c.getString("longtitude");
 					
-					locData.add(new LocationData(genre, photo_link, name_el, latitude, longtitude));
+					locData.add(new LocationData(integer_id, genre, photo_link, name_el, latitude, longtitude));
+					
 					
 					//LocationData l = locData.get(0);
 					//String lat = l.getLatitude();
 					//Log.d(debugTag, "Latitude is: " + lat);
 					
 				}
+				
+				
+				DatabaseHolder dbholder = new DatabaseHolder(context);
+				
+				Log.d("Insert: ", "Inserting .."); 
+				//dbholder.addLocation(new LocationData(integer_id, genre, photo_link, name_el, latitude, longtitude));
+				  for (LocationData ld : locData){
+			        	dbholder.addLocation(ld);
+			      }
+				
+				
+				 // Reading all contacts
+		        Log.d("Reading: ", "Reading all contacts..");
+		        ArrayList<LocationData> locations = dbholder.getAllLocations();      
+		         
+		      
+		        
+		        for (LocationData ld : locData) {
+		            String log = "Id: "+ld.getId()+" ,Name: " + ld.getNameEl() + " ,Genre: " + ld.getGenre() + " ,Longtitude: " + ld.getLongtitude()
+		            		+ " ,Latitude: " + ld.getLatitude();
+		                // Writing Contacts to log
+		        Log.d("Name: ", log);
+		        }
+				
 				
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
@@ -196,6 +224,11 @@ public class JsonWebAPITask extends AsyncTask<Void, Integer, String> {
  
             setListAdapter(adapter); */
             this.activity.setTracks(locData);
+            
+            
+            
+            //this.activity.getLocationDataFromDatabase(locData);
+            
             
          
         }

@@ -2,7 +2,7 @@ package com.example.locationData;
 
 public class LocationData {
 
-	private String id;
+	private int id;
 	private String genre;
 	private String description;
 	private String photo_link;
@@ -12,9 +12,9 @@ public class LocationData {
 	
 	public LocationData(){}
 	
-	public LocationData(String genre, String photo_link, String name_el, String latitude, String longtitude){
+	public LocationData(int id, String genre, String photo_link, String name_el, String latitude, String longtitude){
 		
-		//this.id = id;
+		this.id = id;
 		this.genre = genre;
 		//this.description = description;
 		this.photo_link = photo_link;
@@ -23,11 +23,21 @@ public class LocationData {
 		this.longtitude = longtitude;
 	}
 	
-	public void setId(String id){
+public LocationData(String genre, String photo_link, String name_el, String latitude, String longtitude){
+		
+		this.genre = genre;
+		//this.description = description;
+		this.photo_link = photo_link;
+		this.name_el = name_el;		
+		this.latitude = latitude;
+		this.longtitude = longtitude;
+	}
+	
+	public void setId(int id){
 		this.id = id;
 	}
 	
-	public String getId(){
+	public int getId(){
 		return id;
 	}
 	

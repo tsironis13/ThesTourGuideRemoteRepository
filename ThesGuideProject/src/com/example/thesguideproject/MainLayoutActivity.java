@@ -4,12 +4,14 @@ import java.util.ArrayList;
 
 import com.example.adapters.LocationsDataAdapter;
 import com.example.locationData.LocationData;
+import com.example.sqlHelper.DatabaseHolder;
 import com.example.tasks.ImageTask;
 import com.example.tasks.JsonWebAPITask;
 
 import android.app.Activity;
 import android.content.ContextWrapper;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -41,6 +43,29 @@ public class MainLayoutActivity extends Activity implements OnItemSelectedListen
 		
 		//MainLayoutActivity listview = (MainLayoutActivity) findViewById(R.id.listview);
 		
+        
+        /**
+         * CRUD Operations
+         * */
+		/*
+        // Inserting Contacts
+        Log.d("Insert: ", "Inserting ..");
+        db.addLocation(new LocationData(1, "mouseio", "assaa", "sdssd", "sdssdds", "dssd"));       
+        db.addLocation(new LocationData(2, "mouseio", "assaa", "sdssd", "sdssdds", "dssd")); 
+        db.addLocation(new LocationData(3, "aksiotheato", "assaa", "sdssd", "sdssdds", "dssd")); 
+        db.addLocation(new LocationData(4, "mouseio", "assaa", "sdssd", "sdssdds", "dssd")); 
+         
+        // Reading all contacts
+        Log.d("Reading: ", "Reading all contacts..");
+        ArrayList<LocationData> locations = db.getAllLocations();      
+         
+        for (LocationData ld : locations) {
+            String log = "Id: "+ld.getId()+" ,Name: " + ld.getNameEl() + " ,Genre: " + ld.getGenre();
+                // Writing Contacts to log
+        Log.d("Name: ", log);
+    }*/
+		
+		
 		// Spinner element
 		spinner1 = (Spinner) findViewById(R.id.spinner1);
 		
@@ -59,6 +84,7 @@ public class MainLayoutActivity extends Activity implements OnItemSelectedListen
         this.imgFetcher = new ImageTask(this);
         this.layoutInflator = LayoutInflater.from(this);
         
+        final DatabaseHolder db = new DatabaseHolder(this);
         
         museumsButton.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -67,6 +93,8 @@ public class MainLayoutActivity extends Activity implements OnItemSelectedListen
 				 JsonWebAPITask webtask = new JsonWebAPITask(MainLayoutActivity.this);
 				 webtask.execute();
 				//Toast.makeText(getApplicationContext(), "is clicked", Toast.LENGTH_SHORT).show();
+				db.getLocationsByGenre("museums");
+				 
 			}
 		});
         
@@ -136,6 +164,9 @@ public class MainLayoutActivity extends Activity implements OnItemSelectedListen
 		this.locations = locData;
 		this.locationsList.setAdapter(new LocationsDataAdapter(this, this.imgFetcher, this.layoutInflator, this.locations));
 	}
+	
+	
+
 	
 	
 }
