@@ -48,13 +48,16 @@ public class JsonWebAPITask extends AsyncTask<Void, Integer, String> {
     private static final String TAG_ID = "id";
     private static final String TAG_PHOTO_LINK = "photo_link";
     private static final String TAG_NAME_EL = "name_el";
+    public String genre_type;
+    
     
     public JsonWebAPITask(){}
        
-    public JsonWebAPITask(MainLayoutActivity activity){
+    public JsonWebAPITask(MainLayoutActivity activity, String genre_type){
     	super();
     	this.activity = activity;
     	this.context = this.activity.getApplicationContext();
+    	this.genre_type = genre_type;
     }
     
     
@@ -133,6 +136,9 @@ public class JsonWebAPITask extends AsyncTask<Void, Integer, String> {
             }
  
             return null;*/
+        
+        public ArrayList<LocationData> locationsByGenre;
+        
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
@@ -193,9 +199,10 @@ public class JsonWebAPITask extends AsyncTask<Void, Integer, String> {
 				
 				 // Reading all contacts
 		        Log.d("Reading: ", "Reading all contacts..");
-		        ArrayList<LocationData> locations = dbholder.getAllLocations();      
-		         
-		      
+		        //ArrayList<LocationData> locations = dbholder.getAllLocations();
+		        //String s = "sightseeings";
+		        String m = "museums";
+		        locationsByGenre = dbholder.getAllLocationsByGenre(genre_type);
 		        
 		        for (LocationData ld : locData) {
 		            String log = "Id: "+ld.getId()+" ,Name: " + ld.getNameEl() + " ,Genre: " + ld.getGenre() + " ,Longtitude: " + ld.getLongtitude()
@@ -204,6 +211,9 @@ public class JsonWebAPITask extends AsyncTask<Void, Integer, String> {
 		        Log.d("Name: ", log);
 		        }
 				
+		        
+		       
+		        
 				
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
@@ -211,7 +221,8 @@ public class JsonWebAPITask extends AsyncTask<Void, Integer, String> {
 			}
             
             
-          
+           
+	        
             //MapTestActivity m = new MapTestActivity();
             //m.setList(locData);            
             /**
@@ -223,9 +234,13 @@ public class JsonWebAPITask extends AsyncTask<Void, Integer, String> {
                      { R.id.kodikos, R.id.link, R.id.number });
  
             setListAdapter(adapter); */
-            this.activity.setTracks(locData);
             
+            MainLayoutActivity mla = new MainLayoutActivity();
+            //ArrayList<LocationData> objectlist = mla.getResults("museums");
             
+            //this.activity.setTracks(locData);
+            //this.activity.setTracks(objectlist);
+            this.activity.setTracks(locationsByGenre);
             
             //this.activity.getLocationDataFromDatabase(locData);
             

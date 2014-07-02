@@ -356,7 +356,6 @@ int id activity_chooser_view_content 0x7f060037
 int id always 0x7f06000b
 int id beginning 0x7f060011
 int id book_now 0x7f060028
-int id button1 0x7f06005a
 int id button4 0x7f06005e
 int id button5 0x7f06005f
 int id buyButton 0x7f060022
@@ -364,6 +363,7 @@ int id buy_now 0x7f060027
 int id buy_with_google 0x7f060026
 int id checkbox 0x7f06003f
 int id classic 0x7f060029
+int id clearDataDBbutton 0x7f06005a
 int id collapseActionView 0x7f06000d
 int id container 0x7f06004f
 int id curLocationButton 0x7f060052
@@ -514,9 +514,9 @@ int string auth_client_needs_update_title 0x7f0b0010
 int string auth_client_play_services_err_notification_msg 0x7f0b0011
 int string auth_client_requested_by_msg 0x7f0b0012
 int string auth_client_using_bad_version_title 0x7f0b000d
-int string button1test 0x7f0b003c
 int string button4test 0x7f0b003f
 int string button5test 0x7f0b0040
+int string clearDataDBbutton 0x7f0b003c
 int string common_google_play_services_enable_button 0x7f0b001e
 int string common_google_play_services_enable_text 0x7f0b001d
 int string common_google_play_services_enable_title 0x7f0b001c

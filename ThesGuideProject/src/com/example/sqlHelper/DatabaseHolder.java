@@ -11,20 +11,21 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+import android.widget.Toast;
 
 public class DatabaseHolder extends SQLiteOpenHelper{
 
 	// All Static variables
     // Database Version
-	private static final int DATABASE_VERSION = 1;
+	private static int DATABASE_VERSION = 1;
 	
 	// Database Name
-    private static final String DATABASE_NAME = "locationsManager";
+    private static final String DATABASE_NAME = "locationsManagerFor";
     
     private SQLiteDatabase myDataBase;
     
     // Locations table name
-    private static final String TABLE_LOCATIONS = "locations";
+    private static final String TABLE_LOCATIONS = "locationsFor";
     
     // Locations Table Columns names
     private static final String KEY_ID = "id";
@@ -33,10 +34,12 @@ public class DatabaseHolder extends SQLiteOpenHelper{
 	private static final String KEY_PHOTO_LINK = "photo_link";
 	private static final String KEY_LATITUDE = "latitude";
 	private static final String KEY_LONGTITUDE = "longtitude";
-    
+    private static String flag;
     
     public DatabaseHolder(Context context){
     	super(context, DATABASE_NAME, null, DATABASE_VERSION);
+    	String s = Integer.toString(DATABASE_VERSION);
+    	Log.d("DATABASE VERSION: ", s);
     }
     
     // Creating Tables
@@ -58,7 +61,12 @@ public class DatabaseHolder extends SQLiteOpenHelper{
 		// TODO Auto-generated method stub
 		 // Drop older table if existed
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_LOCATIONS);
- 
+        
+        String oldversion = Integer.toString(oldVersion);
+        Log.d("DATABASE OLD VERSION: ", oldversion);
+        
+        String newversion = Integer.toString(newVersion);
+        //Log.d("DATABASE NEW VERSION: ", newVersion);
         // Create tables again
         onCreate(db);
 	}
@@ -81,6 +89,22 @@ public class DatabaseHolder extends SQLiteOpenHelper{
 		db.close();
 	}
 	 
+	//Clear Table if exists
+	public void clearTableIfExists(){
+		SQLiteDatabase db = this.getReadableDatabase();
+		
+		try{
+			db.delete(TABLE_LOCATIONS, null, null);
+			flag = "true";
+			Log.d("Table deleted successfully", flag);
+		}
+		catch(Exception e){
+			flag = "false";
+			Log.d("Table deleted successfully", flag);
+		}
+	}
+	
+	
 	// Getting single location
 	public LocationData getLocation(int id) {
 		SQLiteDatabase db = this.getReadableDatabase();
@@ -97,6 +121,9 @@ public class DatabaseHolder extends SQLiteOpenHelper{
 		
 		
 	}
+	
+	
+	
 	 
 	// Getting All Locations
 	public ArrayList<LocationData> getAllLocations() {
@@ -107,6 +134,10 @@ public class DatabaseHolder extends SQLiteOpenHelper{
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
  
+        //int count = cursor.getCount();
+		//String s = Integer.toString(count);
+		//Log.d("Cursor row count: ", s);
+		
         // looping through all rows and adding to list
         if (cursor.moveToFirst()) {
             do {
@@ -128,6 +159,45 @@ public class DatabaseHolder extends SQLiteOpenHelper{
 		
 		
 	}
+	
+	
+	
+	// Getting All Locations By Genre
+		public ArrayList<LocationData> getAllLocationsByGenre(String genre) {
+			ArrayList<LocationData> locationListByGenre = new ArrayList<LocationData>();
+	        // Select All Query
+	        String selectQuery = "SELECT  * FROM " + TABLE_LOCATIONS + " WHERE genre ='" + genre + "'";
+	 
+	        SQLiteDatabase db = this.getReadableDatabase();
+	        Cursor cursor = db.rawQuery(selectQuery, null);
+	 
+	        int count = cursor.getCount();
+			String s = Integer.toString(count);
+			Log.d("Cursor row count: ", s);
+	        
+	        // looping through all rows and adding to list
+	        if (cursor.moveToFirst()) {
+	            do {
+	                LocationData location = new LocationData();
+	                location.setId(Integer.parseInt(cursor.getString(0)));
+	                location.setNameEl(cursor.getString(1));
+	                location.setGenre(cursor.getString(2));
+	                location.setPhotoLink(cursor.getString(3));
+	                location.setLongtitude(cursor.getString(4));
+	                location.setLatitude(cursor.getString(5));
+	                // Adding contact to list
+	                locationListByGenre.add(location);
+	            } while (cursor.moveToNext());
+	        }
+	 
+	        //DATABASE_VERSION = 0;
+	        // return contact list
+	        return locationListByGenre;
+			
+			
+			
+		}
+	
 	 
 	// Getting locations Count
 	public int getLocationsCount() {

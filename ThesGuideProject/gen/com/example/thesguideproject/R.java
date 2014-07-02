@@ -1494,7 +1494,6 @@ containing a value of this type.
         public static final int always=0x7f06000b;
         public static final int beginning=0x7f060011;
         public static final int book_now=0x7f060028;
-        public static final int button1=0x7f06005a;
         public static final int button4=0x7f06005e;
         public static final int button5=0x7f06005f;
         public static final int buyButton=0x7f060022;
@@ -1502,6 +1501,7 @@ containing a value of this type.
         public static final int buy_with_google=0x7f060026;
         public static final int checkbox=0x7f06003f;
         public static final int classic=0x7f060029;
+        public static final int clearDataDBbutton=0x7f06005a;
         public static final int collapseActionView=0x7f06000d;
         public static final int container=0x7f06004f;
         public static final int curLocationButton=0x7f060052;
@@ -1709,9 +1709,9 @@ containing a value of this type.
         public static final int auth_client_play_services_err_notification_msg=0x7f0b0011;
         public static final int auth_client_requested_by_msg=0x7f0b0012;
         public static final int auth_client_using_bad_version_title=0x7f0b000d;
-        public static final int button1test=0x7f0b003c;
         public static final int button4test=0x7f0b003f;
         public static final int button5test=0x7f0b0040;
+        public static final int clearDataDBbutton=0x7f0b003c;
         /**  Button in confirmation dialog to enable Google Play services.  Clicking it
         will direct user to application settings of Google Play services where they
         can enable it [CHAR LIMIT=40] 

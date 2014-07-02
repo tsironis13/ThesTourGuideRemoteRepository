@@ -10,6 +10,7 @@ import com.example.tasks.JsonWebAPITask;
 
 import android.app.Activity;
 import android.content.ContextWrapper;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -27,13 +28,17 @@ import android.widget.Toast;
 
 public class MainLayoutActivity extends Activity implements OnItemSelectedListener {
 
+	private static final String MY_DEBUG_TAG = null;
 	private Spinner spinner1;
 	private ListView locationsList;
 	private Button museumsButton;
 	private Button sightseeingsButton;
+	private Button clearDataButton;
 	private ImageTask imgFetcher;
 	private LayoutInflater layoutInflator;
 	private ArrayList<LocationData> locations;
+	
+	public String genre_type; 
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -81,20 +86,34 @@ public class MainLayoutActivity extends Activity implements OnItemSelectedListen
         this.locationsList = (ListView) findViewById(R.id.listview1);
         this.museumsButton = (Button) findViewById(R.id.museumsbutton);
         this.sightseeingsButton = (Button) findViewById(R.id.sightseeingsbutton);
+        this.clearDataButton = (Button) findViewById(R.id.clearDataDBbutton);
         this.imgFetcher = new ImageTask(this);
         this.layoutInflator = LayoutInflater.from(this);
         
         final DatabaseHolder db = new DatabaseHolder(this);
         
-        museumsButton.setOnClickListener(new View.OnClickListener() {
+        clearDataButton.setOnClickListener(new View.OnClickListener() {
+			
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				 JsonWebAPITask webtask = new JsonWebAPITask(MainLayoutActivity.this);
+				db.clearTableIfExists();
+			}
+		});
+        
+        
+        museumsButton.setOnClickListener(new View.OnClickListener() {
+        	@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+        		 db.clearTableIfExists();
+        		 genre_type = "museums";
+				 JsonWebAPITask webtask = new JsonWebAPITask(MainLayoutActivity.this, genre_type);
 				 webtask.execute();
 				//Toast.makeText(getApplicationContext(), "is clicked", Toast.LENGTH_SHORT).show();
-				db.getLocationsByGenre("museums");
-				 
+				
+				//db.getLocationsByGenre("museums");
+			
 			}
 		});
         
@@ -102,7 +121,9 @@ public class MainLayoutActivity extends Activity implements OnItemSelectedListen
 			@Override
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
-				JsonWebAPITask webtask = new JsonWebAPITask(MainLayoutActivity.this);
+				db.clearTableIfExists();
+       		    genre_type = "sightseeings";
+				JsonWebAPITask webtask = new JsonWebAPITask(MainLayoutActivity.this, genre_type);
 				webtask.execute();
 			}
 		});
@@ -117,6 +138,44 @@ public class MainLayoutActivity extends Activity implements OnItemSelectedListen
         }*/
         
 	}
+	
+	
+	public ArrayList<LocationData> getResults(String genre){
+		DatabaseHolder db = new DatabaseHolder(this);
+		
+		
+		
+		ArrayList<LocationData> resultList = new ArrayList<LocationData>();
+		
+		Cursor c = db.getLocationsByGenre(genre);
+		//Cursor c = (Cursor) db.getAllLocations();
+		int count = c.getCount();
+		String s = Integer.toString(count);
+		Log.d("Cursor row count: ", s);
+		
+		while(c.moveToNext()){
+			
+			String name_el = c.getString(c.getColumnIndex("name_el"));
+			String genre1 = c.getString(c.getColumnIndex("genre"));
+			String photo_link = c.getString(c.getColumnIndex("photo_link"));
+			String latitude = c.getString(c.getColumnIndex("latitude"));
+			String longtitude = c.getString(c.getColumnIndex("longtitude"));
+			
+			try{
+				resultList.add(new LocationData(genre1, photo_link, name_el, latitude, longtitude));
+			}
+			catch(Exception e){
+				Log.e(MY_DEBUG_TAG, "Error " + e.toString());
+			}
+		}
+		
+		c.close();
+
+	    db.close();
+	    return resultList;
+	}
+	
+	
 	
 	
 	
@@ -160,7 +219,6 @@ public class MainLayoutActivity extends Activity implements OnItemSelectedListen
 	
 	public void setTracks(ArrayList<LocationData> locData) {
 		// TODO Auto-generated method stub
-    	
 		this.locations = locData;
 		this.locationsList.setAdapter(new LocationsDataAdapter(this, this.imgFetcher, this.layoutInflator, this.locations));
 	}

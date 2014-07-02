@@ -24,11 +24,11 @@
         
         
        		   <Button
-            		android:id="@+id/button1"
+            		android:id="@+id/clearDataDBbutton"
             		android:layout_width="wrap_content"
             		android:layout_height="match_parent"
             		android:background="#afc"
-                    android:text="@string/button1test">    
+                    android:text="@string/clearDataDBbutton">    
                </Button>
        
        		   <View 
