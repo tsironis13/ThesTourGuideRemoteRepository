@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.example.locationData.LocationData;
+import com.example.locationData.TestData;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -14,7 +15,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 public class DatabaseHolder extends SQLiteOpenHelper{
-
+		
 	// All Static variables
     // Database Version
 	private static int DATABASE_VERSION = 1;
@@ -26,6 +27,10 @@ public class DatabaseHolder extends SQLiteOpenHelper{
     
     // Locations table name
     private static final String TABLE_LOCATIONS = "locationsFor";
+    
+    //private static final String TEST_TABLE = "testTable";
+   // private static final String TEST_KEY_ID = "id";
+   // private static final String TEST_NAME = "name";
     
     // Locations Table Columns names
     private static final String KEY_ID = "id";
@@ -49,6 +54,11 @@ public class DatabaseHolder extends SQLiteOpenHelper{
 		String CREATE_LOCATIONS_TABLE = "CREATE TABLE " + TABLE_LOCATIONS + "(" + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + KEY_NAME +
 				" TEXT, " + KEY_GENRE + " TEXT, " + KEY_PHOTO_LINK + " TEXT, " + KEY_LATITUDE + " TEXT, " + KEY_LONGTITUDE + " TEXT" + ")";
 		
+		
+		//String CREATE_TEST_TABLE = "CREATE TABLE " + TEST_TABLE + "(" + TEST_KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + TEST_NAME +
+		//		" TEXT, " + ")";
+		
+		//db.execSQL(CREATE_TEST_TABLE);
 		db.execSQL(CREATE_LOCATIONS_TABLE);
 			
 		//db.execSQL("create table locations " +
@@ -71,6 +81,17 @@ public class DatabaseHolder extends SQLiteOpenHelper{
         onCreate(db);
 	}
 
+	/*
+	public void addTestData(TestData td){
+		SQLiteDatabase db = this.getWritableDatabase();
+		
+		ContentValues values = new ContentValues();
+		values.put(TEST_KEY_ID, td.getId());
+		values.put(TEST_NAME, td.getName());
+		
+		db.insert(TEST_TABLE, null, values);
+		db.close();
+	}*/
 	
 	// Adding new location
 	public void addLocation(LocationData location) {
@@ -103,6 +124,21 @@ public class DatabaseHolder extends SQLiteOpenHelper{
 			Log.d("Table deleted successfully", flag);
 		}
 	}
+	
+	/*
+	public void clearTestTableIfExists(){
+		SQLiteDatabase db = this.getReadableDatabase();
+		
+		try{
+			db.delete(TEST_TABLE, null, null);
+			flag = "true";
+			Log.d("Table deleted successfully", flag);
+		}
+		catch(Exception e){
+			flag = "false";
+			Log.d("Table deleted successfully", flag);
+		}
+	}*/
 	
 	
 	// Getting single location

@@ -48,6 +48,13 @@
         android:text="@string/mainButton">
     </Button>
     
+    <Button
+        android:id="@+id/fragmentTestButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/fragmentTestButton">
+    </Button>
+    
     </LinearLayout>
     
  </FrameLayout>   

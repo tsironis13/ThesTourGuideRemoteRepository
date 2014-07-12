@@ -65,6 +65,11 @@
             android:label="@string/app_name">
         </activity>
         
+        <activity 
+            android:name="com.example.thesguideproject.FragmentActivityTest"
+            android:label="@string/app_name">
+        </activity>
+        
          <activity 
             android:name="com.example.myLocation.GPSTracker"
             android:label="@string/app_name" >     

@@ -11,7 +11,7 @@ import com.example.myLocation.GPSTracker;
 import com.example.tasks.ServiceHandler;
 
 import android.annotation.TargetApi;
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -62,6 +62,7 @@ public class MainActivity extends ListActivity {
         Button actBarButton = (Button) findViewById(R.id.actBarButton);
         Button curLocButton = (Button) findViewById(R.id.curLocationButton);
         Button mainLayoutButton = (Button) findViewById(R.id.mainLayoutButton);
+        Button fragmentTestButton = (Button) findViewById(R.id.fragmentTestButton);
         
         mapButton.setOnClickListener(new View.OnClickListener() {
 
@@ -128,6 +129,15 @@ public class MainActivity extends ListActivity {
 			}
 		});
         
+        fragmentTestButton.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Intent fragmentIntent = new Intent(MainActivity.this, FragmentActivityTest.class);
+				startActivity(fragmentIntent);
+			}
+		});
 }
 
 
@@ -153,7 +163,6 @@ public class MainActivity extends ListActivity {
 		/**
 		 * A placeholder fragment containing a simple view.
 		 */
-		@TargetApi(Build.VERSION_CODES.HONEYCOMB)
 		public static class PlaceholderFragment extends Fragment {
 
 				public PlaceholderFragment() {}

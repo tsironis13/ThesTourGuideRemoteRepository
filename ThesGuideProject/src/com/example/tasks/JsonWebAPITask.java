@@ -23,7 +23,7 @@ import com.example.thesguideproject.ActBarTest;
 import com.example.thesguideproject.MainActivity;
 import com.example.thesguideproject.MainLayoutActivity;
 import com.example.thesguideproject.MapTestActivity;
-import com.example.thesguideproject.R;
+
 
 /**
 * Async task class to get json by making HTTP call
@@ -201,7 +201,7 @@ public class JsonWebAPITask extends AsyncTask<Void, Integer, String> {
 		        Log.d("Reading: ", "Reading all contacts..");
 		        //ArrayList<LocationData> locations = dbholder.getAllLocations();
 		        //String s = "sightseeings";
-		        String m = "museums";
+		        //String m = "museums";
 		        locationsByGenre = dbholder.getAllLocationsByGenre(genre_type);
 		        
 		        for (LocationData ld : locData) {
@@ -235,7 +235,7 @@ public class JsonWebAPITask extends AsyncTask<Void, Integer, String> {
  
             setListAdapter(adapter); */
             
-            MainLayoutActivity mla = new MainLayoutActivity();
+            //MainLayoutActivity mla = new MainLayoutActivity();
             //ArrayList<LocationData> objectlist = mla.getResults("museums");
             
             //this.activity.setTracks(locData);
