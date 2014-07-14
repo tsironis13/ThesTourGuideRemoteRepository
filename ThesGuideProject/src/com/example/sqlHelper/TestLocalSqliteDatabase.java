@@ -214,10 +214,11 @@ public class TestLocalSqliteDatabase extends SQLiteOpenHelper {
 	        int count = cursor.getCount();
 			//String s = Integer.toString(count);
 			
-			if (count != 0) return true;
-			else{
+			if (count != 0)
+				return true;
+			else
 				return false;
-			}
+			
 	 }
 	 
 	 //ArrayList<TestData> getTestDataByName;

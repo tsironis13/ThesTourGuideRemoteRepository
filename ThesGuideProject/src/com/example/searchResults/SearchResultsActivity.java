@@ -1,5 +1,7 @@
 package com.example.searchResults;
 
+//import com.example.thesguideproject.R;
+
 import com.example.thesguideproject.R;
 
 import android.annotation.TargetApi;
