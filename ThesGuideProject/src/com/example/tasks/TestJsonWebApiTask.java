@@ -1,5 +1,7 @@
 package com.example.tasks;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 
 import org.json.JSONArray;
@@ -26,6 +28,7 @@ public class TestJsonWebApiTask extends AsyncTask<Void, Integer, String> {
 	 private MainLayoutActivity activity;
 	 private Context context;
 	 private static final String debugTag = "TestJsonWebApiTask";
+	 public String encodedUrl;
 	 
 	 ServiceHandler sh = new ServiceHandler();
 	 
@@ -35,6 +38,8 @@ public class TestJsonWebApiTask extends AsyncTask<Void, Integer, String> {
 	 private static final String TAG_PERSONS = "persons";
 	 private static final String TAG_ID = "id";
 	 private static final String TAG_NAMES = "name";
+	 private static final String TAG_SURNAMES = "surname";
+	 private static final String TAG_TYPE = "type";
 	 
 	 public TestJsonWebApiTask(){}
      
@@ -112,30 +117,42 @@ public class TestJsonWebApiTask extends AsyncTask<Void, Integer, String> {
         		String id = c.getString("id");
         		int integer_id = Integer.parseInt(id);
         		String name = c.getString("name");
+        		String surname = c.getString("surname");
+        		String type = c.getString("type");
+        		String link = c.getString("imagelink");
         		
-        		testData.add(new TestData(integer_id, name));
+        		try {
+        			encodedUrl = link +"/" + URLEncoder.encode(link, "UTF-8");
+				} catch (UnsupportedEncodingException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+        		
+        		testData.add(new TestData(integer_id, name, surname, type, link));
         	}
         	
         	
+        
+        	
         	TestLocalSqliteDatabase dbtest = new TestLocalSqliteDatabase(context);
 			
-			Log.d("Insert: ", "Inserting .."); 
+			//Log.d("Insert: ", "Inserting .."); 
 			//dbholder.addLocation(new LocationData(integer_id, genre, photo_link, name_el, latitude, longtitude));
 			  for (TestData td : testData){
 		        	//dbtest.addTestData(td);
 		      }
-			
+			  Log.d("Reading: ", "Reading all persons..");
+		        
+		        for (TestData td : testData) {
+		            String log = "Id: "+td.getId()+" ,Name: " + td.getName()+" ,Surname: " + td.getSurname()+" ,Type: " + td.getType() + " ,Image Link: " + td.getImageLink();
+		                // Writing Contacts to log
+		        Log.d("Name: ", log);
+		        }
 			  
-			 dbtest.getArrayListwithTestJsonData(testData);
+			dbtest.getArrayListwithTestJsonData(testData);
 			
 			 // Reading all contacts
-	        Log.d("Reading: ", "Reading all persons..");
 	        
-	        for (TestData td : testData) {
-	            String log = "Id: "+td.getId()+" ,Name: " + td.getName();
-	                // Writing Contacts to log
-	        Log.d("Name: ", log);
-	        }
         	
         } 
         catch(JSONException e){
@@ -145,11 +162,7 @@ public class TestJsonWebApiTask extends AsyncTask<Void, Integer, String> {
           
           
 	  }
-	  
-	  
-	  
-	  
-	  
+	   
 	  
 	 
 }

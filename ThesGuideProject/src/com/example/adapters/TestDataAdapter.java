@@ -10,10 +10,12 @@ import com.example.thesguideproject.R;
 import com.example.thesguideproject.ActBarTest.MyViewHolder;
 import com.example.thesguideproject.MainLayoutActivity.MyTestViewHolder;
 
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class TestDataAdapter extends BaseAdapter {
@@ -21,9 +23,11 @@ public class TestDataAdapter extends BaseAdapter {
 	private MainLayoutActivity activity;
 	private LayoutInflater layoutInflater;
 	private ArrayList<TestData> testData;
+	private ImageTask imgFetcher;
 	
-	public TestDataAdapter(MainLayoutActivity a, LayoutInflater l, ArrayList<TestData> data){
+	public TestDataAdapter(MainLayoutActivity a, ImageTask i, LayoutInflater l, ArrayList<TestData> data){
 		this.activity = a;
+		this.imgFetcher = i;
 		this.layoutInflater = l;
 		this.testData = data;
 	}
@@ -54,7 +58,10 @@ public class TestDataAdapter extends BaseAdapter {
 		if(convertView == null){
 			convertView = layoutInflater.inflate(R.layout.places_basic_layout, parent, false);
 			testHolder = new MyTestViewHolder();
-			testHolder.nameEl = (TextView) convertView.findViewById(R.id.nameEl);
+			testHolder.name = (TextView) convertView.findViewById(R.id.nameEl);
+			testHolder.surname = (TextView) convertView.findViewById(R.id.locationName);
+			testHolder.icon = (ImageView) convertView.findViewById(R.id.locationImage);
+			testHolder.latitude = (TextView) convertView.findViewById(R.id.latitudetv);
 			convertView.setTag(testHolder);
 		}else{
 			testHolder = (MyTestViewHolder) convertView.getTag();
@@ -62,7 +69,21 @@ public class TestDataAdapter extends BaseAdapter {
 		
 		TestData test = testData.get(pos);
    		testHolder.testData = test;
-   		testHolder.nameEl.setText(test.getName());
+   		testHolder.name.setText(test.getName());
+   		testHolder.surname.setText(test.getSurname());
+   		testHolder.latitude.setText(test.getType());
+   		
+   		if(test.getImageLink() != null) {
+   			testHolder.icon.setTag(test.getImageLink());
+   			Drawable dr = imgFetcher.loadImage(this, testHolder.icon);
+   			if(dr != null) {
+   				testHolder.icon.setImageDrawable(dr);
+   			}
+   		} else {
+   			testHolder.icon.setImageResource(R.drawable.filler_icon);
+   		}
+   		
+   		
 		
    		return convertView;
 	}

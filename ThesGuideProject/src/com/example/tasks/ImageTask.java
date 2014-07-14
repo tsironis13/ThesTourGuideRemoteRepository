@@ -33,10 +33,14 @@ public class ImageTask {
         String url = (String) view.getTag();
         if (imageCache.containsKey(url))
         {
+        	Log.d(debugTag, "Image obtained from Cache!");
+        	Log.i("Url obtained: ", url);
             return imageCache.get(url);
         }
         else {
             new NestedImageTask().execute(url);
+            Log.d(debugTag, "Image Fetched!!");
+            Log.i("Image Fetched: ", url);
             return DEFAULT_ICON;
         }
     }

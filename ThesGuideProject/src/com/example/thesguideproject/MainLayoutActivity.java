@@ -14,9 +14,11 @@ import com.example.tasks.JsonWebAPITask;
 import com.example.tasks.TestJsonWebApiTask;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.ContextWrapper;
 import android.database.Cursor;
 import android.database.SQLException;
+import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
@@ -46,6 +48,8 @@ public class MainLayoutActivity extends FragmentActivity implements OnItemSelect
 	private LayoutInflater layoutInflator;
 	private ArrayList<LocationData> locations;
 	private static final String debugTag = "MainLayoutActivity";
+	private boolean DatabaseExistsOrNotFlag = false;
+	public boolean checkTableIfContainsData = false;
 	
 	TestLocalSqliteDatabase testDB = new TestLocalSqliteDatabase(this);
 	
@@ -58,6 +62,24 @@ public class MainLayoutActivity extends FragmentActivity implements OnItemSelect
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main_layout);
+		
+		
+		try {
+			testDB.createDataBase();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+			testDB.openDataBase();
+			checkTableIfContainsData = testDB.checkDataTable();
+			
+			
+				  if (checkTableIfContainsData == false){	
+					testDB.getTableNames();  
+					TestJsonWebApiTask testwebtask = new TestJsonWebApiTask(MainLayoutActivity.this);
+ 				    testwebtask.execute();
+				  }
+				  
 		
 		//MainLayoutActivity listview = (MainLayoutActivity) findViewById(R.id.listview);
 		
@@ -143,43 +165,88 @@ public class MainLayoutActivity extends FragmentActivity implements OnItemSelect
 			}
 		});
         
+        
+        
         button4.setOnClickListener(new View.OnClickListener() {
      		@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				//testDB.clearTestTableIfExists();
-				TestJsonWebApiTask testwebtask = new TestJsonWebApiTask(MainLayoutActivity.this);
-				testwebtask.execute();
      			
+     			//WifiManager wifi = (WifiManager) getSystemService(Context.WIFI_SERVICE);
+     			//if (wifi.isWifiEnabled()){
+     			/*try {
+					testDB.createDataBase();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+     			testDB.openDataBase();
+     			checkTableIfContainsData = testDB.checkDataTable();
      			
-     			try {
-				    testDB.createDataBase();
-				    Log.d(debugTag, "Database created successfully!");
-				 } catch (IOException ioe) {
-				  
-				 throw new Error("Unable to create database");
-				  
-				 }
-				 
-				 
-				 try {
-					 testDB.openDataBase();
-					 Log.d(debugTag, "Database opened successfully!");
-					 
-					 getTestDataByName = testDB.getTestDataByName();
-					 testDB.getTableNames();
-					 setTestViewUsingBaseAdapter(getTestDataByName);
-				 }
-				 catch(SQLException sqle){
-					 throw sqle;
-			     }
-				 
-				
-				 
-				 
-			}
+     				try
+     				{
+     				  if (checkTableIfContainsData == false){	
+     					testDB.getTableNames();  
+     					TestJsonWebApiTask testwebtask = new TestJsonWebApiTask(MainLayoutActivity.this);
+         				testwebtask.execute();
+     					
+     					//ArrayList<TestData> td = testwebtask.returnJsonArrayListData();
+     					//testDB.getArrayListwithTestJsonData(td);
+     					
+     					//checkTableIfContainsData = true;
+     					
+     					//Log.d(debugTag, "Database opened successfully!");
+   					 
+     					getTestDataByName = testDB.getTestDataByName();
+     					//testDB.getTableNames();
+     					setTestViewUsingBaseAdapter(getTestDataByName);
+     					testDB.close();
+     				  }
+     				  else{
+     					 //testDB.openDataBase();
+      					//Log.d(debugTag, "Database opened successfully!");
+    					 
+      					getTestDataByName = testDB.getTestDataByName();
+      					//testDB.getTableNames();
+      					setTestViewUsingBaseAdapter(getTestDataByName);
+      					testDB.close();
+     				  }
+     				}
+     				catch (Exception e)
+     				{
+     					throw new Error("Unable to create database");
+     				}
+     				*/
+     				
+     				
+     				getTestDataByName = testDB.getTestDataByName();
+  					//testDB.getTableNames();
+  					setTestViewUsingBaseAdapter(getTestDataByName);
+  					testDB.close();
+     				/*try
+     				{
+     					testDB.openDataBase();
+     					Log.d(debugTag, "Database opened successfully!");
+   					 
+     					getTestDataByName = testDB.getTestDataByName();
+     					//testDB.getTableNames();
+     					setTestViewUsingBaseAdapter(getTestDataByName);
+     				}
+     				catch(SQLException sqle){
+     					throw sqle;
+     				}*/
+     			  
+     			//}  
+     			//else
+     		//	{
+     			//	getTestDataByName = testDB.getTestDataByName();
+ 					//testDB.getTableNames();
+ 			//		setTestViewUsingBaseAdapter(getTestDataByName);
+     		//	} 
+     		}
 		});
-		
+		   
       /*  
      // Restore any already fetched data on orientation change. 
         final Object[] data = (Object[]) getLastNonConfigurationInstance();
@@ -191,6 +258,10 @@ public class MainLayoutActivity extends FragmentActivity implements OnItemSelect
         
 	}
 	
+	public void databaseExistsOrNot(boolean flag) {
+   		this.DatabaseExistsOrNotFlag = flag;
+   	}
+   	
 	
 	@Override
 	protected void onDestroy() {
@@ -282,14 +353,17 @@ public class MainLayoutActivity extends FragmentActivity implements OnItemSelect
 	}
 	
 	public static class MyTestViewHolder{
-		    public TextView nameEl;
+		    public TextView name;
+		    public TextView surname;
+		    public ImageView icon;
+		    public TextView latitude;
 		    public TestData testData;
 	}
 	
 	
 	public void setTestViewUsingBaseAdapter(ArrayList<TestData> testData){
 		this.getTestDataByName = testData;
-		this.locationsList.setAdapter(new TestDataAdapter(this, this.layoutInflator, this.getTestDataByName));
+		this.locationsList.setAdapter(new TestDataAdapter(this, this.imgFetcher, this.layoutInflator, this.getTestDataByName));
 	}
 	
 	public void setTracks(ArrayList<LocationData> locData) {
