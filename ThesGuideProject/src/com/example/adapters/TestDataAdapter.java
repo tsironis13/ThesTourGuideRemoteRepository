@@ -73,7 +73,7 @@ public class TestDataAdapter extends BaseAdapter {
    		testHolder.surname.setText(test.getSurname());
    		testHolder.latitude.setText(test.getType());
    		
-   		if(test.getImageLink() != null) {
+   		/*if(test.getImageLink() != null) {
    			testHolder.icon.setTag(test.getImageLink());
    			Drawable dr = imgFetcher.loadImage(this, testHolder.icon);
    			if(dr != null) {
@@ -81,7 +81,7 @@ public class TestDataAdapter extends BaseAdapter {
    			}
    		} else {
    			testHolder.icon.setImageResource(R.drawable.filler_icon);
-   		}
+   		}*/
    		
    		
 		

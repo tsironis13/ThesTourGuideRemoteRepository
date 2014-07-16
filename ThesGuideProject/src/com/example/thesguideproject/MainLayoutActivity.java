@@ -44,6 +44,7 @@ public class MainLayoutActivity extends FragmentActivity implements OnItemSelect
 	private Button sightseeingsButton;
 	private Button clearDataButton;
 	private Button button4;
+	private Button internalStorage;
 	private ImageTask imgFetcher;
 	private LayoutInflater layoutInflator;
 	private ArrayList<LocationData> locations;
@@ -63,19 +64,19 @@ public class MainLayoutActivity extends FragmentActivity implements OnItemSelect
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main_layout);
 		
-		
+		/*
 		try {
 			testDB.createDataBase();
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
-		}
+		}*/
 		
 		WifiManager wifi = (WifiManager) getSystemService(Context.WIFI_SERVICE);
 		if (wifi.isWifiEnabled()){
-			testDB.clearTableIfExists();
-			TestJsonWebApiTask testwebtask = new TestJsonWebApiTask(MainLayoutActivity.this);
-			testwebtask.execute();
+			//testDB.clearTableIfExists();
+			//TestJsonWebApiTask testwebtask = new TestJsonWebApiTask(MainLayoutActivity.this);
+			//testwebtask.execute();
 			testDB.openDataBase();
 			
 		}
@@ -144,6 +145,7 @@ public class MainLayoutActivity extends FragmentActivity implements OnItemSelect
         this.sightseeingsButton = (Button) findViewById(R.id.sightseeingsbutton);
         this.clearDataButton = (Button) findViewById(R.id.clearDataDBbutton);
         this.button4 = (Button) findViewById(R.id.button4);
+        this.internalStorage = (Button) findViewById(R.id.internalStorage);
         this.imgFetcher = new ImageTask(this);
         this.layoutInflator = LayoutInflater.from(this);
         
@@ -268,6 +270,15 @@ public class MainLayoutActivity extends FragmentActivity implements OnItemSelect
      		}
 		});
 		   
+        
+        internalStorage.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
       /*  
      // Restore any already fetched data on orientation change. 
         final Object[] data = (Object[]) getLastNonConfigurationInstance();

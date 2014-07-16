@@ -19,13 +19,15 @@ import com.example.locationData.LocationData;
 import com.example.locationData.TestData;
 import com.example.sqlHelper.DatabaseHolder;
 import com.example.sqlHelper.TestLocalSqliteDatabase;
+import com.example.thesguideproject.MainActivity;
 import com.example.thesguideproject.MainLayoutActivity;
 
 public class TestJsonWebApiTask extends AsyncTask<Void, Integer, String> {
 
 	 private static String url = "http://aetos.it.teithe.gr/~tsironis/test.php";
 	 private ProgressDialog pDialog;
-	 private MainLayoutActivity activity;
+	 //private MainLayoutActivity activity;
+	 private MainActivity activity;
 	 private Context context;
 	 private static final String debugTag = "TestJsonWebApiTask";
 	 public String encodedUrl;
@@ -43,7 +45,7 @@ public class TestJsonWebApiTask extends AsyncTask<Void, Integer, String> {
 	 
 	 public TestJsonWebApiTask(){}
      
-	 public TestJsonWebApiTask(MainLayoutActivity activity){
+	 public TestJsonWebApiTask(MainActivity activity){
 	    	super();
 	    	this.activity = activity;
 	    	this.context = this.activity.getApplicationContext();

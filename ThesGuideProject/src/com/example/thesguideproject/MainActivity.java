@@ -1,5 +1,6 @@
 package com.example.thesguideproject;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -8,7 +9,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.example.myLocation.GPSTracker;
+import com.example.sqlHelper.TestLocalSqliteDatabase;
 import com.example.tasks.ServiceHandler;
+import com.example.tasks.TestJsonWebApiTask;
 
 import android.annotation.TargetApi;
 import android.support.v4.app.Fragment;
@@ -40,12 +43,25 @@ public class MainActivity extends ListActivity {
    
     // Hashmap for ListView
     ArrayList<HashMap<String, String>> mouseiaList;
+    TestLocalSqliteDatabase testDB = new TestLocalSqliteDatabase(this);
     
     @Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
+		try {
+			testDB.createDataBase();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		testDB.openDataBase();
+		TestJsonWebApiTask testwebtask = new TestJsonWebApiTask(MainActivity.this);
+		testwebtask.execute();
+		testDB.close();
+		
 		mouseiaList = new ArrayList<HashMap<String, String>>();
 			ListView lv = getListView();
         
@@ -63,6 +79,7 @@ public class MainActivity extends ListActivity {
         Button curLocButton = (Button) findViewById(R.id.curLocationButton);
         Button mainLayoutButton = (Button) findViewById(R.id.mainLayoutButton);
         Button fragmentTestButton = (Button) findViewById(R.id.fragmentTestButton);
+        Button cursorAdapterButton = (Button) findViewById(R.id.cursorAdapterButton);
         
         mapButton.setOnClickListener(new View.OnClickListener() {
 
@@ -136,6 +153,16 @@ public class MainActivity extends ListActivity {
 				// TODO Auto-generated method stub
 				Intent fragmentIntent = new Intent(MainActivity.this, FragmentActivityTest.class);
 				startActivity(fragmentIntent);
+			}
+		});
+        
+        cursorAdapterButton.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				// TODO Auto-generated method stub
+				Intent cursorAdapter = new Intent(MainActivity.this, CursorAdapterExample.class);
+				startActivity(cursorAdapter);
 			}
 		});
 }

@@ -55,6 +55,13 @@
         android:text="@string/fragmentTestButton">
     </Button>
     
+    <Button 
+        android:id="@+id/cursorAdapterButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/cursorAdapterButton">
+    </Button>
+    
     </LinearLayout>
     
  </FrameLayout>   

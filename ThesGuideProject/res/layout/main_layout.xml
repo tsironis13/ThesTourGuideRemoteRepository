@@ -94,11 +94,11 @@
        		   </View>
        		   
         	   <Button
-            		android:id="@+id/button5"
+            		android:id="@+id/internalStorage"
             		android:layout_width="wrap_content"
             		android:layout_height="match_parent"
             		android:background="#fac"
-            		android:text="@string/button5test">       
+            		android:text="@string/imageInternalStorage">       
         	   </Button>
         
         </LinearLayout>

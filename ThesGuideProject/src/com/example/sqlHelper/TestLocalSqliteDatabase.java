@@ -219,7 +219,7 @@ public class TestLocalSqliteDatabase extends SQLiteOpenHelper {
 	 
 	 public boolean checkDataTable(){
 		 		 
-		 	String selectQuery = "SELECT _name, surname FROM Example ";
+		 	String selectQuery = "SELECT _id, surname FROM Example ";
 	        
 	        SQLiteDatabase db = this.getReadableDatabase();
 	        Cursor cursor = db.rawQuery(selectQuery, null);
@@ -234,6 +234,17 @@ public class TestLocalSqliteDatabase extends SQLiteOpenHelper {
 			else
 				return false;
 			
+	 }
+	 
+	 
+	 public Cursor getAllTestData(){
+		 SQLiteDatabase db = this.getReadableDatabase();
+		 
+		 String selectQuery = "SELECT _id, surname FROM Example ";
+		 
+		 Cursor cursor = db.rawQuery(selectQuery, null);
+		 
+		 return cursor;
 	 }
 	 
 	 //ArrayList<TestData> getTestDataByName;
@@ -258,7 +269,7 @@ public class TestLocalSqliteDatabase extends SQLiteOpenHelper {
 					 //db.execSQL("INSERT INTO TestTable(_id, name, surname, type) VALUES(1, 'giannis ' , 'tsironis ' , 'male ')");
 					 //db.execSQL("INSERT INTO TestTable(_id, name, surname, type) VALUES(2, 'nikos ' , 'tsironis ' , 'male ')");
 					 //db.execSQL("INSERT INTO TestTable(_id, name, surname, type) VALUES(3, 'aggelos ' , 'tsironis ' , 'male ')");
-db.execSQL("INSERT INTO Example(_name, surname, image_link) VALUES('" + name + "','" + surname + "','" + image_link + "')");
+db.execSQL("INSERT INTO Example(_id, surname, image_link) VALUES('" + name + "','" + surname + "','" + image_link + "')");
 				  }
 			  Log.i("Data inserted into TestTable: ", "status => true");
 			 }
@@ -279,7 +290,7 @@ db.execSQL("INSERT INTO Example(_name, surname, image_link) VALUES('" + name + "
 			ArrayList<TestData> testDataByName = new ArrayList<TestData>();
 	        // Select All Query
 	        //String selectQuery = "SELECT * FROM TestTable ";
-			String selectQuery = "SELECT _name, surname, image_link FROM Example ";
+			String selectQuery = "SELECT _id, surname, image_link FROM Example ";
 			
 	        try{
 	        	SQLiteDatabase db = this.getReadableDatabase();
@@ -298,7 +309,7 @@ db.execSQL("INSERT INTO Example(_name, surname, image_link) VALUES('" + name + "
 	 	            do {
 	 	                TestData td = new TestData();
 	 	               // td.setId(cursor.getInt(cursor.getColumnIndex(TEST_KEY_ID)));
-	 	                td.setName(cursor.getString(cursor.getColumnIndex("_name")));
+	 	                td.setName(cursor.getString(cursor.getColumnIndex("_id")));
 	 	                td.setSurname(cursor.getString(cursor.getColumnIndex("surname")));
 	 	                td.setImageLink(cursor.getString(cursor.getColumnIndex("image_link")));
 	 	                //td.setType(cursor.getString(cursor.getColumnIndex(TEST_TYPE)));
