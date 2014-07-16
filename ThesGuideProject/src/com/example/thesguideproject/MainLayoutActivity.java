@@ -70,7 +70,28 @@ public class MainLayoutActivity extends FragmentActivity implements OnItemSelect
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
+		
+		WifiManager wifi = (WifiManager) getSystemService(Context.WIFI_SERVICE);
+		if (wifi.isWifiEnabled()){
+			testDB.clearTableIfExists();
+			TestJsonWebApiTask testwebtask = new TestJsonWebApiTask(MainLayoutActivity.this);
+			testwebtask.execute();
 			testDB.openDataBase();
+			
+		}
+		else{
+			testDB.openDataBase();
+			checkTableIfContainsData = testDB.checkDataTable();
+			
+			 if (checkTableIfContainsData == false){	
+					testDB.getTableNames();
+					Toast.makeText(getApplicationContext(), "Please enable your Wifi!!", Toast.LENGTH_SHORT).show();
+					//TestJsonWebApiTask testwebtask = new TestJsonWebApiTask(MainLayoutActivity.this);
+				    //testwebtask.execute();
+		     }
+			
+		}
+			/*testDB.openDataBase();
 			checkTableIfContainsData = testDB.checkDataTable();
 			
 			
@@ -79,7 +100,7 @@ public class MainLayoutActivity extends FragmentActivity implements OnItemSelect
 					TestJsonWebApiTask testwebtask = new TestJsonWebApiTask(MainLayoutActivity.this);
  				    testwebtask.execute();
 				  }
-				  
+			*/	  
 		
 		//MainLayoutActivity listview = (MainLayoutActivity) findViewById(R.id.listview);
 		

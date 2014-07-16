@@ -6,7 +6,10 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashMap;
 
+import android.app.Activity;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.util.Log;
@@ -45,11 +48,13 @@ public class ImageTask {
         }
     }
     
-    private class NestedImageTask extends AsyncTask<String, Void, Drawable>
+    private class NestedImageTask extends AsyncTask<String, Void, Bitmap>
     {
         private String s_url;
 
-        @Override
+        ImageInternalStorage imgInSt = new ImageInternalStorage();
+        
+       /* @Override
         protected Drawable doInBackground(String... params) {
             s_url = params[0];
             InputStream istr;
@@ -57,6 +62,9 @@ public class ImageTask {
                 Log.d(debugTag, "Fetching: " + s_url);
                 URL url = new URL(s_url);
                 istr = url.openStream();
+                Bitmap bitmap = BitmapFactory.decodeStream(istr);
+                //imgInSt.saveToInternalSorage(bitmap, s_url);
+                
             } catch (MalformedURLException e) {
                 Log.d(debugTag, "Malformed: " + e.getMessage());
                 throw new RuntimeException(e);
@@ -68,8 +76,9 @@ public class ImageTask {
             }
             return Drawable.createFromStream(istr, "src");
         }
-
-        @Override
+        
+        
+         @Override
         protected void onPostExecute(Drawable result) {
             super.onPostExecute(result);
             synchronized (this) {
@@ -77,6 +86,35 @@ public class ImageTask {
             }
             adapt.notifyDataSetChanged();
         }
+        
+        
+	*/
+        @Override
+        protected Bitmap doInBackground(String... params){
+        	 s_url = params[0];
+             Bitmap bitmapImage = null;
+             try {
+                 InputStream in = new java.net.URL(s_url).openStream();
+                 bitmapImage = BitmapFactory.decodeStream(in);
+                 Log.i("Bitmap decoded => ", "successfully!!" + "\n" + s_url);
+             } catch (Exception e) {
+            	 Log.i("Bitmap decoded => ", "unsuccessfully!!" + "\n" + s_url);
+                 e.printStackTrace();
+             }
+             return bitmapImage;
+        }
+        
+        
+        @Override
+        protected void onPostExecute(Bitmap result){
+        	super.onPostExecute(result);
+        	synchronized(this){
+        		imgInSt.saveToInternalSorage(result, s_url);
+        	}
+        	adapt.notifyDataSetChanged();
+        }
+        
+       
         
     }
 

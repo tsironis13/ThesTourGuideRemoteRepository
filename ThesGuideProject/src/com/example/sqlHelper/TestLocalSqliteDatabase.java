@@ -200,6 +200,21 @@ public class TestLocalSqliteDatabase extends SQLiteOpenHelper {
 	 }
 	 
 	 
+	 public void clearTableIfExists(){
+			SQLiteDatabase db = this.getReadableDatabase();
+			
+			try{
+				db.delete("Example", null, null);
+				//flag = "true";
+				Log.d("Table deleted successfully", "true");
+			}
+			catch(Exception e){
+				//flag = "false";
+				Log.d("Table deleted successfully", "false");
+			}
+		}
+	 
+	 
 	 //boolean testTableIfExistsFlag = false;
 	 
 	 public boolean checkDataTable(){
