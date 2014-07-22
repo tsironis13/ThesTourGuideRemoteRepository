@@ -10,6 +10,7 @@ import org.json.JSONObject;
 
 import com.example.myLocation.GPSTracker;
 import com.example.sqlHelper.TestLocalSqliteDatabase;
+import com.example.storage.InternalStorage;
 import com.example.tasks.ServiceHandler;
 import com.example.tasks.TestJsonWebApiTask;
 
@@ -17,7 +18,9 @@ import android.annotation.TargetApi;
 import android.support.v4.app.Fragment;
 import android.app.ListActivity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -58,9 +61,15 @@ public class MainActivity extends ListActivity {
 		}
 		
 		testDB.openDataBase();
-		TestJsonWebApiTask testwebtask = new TestJsonWebApiTask(MainActivity.this);
-		testwebtask.execute();
-		testDB.close();
+		
+		WifiManager wifi = (WifiManager) getSystemService(Context.WIFI_SERVICE);
+		if (wifi.isWifiEnabled()){
+			
+			testDB.clearTableIfExists();
+			TestJsonWebApiTask testwebtask = new TestJsonWebApiTask(MainActivity.this);
+			testwebtask.execute();
+			testDB.close();
+		}
 		
 		mouseiaList = new ArrayList<HashMap<String, String>>();
 			ListView lv = getListView();
@@ -80,6 +89,7 @@ public class MainActivity extends ListActivity {
         Button mainLayoutButton = (Button) findViewById(R.id.mainLayoutButton);
         Button fragmentTestButton = (Button) findViewById(R.id.fragmentTestButton);
         Button cursorAdapterButton = (Button) findViewById(R.id.cursorAdapterButton);
+        Button internalStorageButton = (Button) findViewById(R.id.internalStorageButton);
         
         mapButton.setOnClickListener(new View.OnClickListener() {
 
@@ -163,6 +173,16 @@ public class MainActivity extends ListActivity {
 				// TODO Auto-generated method stub
 				Intent cursorAdapter = new Intent(MainActivity.this, CursorAdapterExample.class);
 				startActivity(cursorAdapter);
+			}
+		});
+        
+        internalStorageButton.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Intent internalStorage = new Intent(MainActivity.this, InternalStorage.class);
+				startActivity(internalStorage);
 			}
 		});
 }

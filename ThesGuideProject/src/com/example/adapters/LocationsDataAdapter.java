@@ -91,7 +91,7 @@ public class LocationsDataAdapter extends BaseAdapter implements OnClickListener
    		
    		//String lat = location.getLatitude();
    		//Log.d(debugTag, "LATITUDE IS : " + lat);
-   		if(location.getPhotoLink() != null) {
+   		/*if(location.getPhotoLink() != null) {
    			holder.icon.setTag(location.getPhotoLink());
    			Drawable dr = imgFetcher.loadImage(this, holder.icon);
    			if(dr != null) {
@@ -99,7 +99,7 @@ public class LocationsDataAdapter extends BaseAdapter implements OnClickListener
    			}
    		} else {
    			holder.icon.setImageResource(R.drawable.filler_icon);
-   		}
+   		}*/
 		
 		return convertView;
 	}

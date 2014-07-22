@@ -62,6 +62,14 @@
         android:text="@string/cursorAdapterButton">
     </Button>
     
+    <Button 
+        android:id="@+id/internalStorageButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/imageInternalStorage">
+    </Button>
+        
+    
     </LinearLayout>
     
  </FrameLayout>   

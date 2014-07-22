@@ -88,6 +88,11 @@
             android:label="@string/app_name" >     
         </activity>
         
+         <activity 
+            android:name="com.example.thesguideproject.InternalStorage"
+            android:label="@string/app_name" >     
+        </activity>
+        
         <activity 
             android:name="com.example.thesguideproject.ActBarTest"
             android:label="@string/app_name" >   

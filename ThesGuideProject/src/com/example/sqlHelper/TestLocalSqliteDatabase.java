@@ -236,11 +236,20 @@ public class TestLocalSqliteDatabase extends SQLiteOpenHelper {
 			
 	 }
 	 
-	 
 	 public Cursor getAllTestData(){
 		 SQLiteDatabase db = this.getReadableDatabase();
 		 
-		 String selectQuery = "SELECT _id, surname FROM Example ";
+		 String selectQuery = "SELECT _id, surname, image_link FROM Example ";
+		 
+		 Cursor cursor = db.rawQuery(selectQuery, null);
+		 
+		 return cursor;
+	 }
+	 
+	 public Cursor getAllTestData(String type){
+		 SQLiteDatabase db = this.getReadableDatabase();
+		 
+		 String selectQuery = "SELECT _id, surname, image_link FROM Example WHERE type = '" + type + "'";
 		 
 		 Cursor cursor = db.rawQuery(selectQuery, null);
 		 
@@ -269,7 +278,7 @@ public class TestLocalSqliteDatabase extends SQLiteOpenHelper {
 					 //db.execSQL("INSERT INTO TestTable(_id, name, surname, type) VALUES(1, 'giannis ' , 'tsironis ' , 'male ')");
 					 //db.execSQL("INSERT INTO TestTable(_id, name, surname, type) VALUES(2, 'nikos ' , 'tsironis ' , 'male ')");
 					 //db.execSQL("INSERT INTO TestTable(_id, name, surname, type) VALUES(3, 'aggelos ' , 'tsironis ' , 'male ')");
-db.execSQL("INSERT INTO Example(_id, surname, image_link) VALUES('" + name + "','" + surname + "','" + image_link + "')");
+db.execSQL("INSERT INTO Example(_id, surname, image_link, type) VALUES('" + name + "','" + surname + "','" + image_link + "','" + type + "')");
 				  }
 			  Log.i("Data inserted into TestTable: ", "status => true");
 			 }
