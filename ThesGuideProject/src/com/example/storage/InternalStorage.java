@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import android.annotation.TargetApi;
@@ -50,19 +51,60 @@ public class InternalStorage {
         // Create imageDir
        mypath=new File(directory, name);
 
-        FileOutputStream fos = null;
+       //Bitmap decodedBitmap = decodeBitmapFile(mypath);
+       
+       FileOutputStream fos = null;
         try {           
 
             fos = new FileOutputStream(mypath);
 
-       // Use the compress method on the BitMap object to write image to the OutputStream
-            bitmapImage.compress(Bitmap.CompressFormat.PNG, 100, fos);
+            // Use the compress method on the BitMap object to write image to the OutputStream
+            bitmapImage.compress(Bitmap.CompressFormat.JPEG, 70, fos);
             fos.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
         return directory.getAbsolutePath();
     }
+	
+	//decodes image and scales it to reduce memory consumption
+	private Bitmap decodeBitmapFile(File f){
+		
+		Bitmap b = null;
+
+		try{
+        //Decode image size
+		BitmapFactory.Options o = new BitmapFactory.Options();
+		o.inJustDecodeBounds = true;
+
+		FileInputStream fis = new FileInputStream(f);
+		BitmapFactory.decodeStream(fis, null, o);
+		fis.close();
+
+		int scale = 1;
+		int IMAGE_MAX_SIZE = 70;
+		
+		if (o.outHeight > IMAGE_MAX_SIZE || o.outWidth > IMAGE_MAX_SIZE) {
+			scale = (int)Math.pow(2, (int) Math.ceil(Math.log(IMAGE_MAX_SIZE / 
+			(double) Math.max(o.outHeight, o.outWidth)) / Math.log(0.5)));
+        }
+
+		//Decode with inSampleSize
+		BitmapFactory.Options o2 = new BitmapFactory.Options();
+		o2.inSampleSize = scale;
+		fis = new FileInputStream(f);
+		b = BitmapFactory.decodeStream(fis, null, o2);
+		fis.close();
+		
+		} catch(FileNotFoundException e){
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return b;
+	}
 	
 	
 	public Bitmap loadImageFromStorage(String path, String name)

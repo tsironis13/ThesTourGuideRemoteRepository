@@ -181,8 +181,8 @@ public class MainActivity extends ListActivity {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				Intent internalStorage = new Intent(MainActivity.this, InternalStorage.class);
-				startActivity(internalStorage);
+				//Intent internalStorage = new Intent(MainActivity.this, InternalStorage.class);
+				//startActivity(internalStorage);
 			}
 		});
 }

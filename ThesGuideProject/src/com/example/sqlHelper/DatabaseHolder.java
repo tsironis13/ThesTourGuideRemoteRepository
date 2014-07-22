@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.example.locationData.LocationData;
-import com.example.locationData.TestData;
 
 import android.content.ContentValues;
 import android.content.Context;

@@ -1,10 +1,12 @@
-package com.example.thesguideproject;
+package com.example.adapters;
 
 import java.io.InputStream;
 
 import com.example.storage.InternalStorage;
 import com.example.tasks.BitmapTask;
 import com.example.tasks.ImageTask;
+import com.example.thesguideproject.CursorAdapterExample;
+import com.example.thesguideproject.R;
 
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -102,8 +104,8 @@ public class TestDataListCursorAdapter extends SimpleCursorAdapter {
 		}
 		this.c.moveToPosition(pos);
 		String name = this.c.getString(this.c.getColumnIndex("_id"));
-		String surname = this.c.getString(this.c.getColumnIndex("surname"));
-		String image_link = this.c.getString(this.c.getColumnIndex("image_link"));
+		String surname = this.c.getString(this.c.getColumnIndex("name_el"));
+		String image_link = this.c.getString(this.c.getColumnIndex("photo_link"));
 		
 		viewHolder.nametv.setText(name);
 		viewHolder.surnametv.setText(surname);

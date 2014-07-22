@@ -8,7 +8,7 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 
 import com.example.locationData.LocationData;
-import com.example.locationData.TestData;
+import com.example.locationData.PlacesData;
 import com.example.thesguideproject.MainLayoutActivity;
 
 import android.content.ContentValues;
@@ -219,7 +219,7 @@ public class TestLocalSqliteDatabase extends SQLiteOpenHelper {
 	 
 	 public boolean checkDataTable(){
 		 		 
-		 	String selectQuery = "SELECT _id, surname FROM Example ";
+		 	String selectQuery = "SELECT _id FROM PlacesTable ";
 	        
 	        SQLiteDatabase db = this.getReadableDatabase();
 	        Cursor cursor = db.rawQuery(selectQuery, null);
@@ -246,10 +246,10 @@ public class TestLocalSqliteDatabase extends SQLiteOpenHelper {
 		 return cursor;
 	 }
 	 
-	 public Cursor getAllTestData(String type){
+	 public Cursor getAllTestData(String genre){
 		 SQLiteDatabase db = this.getReadableDatabase();
 		 
-		 String selectQuery = "SELECT _id, surname, image_link FROM Example WHERE type = '" + type + "'";
+		 String selectQuery = "SELECT * FROM PlacesTable WHERE genre = '" + genre + "'";
 		 
 		 Cursor cursor = db.rawQuery(selectQuery, null);
 		 
@@ -258,32 +258,35 @@ public class TestLocalSqliteDatabase extends SQLiteOpenHelper {
 	 
 	 //ArrayList<TestData> getTestDataByName;
 	 
-	 public void getArrayListwithTestJsonData(ArrayList<TestData> td){
+	 public void getArrayListwithTestJsonData(ArrayList<PlacesData> td){
 		 boolean returnflag = checkDataTable();
 		 if (returnflag == true){
 			 // do nothing
 		 }else{
 			 try{
 			  for(int i=0; i<td.size(); i++){
-					 TestData testData = td.get(i);
+					 PlacesData placesData = td.get(i);
 					 
-					 int id = testData.getId();
-					 String name = testData.getName();
-					 String surname = testData.getSurname();
-					 String type = testData.getType();
-					 String image_link = testData.getImageLink();
+					 int id = placesData.getId();
+					 String name_el = placesData.getNameEl();
+					 String name_en = placesData.getNameEn();
+					 String link = placesData.getLink();
+					 double latitude = placesData.getLatitude();
+					 double longtitude = placesData.getLongtitude();
+					 String photo_link = placesData.getPhotoLink();
+					 String genre = placesData.getGenre();
 					 
 					 SQLiteDatabase db = this.getWritableDatabase();
 //db.execSQL("INSERT INTO TestTable(_id, name, surname, type) VALUES(" + id + ",'"  + name  +  ",'"  + surname  + ",'" + type + "')");
 					 //db.execSQL("INSERT INTO TestTable(_id, name, surname, type) VALUES(1, 'giannis ' , 'tsironis ' , 'male ')");
 					 //db.execSQL("INSERT INTO TestTable(_id, name, surname, type) VALUES(2, 'nikos ' , 'tsironis ' , 'male ')");
 					 //db.execSQL("INSERT INTO TestTable(_id, name, surname, type) VALUES(3, 'aggelos ' , 'tsironis ' , 'male ')");
-db.execSQL("INSERT INTO Example(_id, surname, image_link, type) VALUES('" + name + "','" + surname + "','" + image_link + "','" + type + "')");
+db.execSQL("INSERT INTO PlacesTable(_id, name_el, name_en, link, latitude, longtitude, photo_link, genre) VALUES('" + id + "','" + name_el + "','" + name_en + "','" + link + "','" + latitude + "','" + longtitude + "','" + photo_link + "','" + genre + "')");
 				  }
-			  Log.i("Data inserted into TestTable: ", "status => true");
+			  Log.i("Data inserted into PlacesTable: ", "status => true");
 			 }
 			 catch(Exception e){
-				 Log.i("Data inserted into TestTable: ", "status => false");
+				 Log.i("Data inserted into PlacesTable: ", "status => false");
 			 }
 			  //getTestDataByName = getTestDataByName();
 			  //MainLayoutActivity mainAct = new MainLayoutActivity();
@@ -294,7 +297,7 @@ db.execSQL("INSERT INTO Example(_id, surname, image_link, type) VALUES('" + name
 		 
 	 }
 	 
-	 
+	 /*
 	 public ArrayList<TestData> getTestDataByName() {
 			ArrayList<TestData> testDataByName = new ArrayList<TestData>();
 	        // Select All Query
@@ -351,7 +354,7 @@ db.execSQL("INSERT INTO Example(_id, surname, image_link, type) VALUES('" + name
 	 public Cursor selectNamesFromTestdb(){
 		 Cursor c = myDataBase.rawQuery("Select name from TestTable ", null);
 		 return c;
-	 }
+	 }*/
 	 
 	 @Override
 	 public void onCreate(SQLiteDatabase db) {

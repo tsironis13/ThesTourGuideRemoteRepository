@@ -4,9 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import com.example.adapters.LocationsDataAdapter;
-import com.example.adapters.TestDataAdapter;
 import com.example.locationData.LocationData;
-import com.example.locationData.TestData;
 import com.example.sqlHelper.DatabaseHolder;
 import com.example.sqlHelper.TestLocalSqliteDatabase;
 import com.example.tasks.ImageTask;
@@ -54,7 +52,7 @@ public class MainLayoutActivity extends FragmentActivity implements OnItemSelect
 	
 	TestLocalSqliteDatabase testDB = new TestLocalSqliteDatabase(this);
 	
-	ArrayList<TestData> getTestDataByName;
+	//ArrayList<TestData> getTestDataByName;
 	
 	public String genre_type; 
 	
@@ -243,9 +241,9 @@ public class MainLayoutActivity extends FragmentActivity implements OnItemSelect
      				*/
      				
      				
-     				getTestDataByName = testDB.getTestDataByName();
+     				//getTestDataByName = testDB.getTestDataByName();
   					//testDB.getTableNames();
-  					setTestViewUsingBaseAdapter(getTestDataByName);
+  					//setTestViewUsingBaseAdapter(getTestDataByName);
   					testDB.close();
      				/*try
      				{
@@ -389,14 +387,14 @@ public class MainLayoutActivity extends FragmentActivity implements OnItemSelect
 		    public TextView surname;
 		    public ImageView icon;
 		    public TextView latitude;
-		    public TestData testData;
+		   // public TestData testData;
 	}
 	
 	
-	public void setTestViewUsingBaseAdapter(ArrayList<TestData> testData){
+	/*public void setTestViewUsingBaseAdapter(ArrayList<TestData> testData){
 		this.getTestDataByName = testData;
 		this.locationsList.setAdapter(new TestDataAdapter(this, this.imgFetcher, this.layoutInflator, this.getTestDataByName));
-	}
+	}*/
 	
 	public void setTracks(ArrayList<LocationData> locData) {
 		// TODO Auto-generated method stub

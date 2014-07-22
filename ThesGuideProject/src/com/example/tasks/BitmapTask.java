@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.example.storage.InternalStorage;
-import com.example.thesguideproject.TestDataListCursorAdapter;
 
 import android.content.Context;
 import android.graphics.Bitmap;

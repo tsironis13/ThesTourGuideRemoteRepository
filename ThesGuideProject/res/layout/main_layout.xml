@@ -13,8 +13,8 @@
         android:id="@+id/horizontalscrollview1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" 
-        android:scrollbarStyle="outsideInset" >
-      
+        android:scrollbarStyle="insideOverlay" >"
+              
     	<LinearLayout
         	android:id="@+id/linearlayout1"
         	android:orientation="horizontal"
@@ -112,7 +112,7 @@
        android:id="@+id/listview1"
        android:layout_width="match_parent"
        android:layout_height="match_parent"
-       android:layout_below="@+id/scrollview1" >"
+       android:layout_below="@+id/scrollview1" >
        
    </ListView>
  

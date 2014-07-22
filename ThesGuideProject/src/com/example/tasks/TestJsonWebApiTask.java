@@ -16,7 +16,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.example.locationData.LocationData;
-import com.example.locationData.TestData;
+import com.example.locationData.PlacesData;
 import com.example.sqlHelper.DatabaseHolder;
 import com.example.sqlHelper.TestLocalSqliteDatabase;
 import com.example.thesguideproject.MainActivity;
@@ -24,7 +24,7 @@ import com.example.thesguideproject.MainLayoutActivity;
 
 public class TestJsonWebApiTask extends AsyncTask<Void, Integer, String> {
 
-	 private static String url = "http://aetos.it.teithe.gr/~tsironis/test.php";
+	 private static String url = "http://aetos.it.teithe.gr/~tsironis/places_file.php";
 	 private ProgressDialog pDialog;
 	 //private MainLayoutActivity activity;
 	 private MainActivity activity;
@@ -34,14 +34,18 @@ public class TestJsonWebApiTask extends AsyncTask<Void, Integer, String> {
 	 
 	 ServiceHandler sh = new ServiceHandler();
 	 
-	 ArrayList<TestData> testData = new ArrayList<TestData>(); 
+	 ArrayList<PlacesData> placesDataArray = new ArrayList<PlacesData>(); 
 	 
 	 
-	 private static final String TAG_PERSONS = "persons";
+	 private static final String TAG_PLACES = "places";
 	 private static final String TAG_ID = "id";
-	 private static final String TAG_NAMES = "name";
-	 private static final String TAG_SURNAMES = "surname";
-	 private static final String TAG_TYPE = "type";
+	 private static final String TAG_NAME_EL = "name_el";
+	 private static final String TAG_NAME_EN = "name_en";
+	 private static final String TAG_LINK = "link";
+	 private static final String TAG_LATITUDE = "latitude";
+	 private static final String TAG_LONGTITUDE = "longtitude";
+	 private static final String TAG_PHOTO_LINK = "photo_link";
+	 private static final String TAG_GENRE = "genre";
 	 
 	 public TestJsonWebApiTask(){}
      
@@ -81,7 +85,7 @@ public class TestJsonWebApiTask extends AsyncTask<Void, Integer, String> {
       }	
 	  
 	  
-	  public ArrayList<TestData> tD;
+	  public ArrayList<PlacesData> tD;
 	  
 	  
 	  @Override
@@ -111,17 +115,22 @@ public class TestJsonWebApiTask extends AsyncTask<Void, Integer, String> {
         	
         	JSONObject respObj = new JSONObject(result);
         	
-        	persons = respObj.getJSONArray(TAG_PERSONS);
+        	persons = respObj.getJSONArray(TAG_PLACES);
         	
         	for(int i=0; i<persons.length(); i++){
         		JSONObject c = persons.getJSONObject(i);
         		
-        		String id = c.getString("id");
+        		String id = c.getString(TAG_ID);
         		int integer_id = Integer.parseInt(id);
-        		String name = c.getString("name");
-        		String surname = c.getString("surname");
-        		String type = c.getString("type");
-        		String link = c.getString("imagelink");
+        		String name_el = c.getString(TAG_NAME_EL);
+        		String name_en = c.getString(TAG_NAME_EN);
+        		String link = c.getString(TAG_LINK);
+        		String latitude = c.getString(TAG_LATITUDE);
+        		double double_latitude = Double.parseDouble(latitude);
+        		String longtitude = c.getString(TAG_LONGTITUDE);
+        		double double_longtitude = Double.parseDouble(longtitude);
+        		String photo_link = c.getString(TAG_PHOTO_LINK);
+        		String genre = c.getString(TAG_GENRE);
         		
         		try {
         			encodedUrl = link +"/" + URLEncoder.encode(link, "UTF-8");
@@ -130,7 +139,7 @@ public class TestJsonWebApiTask extends AsyncTask<Void, Integer, String> {
 					e.printStackTrace();
 				}
         		
-        		testData.add(new TestData(integer_id, name, surname, type, link));
+        		placesDataArray.add(new PlacesData(integer_id, name_el, name_en, link, double_latitude, double_longtitude, photo_link, genre));
         	}
         	
         	
@@ -140,18 +149,19 @@ public class TestJsonWebApiTask extends AsyncTask<Void, Integer, String> {
 			
 			//Log.d("Insert: ", "Inserting .."); 
 			//dbholder.addLocation(new LocationData(integer_id, genre, photo_link, name_el, latitude, longtitude));
-			  for (TestData td : testData){
+			  for (PlacesData td : placesDataArray){
 		        	//dbtest.addTestData(td);
 		      }
-			  Log.d("Reading: ", "Reading all persons..");
+			  Log.d("Reading: ", "Reading all places..");
 		        
-		        for (TestData td : testData) {
-		            String log = "Id: "+td.getId()+" ,Name: " + td.getName()+" ,Surname: " + td.getSurname()+" ,Type: " + td.getType() + " ,Image Link: " + td.getImageLink();
+		        for (PlacesData td : placesDataArray) {
+		            String log = "Id: "+td.getId()+" ,NameEl: " + td.getNameEl()+" ,NameEn: " + td.getNameEn()+" ,Link: " + td.getLink() + 
+		            " ,Latitude: " + td.getLatitude() + " ,Longtitude: " + td.getLongtitude() + " ,PhotoLink: " + td.getPhotoLink() + " ,Genre: " + td.getGenre();
 		                // Writing Contacts to log
 		        Log.d("Name: ", log);
 		        }
 			  
-			dbtest.getArrayListwithTestJsonData(testData);
+			dbtest.getArrayListwithTestJsonData(placesDataArray);
 			
 			 // Reading all contacts
 	        
