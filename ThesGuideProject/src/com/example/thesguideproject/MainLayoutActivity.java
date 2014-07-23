@@ -72,7 +72,7 @@ public class MainLayoutActivity extends FragmentActivity implements OnItemSelect
 		
 		WifiManager wifi = (WifiManager) getSystemService(Context.WIFI_SERVICE);
 		if (wifi.isWifiEnabled()){
-			//testDB.clearTableIfExists();
+			testDB.clearTableIfExists();
 			//TestJsonWebApiTask testwebtask = new TestJsonWebApiTask(MainLayoutActivity.this);
 			//testwebtask.execute();
 			testDB.openDataBase();

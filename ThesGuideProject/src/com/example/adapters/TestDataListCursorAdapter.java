@@ -1,7 +1,9 @@
 package com.example.adapters;
 
 import java.io.InputStream;
+import java.text.DecimalFormat;
 
+import com.example.myLocation.GPSTracker;
 import com.example.storage.InternalStorage;
 import com.example.tasks.BitmapTask;
 import com.example.tasks.ImageTask;
@@ -35,25 +37,32 @@ public class TestDataListCursorAdapter extends SimpleCursorAdapter {
 	private int layout;
 	private BitmapTask bitTask;
 	private Cursor c;
+	private double current_latitude;
+	private double current_longtitude;
+	
+	GPSTracker gps;
 	
 	@SuppressWarnings("deprecation")
-	public TestDataListCursorAdapter(Context context, int layout, Cursor c, String[] from, int[] to, BitmapTask i) {
+	public TestDataListCursorAdapter(Context context, int layout, Cursor c, String[] from, int[] to, BitmapTask i, double current_latitude, double current_longtitude) {
 		super(context, layout, c, from, to);
 		this.context = context;
 		this.layout = layout;
 		this.c = c;
 		this.imgFetcher = i;
+		this.current_latitude = current_latitude;
+		this.current_longtitude = current_longtitude;
 		// TODO Auto-generated constructor stub
 	}
 	
 	private class ViewHolder{
-		TextView nametv, surnametv;
+		TextView nametv, surnametv, distance;
 		ImageView icon;
 		
 		ViewHolder(View v){
 			nametv = (TextView) v.findViewById(R.id.locationName);
 			surnametv = (TextView) v.findViewById(R.id.nameEl);
-			icon = (ImageView) v.findViewById(R.id.locationImage);	
+			distance = (TextView) v.findViewById(R.id.distance);
+			icon = (ImageView) v.findViewById(R.id.locationImage);
 		}
 	}
 	
@@ -96,6 +105,7 @@ public class TestDataListCursorAdapter extends SimpleCursorAdapter {
             viewHolder = new ViewHolder(v);
             viewHolder.nametv = (TextView) v.findViewById(R.id.locationName);
             viewHolder.surnametv = (TextView) v.findViewById(R.id.nameEl);
+            viewHolder.distance = (TextView) v.findViewById(R.id.distance);
             viewHolder.icon = (ImageView) v.findViewById(R.id.locationImage);
             v.setTag(viewHolder);   
         }
@@ -106,12 +116,21 @@ public class TestDataListCursorAdapter extends SimpleCursorAdapter {
 		String name = this.c.getString(this.c.getColumnIndex("_id"));
 		String surname = this.c.getString(this.c.getColumnIndex("name_el"));
 		String image_link = this.c.getString(this.c.getColumnIndex("photo_link"));
+		double final_latitude = this.c.getDouble(this.c.getColumnIndex("latitude"));
+		double final_longtitude = this.c.getDouble(this.c.getColumnIndex("longtitude"));
+		
+		double apostasi = GPSTracker.getDistance(this.current_latitude, this.current_longtitude, final_latitude, final_longtitude);
+		double distanceInKm = apostasi/1000;
+		DecimalFormat df = new DecimalFormat("#.##");
+		String dx=df.format(distanceInKm);
+		//String str_distanceInKm = Double.toString(distanceInKm);
 		
 		viewHolder.nametv.setText(name);
 		viewHolder.surnametv.setText(surname);
+		viewHolder.distance.setText(dx + " km");
 		
-		InternalStorage intStorage = new InternalStorage();
-		String path = "/data/data/com.example.thesguideproject/app_imageDir";
+		//InternalStorage intStorage = new InternalStorage();
+		//String path = "/data/data/com.example.thesguideproject/app_imageDir";
 		//Bitmap b = intStorage.loadImageFromStorage(path, name);
 			
 		/*if(image_link != null) {

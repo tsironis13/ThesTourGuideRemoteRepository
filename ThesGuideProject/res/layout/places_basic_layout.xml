@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:paddingLeft="4dp"
         android:layout_centerVertical="true"
-        android:clickable="true" >"
+        android:clickable="true" >
     
         <ImageView 
             android:id="@+id/locationImage"
@@ -39,11 +39,20 @@
 			android:layout_below="@+id/locationName">    
         </TextView>
         
+        <TextView 
+            android:id="@+id/distance"
+            android:layout_width="wrap_content"
+			android:layout_height="wrap_content" 
+			android:layout_marginLeft="4dip"
+			android:layout_toRightOf="@+id/locationImage" 
+			android:layout_below="@+id/nameEl">
+        </TextView>  "
+        
           <TextView 
             android:id="@+id/latitudetv"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:visibility="invisible" >"
+            android:visibility="invisible" >
          </TextView>
          
           <TextView 
@@ -57,8 +66,13 @@
     </RelativeLayout>
     
     <Button android:id="@+id/details_button"
-		android:text="@string/details" android:layout_alignParentRight="true" android:layout_centerVertical="true"
-		android:layout_width="wrap_content" android:layout_height="fill_parent"></Button>
+        android:layout_height="25dp"
+        android:layout_width="30dp"
+        android:layout_marginRight="5dp"
+        android:background="@drawable/button_next"
+		android:layout_alignParentRight="true" 
+		android:layout_centerVertical="true">    
+    </Button>
     
 
 </RelativeLayout>

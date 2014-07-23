@@ -1436,7 +1436,7 @@ containing a value of this type.
         public static final int abc_textfield_searchview_right_holo_dark=0x7f020055;
         public static final int abc_textfield_searchview_right_holo_light=0x7f020056;
         public static final int alexandros=0x7f020057;
-        public static final int android_icon=0x7f020058;
+        public static final int button_next=0x7f020058;
         public static final int common_signin_btn_icon_dark=0x7f020059;
         public static final int common_signin_btn_icon_disabled_dark=0x7f02005a;
         public static final int common_signin_btn_icon_disabled_focus_dark=0x7f02005b;
@@ -1489,8 +1489,8 @@ containing a value of this type.
         public static final int action_menu_divider=0x7f060016;
         public static final int action_menu_presenter=0x7f060017;
         public static final int action_mode_close_button=0x7f060036;
-        public static final int action_search=0x7f06007c;
-        public static final int action_settings=0x7f06007b;
+        public static final int action_search=0x7f06007d;
+        public static final int action_settings=0x7f06007c;
         public static final int activity_chooser_view_content=0x7f060037;
         public static final int always=0x7f06000b;
         public static final int beginning=0x7f060011;
@@ -1511,9 +1511,10 @@ containing a value of this type.
         public static final int curLocationButton=0x7f060052;
         public static final int cursorAdapterButton=0x7f060055;
         public static final int default_activity_button=0x7f06003a;
-        public static final int details_button=0x7f060074;
+        public static final int details_button=0x7f060075;
         public static final int dialog=0x7f06000e;
         public static final int disableHome=0x7f060008;
+        public static final int distance=0x7f060072;
         public static final int dropdown=0x7f06000f;
         public static final int edit_query=0x7f060042;
         public static final int end=0x7f060013;
@@ -1534,7 +1535,7 @@ containing a value of this type.
         public static final int internalStorage=0x7f06006b;
         public static final int internalStorageButton=0x7f060056;
         public static final int kodikos=0x7f060060;
-        public static final int latitudetv=0x7f060072;
+        public static final int latitudetv=0x7f060073;
         public static final int linearlayout1=0x7f060065;
         public static final int link=0x7f060061;
         public static final int listMode=0x7f060001;
@@ -1545,7 +1546,7 @@ containing a value of this type.
         public static final int locationImage=0x7f06006f;
         public static final int locationName=0x7f060070;
         public static final int locations_list=0x7f06004e;
-        public static final int longtitudetv=0x7f060073;
+        public static final int longtitudetv=0x7f060074;
         public static final int mainLayoutButton=0x7f060053;
         public static final int map=0x7f06006d;
         public static final int mapButton=0x7f060050;
@@ -1559,7 +1560,7 @@ containing a value of this type.
         public static final int none=0x7f060010;
         public static final int normal=0x7f060000;
         public static final int number=0x7f060062;
-        public static final int play=0x7f06007a;
+        public static final int play=0x7f06007b;
         public static final int production=0x7f06001f;
         public static final int progress_circular=0x7f060018;
         public static final int progress_horizontal=0x7f060019;
@@ -1586,20 +1587,20 @@ containing a value of this type.
         public static final int sightseeingsbutton=0x7f060069;
         public static final int spinner1=0x7f060068;
         public static final int split_action_bar=0x7f060030;
-        public static final int stop=0x7f060079;
+        public static final int stop=0x7f06007a;
         public static final int strict_sandbox=0x7f060021;
         public static final int submit_area=0x7f06004b;
         public static final int surname_entry=0x7f06005f;
         public static final int tabMode=0x7f060002;
         public static final int terrain=0x7f06001b;
-        public static final int testtv=0x7f060076;
-        public static final int textButton=0x7f060077;
+        public static final int testtv=0x7f060077;
+        public static final int textButton=0x7f060078;
         public static final int title=0x7f06003d;
         public static final int top_action_bar=0x7f060032;
-        public static final int txtQuery=0x7f060075;
+        public static final int txtQuery=0x7f060076;
         public static final int up=0x7f060033;
         public static final int useLogo=0x7f060003;
-        public static final int view_flipper=0x7f060078;
+        public static final int view_flipper=0x7f060079;
         public static final int withText=0x7f06000c;
         public static final int wrap_content=0x7f060025;
     }

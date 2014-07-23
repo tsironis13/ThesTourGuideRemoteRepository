@@ -204,7 +204,7 @@ public class TestLocalSqliteDatabase extends SQLiteOpenHelper {
 			SQLiteDatabase db = this.getReadableDatabase();
 			
 			try{
-				db.delete("Example", null, null);
+				db.delete("PlacesTable", null, null);
 				//flag = "true";
 				Log.d("Table deleted successfully", "true");
 			}
