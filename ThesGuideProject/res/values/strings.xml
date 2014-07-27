@@ -27,10 +27,12 @@
     <string name="relButton">Relative Layout Button</string>
 	<string name="spinnercategory_title">Select Category</string>
 	<string name="spinnersubcategory_title">Select Sub Category</string>
+	<string name="onMapButton">Check Map</string>
+	<string name="infoButton">Info</string>
 	
 	<string-array name="category_array">
-	    <item>Category 1</item>
-	    <item>Category 2</item>
+	    <item>Bar</item>
+	    <item>Club</item>
 	    <item>Category 3</item>
 	    <item>Category 4</item>
 	</string-array>

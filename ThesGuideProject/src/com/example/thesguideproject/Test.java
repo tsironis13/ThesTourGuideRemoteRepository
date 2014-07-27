@@ -1,5 +1,8 @@
 package com.example.thesguideproject;
 
+import com.example.adapters.TabsPagerAdapter;
+import com.example.fragmentClasses.InfoFragment;
+import com.example.fragmentClasses.OnMapFragment;
 import com.example.myLocation.GPSTracker;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -8,24 +11,52 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import android.app.Activity;
+
+
+
+
+
+
+
+
+import android.annotation.TargetApi;
 import android.content.Intent;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.ViewPager;
+import android.app.ActionBar;
+import android.app.ActionBar.Tab;
 import android.widget.TextView;
+import android.widget.Toast;
 
-public class Test extends FragmentActivity{
+@TargetApi(Build.VERSION_CODES.HONEYCOMB) 
+public class Test extends FragmentActivity {
 
 	// Google Map
     private GoogleMap googleMap;
     
     LatLng myPosition;
 	
-    String name;
-    double doublelatitude;
-    double doublelongtitude;
-    String latitude;
-    String longtitude;
+    private String name;
+    private TabsPagerAdapter mAdapter;
+    private double doublelatitude;
+    private double doublelongtitude;
+    private double doubleCurrentLatitude;
+    private double doubleCurrentLongtitude;
+    private String latitude;
+    private String longtitude;
+    private String current_latitude;
+    private String current_longtitude;
+    //private Button onMapButton;
+    private TextView t;
+  	private android.app.ActionBar actionBar;
+  	private ViewPager viewPager;
+    private TabsPagerAdapter tabsPagerAdapter;
+    
+    private String[] tabs = {"OnMap", "OnMap"};
     
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -33,73 +64,65 @@ public class Test extends FragmentActivity{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.testlayout);
 		
-		TextView t = (TextView) findViewById(R.id.testtv);
-		
 		Intent i = getIntent();
-		
 		
 		name = i.getStringExtra("nameEl");
 		latitude = i.getStringExtra("latitude");
 		longtitude = i.getStringExtra("longtitude");
+		current_latitude = i.getStringExtra("current latitude");
+		current_longtitude = i.getStringExtra("current longtitude");
+		Toast.makeText(getApplicationContext(), current_latitude + " " + current_longtitude, Toast.LENGTH_SHORT).show();
 		
 		doublelatitude = Double.parseDouble(latitude);
 		doublelongtitude = Double.parseDouble(longtitude);
 		
-		t.setText(name);
+		doubleCurrentLatitude = Double.parseDouble(current_latitude);
+		doubleCurrentLongtitude = Double.parseDouble(current_longtitude);
 		
+		viewPager = (ViewPager) findViewById(R.id.pager);
+		actionBar = getActionBar();
+		mAdapter = new TabsPagerAdapter(name, doublelatitude, doublelongtitude, doubleCurrentLatitude, doubleCurrentLongtitude, getSupportFragmentManager());
 		
+		viewPager.setAdapter(mAdapter);
+        //actionBar.setHomeButtonEnabled(false);
+        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);  
+        
+        ActionBar.TabListener tabListener = new ActionBar.TabListener() {
+			
+			@Override
+			public void onTabUnselected(Tab tab, android.app.FragmentTransaction ft) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void onTabSelected(Tab tab, android.app.FragmentTransaction ft) {
+				// TODO Auto-generated method stub
+				if (tab.getPosition() == 1){
+					//Toast.makeText(getApplicationContext(), "On Map Tab Pressed!", Toast.LENGTH_SHORT).show();
+					Intent intent = new Intent(android.content.Intent.ACTION_VIEW, Uri.parse("http://maps.google.com/maps?saddr=" 
+							+ doubleCurrentLatitude + "," + doubleCurrentLongtitude + "&daddr=" + doublelatitude + "," + doublelongtitude));
+							startActivity(intent);
+				}
+				viewPager.setCurrentItem(tab.getPosition());
+			}
+			
+			@Override
+			public void onTabReselected(Tab tab, android.app.FragmentTransaction ft) {
+				// TODO Auto-generated method stub
+				if (tab.getPosition() == 1){
+					Intent intent = new Intent(android.content.Intent.ACTION_VIEW, Uri.parse("http://maps.google.com/maps?saddr=" 
+							+ doubleCurrentLatitude + "," + doubleCurrentLongtitude + "&daddr=" + doublelatitude + "," + doublelongtitude));
+							startActivity(intent);
+				}
+			}
+		};
+ 
+		//Add new Tabs
+		actionBar.addTab(actionBar.newTab().setText("Info").setTabListener(tabListener));
+		actionBar.addTab(actionBar.newTab().setText("OnMap").setTabListener(tabListener));
 		
-		
-		// Getting reference to the SupportMapFragment of activity_main.xml
-        SupportMapFragment fm = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
-		
-        //Getting GoogleMap object from the fragment
-        googleMap = fm.getMap();
 
-        // Enabling MyLocation Layer of Google Map
-        googleMap.setMyLocationEnabled(true);
-        googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-        
-        //GPSTracker gpstr = new GPSTracker(Test.this);
-        
-        // Getting latitude of the current location
-        //double latitude = gpstr.getLatitude();
-        
-        // Getting longitude of the current location
-        //double longitude = gpstr.getLongitude();
-        
-        // Creating a LatLng object for the current location
-        
-        
-        LatLng latLng = new LatLng(doublelatitude, doublelongtitude);
-
-         myPosition = new LatLng(doublelatitude, doublelongtitude);
-
-        googleMap.addMarker(new MarkerOptions().position(myPosition).title("Start"));
-        
-        
-        /*
-        String tag = "KALASEEEEEEEEEEE";
-        setList(loc);
-		Log.d(tag , "LOC DATA : " + loc);
-        
-        //Creating a LatLng object for a specific location
-        LatLng latLng1 = new LatLng(40.6250548, 22.9529811);
-
-        myPosition1 = new LatLng(40.6250548, 22.9529811);
-
-       googleMap.addMarker(new MarkerOptions().position(myPosition1).title("Finish"));*/
-        //JsonWebAPITask object = new JsonWebAPITask();
-       // String lat = object.getLatitudeandLongLatitudeoftheSpecificLocation();
-        
-        CameraUpdate center= CameraUpdateFactory.newLatLng(new LatLng(doublelatitude, doublelongtitude));
-        CameraUpdate zoom= CameraUpdateFactory.zoomTo(16);
-
-        googleMap.moveCamera(center);
-        googleMap.animateCamera(zoom);
-		
 	}
-
-	
 	
 }

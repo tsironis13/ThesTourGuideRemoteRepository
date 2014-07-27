@@ -13,11 +13,16 @@ import android.os.Bundle;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Spinner;
 
-public class CursorAdapterExample extends Activity{
+public class CursorAdapterExample extends Activity implements OnItemSelectedListener{
 
+	private Spinner nightLifeSpinner;
 	private Button museumsButton;
 	private Button sightseeings;
 	private ListView listExample;
@@ -42,6 +47,7 @@ public class CursorAdapterExample extends Activity{
 		//setContentView(R.layout.list_example);
 		
 		//this.listExample = (ListView) findViewById(R.id.list_exam);
+		this.nightLifeSpinner = (Spinner) findViewById(R.id.nightlifespinner);
 		this.museumsButton = (Button) findViewById(R.id.museumsbutton);
 		this.sightseeings = (Button) findViewById(R.id.sightseeingsbutton);
 		this.listExample = (ListView) findViewById(R.id.listview1);
@@ -72,7 +78,9 @@ public class CursorAdapterExample extends Activity{
 		//this.listExample.setAdapter(new TestDataListCursorAdapter(this, R.layout.list_example_entry, cursor, columns, to));
 		//this.listExample.setAdapter(new TestDataListCursorAdapter(this, R.layout.places_basic_layout, cursor, columns, to, this.imgFetcher));
 		//this.setListAdapter(mAdapter);
-		
+		this.nightLifeSpinner.setOnItemSelectedListener(this);
+		ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.category_array, android.R.layout.simple_spinner_dropdown_item);
+		this.nightLifeSpinner.setAdapter(adapter);
 		
 		museumsButton.setOnClickListener(new View.OnClickListener() {
 			
@@ -112,7 +120,22 @@ public class CursorAdapterExample extends Activity{
 	
 	
 	private void setAdapterFromSpecificCursor(ListView listExample, Cursor cursor, String[] columns, int[] to, BitmapTask imgFetcher, double current_latitude, double current_longtitude){
-		this.listExample.setAdapter(new TestDataListCursorAdapter(this,  R.layout.places_basic_layout, cursor, columns, to, this.imgFetcher, current_latitude, current_longtitude) );
+		this.listExample.setAdapter(new TestDataListCursorAdapter(this, this,  R.layout.places_basic_layout, cursor, columns, to, this.imgFetcher, current_latitude, current_longtitude) );
+	}
+
+
+	@Override
+	public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2,
+			long arg3) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void onNothingSelected(AdapterView<?> arg0) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	

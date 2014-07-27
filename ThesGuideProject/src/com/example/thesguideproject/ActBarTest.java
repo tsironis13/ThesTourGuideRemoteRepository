@@ -38,10 +38,7 @@ public class ActBarTest extends ActionBarActivity{
   	private ImageTask imgFetcher;
   	
   	
-	
-	@SuppressWarnings("deprecation")
-	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
-	@Override
+	@TargetApi(Build.VERSION_CODES.HONEYCOMB) @Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);

@@ -70,7 +70,7 @@ public class LocationsDataAdapter extends BaseAdapter implements OnClickListener
 			holder.nameEl = (TextView) convertView.findViewById(R.id.nameEl);
 			//holder.latitude = (TextView) convertView.findViewById(R.id.latitudetv);
 			//holder.relLay = (RelativeLayout) convertView.findViewById(R.id.relativeLayout);
-			holder.detailsButton = (Button) convertView.findViewById(R.id.details_button);
+			holder.detailsButton = (Button) convertView.findViewById(R.id.info_button);
 			holder.latitude = (TextView) convertView.findViewById(R.id.latitudetv);
 			holder.longtitude = (TextView) convertView.findViewById(R.id.longtitudetv);
 			holder.detailsButton.setTag(holder);

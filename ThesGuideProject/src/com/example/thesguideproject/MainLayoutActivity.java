@@ -127,7 +127,7 @@ public class MainLayoutActivity extends FragmentActivity implements OnItemSelect
 		
 		
 		// Spinner element
-		spinner1 = (Spinner) findViewById(R.id.spinner1);
+		spinner1 = (Spinner) findViewById(R.id.nightlifespinner);
 		
 		// Spinner click listener
 		spinner1.setOnItemSelectedListener(this);

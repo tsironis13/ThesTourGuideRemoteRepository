@@ -46,7 +46,7 @@
 			android:layout_marginLeft="4dip"
 			android:layout_toRightOf="@+id/locationImage" 
 			android:layout_below="@+id/nameEl">
-        </TextView>  "
+        </TextView>  
         
           <TextView 
             android:id="@+id/latitudetv"
@@ -65,7 +65,7 @@
         
     </RelativeLayout>
     
-    <Button android:id="@+id/details_button"
+    <Button android:id="@+id/info_button"
         android:layout_height="25dp"
         android:layout_width="30dp"
         android:layout_marginRight="5dp"

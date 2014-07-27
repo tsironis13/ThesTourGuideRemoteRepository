@@ -13,6 +13,7 @@ import android.content.ContextWrapper;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Build;
+import android.util.Log;
 
 
 public class InternalStorage {
@@ -48,6 +49,7 @@ public class InternalStorage {
         ContextWrapper cw = new ContextWrapper(context);
          // path to /data/data/yourapp/app_data/imageDir
        directory = cw.getDir("imageDir", Context.MODE_PRIVATE);
+       Log.i("Directory => ", directory.toString());
         // Create imageDir
        mypath=new File(directory, name);
 
@@ -109,6 +111,7 @@ public class InternalStorage {
 	
 	public Bitmap loadImageFromStorage(String path, String name)
 	{
+		Log.i("Path => ", path);
 		Bitmap b = null;
 	    try 
 	    {
