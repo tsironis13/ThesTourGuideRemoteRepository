@@ -10,11 +10,13 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 
-@SuppressLint("ValidFragment") public class InfoFragment extends Fragment{
+@SuppressLint("ValidFragment") 
+public class InfoFragment extends Fragment{
 
 	private TextView nameEltv;
 	private String name;
 	
+	public InfoFragment(){}
 	
 	public InfoFragment(String name) {
 		// TODO Auto-generated constructor stub
@@ -25,9 +27,10 @@ import android.widget.TextView;
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		View view = inflater.inflate(R.layout.info_fragment, container, false);
+		String s = getArguments().getString("info");  
 		
 		this.nameEltv = (TextView) view.findViewById(R.id.testtv);
-		nameEltv.setText(name);
+		nameEltv.setText(s);
 		
 		
 		return view;

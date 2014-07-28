@@ -2,6 +2,7 @@ package com.example.thesguideproject;
 
 import com.example.adapters.TabsPagerAdapter;
 import com.example.fragmentClasses.InfoFragment;
+import com.example.fragmentClasses.MenuFragment;
 import com.example.fragmentClasses.OnMapFragment;
 import com.example.myLocation.GPSTracker;
 import com.google.android.gms.maps.CameraUpdate;
@@ -10,10 +11,6 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-
-
-
-
 
 
 
@@ -56,8 +53,6 @@ public class Test extends FragmentActivity {
   	private ViewPager viewPager;
     private TabsPagerAdapter tabsPagerAdapter;
     
-    private String[] tabs = {"OnMap", "OnMap"};
-    
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -81,25 +76,35 @@ public class Test extends FragmentActivity {
 		
 		viewPager = (ViewPager) findViewById(R.id.pager);
 		actionBar = getActionBar();
-		mAdapter = new TabsPagerAdapter(name, doublelatitude, doublelongtitude, doubleCurrentLatitude, doubleCurrentLongtitude, getSupportFragmentManager());
+		//mAdapter = new TabsPagerAdapter(this, viewPager, name, doublelatitude, doublelongtitude, doubleCurrentLatitude, doubleCurrentLongtitude);
 		
 		viewPager.setAdapter(mAdapter);
         //actionBar.setHomeButtonEnabled(false);
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);  
         
-        ActionBar.TabListener tabListener = new ActionBar.TabListener() {
+        this.tabsPagerAdapter = new TabsPagerAdapter(this, viewPager, name, doublelatitude, doublelongtitude, doubleCurrentLatitude, doubleCurrentLongtitude);
+        Bundle infoBundle = new Bundle();
+        infoBundle.putString("info", name);
+        tabsPagerAdapter.addTab(actionBar.newTab().setText("Info"), InfoFragment.class, infoBundle);
+        tabsPagerAdapter.addTab(actionBar.newTab().setText("MenuTab"), MenuFragment.class, null);
+        Bundle onmapBundle = new Bundle();
+        onmapBundle.putDouble("doubleCurrentLatitude", doubleCurrentLatitude);
+        onmapBundle.putDouble("doubleCurrentLongtitude", doubleCurrentLongtitude);
+        tabsPagerAdapter.addTab(actionBar.newTab().setText("OnMap"), OnMapFragment.class, onmapBundle);
+        
+      /*  ActionBar.TabListener tabListener = new ActionBar.TabListener() {
 			
 			@Override
 			public void onTabUnselected(Tab tab, android.app.FragmentTransaction ft) {
-				// TODO Auto-generated method stub
+				
 				
 			}
 			
 			@Override
 			public void onTabSelected(Tab tab, android.app.FragmentTransaction ft) {
-				// TODO Auto-generated method stub
-				if (tab.getPosition() == 1){
-					//Toast.makeText(getApplicationContext(), "On Map Tab Pressed!", Toast.LENGTH_SHORT).show();
+				
+				if (tab.getPosition() == 2){
+					Toast.makeText(getApplicationContext(), "On Map Tab Pressed!", Toast.LENGTH_SHORT).show();
 					Intent intent = new Intent(android.content.Intent.ACTION_VIEW, Uri.parse("http://maps.google.com/maps?saddr=" 
 							+ doubleCurrentLatitude + "," + doubleCurrentLongtitude + "&daddr=" + doublelatitude + "," + doublelongtitude));
 							startActivity(intent);
@@ -109,18 +114,20 @@ public class Test extends FragmentActivity {
 			
 			@Override
 			public void onTabReselected(Tab tab, android.app.FragmentTransaction ft) {
-				// TODO Auto-generated method stub
-				if (tab.getPosition() == 1){
+				
+				if (tab.getPosition() == 2){
 					Intent intent = new Intent(android.content.Intent.ACTION_VIEW, Uri.parse("http://maps.google.com/maps?saddr=" 
 							+ doubleCurrentLatitude + "," + doubleCurrentLongtitude + "&daddr=" + doublelatitude + "," + doublelongtitude));
 							startActivity(intent);
 				}
+				viewPager.setCurrentItem(tab.getPosition());
 			}
-		};
+		};*/
  
 		//Add new Tabs
-		actionBar.addTab(actionBar.newTab().setText("Info").setTabListener(tabListener));
-		actionBar.addTab(actionBar.newTab().setText("OnMap").setTabListener(tabListener));
+	//	actionBar.addTab(actionBar.newTab().setText("Info").setTabListener(tabListener));
+	//	actionBar.addTab(actionBar.newTab().setText("MenuTab").setTabListener(tabListener));
+	//	actionBar.addTab(actionBar.newTab().setText("OnMap").setTabListener(tabListener));
 		
 
 	}
