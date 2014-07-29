@@ -92,26 +92,30 @@ public class OnMapFragment extends Fragment{
 		
 	}
 
-	
-    
-
-	@Override
-	public void onSaveInstanceState(Bundle outState) {
-		// TODO Auto-generated method stub
-		
-	}
-
 	@Override
 	public void onDestroyView() {
 		// TODO Auto-generated method stub
 		super.onDestroyView();
+		
+       
+	}
+	
+	
+	
+    
+
+	@Override
+	public void onPause() {
+		// TODO Auto-generated method stub
 		Fragment fragment = (getFragmentManager().findFragmentById(R.id.mapfragment)); 
 		FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
 		ft.remove(fragment);
 		//ft.detach(fragment);
         ft.commit();
-       
+		super.onPause();
 	}
+
+
 	
 	
 	
