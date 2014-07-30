@@ -11,7 +11,7 @@ import com.example.tasks.BitmapTask;
 import com.example.tasks.ImageTask;
 import com.example.thesguideproject.CursorAdapterExample;
 import com.example.thesguideproject.R;
-import com.example.thesguideproject.Test;
+import com.example.thesguideproject.PlacesDetailsTabs;
 
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -46,13 +46,15 @@ public class TestDataListCursorAdapter extends SimpleCursorAdapter implements On
 	private Cursor c;
 	private double current_latitude;
 	private double current_longtitude;
+	private String button_pressed;
 	
 	GPSTracker gps;
 	ArrayList<PlacesData> placesDataArray = new ArrayList<PlacesData>();
 	
 	@SuppressWarnings("deprecation")
-	public TestDataListCursorAdapter(CursorAdapterExample activity, Context context, int layout, Cursor c, String[] from, int[] to, BitmapTask i, double current_latitude, double current_longtitude) {
+	public TestDataListCursorAdapter(String button_pressed, CursorAdapterExample activity, Context context, int layout, Cursor c, String[] from, int[] to, BitmapTask i, double current_latitude, double current_longtitude) {
 		super(context, layout, c, from, to);
+		this.button_pressed = button_pressed;
 		this.activity = activity;
 		this.context = context;
 		this.layout = layout;
@@ -64,13 +66,19 @@ public class TestDataListCursorAdapter extends SimpleCursorAdapter implements On
 	}
 	
 	private class ViewHolder{
-		TextView nametv, surnametv, distance, latitudetv, longtitudetv;
+		TextView nametv, placeNametv, distance, latitudetv, longtitudetv, desc_infohiddentv, 
+		telhiddentv, linkhiddentv, fbLinkhiddentv, emailhiddentv;
 		ImageView icon;
 		Button infoButton;
 		
 		ViewHolder(View v){
+			desc_infohiddentv = (TextView) v.findViewById(R.id.descinfohiddentv);
+			telhiddentv = (TextView) v.findViewById(R.id.telhiddentv);
+			linkhiddentv = (TextView) v.findViewById(R.id.linkhiddentv);
+			fbLinkhiddentv = (TextView) v.findViewById(R.id.fbLinkhiddentv);
+			emailhiddentv = (TextView) v.findViewById(R.id.fbLinkhiddentv);
 			nametv = (TextView) v.findViewById(R.id.locationName);
-			surnametv = (TextView) v.findViewById(R.id.nameEl);
+			placeNametv = (TextView) v.findViewById(R.id.placeNametv);
 			latitudetv = (TextView) v.findViewById(R.id.latitudetv);
 			longtitudetv = (TextView) v.findViewById(R.id.longtitudetv);
 			distance = (TextView) v.findViewById(R.id.distance);
@@ -116,8 +124,13 @@ public class TestDataListCursorAdapter extends SimpleCursorAdapter implements On
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             v = inflater.inflate(layout, parent, false);
             viewHolder = new ViewHolder(v);
+            viewHolder.desc_infohiddentv = (TextView) v.findViewById(R.id.descinfohiddentv);
+            viewHolder.telhiddentv = (TextView) v.findViewById(R.id.telhiddentv);
+            viewHolder.linkhiddentv = (TextView) v.findViewById(R.id.linkhiddentv);
+            viewHolder.fbLinkhiddentv = (TextView) v.findViewById(R.id.fbLinkhiddentv);
+            viewHolder.emailhiddentv = (TextView) v.findViewById(R.id.emailhiddentv);
             viewHolder.nametv = (TextView) v.findViewById(R.id.locationName);
-            viewHolder.surnametv = (TextView) v.findViewById(R.id.nameEl);
+            viewHolder.placeNametv = (TextView) v.findViewById(R.id.placeNametv);
             viewHolder.latitudetv = (TextView) v.findViewById(R.id.latitudetv);
             viewHolder.longtitudetv = (TextView) v.findViewById(R.id.longtitudetv);
             viewHolder.distance = (TextView) v.findViewById(R.id.distance);
@@ -132,12 +145,17 @@ public class TestDataListCursorAdapter extends SimpleCursorAdapter implements On
 		this.c.moveToPosition(pos);
 		String name = this.c.getString(this.c.getColumnIndex("_id"));
 		int integer_id = Integer.parseInt(name);
-		String surname = this.c.getString(this.c.getColumnIndex("name_el"));
+		String placeNameEl = this.c.getString(this.c.getColumnIndex("name_el"));
 		String image_link = this.c.getString(this.c.getColumnIndex("photo_link"));
 		double final_latitude = this.c.getDouble(this.c.getColumnIndex("latitude"));
 		String str_latitude = Double.toString(final_latitude);
 		double final_longtitude = this.c.getDouble(this.c.getColumnIndex("longtitude"));
 		String str_longtitude = Double.toString(final_longtitude);
+		String descInfo = this.c.getString(this.c.getColumnIndex("info"));
+		String tel = this.c.getString(this.c.getColumnIndex("tel"));
+		String link = this.c.getString(this.c.getColumnIndex("link"));
+		String fbLink = this.c.getString(this.c.getColumnIndex("fb_link"));
+		String email = this.c.getString(this.c.getColumnIndex("email"));
 		
 		//placesDataArray.add(new PlacesData(integer_id, surname, "", "", final_latitude, final_longtitude, image_link, ""));
 		
@@ -148,7 +166,12 @@ public class TestDataListCursorAdapter extends SimpleCursorAdapter implements On
 		//String str_distanceInKm = Double.toString(distanceInKm);
 		
 		viewHolder.nametv.setText(name);
-		viewHolder.surnametv.setText(surname);
+		viewHolder.desc_infohiddentv.setText(descInfo);
+		viewHolder.telhiddentv.setText(tel);
+		viewHolder.linkhiddentv.setText(link);
+		viewHolder.fbLinkhiddentv.setText(fbLink);
+		viewHolder.emailhiddentv.setText(email);
+		viewHolder.placeNametv.setText(placeNameEl);
 		//viewHolder.surnametv.setTag(surname);
 		viewHolder.latitudetv.setText(str_latitude);
 		viewHolder.longtitudetv.setText(str_longtitude);
@@ -282,23 +305,35 @@ public class TestDataListCursorAdapter extends SimpleCursorAdapter implements On
 		super.setViewImage(imageView, imageviewCursor);
 	}
 
-
+	
+			
 	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
 		//TextView surnametv = (TextView) v.findViewById(R.id.nameEl);
+		//Button pressed = (Button) v;
+		//String button_pressed_text = pressed.getText().toString();
+		Log.i("Button pressed text =>", " " + button_pressed);
+		
 		ViewHolder vH = (ViewHolder) v.getTag();
 		//String url = (String) vH.surnametv.getTag();
 		//Toast.makeText(this.context, url, Toast.LENGTH_SHORT).show();
-		Intent intent = new Intent(this.activity, Test.class);
+		Intent intent = new Intent(this.activity, PlacesDetailsTabs.class);
 		//intent.putExtra("nameEl", vH.surnametv.getTag().toString());
 		String str_current_latitude = Double.toString(current_latitude);
 		String str_current_longtitude = Double.toString(current_longtitude);
 		intent.putExtra("current latitude" , str_current_latitude);
 		intent.putExtra("current longtitude", str_current_longtitude);
-		intent.putExtra("nameEl", vH.surnametv.getText());
+		intent.putExtra("placeNameEl", vH.placeNametv.getText());
+		intent.putExtra("desc_info", vH.desc_infohiddentv.getText());
+		intent.putExtra("telephone", vH.telhiddentv.getText());
+		intent.putExtra("link", vH.linkhiddentv.getText());
+		intent.putExtra("fbLink", vH.fbLinkhiddentv.getText());
+		intent.putExtra("email", vH.emailhiddentv.getText());
 		intent.putExtra("latitude", vH.latitudetv.getText());
 		intent.putExtra("longtitude", vH.longtitudetv.getText());
+		intent.putExtra("button_pressed_text", button_pressed);
+		
 		//intent.putExtra("latitude", this.c.getDouble(this.c.getColumnIndex("latitude")));
 		//intent.putExtra("longtitude", this.c.getDouble(this.c.getColumnIndex("longtitude")));
 		this.activity.startActivity(intent);

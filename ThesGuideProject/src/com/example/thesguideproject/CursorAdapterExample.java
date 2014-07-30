@@ -34,6 +34,7 @@ public class CursorAdapterExample extends Activity implements OnItemSelectedList
 	private String genre;
 	private double current_latitude;
 	private double current_longtitude;
+	private String button_pressed;
 	TestLocalSqliteDatabase testDB = new TestLocalSqliteDatabase(this);
 	
 	//GPSTracker class
@@ -87,8 +88,9 @@ public class CursorAdapterExample extends Activity implements OnItemSelectedList
 			//private ListView listExample = (ListView) findViewById(R.id.listview1);
 			@Override
 			public void onClick(View v) {
+				button_pressed = "museums";
 				HelperMethodDependingOnButtonClick("museums");
-				setAdapterFromSpecificCursor(listExample, cursor, columns, to, imgFetcher, current_latitude, current_longtitude);
+				setAdapterFromSpecificCursor(button_pressed, listExample, cursor, columns, to, imgFetcher, current_latitude, current_longtitude);
 				testDB.close();
 			}
 		});
@@ -98,8 +100,9 @@ public class CursorAdapterExample extends Activity implements OnItemSelectedList
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
+				button_pressed = "sightseeings";
 				HelperMethodDependingOnButtonClick("sightseeings");
-				setAdapterFromSpecificCursor(listExample, cursor, columns, to, imgFetcher, current_latitude, current_longtitude);
+				setAdapterFromSpecificCursor(button_pressed, listExample, cursor, columns, to, imgFetcher, current_latitude, current_longtitude);
 				testDB.close();
 			}
 		});
@@ -112,21 +115,28 @@ public class CursorAdapterExample extends Activity implements OnItemSelectedList
 		cursor = testDB.getAllTestData(genre);
 		
 		// the desired columns to be bound
-		columns = new String[] {"_id", "name_el", "photo_link"};
+		columns = new String[] {"_id", "name_el", "photo_link", "info"};
 		
 		// the XML defined views which the data will be bound to
-		to = new int[] {R.id.locationName, R.id.nameEl, R.id.locationImage};
+		to = new int[] {R.id.locationName, R.id.placeNametv, R.id.locationImage};
 	}
 	
 	
-	private void setAdapterFromSpecificCursor(ListView listExample, Cursor cursor, String[] columns, int[] to, BitmapTask imgFetcher, double current_latitude, double current_longtitude){
-		this.listExample.setAdapter(new TestDataListCursorAdapter(this, this,  R.layout.places_basic_layout, cursor, columns, to, this.imgFetcher, current_latitude, current_longtitude) );
+	private void setAdapterFromSpecificCursor(String button_pressed, ListView listExample, Cursor cursor, String[] columns, int[] to, BitmapTask imgFetcher, double current_latitude, double current_longtitude){
+		this.listExample.setAdapter(new TestDataListCursorAdapter(button_pressed, this, this,  R.layout.places_basic_layout, cursor, columns, to, this.imgFetcher, current_latitude, current_longtitude) );
 	}
 
+	
+	//Restore any already fetched data on orientation change
+	/*@SuppressWarnings("deprecation")
+	final Object[] data = (Object[]) getLastNonConfigurationInstance();
+	if (data != null){
+		this.listExample.setAdapter(new TestDataListCursorAdapter(button_pressed, this, this,  R.layout.places_basic_layout, cursor, columns, to, this.imgFetcher, current_latitude, current_longtitude) );
+	}*/
+	
 
 	@Override
-	public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2,
-			long arg3) {
+	public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -139,6 +149,6 @@ public class CursorAdapterExample extends Activity implements OnItemSelectedList
 	}
 
 	
-	
+
 	
 }

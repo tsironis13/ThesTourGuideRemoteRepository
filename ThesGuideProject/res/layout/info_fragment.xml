@@ -1,15 +1,105 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    
+<RelativeLayout 
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
     
 
+    <TextView
+        android:id="@+id/placeNameFragmentTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:layout_centerHorizontal="true" >"
+    </TextView>
+    
     <TextView 
         android:id="@+id/infoFragmentTextView"
+        android:layout_below="@+id/placeNameFragmentTextView"
+        android:maxWidth="300dip"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        android:textSize="18sp" 
+        android:layout_marginTop="10dp"
+        android:gravity="fill_horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+    </TextView>
+    
+    <TextView 
+        android:id="@+id/telFragmentTextView"
+        android:layout_below="@+id/infoFragmentTextView"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        android:textSize="18sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" >
     </TextView>
+    
+    <Button 
+        android:id="@+id/telFragmentButton"
+        android:layout_below="@+id/infoFragmentTextView"
+        android:layout_height="35dp"
+        android:layout_width="45dp"
+		android:gravity="center_vertical"
+        android:layout_toRightOf="@+id/telFragmentTextView"
+        android:background="@drawable/button_phone" >
+    </Button>
+    
+    <TextView 
+        android:id="@+id/linkFragmentTextView"
+        android:layout_below="@+id/telFragmentTextView"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:textSize="18sp" 
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+    </TextView>
+    
+    <TextView 
+        android:id="@+id/fbLinkFragmentTextView"
+        android:layout_below="@+id/linkFragmentTextView"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp" 
+        android:textSize="18sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+    </TextView> 
+     
+    <TextView 
+        android:id="@+id/emailFragmentTextView"
+        android:layout_below="@+id/fbLinkFragmentTextView"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp" 
+        android:textSize="18sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+    </TextView>
+    
+    <Button 
+        android:id="@+id/emailFragmentButton"
+        android:layout_below="@+id/fbLinkFragmentTextView"
+        android:layout_height="35dp"
+        android:layout_width="45dp"
+		android:gravity="center_vertical"
+        android:layout_toRightOf="@+id/emailFragmentTextView"
+        android:background="@drawable/button_email" >
+    </Button>
     
     <TextView 
         android:id="@+id/testtv"
@@ -17,4 +107,6 @@
         android:layout_height="wrap_content"
         />
     
-</LinearLayout>
+</RelativeLayout>
+
+</ScrollView>

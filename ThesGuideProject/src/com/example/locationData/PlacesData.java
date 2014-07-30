@@ -10,10 +10,18 @@ public class PlacesData {
 	private double longtitude;
 	private String photo_link;
 	private String genre;
+	private String info;
+	private String exhibition;
+	private String menu;
+	private String subcategory;
+	private String tel;
+	private String email;
+	private String fb_link;
 	
 	public PlacesData(){}
 	
-	public PlacesData(int id, String name_el, String name_en, String link, double latitude, double longtitude, String photo_link, String genre){
+	public PlacesData(int id, String name_el, String name_en, String link, double latitude, double longtitude, 
+			String photo_link, String genre, String info, String exhibition, String menu, String subcategory, String tel, String email, String fb_link){
 		this.id = id;
 		this.name_el = name_el;
 		this.name_en = name_en;
@@ -22,6 +30,13 @@ public class PlacesData {
 		this.longtitude = longtitude;
 		this.photo_link = photo_link;
 		this.genre = genre;
+		this.info = info;
+		this.exhibition = exhibition;
+		this.menu = menu;
+		this.subcategory = subcategory;
+		this.tel = tel;
+		this.email = email;
+		this.fb_link = fb_link;
 	}
 	
 	public void setId(int id){
@@ -86,5 +101,61 @@ public class PlacesData {
 	
 	public String getGenre(){
 		return genre;
+	}
+	
+	public void setInfo(String info){
+		this.info = info;
+	}
+	
+	public String getInfo(){
+		return info;
+	}
+	
+	public void setExhibition(String exhibition){
+		this.exhibition = exhibition;
+	}
+	
+	public String getExhibition(){
+		return exhibition;
+	}
+	
+	public void setMenu(String menu){
+		this.menu = menu;
+	}
+	
+	public String getMenu(){
+		return menu;
+	}
+	
+	public void setTel(String tel){
+		this.tel = tel;
+	}
+	
+	public String getTel(){
+		return tel;
+	}
+	
+	public void setEmail(String email){
+		this.email = email;
+	}
+	
+	public String getEmail(){
+		return email;
+	}
+	
+	public void setFbLink(String fb_link){
+		this.fb_link = fb_link;
+	}
+	
+	public String getFbLink(){
+		return fb_link;
+	}
+	
+	public void setSubcategory(String subcategory){
+		this.subcategory = subcategory;
+	}
+	
+	public String getSubcategory(){
+		return subcategory;
 	}
 }

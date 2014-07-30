@@ -275,13 +275,22 @@ public class TestLocalSqliteDatabase extends SQLiteOpenHelper {
 					 double longtitude = placesData.getLongtitude();
 					 String photo_link = placesData.getPhotoLink();
 					 String genre = placesData.getGenre();
+					 String info = placesData.getInfo();
+					 String exhibition = placesData.getExhibition();
+					 String menu = placesData.getMenu();
+					 String subcategory = placesData.getSubcategory();
+					 String tel = placesData.getTel();
+					 String email = placesData.getEmail();
+					 String fb_link = placesData.getFbLink();
 					 
 					 SQLiteDatabase db = this.getWritableDatabase();
 //db.execSQL("INSERT INTO TestTable(_id, name, surname, type) VALUES(" + id + ",'"  + name  +  ",'"  + surname  + ",'" + type + "')");
 					 //db.execSQL("INSERT INTO TestTable(_id, name, surname, type) VALUES(1, 'giannis ' , 'tsironis ' , 'male ')");
 					 //db.execSQL("INSERT INTO TestTable(_id, name, surname, type) VALUES(2, 'nikos ' , 'tsironis ' , 'male ')");
 					 //db.execSQL("INSERT INTO TestTable(_id, name, surname, type) VALUES(3, 'aggelos ' , 'tsironis ' , 'male ')");
-db.execSQL("INSERT INTO PlacesTable(_id, name_el, name_en, link, latitude, longtitude, photo_link, genre) VALUES('" + id + "','" + name_el + "','" + name_en + "','" + link + "','" + latitude + "','" + longtitude + "','" + photo_link + "','" + genre + "')");
+db.execSQL("INSERT INTO PlacesTable(_id, name_el, name_en, link, latitude, longtitude, info, exhibition, menu, photo_link, genre, subcategory, tel, email, fb_link) VALUES('" + id + "','" + name_el + "','" + name_en 
+		+ "','" + link + "','" + latitude + "','" + longtitude + "','" + info + "','" + exhibition + "','" + menu + "','" + photo_link + "','" + genre + "','" + subcategory + "','" + tel + "','" + 
+		email + "','" + fb_link + "')");
 				  }
 			  Log.i("Data inserted into PlacesTable: ", "status => true");
 			 }

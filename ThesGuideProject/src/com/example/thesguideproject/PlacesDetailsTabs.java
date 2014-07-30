@@ -1,6 +1,7 @@
 package com.example.thesguideproject;
 
 import com.example.adapters.TabsPagerAdapter;
+import com.example.fragmentClasses.FourthFragment;
 import com.example.fragmentClasses.InfoFragment;
 import com.example.fragmentClasses.MenuFragment;
 import com.example.fragmentClasses.OnMapFragment;
@@ -11,6 +12,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+
 
 
 
@@ -30,14 +32,20 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 @TargetApi(Build.VERSION_CODES.HONEYCOMB) 
-public class Test extends FragmentActivity {
+public class PlacesDetailsTabs extends FragmentActivity {
 
 	// Google Map
     private GoogleMap googleMap;
     
     LatLng myPosition;
 	
-    private String name;
+    private String button_pressed;
+    private String placenameEl;
+    private String description_info;
+    private String telephone;
+    private String link;
+    private String fbLink;
+    private String email;
     private TabsPagerAdapter mAdapter;
     private double doublelatitude;
     private double doublelongtitude;
@@ -61,12 +69,19 @@ public class Test extends FragmentActivity {
 		
 		Intent i = getIntent();
 		
-		name = i.getStringExtra("nameEl");
+		button_pressed = i.getStringExtra("button_pressed_text");
+		placenameEl = i.getStringExtra("placeNameEl");
+		description_info = i.getStringExtra("desc_info");
+		telephone = i.getStringExtra("telephone");
+		link = i.getStringExtra("link");
+		fbLink = i.getStringExtra("fbLink");
+		email = i.getStringExtra("email");
 		latitude = i.getStringExtra("latitude");
 		longtitude = i.getStringExtra("longtitude");
 		current_latitude = i.getStringExtra("current latitude");
 		current_longtitude = i.getStringExtra("current longtitude");
 		Toast.makeText(getApplicationContext(), current_latitude + " " + current_longtitude, Toast.LENGTH_SHORT).show();
+		
 		
 		doublelatitude = Double.parseDouble(latitude);
 		doublelongtitude = Double.parseDouble(longtitude);
@@ -82,9 +97,15 @@ public class Test extends FragmentActivity {
         //actionBar.setHomeButtonEnabled(false);
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);  
         
-        this.tabsPagerAdapter = new TabsPagerAdapter(this, viewPager, name, doublelatitude, doublelongtitude, doubleCurrentLatitude, doubleCurrentLongtitude);
+        //this.tabsPagerAdapter = new TabsPagerAdapter(this, viewPager, name, doublelatitude, doublelongtitude, doubleCurrentLatitude, doubleCurrentLongtitude);
+        this.tabsPagerAdapter = new TabsPagerAdapter(this, viewPager);
         Bundle infoBundle = new Bundle();
-        infoBundle.putString("info", name);
+        infoBundle.putString("place_nameEl_info", placenameEl);
+        infoBundle.putString("desc_info", description_info);
+        infoBundle.putString("telephone", telephone);
+        infoBundle.putString("link", link);
+        infoBundle.putString("fbLink", fbLink);
+        infoBundle.putString("email", email);
         tabsPagerAdapter.addTab(actionBar.newTab().setText("Info"), InfoFragment.class, infoBundle);
         tabsPagerAdapter.addTab(actionBar.newTab().setText("MenuTab"), MenuFragment.class, null);
         Bundle onmapBundle = new Bundle();
@@ -92,6 +113,11 @@ public class Test extends FragmentActivity {
         onmapBundle.putDouble("doubleCurrentLongtitude", doubleCurrentLongtitude);
         tabsPagerAdapter.addTab(actionBar.newTab().setText("OnMap"), OnMapFragment.class, onmapBundle);
         
+        if (button_pressed.equals("museums")){
+        	//Toast.makeText(getApplicationContext(), "Button pressed text =>" + " " + button_pressed, Toast.LENGTH_SHORT).show();
+        	tabsPagerAdapter.addTab(actionBar.newTab().setText("Fourth tab"), FourthFragment.class, null);
+        }
+     
       /*  ActionBar.TabListener tabListener = new ActionBar.TabListener() {
 			
 			@Override

@@ -52,18 +52,18 @@ public class TabsPagerAdapter extends FragmentPagerAdapter implements OnPageChan
 	}
 	
 	@TargetApi(Build.VERSION_CODES.HONEYCOMB) 
-	public TabsPagerAdapter(FragmentActivity activity, ViewPager pager, String name, double doubleLatitude, double doubleLongtitude, double doubleCurrentLatitude, double doubleCurrentLongtitude) {
+	public TabsPagerAdapter(FragmentActivity activity, ViewPager pager) {
 		super(activity.getSupportFragmentManager());
 		mContext = activity;
 		mActionBar = activity.getActionBar();
 		mViewPager = pager;
 		mViewPager.setAdapter(this);
 		mViewPager.setOnPageChangeListener(this);
-        this.name = name;
-        this.doubleLatitude = doubleLatitude;
-        this.doubleLongtitude = doubleLongtitude;
-        this.doubleCurrentLatitude = doubleCurrentLatitude;
-        this.doubleCurrentLongtitude = doubleCurrentLongtitude;
+        //this.name = name;
+        //this.doubleLatitude = doubleLatitude;
+        //this.doubleLongtitude = doubleLongtitude;
+        //this.doubleCurrentLatitude = doubleCurrentLatitude;
+        //this.doubleCurrentLongtitude = doubleCurrentLongtitude;
 	}
 	
 	@TargetApi(Build.VERSION_CODES.HONEYCOMB) 

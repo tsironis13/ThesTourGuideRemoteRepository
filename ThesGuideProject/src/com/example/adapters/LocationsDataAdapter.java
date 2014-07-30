@@ -8,7 +8,7 @@ import com.example.thesguideproject.ActBarTest;
 import com.example.thesguideproject.ActBarTest.MyViewHolder;
 import com.example.thesguideproject.MainLayoutActivity;
 import com.example.thesguideproject.R;
-import com.example.thesguideproject.Test;
+import com.example.thesguideproject.PlacesDetailsTabs;
 
 import android.content.Context;
 import android.content.Intent;
@@ -67,7 +67,7 @@ public class LocationsDataAdapter extends BaseAdapter implements OnClickListener
 			holder = new MyViewHolder();
 			holder.genre = (TextView) convertView.findViewById(R.id.locationName);
 			holder.icon = (ImageView) convertView.findViewById(R.id.locationImage);
-			holder.nameEl = (TextView) convertView.findViewById(R.id.nameEl);
+		//	holder.nameEl = (TextView) convertView.findViewById(R.id.nameEl);
 			//holder.latitude = (TextView) convertView.findViewById(R.id.latitudetv);
 			//holder.relLay = (RelativeLayout) convertView.findViewById(R.id.relativeLayout);
 			holder.detailsButton = (Button) convertView.findViewById(R.id.info_button);
@@ -110,7 +110,7 @@ public class LocationsDataAdapter extends BaseAdapter implements OnClickListener
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
 		MyViewHolder holder = (MyViewHolder) v.getTag();
-		Intent intent = new Intent(this.activity, Test.class);
+		Intent intent = new Intent(this.activity, PlacesDetailsTabs.class);
 		//String s = holder.locations.getGenre();
 		intent.putExtra("nameEl", holder.locations.getNameEl());
 		intent.putExtra("latitude", holder.locations.getLatitude());

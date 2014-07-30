@@ -44,8 +44,12 @@ public class TestJsonWebApiTask extends AsyncTask<Void, Integer, String> {
 	 private static final String TAG_LINK = "link";
 	 private static final String TAG_LATITUDE = "latitude";
 	 private static final String TAG_LONGTITUDE = "longtitude";
+	 private static final String TAG_TEL = "tel";
+	 private static final String TAG_EMAIL = "email";
+	 private static final String TAG_FB_LINK = "facebook_link";
 	 private static final String TAG_PHOTO_LINK = "photo_link";
 	 private static final String TAG_GENRE = "genre";
+	 private static final String TAG_SUBCATEGORY = "subcategory";
 	 
 	 public TestJsonWebApiTask(){}
      
@@ -131,6 +135,21 @@ public class TestJsonWebApiTask extends AsyncTask<Void, Integer, String> {
         		double double_longtitude = Double.parseDouble(longtitude);
         		String photo_link = c.getString(TAG_PHOTO_LINK);
         		String genre = c.getString(TAG_GENRE);
+        		String tel = c.getString(TAG_TEL);
+        		String email = c.getString(TAG_EMAIL);
+        		String fb_link = c.getString(TAG_FB_LINK);
+        		String subcategory = c.getString(TAG_SUBCATEGORY);
+        		
+        		String info = null;
+        		String exhibition = null;
+        		String menu = null;
+        		JSONArray desc_array = c.getJSONArray("desc");
+        			for (int j=0; j<desc_array.length(); j++){
+        				JSONObject descObject = desc_array.getJSONObject(j);
+        				info = descObject.getString("info");
+        				exhibition = descObject.getString("exhibition");
+        				menu = descObject.getString("menu");
+        			}
         		
         		try {
         			encodedUrl = link +"/" + URLEncoder.encode(link, "UTF-8");
@@ -139,7 +158,8 @@ public class TestJsonWebApiTask extends AsyncTask<Void, Integer, String> {
 					e.printStackTrace();
 				}
         		
-        		placesDataArray.add(new PlacesData(integer_id, name_el, name_en, link, double_latitude, double_longtitude, photo_link, genre));
+        		placesDataArray.add(new PlacesData(integer_id, name_el, name_en, link, double_latitude, double_longtitude, 
+        				photo_link, genre, info, exhibition, menu, subcategory, tel, email, fb_link));
         	}
         	
         	

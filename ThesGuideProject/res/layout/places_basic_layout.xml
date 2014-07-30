@@ -31,7 +31,7 @@
          </TextView>
          
         <TextView 
-            android:id="@+id/nameEl"
+            android:id="@+id/placeNametv"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content" 
 			android:layout_marginLeft="4dip"
@@ -40,12 +40,47 @@
         </TextView>
         
         <TextView 
+            android:id="@+id/descinfohiddentv"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:visibility="invisible" >
+        </TextView>
+        
+        <TextView 
+            android:id="@+id/telhiddentv"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:visibility="invisible" >
+        </TextView>
+        
+        <TextView 
+            android:id="@+id/linkhiddentv"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:visibility="invisible" >
+        </TextView>
+        
+        <TextView 
+            android:id="@+id/fbLinkhiddentv"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:visibility="invisible" >
+        </TextView>
+        
+        <TextView 
+            android:id="@+id/emailhiddentv"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:visibility="invisible" >
+        </TextView>
+        
+        <TextView 
             android:id="@+id/distance"
             android:layout_width="wrap_content"
 			android:layout_height="wrap_content" 
 			android:layout_marginLeft="4dip"
 			android:layout_toRightOf="@+id/locationImage" 
-			android:layout_below="@+id/nameEl">
+			android:layout_below="@+id/placeNametv">
         </TextView>  
         
           <TextView 
