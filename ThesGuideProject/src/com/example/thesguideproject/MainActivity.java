@@ -12,7 +12,7 @@ import com.example.myLocation.GPSTracker;
 import com.example.sqlHelper.TestLocalSqliteDatabase;
 import com.example.storage.InternalStorage;
 import com.example.tasks.ServiceHandler;
-import com.example.tasks.TestJsonWebApiTask;
+import com.example.tasks.PlacesJsonWebApiTask;
 
 import android.annotation.TargetApi;
 import android.support.v4.app.Fragment;
@@ -65,8 +65,8 @@ public class MainActivity extends ListActivity {
 		WifiManager wifi = (WifiManager) getSystemService(Context.WIFI_SERVICE);
 		if (wifi.isWifiEnabled()){
 			
-			testDB.clearTableIfExists();
-			TestJsonWebApiTask testwebtask = new TestJsonWebApiTask(MainActivity.this);
+			testDB.clearPlacesTableIfExists();
+			PlacesJsonWebApiTask testwebtask = new PlacesJsonWebApiTask(MainActivity.this);
 			testwebtask.execute();
 			testDB.close();
 		}

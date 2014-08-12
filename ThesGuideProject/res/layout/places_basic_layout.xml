@@ -75,6 +75,41 @@
         </TextView>
         
         <TextView 
+            android:id="@+id/exhibitionhiddentv"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:visibility="invisible" >
+        </TextView>
+        
+        <TextView 
+            android:id="@+id/photoLink1hiddentv"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:visibility="invisible" >
+        </TextView>
+        
+        <TextView 
+            android:id="@+id/photoLink2hiddentv"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:visibility="invisible" >
+        </TextView>
+        
+        <TextView 
+            android:id="@+id/photoLink3hiddentv"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:visibility="invisible" >
+        </TextView>
+        
+        <TextView 
+            android:id="@+id/photoLink4hiddentv"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:visibility="invisible" >
+        </TextView>
+        
+        <TextView 
             android:id="@+id/distance"
             android:layout_width="wrap_content"
 			android:layout_height="wrap_content" 

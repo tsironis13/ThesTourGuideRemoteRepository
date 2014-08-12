@@ -9,7 +9,7 @@ import com.example.sqlHelper.DatabaseHolder;
 import com.example.sqlHelper.TestLocalSqliteDatabase;
 import com.example.tasks.ImageTask;
 import com.example.tasks.JsonWebAPITask;
-import com.example.tasks.TestJsonWebApiTask;
+import com.example.tasks.PlacesJsonWebApiTask;
 
 import android.app.Activity;
 import android.content.Context;
@@ -72,15 +72,15 @@ public class MainLayoutActivity extends FragmentActivity implements OnItemSelect
 		
 		WifiManager wifi = (WifiManager) getSystemService(Context.WIFI_SERVICE);
 		if (wifi.isWifiEnabled()){
-			testDB.clearTableIfExists();
+			//testDB.clearPlacesTableIfExists();
 			//TestJsonWebApiTask testwebtask = new TestJsonWebApiTask(MainLayoutActivity.this);
 			//testwebtask.execute();
-			testDB.openDataBase();
+			//testDB.openDataBase();
 			
 		}
 		else{
 			testDB.openDataBase();
-			checkTableIfContainsData = testDB.checkDataTable();
+			checkTableIfContainsData = testDB.checkPlacesDataTable();
 			
 			 if (checkTableIfContainsData == false){	
 					testDB.getTableNames();

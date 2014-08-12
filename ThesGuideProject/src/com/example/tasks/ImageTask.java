@@ -27,12 +27,13 @@ public class ImageTask {
     private SimpleCursorAdapter adapt;
     //private BaseAdapter adapt;
     private ArrayList<Bitmap> bitmapArray;
-    
-    
+        
     public ImageTask(Context ctx)
     {
         imageCache = new HashMap<String, Drawable>();
     }
+    
+   
     
     public Drawable loadImage(SimpleCursorAdapter adapt, ImageView view)
     {
@@ -51,7 +52,7 @@ public class ImageTask {
             return DEFAULT_ICON;
         }
     }
-    
+     
     /*
     public Drawable loadImage(BaseAdapter adapt, ImageView view)
     {

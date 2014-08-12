@@ -2,12 +2,21 @@ package com.example.adapters;
 
 import java.util.ArrayList;
 
+
+
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Stack;
+
 import com.example.fragmentClasses.InfoFragment;
-import com.example.fragmentClasses.MenuFragment;
+import com.example.fragmentClasses.ExhibitionFragment;
 import com.example.fragmentClasses.OnMapFragment;
 //import com.rufflez.swipeyandlist.TabsAdapter.TabInfo;
 
 
+import com.example.fragmentClasses.PhotoGridViewFragment;
+import com.example.thesguideproject.PlacesDetailsTabs;
 import com.example.adapters.TabsPagerAdapter.TabInfo;
 
 import android.annotation.TargetApi;
@@ -26,11 +35,12 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.util.Log;
+import android.widget.Toast;
 
 @TargetApi(Build.VERSION_CODES.HONEYCOMB) 
-public class TabsPagerAdapter extends FragmentPagerAdapter implements OnPageChangeListener, TabListener {
+public class TabsPagerAdapter extends FragmentStatePagerAdapter implements OnPageChangeListener, TabListener {
 	
-	private final Context mContext;
+	//private final Context mContext;
 	private final ActionBar mActionBar;
 	private final ViewPager mViewPager;
 	private final ArrayList<TabInfo> mTabs = new ArrayList<TabInfo>();
@@ -40,6 +50,10 @@ public class TabsPagerAdapter extends FragmentPagerAdapter implements OnPageChan
 	private double doubleLongtitude;
 	private double doubleCurrentLatitude;
 	private double doubleCurrentLongtitude;
+	private Map<Integer, Stack<TabInfo>> history = new HashMap<Integer, Stack<TabInfo>>();
+	private final PlacesDetailsTabs activity;
+	private int TOTAL_TABS;
+	
 	
 	static final class TabInfo{
 		private final Class<?> clss;
@@ -51,10 +65,25 @@ public class TabsPagerAdapter extends FragmentPagerAdapter implements OnPageChan
 		}
 	}
 	
+	//@TargetApi(Build.VERSION_CODES.HONEYCOMB) 
+	//public TabsPagerAdapter(FragmentActivity activity, ViewPager pager) {
+		//super(activity.getSupportFragmentManager());
+		//mContext = activity;
+		//mActionBar = activity.getActionBar();
+		//mViewPager = pager;
+		//mViewPager.setAdapter(this);
+		//mViewPager.setOnPageChangeListener(this);
+        //this.name = name;
+        //this.doubleLatitude = doubleLatitude;
+        //this.doubleLongtitude = doubleLongtitude;
+        //this.doubleCurrentLatitude = doubleCurrentLatitude;
+        //this.doubleCurrentLongtitude = doubleCurrentLongtitude;
+	//}
+	
 	@TargetApi(Build.VERSION_CODES.HONEYCOMB) 
-	public TabsPagerAdapter(FragmentActivity activity, ViewPager pager) {
+	public TabsPagerAdapter(PlacesDetailsTabs activity, ViewPager pager) {
 		super(activity.getSupportFragmentManager());
-		mContext = activity;
+		this.activity = activity;
 		mActionBar = activity.getActionBar();
 		mViewPager = pager;
 		mViewPager.setAdapter(this);
@@ -104,7 +133,43 @@ public class TabsPagerAdapter extends FragmentPagerAdapter implements OnPageChan
 	@Override
 	public Fragment getItem(int position) {
 		TabInfo info = mTabs.get(position);
-		return Fragment.instantiate(mContext, info.clss.getName(), info.args);
+		//Toast.makeText(mContext, info.clss.getName(), Toast.LENGTH_SHORT).show();
+		if (info.clss.getName().equals("com.example.fragmentClasses.PhotoGridViewFragment")){
+			//Toast.makeText(mContext, "!!PhotoGridViewFragment", Toast.LENGTH_SHORT).show();
+			return Fragment.instantiate(activity, "com.example.fragmentClasses.PhotoGridViewFragment", info.args);
+		}
+		else if (info.clss.getName().equals("com.example.fragmentClasses.OnMapFragment")) {
+			//Toast.makeText(mContext, "!!OnMapFragment", Toast.LENGTH_SHORT).show();
+			return Fragment.instantiate(activity, "com.example.fragmentClasses.OnMapFragment", info.args);
+		}	
+		else{	
+			return Fragment.instantiate(activity, info.clss.getName(), info.args);
+		}
+	}
+
+	
+	
+	@Override
+	public int getItemPosition(final Object object) {
+		// TODO Auto-generated method stub
+		/* Get the current position. */
+		int position = mActionBar.getSelectedTab().getPosition();
+		
+		/* The default value. */
+	    int pos = POSITION_NONE;
+	    if (history.get(position).isEmpty()) {
+	        return POSITION_NONE;
+	    }
+
+	    /* Checks if the object exists in current history. */
+	    for (Stack<TabInfo> stack : history.values()) {
+	        TabInfo c = stack.peek();
+	        if (c.getClass().getName().equals(object.getClass().getName())) {
+	            pos = POSITION_UNCHANGED;
+	            break;
+	        }
+	    }
+	    return pos;
 	}
 
 	@Override
@@ -134,7 +199,6 @@ public class TabsPagerAdapter extends FragmentPagerAdapter implements OnPageChan
 	@Override
 	public void onTabReselected(Tab tab, FragmentTransaction ft) {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
@@ -157,4 +221,74 @@ public class TabsPagerAdapter extends FragmentPagerAdapter implements OnPageChan
 		
 	}
 
+	
+	public void replace(final int position, final Class fragmentClass, final Bundle args) {
+	    /* Save the fragment to the history. */
+		activity.getSupportFragmentManager().beginTransaction().addToBackStack(null).commit();
+
+	    /* Update the tabs. */
+	    updateTabs(new TabInfo(fragmentClass, args), position);
+
+	    /* Updates the history. */
+	    history.get(position).push(new TabInfo(mTabs.get(position).clss, mTabs.get(position).args));
+
+	    notifyDataSetChanged();
+	}
+	
+	private void updateTabs(final TabInfo tabInfo, final int position) {
+	    mTabs.remove(position);
+	    mTabs.add(position, tabInfo);
+	    mActionBar.getTabAt(position).setTag(tabInfo);
+	}
+	
+	public void createHistory() {
+	    int position = 0;
+	    TOTAL_TABS = mTabs.size();
+	    for (TabInfo mTab : mTabs) {
+	        if (history.get(position) == null) {
+	            history.put(position, new Stack<TabInfo>());
+	        }
+	        history.get(position).push(new TabInfo(mTab.clss, mTab.args));
+	        position++;
+	    }
+	}
+	
+	
+	public void back() {
+	    int position = mActionBar.getSelectedTab().getPosition();
+	    if (!historyIsEmpty(position)) {
+	        /* In case there is not any other item in the history, then finalize the activity. */
+	        if (isLastItemInHistory(position)) {
+	            activity.finish();
+	        }
+	        final TabInfo currentTabInfo = getPrevious(position);
+	        mTabs.clear();
+	        for (int i = 0; i < TOTAL_TABS; i++) {
+	            if (i == position) {
+	                mTabs.add(new TabInfo(currentTabInfo.clss, currentTabInfo.args));
+	            } else {
+	                TabInfo otherTabInfo = history.get(i).peek();
+	                mTabs.add(new TabInfo(otherTabInfo.clss, otherTabInfo.args));
+	            }
+	        }
+	    }
+	    mActionBar.selectTab(mActionBar.getTabAt(position));
+	    notifyDataSetChanged();
+	}
+	
+	private boolean historyIsEmpty(final int position) {
+	    return history == null || history.isEmpty() || history.get(position).isEmpty();
+	}
+
+	private boolean isLastItemInHistory(final int position) {
+	    return history.get(position).size() == 1;
+	}
+	
+	private TabInfo getPrevious(final int position) {
+	    TabInfo currentTabInfo = history.get(position).pop();
+	    if (!history.get(position).isEmpty()) {
+	        currentTabInfo = history.get(position).peek();
+	    }
+	    return currentTabInfo;
+	}
 }

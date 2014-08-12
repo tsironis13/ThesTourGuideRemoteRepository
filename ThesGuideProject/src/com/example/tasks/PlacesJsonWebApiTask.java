@@ -22,14 +22,14 @@ import com.example.sqlHelper.TestLocalSqliteDatabase;
 import com.example.thesguideproject.MainActivity;
 import com.example.thesguideproject.MainLayoutActivity;
 
-public class TestJsonWebApiTask extends AsyncTask<Void, Integer, String> {
+public class PlacesJsonWebApiTask extends AsyncTask<Void, Integer, String> {
 
 	 private static String url = "http://aetos.it.teithe.gr/~tsironis/places_file.php";
 	 private ProgressDialog pDialog;
 	 //private MainLayoutActivity activity;
 	 private MainActivity activity;
 	 private Context context;
-	 private static final String debugTag = "TestJsonWebApiTask";
+	 private static final String debugTag = "PlacesJsonWebApiTask";
 	 public String encodedUrl;
 	 
 	 ServiceHandler sh = new ServiceHandler();
@@ -51,9 +51,9 @@ public class TestJsonWebApiTask extends AsyncTask<Void, Integer, String> {
 	 private static final String TAG_GENRE = "genre";
 	 private static final String TAG_SUBCATEGORY = "subcategory";
 	 
-	 public TestJsonWebApiTask(){}
+	 public PlacesJsonWebApiTask(){}
      
-	 public TestJsonWebApiTask(MainActivity activity){
+	 public PlacesJsonWebApiTask(MainActivity activity){
 	    	super();
 	    	this.activity = activity;
 	    	this.context = this.activity.getApplicationContext();
@@ -143,23 +143,33 @@ public class TestJsonWebApiTask extends AsyncTask<Void, Integer, String> {
         		String info = null;
         		String exhibition = null;
         		String menu = null;
+        		String link1 = null;
+        		String link2 = null;
+        		String link3 = null;
+        		String link4 = null;
+        		String link5 = null;
         		JSONArray desc_array = c.getJSONArray("desc");
         			for (int j=0; j<desc_array.length(); j++){
         				JSONObject descObject = desc_array.getJSONObject(j);
         				info = descObject.getString("info");
         				exhibition = descObject.getString("exhibition");
         				menu = descObject.getString("menu");
+        				link1 = descObject.getString("photo_link1");
+        				link2 = descObject.getString("photo_link2");
+        				link3 = descObject.getString("photo_link3");
+        				link4 = descObject.getString("photo_link4");
+        				link5 = descObject.getString("photo_link5");
         			}
         		
         		try {
-        			encodedUrl = link +"/" + URLEncoder.encode(link, "UTF-8");
+        			encodedUrl = url +"/" + URLEncoder.encode(url, "UTF-8");
 				} catch (UnsupportedEncodingException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
         		
         		placesDataArray.add(new PlacesData(integer_id, name_el, name_en, link, double_latitude, double_longtitude, 
-        				photo_link, genre, info, exhibition, menu, subcategory, tel, email, fb_link));
+        				photo_link, genre, info, exhibition, menu, link1, link2, link3, link4, link5, subcategory, tel, email, fb_link));
         	}
         	
         	
@@ -181,7 +191,7 @@ public class TestJsonWebApiTask extends AsyncTask<Void, Integer, String> {
 		        Log.d("Name: ", log);
 		        }
 			  
-			dbtest.getArrayListwithTestJsonData(placesDataArray);
+			dbtest.getArrayListwithPlacesJsonData(placesDataArray);
 			
 			 // Reading all contacts
 	        

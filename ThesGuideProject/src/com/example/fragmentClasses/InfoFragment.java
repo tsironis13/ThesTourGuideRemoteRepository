@@ -1,5 +1,6 @@
 package com.example.fragmentClasses;
 
+import com.example.thesguideproject.PlacesDetailsTabs;
 import com.example.thesguideproject.R;
 
 import android.annotation.SuppressLint;
@@ -7,6 +8,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
 import android.util.Log;
@@ -16,7 +18,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-
 
 @SuppressLint("DefaultLocale") 
 public class InfoFragment extends Fragment{
@@ -30,23 +31,14 @@ public class InfoFragment extends Fragment{
 	private Button telFragmentButton;
 	private Button emailFragmentButton;
 	private String name;
-	
+	PlacesDetailsTabs pdt = new PlacesDetailsTabs();
 	public InfoFragment(){}
 	
 	
-
-	@SuppressLint("DefaultLocale")
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		View view = inflater.inflate(R.layout.info_fragment, container, false);
-		//String s = getArguments().getString("info"); 
-		String place_nameEl = getArguments().getString("place_nameEl_info");
-		String desc_info = getArguments().getString("desc_info");
-		String tel = getArguments().getString("telephone");
-		String link = getArguments().getString("link");
-		String fbLink = getArguments().getString("fbLink");
-		String email = getArguments().getString("email");
 		//this.nameEltv = (TextView) view.findViewById(R.id.testtv);
 		//nameEltv.setText(s);
 		this.placenameElFragmenttv = (TextView) view.findViewById(R.id.placeNameFragmentTextView);
@@ -57,6 +49,25 @@ public class InfoFragment extends Fragment{
 		this.emailFragmenttv = (TextView) view.findViewById(R.id.emailFragmentTextView);
 		this.telFragmentButton = (Button) view.findViewById(R.id.telFragmentButton);
 		this.emailFragmentButton = (Button) view.findViewById(R.id.emailFragmentButton);
+		
+		
+		return view;
+	}
+
+
+
+	@Override
+	public void onActivityCreated(Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		super.onActivityCreated(savedInstanceState);
+		
+		//String s = getArguments().getString("info"); 
+		String place_nameEl = getArguments().getString("place_nameEl_info");
+		String desc_info = getArguments().getString("desc_info");
+		String tel = getArguments().getString("telephone");
+		String link = getArguments().getString("link");	
+		String fbLink = getArguments().getString("fbLink");
+		String email = getArguments().getString("email");
 		
 		placenameElFragmenttv.setText(place_nameEl.toUpperCase());
 		infoFragmenttv.setText(desc_info);
@@ -82,7 +93,7 @@ public class InfoFragment extends Fragment{
 			}
 		});
 		
-		emailFragmentButton.setOnClickListener(new View.OnClickListener() {
+        emailFragmentButton.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
@@ -99,10 +110,12 @@ public class InfoFragment extends Fragment{
 				}
 			}
 		});
-		
-		return view;
 	}
 
+	
+	
+	
+	
 	/*@Override
 	public void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub

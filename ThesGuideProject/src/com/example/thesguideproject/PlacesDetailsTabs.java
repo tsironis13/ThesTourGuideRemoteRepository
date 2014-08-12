@@ -1,11 +1,23 @@
 package com.example.thesguideproject;
 
+import java.io.InputStream;
+import java.util.ArrayList;
+
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.HttpStatus;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+
 import com.example.adapters.TabsPagerAdapter;
-import com.example.fragmentClasses.FourthFragment;
+import com.example.fragmentClasses.GoogleMapFragment;
+import com.example.fragmentClasses.GoogleMapFragment.OnGoogleMapFragmentListener;
+import com.example.fragmentClasses.PhotoGridViewFragment;
 import com.example.fragmentClasses.InfoFragment;
-import com.example.fragmentClasses.MenuFragment;
+import com.example.fragmentClasses.ExhibitionFragment;
 import com.example.fragmentClasses.OnMapFragment;
 import com.example.myLocation.GPSTracker;
+import com.example.sqlHelper.TestLocalSqliteDatabase;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -13,32 +25,38 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-
-
-
-
-
 import android.annotation.TargetApi;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.app.ActionBar;
+import android.app.ProgressDialog;
 import android.app.ActionBar.Tab;
+import android.util.DisplayMetrics;
+import android.util.Log;
+import android.view.View;
+import android.widget.GridView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 @TargetApi(Build.VERSION_CODES.HONEYCOMB) 
-public class PlacesDetailsTabs extends FragmentActivity {
+public class PlacesDetailsTabs extends FragmentActivity implements OnGoogleMapFragmentListener{
 
 	// Google Map
     private GoogleMap googleMap;
     
     LatLng myPosition;
-	
+    
+    private GoogleMap mUIGoogleMap;
+    private ProgressDialog simpleWaitDialog;
     private String button_pressed;
     private String placenameEl;
     private String description_info;
@@ -46,6 +64,11 @@ public class PlacesDetailsTabs extends FragmentActivity {
     private String link;
     private String fbLink;
     private String email;
+    private String exhibition;
+    private String photoLink1;
+    private String photoLink2;
+    private String photoLink3;
+    private String photoLink4;
     private TabsPagerAdapter mAdapter;
     private double doublelatitude;
     private double doublelongtitude;
@@ -60,6 +83,14 @@ public class PlacesDetailsTabs extends FragmentActivity {
   	private android.app.ActionBar actionBar;
   	private ViewPager viewPager;
     private TabsPagerAdapter tabsPagerAdapter;
+    private Context context;
+    Bundle exhibitionBundle = new Bundle();
+    
+    @Override
+	public void onMapReady(GoogleMap map) {
+		// TODO Auto-generated method stub
+		mUIGoogleMap = map;
+	}
     
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +107,11 @@ public class PlacesDetailsTabs extends FragmentActivity {
 		link = i.getStringExtra("link");
 		fbLink = i.getStringExtra("fbLink");
 		email = i.getStringExtra("email");
+		exhibition = i.getStringExtra("exhibition");
+		photoLink1 = i.getStringExtra("photoLink1");
+		photoLink2 = i.getStringExtra("photoLink2");
+		photoLink3 = i.getStringExtra("photoLink3");
+		photoLink4 = i.getStringExtra("photoLink4");
 		latitude = i.getStringExtra("latitude");
 		longtitude = i.getStringExtra("longtitude");
 		current_latitude = i.getStringExtra("current latitude");
@@ -90,6 +126,7 @@ public class PlacesDetailsTabs extends FragmentActivity {
 		doubleCurrentLongtitude = Double.parseDouble(current_longtitude);
 		
 		viewPager = (ViewPager) findViewById(R.id.pager);
+		viewPager.setClipToPadding(false);
 		actionBar = getActionBar();
 		//mAdapter = new TabsPagerAdapter(this, viewPager, name, doublelatitude, doublelongtitude, doubleCurrentLatitude, doubleCurrentLongtitude);
 		
@@ -99,6 +136,10 @@ public class PlacesDetailsTabs extends FragmentActivity {
         
         //this.tabsPagerAdapter = new TabsPagerAdapter(this, viewPager, name, doublelatitude, doublelongtitude, doubleCurrentLatitude, doubleCurrentLongtitude);
         this.tabsPagerAdapter = new TabsPagerAdapter(this, viewPager);
+        tabsPagerAdapter.createHistory();
+        
+        
+        
         Bundle infoBundle = new Bundle();
         infoBundle.putString("place_nameEl_info", placenameEl);
         infoBundle.putString("desc_info", description_info);
@@ -107,17 +148,54 @@ public class PlacesDetailsTabs extends FragmentActivity {
         infoBundle.putString("fbLink", fbLink);
         infoBundle.putString("email", email);
         tabsPagerAdapter.addTab(actionBar.newTab().setText("Info"), InfoFragment.class, infoBundle);
-        tabsPagerAdapter.addTab(actionBar.newTab().setText("MenuTab"), MenuFragment.class, null);
+        
+        exhibitionBundle = new Bundle();
+        exhibitionBundle.putString("exhibition", exhibition);
+        tabsPagerAdapter.addTab(actionBar.newTab().setText("Exhibition"), ExhibitionFragment.class, exhibitionBundle);
+        
+        
+        TestLocalSqliteDatabase testDB = new TestLocalSqliteDatabase(this);
+        
+        DisplayMetrics metrics = new DisplayMetrics();
+     		getWindowManager().getDefaultDisplay().getMetrics(metrics);
+     		
+     		int scr_height = metrics.heightPixels;
+     		int scr_width = metrics.widthPixels;
+     		String s_height = Integer.toString(scr_height);
+     		String s_width = Integer.toString(scr_width);
+     		Log.i("SCRENN HEIGHT => ", s_height);
+     		Log.i("SCRENN WIDTH => ", s_width);
+        
+        if (button_pressed.equals("museums")){
+        	
+        	//ArrayList<Photo>  photoLinksArray = testDB.getPhotoLinksArray(placenameEl);
+        	String[] photoLinkStringArray = testDB.getPhotoLinksArray(placenameEl);
+        	int list_length = photoLinkStringArray.length;
+        	String s = Integer.toString(list_length);
+        	
+        	Log.i("PHOTO LIST RETURN FROM DATABASE =>", s);
+  	
+        	//Toast.makeText(getApplicationContext(), "Button pressed text =>" + " " + button_pressed, Toast.LENGTH_SHORT).show();
+        	Bundle photoBundle = new Bundle();
+        	photoBundle.putSerializable("linksList", photoLinkStringArray);
+        	photoBundle.putInt("Screen Height", scr_height);
+        	photoBundle.putInt("Screen Width", scr_width);
+        	tabsPagerAdapter.addTab(actionBar.newTab().setText("Photo tab"), PhotoGridViewFragment.class, photoBundle);
+        	
+        	
+        	testDB.close();
+        }
+     
+        
+     
+        
         Bundle onmapBundle = new Bundle();
         onmapBundle.putDouble("doubleCurrentLatitude", doubleCurrentLatitude);
         onmapBundle.putDouble("doubleCurrentLongtitude", doubleCurrentLongtitude);
-        tabsPagerAdapter.addTab(actionBar.newTab().setText("OnMap"), OnMapFragment.class, onmapBundle);
+        //tabsPagerAdapter.addTab(actionBar.newTab().setText("OnMap"), OnMapFragment.class, onmapBundle);
+        tabsPagerAdapter.addTab(actionBar.newTab().setText("OnMap"), GoogleMapFragment.class, onmapBundle);
+      //  tabsPagerAdapter.replace(2, ExhibitionFragment.class, exhibitionBundle);
         
-        if (button_pressed.equals("museums")){
-        	//Toast.makeText(getApplicationContext(), "Button pressed text =>" + " " + button_pressed, Toast.LENGTH_SHORT).show();
-        	tabsPagerAdapter.addTab(actionBar.newTab().setText("Fourth tab"), FourthFragment.class, null);
-        }
-     
       /*  ActionBar.TabListener tabListener = new ActionBar.TabListener() {
 			
 			@Override
@@ -157,5 +235,8 @@ public class PlacesDetailsTabs extends FragmentActivity {
 		
 
 	}
+
+	
+	
 	
 }

@@ -2,7 +2,7 @@ package com.example.thesguideproject;
 
 import java.io.IOException;
 
-import com.example.adapters.TestDataListCursorAdapter;
+import com.example.adapters.PLacesDataListCursorAdapter;
 import com.example.myLocation.GPSTracker;
 import com.example.sqlHelper.TestLocalSqliteDatabase;
 import com.example.tasks.BitmapTask;
@@ -28,7 +28,7 @@ public class CursorAdapterExample extends Activity implements OnItemSelectedList
 	private ListView listExample;
 	private BitmapTask imgFetcher;
 	private LayoutInflater layoutInflator;
-	private Cursor cursor;
+	private Cursor specificPlacecursor;
 	private String[] columns;
 	private int[] to;
 	private String genre;
@@ -90,7 +90,7 @@ public class CursorAdapterExample extends Activity implements OnItemSelectedList
 			public void onClick(View v) {
 				button_pressed = "museums";
 				HelperMethodDependingOnButtonClick("museums");
-				setAdapterFromSpecificCursor(button_pressed, listExample, cursor, columns, to, imgFetcher, current_latitude, current_longtitude);
+				setAdapterFromSpecificCursor(button_pressed, listExample, specificPlacecursor, columns, to, imgFetcher, current_latitude, current_longtitude);
 				testDB.close();
 			}
 		});
@@ -102,7 +102,7 @@ public class CursorAdapterExample extends Activity implements OnItemSelectedList
 				// TODO Auto-generated method stub
 				button_pressed = "sightseeings";
 				HelperMethodDependingOnButtonClick("sightseeings");
-				setAdapterFromSpecificCursor(button_pressed, listExample, cursor, columns, to, imgFetcher, current_latitude, current_longtitude);
+				setAdapterFromSpecificCursor(button_pressed, listExample, specificPlacecursor, columns, to, imgFetcher, current_latitude, current_longtitude);
 				testDB.close();
 			}
 		});
@@ -112,7 +112,7 @@ public class CursorAdapterExample extends Activity implements OnItemSelectedList
 	
 	public void HelperMethodDependingOnButtonClick(String genre){
 		testDB.openDataBase();
-		cursor = testDB.getAllTestData(genre);
+		specificPlacecursor = testDB.getSpecificPlaceData(genre);
 		
 		// the desired columns to be bound
 		columns = new String[] {"_id", "name_el", "photo_link", "info"};
@@ -123,7 +123,7 @@ public class CursorAdapterExample extends Activity implements OnItemSelectedList
 	
 	
 	private void setAdapterFromSpecificCursor(String button_pressed, ListView listExample, Cursor cursor, String[] columns, int[] to, BitmapTask imgFetcher, double current_latitude, double current_longtitude){
-		this.listExample.setAdapter(new TestDataListCursorAdapter(button_pressed, this, this,  R.layout.places_basic_layout, cursor, columns, to, this.imgFetcher, current_latitude, current_longtitude) );
+		this.listExample.setAdapter(new PLacesDataListCursorAdapter(button_pressed, this, this,  R.layout.places_basic_layout, cursor, columns, to, this.imgFetcher, current_latitude, current_longtitude) );
 	}
 
 	

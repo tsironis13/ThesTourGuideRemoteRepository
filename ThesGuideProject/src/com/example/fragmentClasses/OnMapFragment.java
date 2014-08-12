@@ -1,6 +1,7 @@
 package com.example.fragmentClasses;
 
 import com.example.thesguideproject.R;
+import com.example.thesguideproject.StartActivityFromFragment;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -20,6 +21,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,6 +34,7 @@ public class OnMapFragment extends Fragment{
 	private double doubleCurrentLongtitude;
 	private WebView webview;
 	private TextView onmaptv;
+	private Button button;
 	// Google Map
     private GoogleMap googleMap;
     
@@ -58,6 +61,10 @@ public class OnMapFragment extends Fragment{
 		// Getting reference to the SupportMapFragment of activity_main.xml
         SupportMapFragment fm = (SupportMapFragment) getFragmentManager().findFragmentById(R.id.mapfragment);
 		
+		
+		
+		
+		
        //Getting GoogleMap object from the fragment
         googleMap = fm.getMap();
        
@@ -68,7 +75,7 @@ public class OnMapFragment extends Fragment{
        //Creating a LatLng object for a specific location
        LatLng latLng1 = new LatLng(currentLat, currentLong);
        
-        googleMap.addMarker(new MarkerOptions().position(latLng1).title("Finish"));
+       googleMap.addMarker(new MarkerOptions().position(latLng1).title("Finish"));
        
        CameraUpdate center= CameraUpdateFactory.newLatLng(new LatLng(currentLat, currentLong));
        CameraUpdate zoom= CameraUpdateFactory.zoomTo(16);
@@ -105,12 +112,35 @@ public class OnMapFragment extends Fragment{
     
 
 	@Override
+	public void onActivityCreated(Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		super.onActivityCreated(savedInstanceState);
+		button = (Button) getActivity().findViewById(R.id.button);
+		button.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Intent intent = new Intent(getActivity(), StartActivityFromFragment.class);
+				startActivity(intent);
+				//Fragment fragment = (getFragmentManager().findFragmentById(R.id.mapfragment));
+				InfoFragment info = new InfoFragment();
+				//FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+				//ft.remove(fragment);
+				//ft.replace(R.id.mapfragment, info);
+				//ft.detach(fragment);
+		        //ft.commit();
+			}
+		});
+	}
+
+	@Override
 	public void onPause() {
 		// TODO Auto-generated method stub
 		Fragment fragment = (getFragmentManager().findFragmentById(R.id.mapfragment)); 
 		FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+		ft.addToBackStack(null);
 		ft.remove(fragment);
-		//ft.detach(fragment);
         ft.commit();
 		super.onPause();
 	}

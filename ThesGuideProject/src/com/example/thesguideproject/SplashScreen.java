@@ -1,9 +1,13 @@
 package com.example.thesguideproject;
 
+import java.io.IOException;
+
+import com.example.sqlHelper.TestLocalSqliteDatabase;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.GestureDetector;
@@ -33,7 +37,7 @@ public class SplashScreen extends Activity{
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.viewflipper);
-		
+			
 		text = (Button) findViewById(R.id.textButton);
 		text.setOnClickListener(new View.OnClickListener() {
 			
