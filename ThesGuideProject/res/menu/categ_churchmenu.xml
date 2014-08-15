@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+    
+    
+    
+   <group
+       android:checkableBehavior="single">
+    <item 
+        android:id="@+id/bizantines"
+        android:title="@string/byzantine" >
+    </item>
+    
+    <item 
+        android:id="@+id/paleochristianikes"
+        android:title="@string/paleochr" >
+    </item>
+    
+    <item 
+        android:id="@+id/basiliki"
+        android:title="@string/basiliki">
+    </item>
+    
+    <item 
+        android:id="@+id/macedonian"
+        android:title="@string/macedonian" >
+    </item>
+    
+    </group>
+
+</menu>

@@ -1496,14 +1496,15 @@ containing a value of this type.
         public static final int action_menu_divider=0x7f060016;
         public static final int action_menu_presenter=0x7f060017;
         public static final int action_mode_close_button=0x7f060036;
-        public static final int action_search=0x7f0600a0;
-        public static final int action_settings=0x7f06009f;
+        public static final int action_search=0x7f0600a4;
+        public static final int action_settings=0x7f0600a3;
         public static final int activity_chooser_view_content=0x7f060037;
         public static final int always=0x7f06000b;
+        public static final int basiliki=0x7f0600a1;
         public static final int beginning=0x7f060011;
+        public static final int bizantines=0x7f06009f;
         public static final int book_now=0x7f060028;
         public static final int button=0x7f060084;
-        public static final int button4=0x7f06007f;
         public static final int buttonToDownloadBitmaps=0x7f06006b;
         public static final int buttonToLoadBitmaps=0x7f06006d;
         public static final int buttonToSaveBitmaps=0x7f06006c;
@@ -1511,6 +1512,7 @@ containing a value of this type.
         public static final int buy_now=0x7f060027;
         public static final int buy_with_google=0x7f060026;
         public static final int checkbox=0x7f06003f;
+        public static final int churchesbutton=0x7f06007f;
         public static final int classic=0x7f060029;
         public static final int clear=0x7f06006e;
         public static final int clearDataDBbutton=0x7f06007b;
@@ -1556,10 +1558,10 @@ containing a value of this type.
         public static final int info_button=0x7f060099;
         public static final int internalStorage=0x7f060080;
         public static final int internalStorageButton=0x7f060057;
-        public static final int item_clear_disc_cache=0x7f0600a2;
-        public static final int item_clear_memory_cache=0x7f0600a1;
-        public static final int item_pause_on_fling=0x7f0600a4;
-        public static final int item_pause_on_scroll=0x7f0600a3;
+        public static final int item_clear_disc_cache=0x7f0600a6;
+        public static final int item_clear_memory_cache=0x7f0600a5;
+        public static final int item_pause_on_fling=0x7f0600a8;
+        public static final int item_pause_on_scroll=0x7f0600a7;
         public static final int kodikos=0x7f060075;
         public static final int latitudetv=0x7f060097;
         public static final int layoutlinear=0x7f06005b;
@@ -1578,6 +1580,7 @@ containing a value of this type.
         public static final int locationName=0x7f06008a;
         public static final int locations_list=0x7f06004f;
         public static final int longtitudetv=0x7f060098;
+        public static final int macedonian=0x7f0600a2;
         public static final int mainLayoutButton=0x7f060054;
         public static final int map=0x7f060082;
         public static final int mapButton=0x7f060051;
@@ -1594,6 +1597,7 @@ containing a value of this type.
         public static final int number=0x7f060077;
         public static final int onmaptv=0x7f060083;
         public static final int pager=0x7f06004e;
+        public static final int paleochristianikes=0x7f0600a0;
         public static final int photoLink1hiddentv=0x7f060092;
         public static final int photoLink2hiddentv=0x7f060093;
         public static final int photoLink3hiddentv=0x7f060094;
@@ -1731,8 +1735,9 @@ containing a value of this type.
         public static final int viewflipper=0x7f030033;
     }
     public static final class menu {
-        public static final int main=0x7f0e0000;
-        public static final int main_menu=0x7f0e0001;
+        public static final int categ_churchmenu=0x7f0e0000;
+        public static final int main=0x7f0e0001;
+        public static final int main_menu=0x7f0e0002;
     }
     public static final class string {
         public static final int TextButton=0x7f0b0050;
@@ -1787,7 +1792,9 @@ containing a value of this type.
         public static final int auth_client_play_services_err_notification_msg=0x7f0b0011;
         public static final int auth_client_requested_by_msg=0x7f0b0012;
         public static final int auth_client_using_bad_version_title=0x7f0b000d;
-        public static final int button4test=0x7f0b0041;
+        public static final int basiliki=0x7f0b0053;
+        public static final int byzantine=0x7f0b0051;
+        public static final int churchesbutton=0x7f0b0041;
         public static final int clearDataDBbutton=0x7f0b003e;
         /**  Button in confirmation dialog to enable Google Play services.  Clicking it
         will direct user to application settings of Google Play services where they
@@ -1889,6 +1896,7 @@ containing a value of this type.
         public static final int image_desc=0x7f0b0038;
         public static final int infoButton=0x7f0b0049;
         public static final int kamara=0x7f0b0035;
+        public static final int macedonian=0x7f0b0054;
         public static final int mainButton=0x7f0b003c;
         public static final int mapButton1=0x7f0b0031;
         public static final int menu_item_clear_disc_cache=0x7f0b004c;
@@ -1897,6 +1905,7 @@ containing a value of this type.
         public static final int menu_item_pause_on_scroll=0x7f0b004d;
         public static final int museumsbutton=0x7f0b003f;
         public static final int onMapButton=0x7f0b0048;
+        public static final int paleochr=0x7f0b0052;
         public static final int phoneNum=0x7f0b0030;
         public static final int relButton=0x7f0b0045;
         public static final int search_hint=0x7f0b003b;
@@ -1913,10 +1922,6 @@ containing a value of this type.
     }
     public static final class style {
         /** 
-        Base application theme, dependent on API level. This theme is replaced
-        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
-    
-
             Theme customizations available in newer API levels can go in
             res/values-vXX/styles.xml, while customizations related to
             backward-compatibility can go here.
@@ -1933,14 +1938,20 @@ containing a value of this type.
     
  API 14 theme customizations can go here. 
          */
-        public static final int AppBaseTheme=0x7f0c008f;
+        public static final int AppBaseTheme=0x7f0c0090;
         /**  Application theme. 
  All customizations that are NOT specific to a particular API-level can go here. 
          */
-        public static final int AppTheme=0x7f0c0090;
-        public static final int ButtonContainer=0x7f0c0092;
-        public static final int ImageTitle=0x7f0c0091;
-        public static final int ProgressBarStyle=0x7f0c0093;
+        public static final int AppTheme=0x7f0c0091;
+        /** 
+        Base application theme, dependent on API level. This theme is replaced
+        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
+    
+         */
+        public static final int BarkTheme=0x7f0c008f;
+        public static final int ButtonContainer=0x7f0c0093;
+        public static final int ImageTitle=0x7f0c0092;
+        public static final int ProgressBarStyle=0x7f0c0094;
         /**  Mimic text appearance in select_dialog_item.xml 
          */
         public static final int TextAppearance_AppCompat_Base_CompactMenu_Dialog=0x7f0c0063;

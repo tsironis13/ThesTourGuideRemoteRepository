@@ -36,19 +36,25 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.ViewPager;
-import android.app.ActionBar;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
+//import android.app.ActionBar;
 import android.app.ProgressDialog;
-import android.app.ActionBar.Tab;
+import android.support.v7.app.ActionBar.Tab;
+import android.support.v7.widget.SearchView;
+//import android.app.ActionBar.Tab;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.GridView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-@TargetApi(Build.VERSION_CODES.HONEYCOMB) 
-public class PlacesDetailsTabs extends FragmentActivity implements OnGoogleMapFragmentListener{
+public class PlacesDetailsTabs extends ActionBarActivity implements OnGoogleMapFragmentListener{
 
 	// Google Map
     private GoogleMap googleMap;
@@ -78,15 +84,20 @@ public class PlacesDetailsTabs extends FragmentActivity implements OnGoogleMapFr
     private String longtitude;
     private String current_latitude;
     private String current_longtitude;
+    
     //private Button onMapButton;
+    //private ActionBar act;
     private TextView t;
-  	private android.app.ActionBar actionBar;
+  	//private android.app.ActionBar actionBar;
   	private ViewPager viewPager;
     private TabsPagerAdapter tabsPagerAdapter;
     private Context context;
+    private SearchView searchView;
     Bundle exhibitionBundle = new Bundle();
     
-    @Override
+    private ActionBar mActionBar;
+
+	@Override
 	public void onMapReady(GoogleMap map) {
 		// TODO Auto-generated method stub
 		mUIGoogleMap = map;
@@ -97,7 +108,9 @@ public class PlacesDetailsTabs extends FragmentActivity implements OnGoogleMapFr
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.testlayout);
-		
+		mActionBar = getSupportActionBar();
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
 		Intent i = getIntent();
 		
 		button_pressed = i.getStringExtra("button_pressed_text");
@@ -127,15 +140,17 @@ public class PlacesDetailsTabs extends FragmentActivity implements OnGoogleMapFr
 		
 		viewPager = (ViewPager) findViewById(R.id.pager);
 		viewPager.setClipToPadding(false);
-		actionBar = getActionBar();
+
+		//actionBar = getSupportActionBar();
 		//mAdapter = new TabsPagerAdapter(this, viewPager, name, doublelatitude, doublelongtitude, doubleCurrentLatitude, doubleCurrentLongtitude);
 		
 		viewPager.setAdapter(mAdapter);
         //actionBar.setHomeButtonEnabled(false);
-        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);  
+        //actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);  
+		mActionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
         
         //this.tabsPagerAdapter = new TabsPagerAdapter(this, viewPager, name, doublelatitude, doublelongtitude, doubleCurrentLatitude, doubleCurrentLongtitude);
-        this.tabsPagerAdapter = new TabsPagerAdapter(this, viewPager);
+        this.tabsPagerAdapter = new TabsPagerAdapter(this, viewPager, mActionBar);
         tabsPagerAdapter.createHistory();
         
         
@@ -147,12 +162,13 @@ public class PlacesDetailsTabs extends FragmentActivity implements OnGoogleMapFr
         infoBundle.putString("link", link);
         infoBundle.putString("fbLink", fbLink);
         infoBundle.putString("email", email);
-        tabsPagerAdapter.addTab(actionBar.newTab().setText("Info"), InfoFragment.class, infoBundle);
+       // tabsPagerAdapter.addTab(actionBar.newTab().setText("Info"), InfoFragment.class, infoBundle);
+        tabsPagerAdapter.addTab(mActionBar.newTab().setText("Info"), InfoFragment.class, infoBundle);
         
         exhibitionBundle = new Bundle();
         exhibitionBundle.putString("exhibition", exhibition);
-        tabsPagerAdapter.addTab(actionBar.newTab().setText("Exhibition"), ExhibitionFragment.class, exhibitionBundle);
-        
+        //tabsPagerAdapter.addTab(actionBar.newTab().setText("Exhibition"), ExhibitionFragment.class, exhibitionBundle);
+        tabsPagerAdapter.addTab(mActionBar.newTab().setText("Exhibition"), ExhibitionFragment.class, exhibitionBundle);
         
         TestLocalSqliteDatabase testDB = new TestLocalSqliteDatabase(this);
         
@@ -180,8 +196,8 @@ public class PlacesDetailsTabs extends FragmentActivity implements OnGoogleMapFr
         	photoBundle.putSerializable("linksList", photoLinkStringArray);
         	photoBundle.putInt("Screen Height", scr_height);
         	photoBundle.putInt("Screen Width", scr_width);
-        	tabsPagerAdapter.addTab(actionBar.newTab().setText("Photo tab"), PhotoGridViewFragment.class, photoBundle);
-        	
+        	//tabsPagerAdapter.addTab(actionBar.newTab().setText("Photo tab"), PhotoGridViewFragment.class, photoBundle);
+        	tabsPagerAdapter.addTab(mActionBar.newTab().setText("Photo tab"), PhotoGridViewFragment.class, photoBundle);
         	
         	testDB.close();
         }
@@ -193,7 +209,8 @@ public class PlacesDetailsTabs extends FragmentActivity implements OnGoogleMapFr
         onmapBundle.putDouble("doubleCurrentLatitude", doubleCurrentLatitude);
         onmapBundle.putDouble("doubleCurrentLongtitude", doubleCurrentLongtitude);
         //tabsPagerAdapter.addTab(actionBar.newTab().setText("OnMap"), OnMapFragment.class, onmapBundle);
-        tabsPagerAdapter.addTab(actionBar.newTab().setText("OnMap"), GoogleMapFragment.class, onmapBundle);
+        //tabsPagerAdapter.addTab(actionBar.newTab().setText("OnMap"), GoogleMapFragment.class, onmapBundle);
+        tabsPagerAdapter.addTab(mActionBar.newTab().setText("OnMap"), GoogleMapFragment.class, onmapBundle);
       //  tabsPagerAdapter.replace(2, ExhibitionFragment.class, exhibitionBundle);
         
       /*  ActionBar.TabListener tabListener = new ActionBar.TabListener() {
@@ -236,7 +253,32 @@ public class PlacesDetailsTabs extends FragmentActivity implements OnGoogleMapFr
 
 	}
 
+	public boolean onCreateOptionsMenu(Menu menu){
+		//Inflate the menu
+		getMenuInflater().inflate(R.menu.main, menu);
+		
+		//Find the search item
+		MenuItem searchItem = menu.findItem(R.id.action_search);
+		
+		//Retrieve the SearchView
+		searchView  = (SearchView) MenuItemCompat.getActionView(searchItem);		
+		
+		return super.onCreateOptionsMenu(menu);
+	}
 	
 	
+	public boolean onOptionsItemSelected(MenuItem item) {
+	    // Handle presses on the action bar items
+	    switch (item.getItemId()) {
+	        case R.id.action_search:
+	            Toast.makeText(getApplicationContext(), "Action Search!!", Toast.LENGTH_SHORT).show();
+	            return true;
+	        case R.id.action_settings:
+	            //openSettings();
+	            return true;
+	        default:
+	            return super.onOptionsItemSelected(item);
+	    }
+	}
 	
 }

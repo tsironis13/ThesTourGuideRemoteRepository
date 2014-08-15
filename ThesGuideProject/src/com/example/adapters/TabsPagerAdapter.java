@@ -19,10 +19,16 @@ import com.example.fragmentClasses.PhotoGridViewFragment;
 import com.example.thesguideproject.PlacesDetailsTabs;
 import com.example.adapters.TabsPagerAdapter.TabInfo;
 
-import android.annotation.TargetApi;
-import android.app.ActionBar;
-import android.app.ActionBar.Tab;
-import android.app.ActionBar.TabListener;
+//import android.annotation.TargetApi;
+//import android.app.ActionBar;
+//import android.app.ActionBar.Tab;
+
+
+
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBar.Tab;
+import android.support.v7.app.ActionBar.TabListener;
+//import android.app.ActionBar.TabListener;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.os.Build;
@@ -37,7 +43,7 @@ import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.util.Log;
 import android.widget.Toast;
 
-@TargetApi(Build.VERSION_CODES.HONEYCOMB) 
+
 public class TabsPagerAdapter extends FragmentStatePagerAdapter implements OnPageChangeListener, TabListener {
 	
 	//private final Context mContext;
@@ -80,11 +86,15 @@ public class TabsPagerAdapter extends FragmentStatePagerAdapter implements OnPag
         //this.doubleCurrentLongtitude = doubleCurrentLongtitude;
 	//}
 	
-	@TargetApi(Build.VERSION_CODES.HONEYCOMB) 
-	public TabsPagerAdapter(PlacesDetailsTabs activity, ViewPager pager) {
+	
+	public TabsPagerAdapter(PlacesDetailsTabs activity, ViewPager pager, ActionBar mActionBar) {
 		super(activity.getSupportFragmentManager());
 		this.activity = activity;
-		mActionBar = activity.getActionBar();
+		//mActionBar = activity.getSupportActionBar();
+		//mActionBar = activity.getSupportActionBar();
+		this.mActionBar = mActionBar;
+		
+		//mActionBar = activity.getActionBar();
 		mViewPager = pager;
 		mViewPager.setAdapter(this);
 		mViewPager.setOnPageChangeListener(this);
@@ -95,7 +105,7 @@ public class TabsPagerAdapter extends FragmentStatePagerAdapter implements OnPag
         //this.doubleCurrentLongtitude = doubleCurrentLongtitude;
 	}
 	
-	@TargetApi(Build.VERSION_CODES.HONEYCOMB) 
+	
 	public void addTab(Tab tab, Class<?> clss, Bundle args){
 		TabInfo info = new TabInfo(clss, args);
 		tab.setTag(info);
@@ -196,7 +206,7 @@ public class TabsPagerAdapter extends FragmentStatePagerAdapter implements OnPag
 		mActionBar.setSelectedNavigationItem(position);
 	}
 
-	@Override
+	/*@Override
 	public void onTabReselected(Tab tab, FragmentTransaction ft) {
 		// TODO Auto-generated method stub
 	}
@@ -204,22 +214,14 @@ public class TabsPagerAdapter extends FragmentStatePagerAdapter implements OnPag
 	@Override
 	public void onTabSelected(Tab tab, FragmentTransaction ft) {
 		// TODO Auto-generated method stub
-		mViewPager.setCurrentItem(tab.getPosition());
-		String tab_position = Integer.toString(tab.getPosition());
-		Log.v(TAG,  tab_position + "was clicked");
-		Object tag = tab.getTag();
-		for (int i = 0; i<mTabs.size(); i++){
-			if (mTabs.get(i) == tag){
-				mViewPager.setCurrentItem(i);
-			}
-		}
+		
 	}
 
 	@Override
 	public void onTabUnselected(Tab tab, FragmentTransaction ft) {
 		// TODO Auto-generated method stub
 		
-	}
+	}*/
 
 	
 	public void replace(final int position, final Class fragmentClass, final Bundle args) {
@@ -291,4 +293,32 @@ public class TabsPagerAdapter extends FragmentStatePagerAdapter implements OnPag
 	    }
 	    return currentTabInfo;
 	}
+
+	@Override
+	public void onTabReselected(android.support.v7.app.ActionBar.Tab tab, android.support.v4.app.FragmentTransaction ft) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onTabSelected(android.support.v7.app.ActionBar.Tab tab, android.support.v4.app.FragmentTransaction ft) {
+		// TODO Auto-generated method stub
+		mViewPager.setCurrentItem(tab.getPosition());
+		String tab_position = Integer.toString(tab.getPosition());
+		Log.v(TAG,  tab_position + "was clicked");
+		Object tag = tab.getTag();
+		for (int i = 0; i<mTabs.size(); i++){
+			if (mTabs.get(i) == tag){
+				mViewPager.setCurrentItem(i);
+			}
+		}
+	}
+
+	@Override
+	public void onTabUnselected(android.support.v7.app.ActionBar.Tab tab, android.support.v4.app.FragmentTransaction ft) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
 }

@@ -13,12 +13,15 @@ import android.app.SearchableInfo;
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.view.MenuItemCompat;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -30,15 +33,15 @@ public class ActBarTest extends ActionBarActivity{
 	private static String tag = "ActBarTest Activity";
 	
 	//action Bar
-  	private android.app.ActionBar actionBar;
+  	private ActionBar actionBar;
   	
   	private ArrayList<LocationData> locations;
   	private ListView locationsList;
   	private LayoutInflater layoutInflator;
   	private ImageTask imgFetcher;
+  	private SearchView searchView;
   	
-  	
-	@TargetApi(Build.VERSION_CODES.HONEYCOMB) @Override
+	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
@@ -52,7 +55,7 @@ public class ActBarTest extends ActionBarActivity{
 		//JsonWebAPITask webtask = new JsonWebAPITask(ActBarTest.this);
 		//webtask.execute();
 		
-		actionBar = getActionBar();
+		actionBar = getSupportActionBar();
 		
 		//Enabling Back navigation on Action Bar icon
 	    getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -67,20 +70,31 @@ public class ActBarTest extends ActionBarActivity{
         }
 	    
 	}
-
-
-
-	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
+		//Inflate the menu
+		getMenuInflater().inflate(R.menu.main, menu);
+		
+		//Find the search item
+		MenuItem searchItem = menu.findItem(R.id.action_search);
+		
+		//Retrieve the SearchView
+		searchView  = (SearchView) MenuItemCompat.getActionView(searchItem);		
+		
+		SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+		
+		
 		// Inflate the menu; this adds items to the action bar if it is present.
-				 MenuInflater inflater = getMenuInflater();
-				 inflater.inflate(R.menu.main, menu);
+		/*		MenuInflater inflater = getMenuInflater();
+				inflater.inflate(R.menu.main, menu);
 		 
 		        
+				
+				
 		        //enable the Search Widget
 		        
-		        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+		        
 		        //get the search widget
 		        SearchView searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
 		        //Assumes current activity is the searchable activity
@@ -90,7 +104,7 @@ public class ActBarTest extends ActionBarActivity{
 		        }
 		        
 		        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
-		        
+		        */
 		        
 		        //SearchableInfo si = searchManager.getSearchableInfo(getComponentName());
 		        //if( si == null){

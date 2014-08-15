@@ -21,7 +21,7 @@
     <string name="clearDataDBbutton">Clear Data</string>
 	<string name="museumsbutton">Museums</string>
 	<string name="sightseeingsbutton">SightSeeings</string>
-	<string name="button4test">Button 4</string>
+	<string name="churchesbutton">Churches</string>
     <string name="imageInternalStorage">Internal Storage</string>
     <string name="cursorAdapterButton">Cursor Adapter</string>
 	<string name="spinnertest">Spinner 1</string>
@@ -37,6 +37,10 @@
     <string name="menu_item_pause_on_fling">Pause on fling</string>
 	<string name="texresource">TextView TEXT</string>
 	<string name="TextButton">KAALSEEEE</string>
+	<string name="byzantine">Byzantines</string>
+	<string name="paleochr">Paleo Christianikes</string>
+	<string name="basiliki">Basiliki</string>
+	<string name="macedonian">Makedonikes</string>
     
 	<string-array name="category_array">
 	    <item>Bar</item>

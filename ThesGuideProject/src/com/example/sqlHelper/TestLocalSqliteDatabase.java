@@ -290,6 +290,17 @@ public class TestLocalSqliteDatabase extends SQLiteOpenHelper {
 		 return cursor;
 	 }
 	 
+	 public Cursor getSpecificChurchData(String subcategory){
+		 SQLiteDatabase db = this.getReadableDatabase();
+		 
+		 String selectQuery = "SELECT * FROM PlacesTable WHERE subcategory = '" + subcategory + "'";
+		 
+		 Cursor cursor = db.rawQuery(selectQuery, null);
+		 
+		 return cursor;
+	 }
+	 
+	 
 	 public Cursor getSpecificPlaceImagesData(){
 		 SQLiteDatabase db = this.getReadableDatabase();
 		 

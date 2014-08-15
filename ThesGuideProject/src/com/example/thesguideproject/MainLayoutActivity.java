@@ -142,7 +142,7 @@ public class MainLayoutActivity extends FragmentActivity implements OnItemSelect
         this.museumsButton = (Button) findViewById(R.id.museumsbutton);
         this.sightseeingsButton = (Button) findViewById(R.id.sightseeingsbutton);
         this.clearDataButton = (Button) findViewById(R.id.clearDataDBbutton);
-        this.button4 = (Button) findViewById(R.id.button4);
+        //this.button4 = (Button) findViewById(R.id.button4);
         this.internalStorage = (Button) findViewById(R.id.internalStorage);
         this.imgFetcher = new ImageTask(this);
         this.layoutInflator = LayoutInflater.from(this);

@@ -13,11 +13,12 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.SearchRecentSuggestions;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.widget.TextView;
 
-@TargetApi(Build.VERSION_CODES.HONEYCOMB) 
-public class SearchResultsActivity extends Activity{
+
+public class SearchResultsActivity extends ActionBarActivity{
 
 	Bundle bundle;
 	private TextView txtQuery;
@@ -29,7 +30,7 @@ public class SearchResultsActivity extends Activity{
 	        setContentView(R.layout.search_results);
 	        
 	        // get the action bar
-	        android.app.ActionBar actionBar = getActionBar();
+	        ActionBar actionBar = getSupportActionBar();
 	 
 	        // Enabling Back navigation on Action Bar icon
 	        actionBar.setDisplayHomeAsUpEnabled(true);
