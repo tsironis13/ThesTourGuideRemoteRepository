@@ -90,6 +90,7 @@ public class MainActivity extends ListActivity {
         Button fragmentTestButton = (Button) findViewById(R.id.fragmentTestButton);
         Button cursorAdapterButton = (Button) findViewById(R.id.cursorAdapterButton);
         Button internalStorageButton = (Button) findViewById(R.id.internalStorageButton);
+        Button listFragmentButton = (Button) findViewById(R.id.listFragmentTest);
         
         mapButton.setOnClickListener(new View.OnClickListener() {
 
@@ -172,6 +173,20 @@ public class MainActivity extends ListActivity {
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
 				Intent cursorAdapter = new Intent(MainActivity.this, CursorAdapterExample.class);
+				startActivity(cursorAdapter);
+			}
+		});
+        
+        
+        listFragmentButton.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				//Intent cursorAdapter = new Intent(MainActivity.this, CursorAdapterExample.class);
+				//startActivity(cursorAdapter);
+				//PlacesListFragmentTest p = new PlacesListFragmentTest();
+				Intent cursorAdapter = new Intent(MainActivity.this, PlacesListFragmentActivityTest.class);
 				startActivity(cursorAdapter);
 			}
 		});

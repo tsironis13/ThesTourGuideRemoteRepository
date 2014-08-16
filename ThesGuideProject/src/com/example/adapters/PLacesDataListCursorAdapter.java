@@ -4,12 +4,14 @@ import java.io.InputStream;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
+import com.example.fragmentClasses.ListPlacesFragment;
 import com.example.locationData.PlacesData;
 import com.example.myLocation.GPSTracker;
 import com.example.storage.InternalStorage;
 import com.example.tasks.BitmapTask;
 import com.example.tasks.ImageTask;
 import com.example.thesguideproject.CursorAdapterExample;
+import com.example.thesguideproject.PlacesListFragmentActivityTest;
 import com.example.thesguideproject.R;
 import com.example.thesguideproject.PlacesDetailsTabs;
 
@@ -40,7 +42,9 @@ import android.widget.Toast;
 
 public class PLacesDataListCursorAdapter extends SimpleCursorAdapter implements OnClickListener {
 
-	private CursorAdapterExample activity;
+	private ListPlacesFragment activity2;
+	
+	//private CursorAdapterExample activity;
 	private LayoutInflater layoutInflater;
 	private BitmapTask imgFetcher;
 	private Context context;
@@ -56,6 +60,19 @@ public class PLacesDataListCursorAdapter extends SimpleCursorAdapter implements 
 	GPSTracker gps;
 	ArrayList<PlacesData> placesDataArray = new ArrayList<PlacesData>();
 	
+	public PLacesDataListCursorAdapter(String button_pressed, ListPlacesFragment activity2, Context context, int layout, Cursor c, String[] from, int[] to, BitmapTask i, double current_latitude, double current_longtitude) {
+		super(context, layout, c, from, to);
+		this.button_pressed = button_pressed;
+		this.activity2 = activity2;
+		this.context = context;
+		this.layout = layout;
+		this.c = c;
+		this.imgFetcher = i;
+		this.current_latitude = current_latitude;
+		this.current_longtitude = current_longtitude;
+		// TODO Auto-generated constructor stub
+	}
+	/*
 	@SuppressWarnings("deprecation")
 	public PLacesDataListCursorAdapter(String button_pressed, CursorAdapterExample activity, Context context, int layout, Cursor c, String[] from, int[] to, BitmapTask i, double current_latitude, double current_longtitude) {
 		super(context, layout, c, from, to);
@@ -68,7 +85,7 @@ public class PLacesDataListCursorAdapter extends SimpleCursorAdapter implements 
 		this.current_latitude = current_latitude;
 		this.current_longtitude = current_longtitude;
 		// TODO Auto-generated constructor stub
-	}
+	}*/
 	
 	private class ViewHolder{
 		TextView nametv, placeNametv, distance, latitudetv, longtitudetv, desc_infohiddentv, 
@@ -342,7 +359,8 @@ public class PLacesDataListCursorAdapter extends SimpleCursorAdapter implements 
 		ViewHolder vH = (ViewHolder) v.getTag();
 		//String url = (String) vH.surnametv.getTag();
 		//Toast.makeText(this.context, url, Toast.LENGTH_SHORT).show();
-		Intent intent = new Intent(this.activity, PlacesDetailsTabs.class);
+		Intent intent = new Intent(context, PlacesDetailsTabs.class);
+		//Intent intent = new Intent(this.activity, PlacesListFragmentActivityTest.class);
 		//intent.putExtra("nameEl", vH.surnametv.getTag().toString());
 		String str_current_latitude = Double.toString(current_latitude);
 		String str_current_longtitude = Double.toString(current_longtitude);
@@ -365,7 +383,7 @@ public class PLacesDataListCursorAdapter extends SimpleCursorAdapter implements 
 		//Toast.makeText(this.context, vH.photoLink1hiddentv.getText(), Toast.LENGTH_SHORT).show();
 		//intent.putExtra("latitude", this.c.getDouble(this.c.getColumnIndex("latitude")));
 		//intent.putExtra("longtitude", this.c.getDouble(this.c.getColumnIndex("longtitude")));
-		this.activity.startActivity(intent);
+		this.activity2.startActivity(intent);
 	}
 
 	

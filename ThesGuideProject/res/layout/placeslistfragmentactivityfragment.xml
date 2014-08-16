@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+	
+	<FrameLayout 
+    	android:id="@+id/containertest"
+    	android:layout_marginTop="8dp"
+    	android:layout_marginBottom="8dp"
+    	android:background="#eee"
+    	android:layout_width="match_parent"
+    	android:layout_height="wrap_content" >"
+    </FrameLayout>
+    
+	<FrameLayout 
+    	android:id="@+id/containerlist"
+    	android:background="#aaa"
+    	android:layout_width="match_parent"
+    	android:layout_height="match_parent" >
+    </FrameLayout>
+	
+	
+	
+</LinearLayout>
+
+
+<!-- tools:context="com.example.thesguideproject.PlacesListFragmentActivityTest"
+    tools:ignore="MergeRootFrame" -->
+

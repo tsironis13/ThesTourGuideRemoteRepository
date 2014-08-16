@@ -222,7 +222,7 @@ public class CursorAdapterExample extends ActionBarActivity implements OnItemSel
 
 	
 	private void setAdapterFromSpecificCursor(String button_pressed, ListView listExample, Cursor cursor, String[] columns, int[] to, BitmapTask imgFetcher, double current_latitude, double current_longtitude){
-		this.listExample.setAdapter(new PLacesDataListCursorAdapter(button_pressed, this, this,  R.layout.places_basic_layout, cursor, columns, to, this.imgFetcher, current_latitude, current_longtitude) );
+		//this.listExample.setAdapter(new PLacesDataListCursorAdapter(button_pressed, this, this,  R.layout.places_basic_layout, cursor, columns, to, this.imgFetcher, current_latitude, current_longtitude) );
 	}
 
 	

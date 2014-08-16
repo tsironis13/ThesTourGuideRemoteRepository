@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.example.thesguideproject.PlacesListFragmentActivityTest$PlaceholderFragment"
+     >
+    
+    
+    <ScrollView 
+     android:id="@+id/scrollview1"
+     android:layout_width="match_parent"
+     android:layout_height="30dp"
+     android:scrollbars="horizontal" >
+   
+    <HorizontalScrollView 
+        android:id="@+id/horizontalscrollview1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" 
+        android:scrollbars="none"
+        android:scrollbarStyle="insideOverlay" >
+              
+    	<LinearLayout
+        	android:id="@+id/linearlayout1"
+        	android:orientation="horizontal"
+        	android:layout_height="45dp"
+        	android:layout_width="wrap_content"
+        	android:background="#bbb" >
+        
+        
+       		   <Button
+            		android:id="@+id/clearDataDBbutton"
+            		android:layout_width="wrap_content"
+            		android:layout_height="match_parent"
+            		android:background="#afc"
+                    android:text="@string/clearDataDBbutton">    
+               </Button>
+       
+       		   <View 
+       		       android:background="#000"
+       		       android:layout_width="1dp"
+       		       android:layout_height="match_parent">   
+       		   </View>
+       		   
+        	   <Button
+            		android:id="@+id/museumsbutton"
+            		android:layout_width="wrap_content"
+              		android:layout_height="match_parent"
+              		android:gravity="center_horizontal"
+            		android:background="#fac"
+            		android:text="@string/museumsbutton">       
+        	   </Button>
+        		
+        	   <View 
+       		       android:background="#000"
+       		       android:layout_width="1dp"
+       		       android:layout_height="match_parent">   
+       		   </View>
+       		   
+        	   <Spinner 
+            		android:id="@+id/nightlifespinner"
+            		android:layout_width="wrap_content"
+            		android:layout_height="match_parent"
+            		android:gravity="center_horizontal"
+            		android:prompt="@string/spinnercategory_title"
+            		android:background="#cc2">
+        	   </Spinner>
+        	
+        	   <View 
+       		       android:background="#000"
+       		       android:layout_width="1dp"
+       		       android:layout_height="match_parent">   
+       		   </View>
+       		   
+        	   <Button
+            		android:id="@+id/sightseeingsbutton"
+            		android:layout_width="wrap_content"
+            		android:layout_height="match_parent"
+            		android:gravity="center_horizontal"
+            		android:background="#fac"
+            		android:text="@string/sightseeingsbutton">       
+        	   </Button>
+        		
+        	   <View 
+       		       android:background="#000"
+       		       android:layout_width="1dp"
+       		       android:layout_height="match_parent">   
+       		   </View>
+       		   
+        	   <Button
+            		android:id="@+id/churchesbutton"
+            		android:layout_width="wrap_content"
+            		android:layout_height="match_parent"
+            		android:gravity="center_horizontal"
+            		android:background="#fac"
+            		android:text="@string/churchesbutton">       
+        	   </Button>
+        	   
+        	   <View 
+       		       android:background="#000"
+       		       android:layout_width="1dp"
+       		       android:layout_height="match_parent">   
+       		   </View>
+       		   
+        	   <Button
+            		android:id="@+id/internalStorage"
+            		android:layout_width="wrap_content"
+            		android:layout_height="match_parent"
+            		android:gravity="center_horizontal"
+            		android:background="#fac"
+            		android:text="@string/imageInternalStorage">       
+        	   </Button>
+        
+        </LinearLayout>
+    
+      </HorizontalScrollView>
+    	
+   </ScrollView>
+
+   
+  
+        
+
+</RelativeLayout>
