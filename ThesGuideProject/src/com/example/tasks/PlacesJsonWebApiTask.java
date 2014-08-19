@@ -176,7 +176,7 @@ public class PlacesJsonWebApiTask extends AsyncTask<Void, Integer, String> {
         
         	
         	TestLocalSqliteDatabase dbtest = new TestLocalSqliteDatabase(context);
-			
+			dbtest.openDataBase();
 			//Log.d("Insert: ", "Inserting .."); 
 			//dbholder.addLocation(new LocationData(integer_id, genre, photo_link, name_el, latitude, longtitude));
 			  for (PlacesData td : placesDataArray){
@@ -184,15 +184,15 @@ public class PlacesJsonWebApiTask extends AsyncTask<Void, Integer, String> {
 		      }
 			  Log.d("Reading: ", "Reading all places..");
 		        
-		        for (PlacesData td : placesDataArray) {
+		     /*   for (PlacesData td : placesDataArray) {
 		            String log = "Id: "+td.getId()+" ,NameEl: " + td.getNameEl()+" ,NameEn: " + td.getNameEn()+" ,Link: " + td.getLink() + 
 		            " ,Latitude: " + td.getLatitude() + " ,Longtitude: " + td.getLongtitude() + " ,PhotoLink: " + td.getPhotoLink() + " ,Genre: " + td.getGenre();
 		                // Writing Contacts to log
 		        Log.d("Name: ", log);
-		        }
+		        }*/
 			  
 			dbtest.getArrayListwithPlacesJsonData(placesDataArray);
-			
+			dbtest.close();
 			 // Reading all contacts
 	        
         	

@@ -208,6 +208,8 @@ public class PlacesDetailsTabs extends ActionBarActivity implements OnGoogleMapF
         Bundle onmapBundle = new Bundle();
         onmapBundle.putDouble("doubleCurrentLatitude", doubleCurrentLatitude);
         onmapBundle.putDouble("doubleCurrentLongtitude", doubleCurrentLongtitude);
+        onmapBundle.putDouble("doublePlaceLatitude", doublelatitude);
+        onmapBundle.putDouble("doublePlaceLongtitude", doublelongtitude);
         //tabsPagerAdapter.addTab(actionBar.newTab().setText("OnMap"), OnMapFragment.class, onmapBundle);
         //tabsPagerAdapter.addTab(actionBar.newTab().setText("OnMap"), GoogleMapFragment.class, onmapBundle);
         tabsPagerAdapter.addTab(mActionBar.newTab().setText("OnMap"), GoogleMapFragment.class, onmapBundle);

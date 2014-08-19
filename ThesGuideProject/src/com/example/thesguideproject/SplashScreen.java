@@ -31,7 +31,7 @@ public class SplashScreen extends Activity{
     
     private final GestureDetector detector = new GestureDetector(new SwipeGestureDetector());
 	
-	@TargetApi(Build.VERSION_CODES.ECLAIR_MR1)
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -68,7 +68,7 @@ public class SplashScreen extends Activity{
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				//sets auto flipping
-                mViewFlipper.setAutoStart(true);
+                //mViewFlipper.setAutoStart(true);
                 mViewFlipper.setFlipInterval(2000);
                 mViewFlipper.startFlipping();
 			}

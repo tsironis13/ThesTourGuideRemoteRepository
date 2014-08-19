@@ -7,7 +7,9 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.example.fragmentClasses.ListPlacesFragment;
 import com.example.storage.InternalStorage;
+import com.example.thesguideproject.CursorAdapterExample;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -18,6 +20,7 @@ import android.os.Build;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.util.Log;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 public class BitmapTask  {
 
@@ -34,6 +37,23 @@ public class BitmapTask  {
     public BitmapTask(Context ctx)
     {
         imageCache = new HashMap<String, Bitmap>();
+    }
+    
+    
+    public Bitmap loadImage(ListPlacesFragment c, String url, Context context, String name){
+    	 
+    	Bitmap b = intStorage.loadImageFromStorage(path, name);
+    	
+    	 if (b != null){
+    		 return b;
+    	 } 
+    	 else
+    	 {
+    	 new NestedImageTask(context, name).execute(url);
+         Log.d(debugTag, "Image Fetched!!");
+         Log.i("Image Fetched: ", url);
+         return DEFAULT_ICON;
+    	 }
     }
     
     public Bitmap loadImage(SimpleCursorAdapter adapt, ImageView view, Context context, String name)

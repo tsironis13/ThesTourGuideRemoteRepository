@@ -11,7 +11,7 @@ import com.example.storage.InternalStorage;
 import com.example.tasks.BitmapTask;
 import com.example.tasks.ImageTask;
 import com.example.thesguideproject.CursorAdapterExample;
-import com.example.thesguideproject.PlacesListFragmentActivityTest;
+import com.example.thesguideproject.PlacesListFragmentActivity;
 import com.example.thesguideproject.R;
 import com.example.thesguideproject.PlacesDetailsTabs;
 
@@ -42,7 +42,7 @@ import android.widget.Toast;
 
 public class PLacesDataListCursorAdapter extends SimpleCursorAdapter implements OnClickListener {
 
-	private ListPlacesFragment activity2;
+	private ListPlacesFragment activity;
 	
 	//private CursorAdapterExample activity;
 	private LayoutInflater layoutInflater;
@@ -51,7 +51,7 @@ public class PLacesDataListCursorAdapter extends SimpleCursorAdapter implements 
 	private SimpleCursorAdapter dataAdapter;
 	private int layout;
 	private BitmapTask bitTask;
-	private Cursor c;
+	private Cursor cursor;
 	private double current_latitude;
 	private double current_longtitude;
 	private String button_pressed;
@@ -60,13 +60,26 @@ public class PLacesDataListCursorAdapter extends SimpleCursorAdapter implements 
 	GPSTracker gps;
 	ArrayList<PlacesData> placesDataArray = new ArrayList<PlacesData>();
 	
-	public PLacesDataListCursorAdapter(String button_pressed, ListPlacesFragment activity2, Context context, int layout, Cursor c, String[] from, int[] to, BitmapTask i, double current_latitude, double current_longtitude) {
-		super(context, layout, c, from, to);
+	/*public PLacesDataListCursorAdapter(String button_pressed, ListPlacesFragment activity, Context context, int layout, Cursor cursor, String[] from, int[] to, BitmapTask i, double current_latitude, double current_longtitude) {
+		super(context, layout, cursor, from, to);
 		this.button_pressed = button_pressed;
-		this.activity2 = activity2;
+		this.activity = activity;
 		this.context = context;
 		this.layout = layout;
-		this.c = c;
+		this.cursor = cursor;
+		this.imgFetcher = i;
+		this.current_latitude = current_latitude;
+		this.current_longtitude = current_longtitude;
+		// TODO Auto-generated constructor stub
+	}*/
+	
+	public PLacesDataListCursorAdapter(String button_pressed, ListPlacesFragment activity, Context context, int layout, Cursor cursor, String[] from, int[] to, BitmapTask i, double current_latitude, double current_longtitude) {
+		super(context, layout, cursor, from, to);
+		this.button_pressed = button_pressed;
+		this.activity = activity;
+		this.context = context;
+		this.layout = layout;
+		this.cursor = cursor;
 		this.imgFetcher = i;
 		this.current_latitude = current_latitude;
 		this.current_longtitude = current_longtitude;
@@ -145,6 +158,8 @@ public class PLacesDataListCursorAdapter extends SimpleCursorAdapter implements 
         return v;
 	}*/
 	
+	
+	
 	public View getView(int pos, View inView, ViewGroup parent){
 		View v = inView;
 		ViewHolder viewHolder;
@@ -175,33 +190,50 @@ public class PLacesDataListCursorAdapter extends SimpleCursorAdapter implements 
 		else{
 			viewHolder = (ViewHolder) v.getTag();
 		}
-		this.c.moveToPosition(pos);
-		String name = this.c.getString(this.c.getColumnIndex("_id"));
+		this.cursor.moveToPosition(pos);
+		String name = this.cursor.getString(this.cursor.getColumnIndex("_id"));
 		int integer_id = Integer.parseInt(name);
-		String placeNameEl = this.c.getString(this.c.getColumnIndex("name_el"));
-		String image_link = this.c.getString(this.c.getColumnIndex("photo_link"));
-		double final_latitude = this.c.getDouble(this.c.getColumnIndex("latitude"));
-		String str_latitude = Double.toString(final_latitude);
-		double final_longtitude = this.c.getDouble(this.c.getColumnIndex("longtitude"));
-		String str_longtitude = Double.toString(final_longtitude);
-		String descInfo = this.c.getString(this.c.getColumnIndex("info"));
-		String tel = this.c.getString(this.c.getColumnIndex("tel"));
-		String link = this.c.getString(this.c.getColumnIndex("link"));
-		String fbLink = this.c.getString(this.c.getColumnIndex("fb_link"));
-		String email = this.c.getString(this.c.getColumnIndex("email"));
-		String exhibition = this.c.getString(this.c.getColumnIndex("exhibition"));
-		String link1 = this.c.getString(this.c.getColumnIndex("link1"));
-		String link2 = this.c.getString(this.c.getColumnIndex("link2"));
-		String link3 = this.c.getString(this.c.getColumnIndex("link3"));
-		String link4 = this.c.getString(this.c.getColumnIndex("link4"));
+		String placeNameEl = this.cursor.getString(this.cursor.getColumnIndex("name_el"));
+		String image_link = this.cursor.getString(this.cursor.getColumnIndex("photo_link"));
+		double place_latitude = this.cursor.getDouble(this.cursor.getColumnIndex("latitude"));
+		String str_placelatitude = Double.toString(place_latitude);
+		double place_longtitude = this.cursor.getDouble(this.cursor.getColumnIndex("longtitude"));
+		String str_placelongtitude = Double.toString(place_longtitude);
+		String descInfo = this.cursor.getString(this.cursor.getColumnIndex("info"));
+		String tel = this.cursor.getString(this.cursor.getColumnIndex("tel"));
+		String link = this.cursor.getString(this.cursor.getColumnIndex("link"));
+		String fbLink = this.cursor.getString(this.cursor.getColumnIndex("fb_link"));
+		String email = this.cursor.getString(this.cursor.getColumnIndex("email"));
+		String exhibition = this.cursor.getString(this.cursor.getColumnIndex("exhibition"));
+		String link1 = this.cursor.getString(this.cursor.getColumnIndex("link1"));
+		String link2 = this.cursor.getString(this.cursor.getColumnIndex("link2"));
+		String link3 = this.cursor.getString(this.cursor.getColumnIndex("link3"));
+		String link4 = this.cursor.getString(this.cursor.getColumnIndex("link4"));
 		
 		//placesDataArray.add(new PlacesData(integer_id, surname, "", "", final_latitude, final_longtitude, image_link, ""));
 		
-		double apostasi = GPSTracker.getDistance(this.current_latitude, this.current_longtitude, final_latitude, final_longtitude);
+		double apostasi = GPSTracker.getDistance(this.current_latitude, this.current_longtitude, place_latitude, place_longtitude);
 		double distanceInKm = apostasi/1000;
 		DecimalFormat df = new DecimalFormat("#.##");
 		String dx=df.format(distanceInKm);
 		//String str_distanceInKm = Double.toString(distanceInKm);
+		
+		bindView(v, context, cursor);
+		
+		
+		if(image_link != null) {
+			viewHolder.icon.setTag(image_link);
+   			//Drawable dr = imgFetcher.loadImage(this, viewHolder.icon);
+			//BitmapTask bit = new BitmapTask(this);
+			
+			Bitmap bitmap = imgFetcher.loadImage(this, viewHolder.icon, context, name);
+   			if(bitmap != null) {
+   				//viewHolder.icon.setImageDrawable(dr);
+   				viewHolder.icon.setImageBitmap(bitmap);
+   			}
+   		} else {
+   			viewHolder.icon.setImageResource(R.drawable.filler_icon);
+   		}
 		
 		viewHolder.nametv.setText(name);
 		viewHolder.desc_infohiddentv.setText(descInfo);
@@ -216,8 +248,8 @@ public class PLacesDataListCursorAdapter extends SimpleCursorAdapter implements 
 		viewHolder.photoLink4hiddentv.setText(link4);
 		viewHolder.placeNametv.setText(placeNameEl);
 		//viewHolder.surnametv.setTag(surname);
-		viewHolder.latitudetv.setText(str_latitude);
-		viewHolder.longtitudetv.setText(str_longtitude);
+		viewHolder.latitudetv.setText(str_placelatitude);
+		viewHolder.longtitudetv.setText(str_placelongtitude);
 		viewHolder.distance.setText(dx + " km");
 		viewHolder.infoButton.setOnClickListener(this);
 		
@@ -237,22 +269,27 @@ public class PLacesDataListCursorAdapter extends SimpleCursorAdapter implements 
    			viewHolder.icon.setImageResource(R.drawable.filler_icon);
    		}*/
 		
-		if(image_link != null) {
+		/*if(image_link != null) {
 			viewHolder.icon.setTag(image_link);
    			//Drawable dr = imgFetcher.loadImage(this, viewHolder.icon);
 			Bitmap bitmap = imgFetcher.loadImage(this, viewHolder.icon, context, name);
    			if(bitmap != null) {
    				//viewHolder.icon.setImageDrawable(dr);
-   				viewHolder.icon.setImageBitmap(bitmap);
+   				//viewHolder.icon.setImageBitmap(bitmap);
    			}
    		} else {
    			viewHolder.icon.setImageResource(R.drawable.filler_icon);
-   		}
+   		}*/
 		//load(viewHolder.icon);
 		
 		return v;
 	}
 	
+	@Override
+	public void bindView(View view, Context context, Cursor cursor) {
+		// TODO Auto-generated method stub
+		super.bindView(view, context, cursor);
+	}
 	
 	/*
 	@Override
@@ -334,6 +371,10 @@ public class PLacesDataListCursorAdapter extends SimpleCursorAdapter implements 
     }
 	*/
 	
+	
+
+
+
 	@Override
 	public void setViewBinder(ViewBinder viewBinder) {
 		// TODO Auto-generated method stub
@@ -383,7 +424,7 @@ public class PLacesDataListCursorAdapter extends SimpleCursorAdapter implements 
 		//Toast.makeText(this.context, vH.photoLink1hiddentv.getText(), Toast.LENGTH_SHORT).show();
 		//intent.putExtra("latitude", this.c.getDouble(this.c.getColumnIndex("latitude")));
 		//intent.putExtra("longtitude", this.c.getDouble(this.c.getColumnIndex("longtitude")));
-		this.activity2.startActivity(intent);
+		this.activity.startActivity(intent);
 	}
 
 	

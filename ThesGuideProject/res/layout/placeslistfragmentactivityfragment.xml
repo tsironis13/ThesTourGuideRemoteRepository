@@ -3,24 +3,35 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:clickable="true"
+    android:id="@+id/lin"
     android:orientation="vertical" >
 	
 	<FrameLayout 
-    	android:id="@+id/containertest"
-    	android:layout_marginTop="8dp"
-    	android:layout_marginBottom="8dp"
+    	android:id="@+id/containermenu"
+    	android:layout_marginTop="1dp"
+    	android:layout_marginBottom="1dp"
     	android:background="#eee"
+    	android:clickable="true"
     	android:layout_width="match_parent"
-    	android:layout_height="wrap_content" >"
+    	android:layout_height="45dp" >
     </FrameLayout>
     
 	<FrameLayout 
     	android:id="@+id/containerlist"
     	android:background="#aaa"
+    	android:clickable="true"
     	android:layout_width="match_parent"
     	android:layout_height="match_parent" >
     </FrameLayout>
 	
+	<TextView 
+	    android:id="@+id/hiddentv"
+	    android:visibility="invisible"
+	    android:layout_width="0dp"
+	    android:layout_height="0dp">
+	    
+	</TextView>
 	
 	
 </LinearLayout>

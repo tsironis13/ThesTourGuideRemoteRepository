@@ -60,15 +60,19 @@ public class MainActivity extends ListActivity {
 			e1.printStackTrace();
 		}
 		
-		testDB.openDataBase();
+		
 		
 		WifiManager wifi = (WifiManager) getSystemService(Context.WIFI_SERVICE);
 		if (wifi.isWifiEnabled()){
-			
+			testDB.openDataBase();
 			testDB.clearPlacesTableIfExists();
 			PlacesJsonWebApiTask testwebtask = new PlacesJsonWebApiTask(MainActivity.this);
-			testwebtask.execute();
 			testDB.close();
+			testwebtask.execute();
+			
+		}
+		else{
+			
 		}
 		
 		mouseiaList = new ArrayList<HashMap<String, String>>();
@@ -186,7 +190,7 @@ public class MainActivity extends ListActivity {
 				//Intent cursorAdapter = new Intent(MainActivity.this, CursorAdapterExample.class);
 				//startActivity(cursorAdapter);
 				//PlacesListFragmentTest p = new PlacesListFragmentTest();
-				Intent cursorAdapter = new Intent(MainActivity.this, PlacesListFragmentActivityTest.class);
+				Intent cursorAdapter = new Intent(MainActivity.this, PlacesListFragmentActivity.class);
 				startActivity(cursorAdapter);
 			}
 		});

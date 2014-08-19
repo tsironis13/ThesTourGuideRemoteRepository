@@ -53,7 +53,7 @@ public class CursorAdapterExample extends ActionBarActivity implements OnItemSel
 	TestLocalSqliteDatabase testDB = new TestLocalSqliteDatabase(this);
 	
 	//GPSTracker class
-	GPSTracker gps;
+	private GPSTracker gps;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

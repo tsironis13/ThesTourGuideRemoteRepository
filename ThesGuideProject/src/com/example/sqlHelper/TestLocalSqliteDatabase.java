@@ -23,7 +23,8 @@ import android.widget.Toast;
 
 public class TestLocalSqliteDatabase extends SQLiteOpenHelper {
 
-	private final Context myContext;
+	private static TestLocalSqliteDatabase mInstance = null;
+	private  Context myContext;
 	//The Android's default system path of your application database.
 	private static String DB_PATH = "/data/data/com.example.thesguideproject/databases/";
 	
@@ -40,6 +41,15 @@ public class TestLocalSqliteDatabase extends SQLiteOpenHelper {
 	
 	//private static String flag;
 	//private static final String TABLE_RECORD = "TestTable"; 
+	public static TestLocalSqliteDatabase getInstance(Context myContext){
+		 // Use the application context, which will ensure that you 
+	    // don't accidentally leak an Activity's context.
+	    // See this article for more information: http://bit.ly/6LRzfx
+	    if (mInstance == null) {
+	      //mInstance = new TestLocalSqliteDatabase(myContext.getApplicationContext());
+	    }
+	    return mInstance;
+	}
 	
 	
 	 /**
@@ -197,6 +207,7 @@ public class TestLocalSqliteDatabase extends SQLiteOpenHelper {
 		         c.moveToNext();
 		     }
 		 }
+		 c.close();
 	 }
 	 
 	 
@@ -242,7 +253,7 @@ public class TestLocalSqliteDatabase extends SQLiteOpenHelper {
 	        
 	        int count = cursor.getCount();
 			//String s = Integer.toString(count);
-			
+	        cursor.close();
 			if (count != 0)
 				return true;
 			else
@@ -261,7 +272,7 @@ public class TestLocalSqliteDatabase extends SQLiteOpenHelper {
 	        
 	        int count = cursor.getCount();
 			//String s = Integer.toString(count);
-			
+	       // cursor.close();
 			if (count != 0)
 				return true;
 			else
@@ -276,7 +287,18 @@ public class TestLocalSqliteDatabase extends SQLiteOpenHelper {
 		 String selectQuery = "SELECT _id, surname, image_link FROM Example ";
 		 
 		 Cursor cursor = db.rawQuery(selectQuery, null);
+		 cursor.close();
+		 return cursor;
+	 }
+	 
+	 public Cursor getAllPhotoDisplayImageLink(){
+		 SQLiteDatabase db = this.getReadableDatabase();
 		 
+		 String selectQuery = "SELECT _id, photo_link FROM PlacesTable ";
+		 
+		 Cursor cursor = db.rawQuery(selectQuery, null);
+		 //cursor.close();
+		 //db.close();
 		 return cursor;
 	 }
 	 
@@ -286,8 +308,10 @@ public class TestLocalSqliteDatabase extends SQLiteOpenHelper {
 		 String selectQuery = "SELECT * FROM PlacesTable WHERE genre = '" + genre + "'";
 		 
 		 Cursor cursor = db.rawQuery(selectQuery, null);
-		 
+		 //cursor.close();
+		 //db.close();
 		 return cursor;
+		 
 	 }
 	 
 	 public Cursor getSpecificChurchData(String subcategory){
@@ -296,7 +320,7 @@ public class TestLocalSqliteDatabase extends SQLiteOpenHelper {
 		 String selectQuery = "SELECT * FROM PlacesTable WHERE subcategory = '" + subcategory + "'";
 		 
 		 Cursor cursor = db.rawQuery(selectQuery, null);
-		 
+		
 		 return cursor;
 	 }
 	 
@@ -307,7 +331,7 @@ public class TestLocalSqliteDatabase extends SQLiteOpenHelper {
          String selectQuery = "SELECT * FROM PlacesImagesTable ";
 		 
 		 Cursor cursor = db.rawQuery(selectQuery, null);
-		 
+		
 		 return cursor;
 		 
 	 }
@@ -352,14 +376,42 @@ public class TestLocalSqliteDatabase extends SQLiteOpenHelper {
 	    		// photoLinkStringArray[1] = cursor.getString(1);
 	    		 //photoLinkStringArray[2] = cursor.getString(2);
 	    		 //photoLinkStringArray[3] = cursor.getString(0);
-	    	 } while (cursor.moveToNext());
-	    	 
-	    	 
+	    	 } while (cursor.moveToNext()); 
 	     }
+	    
 	     String[] photoLinkStringArray = photoListArrayList.toArray(new String[photoListArrayList.size()]);
 	     return photoLinkStringArray;
 		 
 	 }
+	 int i;
+	 public int getAuxiliaryVariableI(){
+		 String selectQuery = "SELECT int_i FROM TableI";
+		 SQLiteDatabase db = this.getReadableDatabase();
+		 
+	     Cursor cursor = db.rawQuery(selectQuery, null);
+	     int count = cursor.getCount();
+			String s = Integer.toString(count);
+			Log.d("Cursor row count: ", s);
+			if (cursor.moveToFirst()){
+		    	 do {
+		    		 i  = cursor.getInt(0);
+		    	 }
+		    	 while (cursor.moveToNext());
+		    	 }
+			
+	     return i;
+	 }
+	 
+	 public void insertValueForIAuxiliaryVariable(int i){
+		 SQLiteDatabase db = this.getWritableDatabase();
+		 try{
+		 db.execSQL("INSERT INTO TableI(int_i) VALUES('" + i + "')");
+		 Log.i("Data inserted into TableI: ", "status => true");
+		 }
+		 catch(Exception e){
+			 Log.i("Data inserted into TableI: ", "status => false");
+		 }
+		 }
 	 
 	 //ArrayList<TestData> getTestDataByName;
 	 public void getArrayListwithPlacesJsonData(ArrayList<PlacesData> pd){
@@ -401,6 +453,8 @@ db.execSQL("INSERT INTO PlacesTable(_id, name_el, name_en, link, latitude, longt
 		+ "','" + link + "','" + latitude + "','" + longtitude + "','" + info + "','" + exhibition + "','" + menu + "','" + photo_link + "','" + genre + "','" + subcategory + "','" + tel + "','" + 
 		email + "','" + fb_link + "','"  + link1 + "','" + link2 + "','" + link3 + "','" + link4 + "','" + link5 + "')");
 				  }
+			  
+			  
 			  Log.i("Data inserted into PlacesTable: ", "status => true");
 			 }
 			 catch(Exception e){

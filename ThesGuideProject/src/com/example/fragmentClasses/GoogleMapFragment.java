@@ -24,6 +24,11 @@ public class GoogleMapFragment extends SupportMapFragment{
 
 	private static final String SUPPORT_MAP_BUNDLE_KEY = "MapOptions";
 	private OnGoogleMapFragmentListener mCallback;
+	private Double currentLong;
+	private Double currentLat;
+	private Double placeLong;
+	private Double placeLat;
+	private LatLng placePosition;
 	
     public static interface OnGoogleMapFragmentListener {
         void onMapReady(GoogleMap map);
@@ -65,14 +70,14 @@ public class GoogleMapFragment extends SupportMapFragment{
 	    
 	    LayoutParams params = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
 	    linearLayout.setBackgroundColor(Color.LTGRAY);
-	    params.height = 103;
+	    //params.height = 103;
 	    linearLayout.setLayoutParams(params);
 	    linearLayout.setOrientation(LinearLayout.HORIZONTAL);
 	    
 	    Button button = new Button(getActivity());
 	    //For buttons visibility, you must set the layout params in order to give some width and height: 
 	    LayoutParams paramss = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-	    paramss.height=100;
+	    //paramss.height=100;
 	    button.setText("Map Details");
 	    button.setLayoutParams(paramss);
 		
@@ -86,8 +91,11 @@ public class GoogleMapFragment extends SupportMapFragment{
 			}
 		});
 	    
-		Double currentLong = getArguments().getDouble("doubleCurrentLongtitude");
-		Double currentLat = getArguments().getDouble("doubleCurrentLatitude");
+	    currentLong = getArguments().getDouble("doubleCurrentLongtitude");
+		currentLat = getArguments().getDouble("doubleCurrentLatitude");
+		
+		placeLong = getArguments().getDouble("doublePlaceLongtitude");
+		placeLat = getArguments().getDouble("doublePlaceLatitude");
 		
 		ViewGroup viewGroup = (ViewGroup) view;
 
@@ -106,11 +114,11 @@ public class GoogleMapFragment extends SupportMapFragment{
             //googleMap.setOnMapClickListener(listener);
            
             //Creating a LatLng object for a specific location
-            LatLng latLng1 = new LatLng(currentLat, currentLong);
+            placePosition = new LatLng(placeLat, placeLong);
            
-            googleMap.addMarker(new MarkerOptions().position(latLng1).title("Finish"));
+            googleMap.addMarker(new MarkerOptions().position(placePosition).title("Finish"));
            
-            CameraUpdate center= CameraUpdateFactory.newLatLng(new LatLng(currentLat, currentLong));
+            CameraUpdate center= CameraUpdateFactory.newLatLng(new LatLng(placeLat, placeLong));
             CameraUpdate zoom= CameraUpdateFactory.zoomTo(16);
 
             googleMap.moveCamera(center);
