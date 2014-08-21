@@ -110,22 +110,12 @@ public class ListPlacesFragment extends ListFragment{
 	}
 	
 	@Override
-	public void onDetach() {
-		// TODO Auto-generated method stub
-		super.onDetach();
-		
-	}
-	
-	
-
-	@Override
 	public void onDestroy() {
 		// TODO Auto-generated method stub
 		super.onDestroy();
 		testDB.close();
 		//testDB1.close();
 	}
-
 
 	@Override
 	public void onPause() {

@@ -100,7 +100,7 @@ public class PLacesDataListCursorAdapter extends SimpleCursorAdapter implements 
 		// TODO Auto-generated constructor stub
 	}*/
 	
-	private class ViewHolder{
+	private static class ViewHolder{
 		TextView nametv, placeNametv, distance, latitudetv, longtitudetv, desc_infohiddentv, 
 		telhiddentv, linkhiddentv, fbLinkhiddentv, emailhiddentv, exhibitionhiddentv,
 		photoLink1hiddentv, photoLink2hiddentv, photoLink3hiddentv, photoLink4hiddentv;

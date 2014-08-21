@@ -29,11 +29,12 @@ public class SearchResultsActivity extends ActionBarActivity{
 	        super.onCreate(savedInstanceState);
 	        setContentView(R.layout.search_results);
 	        
+	        this.setDefaultKeyMode(Activity.DEFAULT_KEYS_SEARCH_LOCAL);
 	        // get the action bar
-	        ActionBar actionBar = getSupportActionBar();
+	        //ActionBar actionBar = getSupportActionBar();
 	 
 	        // Enabling Back navigation on Action Bar icon
-	        actionBar.setDisplayHomeAsUpEnabled(true);
+	        //actionBar.setDisplayHomeAsUpEnabled(true);
 	 
 	        txtQuery = (TextView) findViewById(R.id.txtQuery);
 	 
@@ -42,10 +43,10 @@ public class SearchResultsActivity extends ActionBarActivity{
 	        
 	        final String queryAction = queryIntent.getAction();
 	        if(Intent.ACTION_SEARCH.equals(queryAction)){
-	        	//this.doSearchQuery(queryIntent);
+	        	this.doSearchQuery(queryIntent);
 	        }
 	        else if(Intent.ACTION_VIEW.equals(queryAction)){
-	        	//this.doView(queryIntent);
+	        	this.doView(queryIntent);
 	        }
 	        else{
 	        	Log.d(TAG, "Create intent NOT from search");
@@ -63,9 +64,9 @@ public class SearchResultsActivity extends ActionBarActivity{
 		  super.onNewIntent(queryIntent);
 	        final String queryAction = queryIntent.getAction();
 	        if (Intent.ACTION_SEARCH.equals(queryAction)) {
-	           // this.doSearchQuery(queryIntent);
+	            this.doSearchQuery(queryIntent);
 	        } else if (Intent.ACTION_VIEW.equals(queryAction)) {
-	            //this.doView(queryIntent);
+	            this.doView(queryIntent);
 	        }
 	    }
 	 
@@ -77,7 +78,7 @@ public class SearchResultsActivity extends ActionBarActivity{
 		if (queryString == null){
 			queryString = queryIntent.getStringExtra(SearchManager.QUERY); // from search-bar
 			
-			 SearchRecentSuggestions suggestions = new SearchRecentSuggestions(this, MySuggestionProvider.AUTHORITY, MySuggestionProvider.MODE);
+			 SearchRecentSuggestions suggestions = new SearchRecentSuggestions(this, SearchSuggestionsProvider.AUTHORITY, SearchSuggestionsProvider.MODE);
 	         suggestions.saveRecentQuery(queryString, null);
 		}
 		
@@ -90,7 +91,7 @@ public class SearchResultsActivity extends ActionBarActivity{
  
         queryIntent.setAction(Intent.ACTION_SEARCH);
         queryIntent.putExtras(bundle);
-        startActivity(queryIntent);
+        //startActivity(queryIntent);
 	}
 	
 	private void doView(Intent queryIntent) {
@@ -99,7 +100,7 @@ public class SearchResultsActivity extends ActionBarActivity{
         String action = queryIntent.getAction();
         Intent intent = new Intent(action);
         intent.setData(uri);
-        startActivity(intent);
+        //startActivity(intent);
         this.finish();
 	}
 
@@ -111,8 +112,8 @@ public class SearchResultsActivity extends ActionBarActivity{
 	        if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
 	            String query = intent.getStringExtra(SearchManager.QUERY);
 	 
-	            SearchRecentSuggestions suggestions = new SearchRecentSuggestions(this, MySuggestionProvider.AUTHORITY, MySuggestionProvider.MODE);
-	            suggestions.saveRecentQuery(query, null);
+	            SearchRecentSuggestions suggestions = new SearchRecentSuggestions(this, SearchSuggestionsProvider.AUTHORITY, SearchSuggestionsProvider.MODE);
+		        suggestions.saveRecentQuery(query, null);
 	            
 	            /**
 	             * Use this query to display search results like

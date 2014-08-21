@@ -2,12 +2,12 @@ package com.example.searchResults;
 
 import android.content.SearchRecentSuggestionsProvider;
 
-public class MySuggestionProvider extends SearchRecentSuggestionsProvider{
+public class SearchSuggestionsProvider extends SearchRecentSuggestionsProvider{
 
 	 public final static String AUTHORITY = "com.example.searchResults.MySuggestionProvider";
 	 public final static int MODE = DATABASE_MODE_QUERIES;
 
-	    public MySuggestionProvider() {
+	    public SearchSuggestionsProvider() {
 	        setupSuggestions(AUTHORITY, MODE);
 	    }
 

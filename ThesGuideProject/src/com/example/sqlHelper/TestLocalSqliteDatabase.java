@@ -302,6 +302,15 @@ public class TestLocalSqliteDatabase extends SQLiteOpenHelper {
 		 return cursor;
 	 }
 	 
+	 public Cursor searchByPlaceName(String inputText) throws SQLException{
+		 SQLiteDatabase db = this.getReadableDatabase();
+		 
+		 String searchQuery = "SELECT name_el FROM PlacesTable WHERE name_el LIKE '%" + inputText + "%'";
+		 
+		 Cursor cursor = db.rawQuery(searchQuery, null);
+		 return cursor;
+	 }
+	  
 	 public Cursor getSpecificPlaceData(String genre){
 		 SQLiteDatabase db = this.getReadableDatabase();
 		 
