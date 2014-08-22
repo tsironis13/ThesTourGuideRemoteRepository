@@ -16,7 +16,7 @@ import android.os.Build;
 import android.util.Log;
 
 
-public class InternalStorage {
+@TargetApi(Build.VERSION_CODES.HONEYCOMB) public class InternalStorage {
 	
 	ArrayList<String> url_array = new ArrayList<String>();
 	ArrayList<Bitmap> bitmap_array = new ArrayList<Bitmap>();
@@ -34,7 +34,8 @@ public class InternalStorage {
 	}
 	
 	
-	@TargetApi(Build.VERSION_CODES.KITKAT) public static int byteSizeOf(Bitmap bitmap){
+	@TargetApi(Build.VERSION_CODES.KITKAT) 
+	public static int byteSizeOf(Bitmap bitmap){
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
 	        return bitmap.getAllocationByteCount();
 	    } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR1) {
@@ -93,9 +94,12 @@ public class InternalStorage {
 
 		//Decode with inSampleSize
 		BitmapFactory.Options o2 = new BitmapFactory.Options();
+		
 		o2.inSampleSize = scale;
 		fis = new FileInputStream(f);
 		b = BitmapFactory.decodeStream(fis, null, o2);
+		o.inJustDecodeBounds = false;
+		o2.inBitmap = b;
 		fis.close();
 		
 		} catch(FileNotFoundException e){
@@ -115,8 +119,12 @@ public class InternalStorage {
 		Bitmap b = null;
 	    try 
 	    {
+	    	BitmapFactory.Options o = new BitmapFactory.Options();
+			o.inJustDecodeBounds = true;
 	        File f=new File(path, name);
-	        b = BitmapFactory.decodeStream(new FileInputStream(f));  
+	        b = BitmapFactory.decodeStream(new FileInputStream(f)); 
+	        o.inJustDecodeBounds = false;
+	        o.inBitmap = b;
 	    } 
 	    catch (FileNotFoundException e) 
 	    {

@@ -47,6 +47,7 @@ public class MainActivity extends ListActivity {
     // Hashmap for ListView
     ArrayList<HashMap<String, String>> mouseiaList;
     TestLocalSqliteDatabase testDB = new TestLocalSqliteDatabase(this);
+   // TestLocalSqliteDatabase t = new TestLocalSqliteDatabase(this);
     
     @Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -66,8 +67,10 @@ public class MainActivity extends ListActivity {
 		if (wifi.isWifiEnabled()){
 			testDB.openDataBase();
 			testDB.clearPlacesTableIfExists();
+			
 			PlacesJsonWebApiTask testwebtask = new PlacesJsonWebApiTask(MainActivity.this);
-			testDB.close();
+			//testDB.setSuggestionPressedField("false");
+			//testDB.close();
 			testwebtask.execute();
 			
 		}
@@ -190,6 +193,9 @@ public class MainActivity extends ListActivity {
 				//Intent cursorAdapter = new Intent(MainActivity.this, CursorAdapterExample.class);
 				//startActivity(cursorAdapter);
 				//PlacesListFragmentTest p = new PlacesListFragmentTest();
+				//t.openDataBase();
+				//t.setSuggestionPressedField("false");
+			//	t.close();
 				Intent cursorAdapter = new Intent(MainActivity.this, PlacesListFragmentActivity.class);
 				startActivity(cursorAdapter);
 			}
@@ -209,7 +215,17 @@ public class MainActivity extends ListActivity {
 
 
 
-    		@Override
+    @Override
+	protected void onDestroy() {
+		// TODO Auto-generated method stub
+		super.onDestroy();
+		testDB.close();
+	}
+
+
+
+
+			@Override
     		public boolean onCreateOptionsMenu(Menu menu) {
     			return false;
     		}

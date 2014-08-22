@@ -44,18 +44,19 @@ public class ListPlacesFragment extends ListFragment{
 	private String button_pressed;
 	private ActionBar mActionBar;
 	private SearchView searchView;
-	TestLocalSqliteDatabase testDB ;
-	TestLocalSqliteDatabase testDB1 ;
+	private TestLocalSqliteDatabase testDB;
 	private Fragment fragment;
 	private FragmentTransaction fragmentTransaction;
 	private String genre;
+	private String subcategory;
 	
 	String palcChr = "paleoChristian";
 
-	
-	public ListPlacesFragment(String museums, double current_latitude, double current_longtitude) {
+	//genre is also NameEl
+	public ListPlacesFragment(String genre, String subcategory, double current_latitude, double current_longtitude) {
 		// TODO Auto-generated constructor stub
-		this.genre = museums;
+		this.genre = genre;
+		this.subcategory = subcategory;
 		this.current_latitude = current_latitude;
 		this.current_longtitude = current_longtitude;
 	}
@@ -79,12 +80,19 @@ public class ListPlacesFragment extends ListFragment{
 		testDB = new TestLocalSqliteDatabase(getActivity());
 		testDB.openDataBase();
 		//String s = getArguments().getString("genre");
-		allDisplayImageLinkcursor = testDB.getAllPhotoDisplayImageLink(); 
+		allDisplayImageLinkcursor = testDB.getAllPhotoDisplayImageLink(genre); 
 		 if (allDisplayImageLinkcursor.moveToFirst()){
 			 do {
 				 String name = this.allDisplayImageLinkcursor.getString(this.allDisplayImageLinkcursor.getColumnIndex("_id"));
 				 String url = allDisplayImageLinkcursor.getString(this.allDisplayImageLinkcursor.getColumnIndex("photo_link"));
-				 this.imgFetcher.loadImage(this, url, getActivity(), name);
+				 if (url.equals("")){
+					 //Toast.makeText(getActivity(), "url is NULL", Toast.LENGTH_SHORT).show();
+					 
+				 }
+				 else{
+				     this.imgFetcher.loadImage(this, url, getActivity(), name);
+					 //Toast.makeText(getActivity(), "url is NOT NULL", Toast.LENGTH_SHORT).show();
+				 }
 			 }while (allDisplayImageLinkcursor.moveToNext()); 
 		 }
 		//button_pressed = "church";
@@ -96,13 +104,19 @@ public class ListPlacesFragment extends ListFragment{
 		    
 		    
 		   // Toast.makeText(getActivity(), "You clicked ListPlacesFragment!!", Toast.LENGTH_SHORT).show();
-		}   
-		else{
-			
+		}  
+		else if (genre.equals("hospitals")){
+			HelperMethodDependingOnButtonClick(genre);
+		    //setAdapterFromSpecificCursor(genre, listExample, specificPlacecursor, columns, to, imgFetcher, current_latitude, current_longtitude);
+		    setAdapterFromSpecificCursor(genre, listExample, specificPlacecursor, columns, to, imgFetcher, current_latitude, current_longtitude);
+		}
+		else {
+			Toast.makeText(getActivity(), genre.toString(), Toast.LENGTH_SHORT).show();
 			//testDB1.openDataBase();
-			HelperMethodDependingOnChurchMenuItemButtonClick(genre);
+			HelperMethodDependingOnChurchMenuItemButtonClick(subcategory);
+			//HelperMethodDependingOnSearchQuery(genre);
 			//Toast.makeText(getActivity(), "You clicked ListPlacesFragment and Churches in specific!!", Toast.LENGTH_SHORT).show();
-			setAdapterFromSpecificCursor(genre, listExample, specificPlacecursor, columns, to, imgFetcher, current_latitude, current_longtitude);
+			setAdapterFromSpecificCursor(subcategory, listExample, specificPlacecursor, columns, to, imgFetcher, current_latitude, current_longtitude);
 			
 		}
 		
@@ -123,6 +137,23 @@ public class ListPlacesFragment extends ListFragment{
 		super.onPause();
 	}
 
+	public void HelperMethodDependingOnSearchQuery(String nameEl){
+		try{
+			specificPlacecursor = testDB.getPlaceByNameEl(nameEl);
+			
+				
+			// the desired columns to be bound
+			columns = new String[] {"_id", "name_el", "photo_link", "info", "latitude", "longtitude"};
+			
+			// the XML defined views which the data will be bound to
+			to = new int[] {R.id.locationName, R.id.placeNametv, R.id.locationImage};
+			}
+			finally{
+				//specificPlacecursor.close();
+				//
+			}
+	}
+	
 
 	public void HelperMethodDependingOnButtonClick(String genre){
 		

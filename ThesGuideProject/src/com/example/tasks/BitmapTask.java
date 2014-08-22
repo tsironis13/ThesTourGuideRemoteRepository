@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.example.fragmentClasses.ListPlacesFragment;
+import com.example.fragmentClasses.SearchPlaceResultListFragment;
 import com.example.storage.InternalStorage;
 import com.example.thesguideproject.CursorAdapterExample;
 
@@ -42,6 +43,22 @@ public class BitmapTask  {
     
     public Bitmap loadImage(ListPlacesFragment c, String url, Context context, String name){
     	 
+    	Bitmap b = intStorage.loadImageFromStorage(path, name);
+    	
+    	 if (b != null){
+    		 return b;
+    	 } 
+    	 else
+    	 {
+    	 new NestedImageTask(context, name).execute(url);
+         Log.d(debugTag, "Image Fetched!!");
+         Log.i("Image Fetched: ", url);
+         return DEFAULT_ICON;
+    	 }
+    }
+    
+    public Bitmap loadImage(SearchPlaceResultListFragment c, String url, Context context, String name){
+   	 
     	Bitmap b = intStorage.loadImageFromStorage(path, name);
     	
     	 if (b != null){

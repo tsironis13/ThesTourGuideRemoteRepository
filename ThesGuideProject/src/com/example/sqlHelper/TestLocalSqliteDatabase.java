@@ -291,7 +291,18 @@ public class TestLocalSqliteDatabase extends SQLiteOpenHelper {
 		 return cursor;
 	 }
 	 
-	 public Cursor getAllPhotoDisplayImageLink(){
+	 public Cursor getPlacePhotoDisplayImageLink(String nameEl) throws SQLException{
+		 SQLiteDatabase db = this.getReadableDatabase();
+		 
+		 String selectQuery = "SELECT _id, photo_link FROM PlacesTable WHERE name_el = '" + nameEl + "'";
+		 
+		 Cursor cursor = db.rawQuery(selectQuery, null);
+		 //cursor.close();
+		 //db.close();
+		 return cursor;
+	 }
+	 
+	 public Cursor getAllPhotoDisplayImageLink() throws SQLException{
 		 SQLiteDatabase db = this.getReadableDatabase();
 		 
 		 String selectQuery = "SELECT _id, photo_link FROM PlacesTable ";
@@ -299,6 +310,35 @@ public class TestLocalSqliteDatabase extends SQLiteOpenHelper {
 		 Cursor cursor = db.rawQuery(selectQuery, null);
 		 //cursor.close();
 		 //db.close();
+		 return cursor;
+	 }
+	 
+	 public Cursor getAllPhotoDisplayImageLink(String genre) throws SQLException{
+		 SQLiteDatabase db = this.getReadableDatabase();
+		 
+		 String selectQuery = "SELECT _id, photo_link FROM PlacesTable WHERE genre = '" + genre + "'";
+		 
+		 Cursor cursor = db.rawQuery(selectQuery, null);
+		 //cursor.close();
+		 //db.close();
+		 return cursor;
+	 }
+	 
+	 public Cursor getPlaceByNameEl(String nameEl) throws SQLException{
+		 SQLiteDatabase db = this.getReadableDatabase();
+		 
+		 String selectQuery = "SELECT * FROM PlacesTable WHERE name_el = '" + nameEl + "'";
+		 
+		 Cursor cursor = db.rawQuery(selectQuery, null);
+		 return cursor;
+	 }
+	 
+	 public Cursor getCountPlaces() throws SQLException{
+		 SQLiteDatabase db = this.getReadableDatabase();
+		 
+		 String selectQuery = "SELECT COUNT(_id) FROM PlacesTable ";
+		 
+		 Cursor cursor = db.rawQuery(selectQuery, null);
 		 return cursor;
 	 }
 	 
@@ -311,7 +351,7 @@ public class TestLocalSqliteDatabase extends SQLiteOpenHelper {
 		 return cursor;
 	 }
 	  
-	 public Cursor getSpecificPlaceData(String genre){
+	 public Cursor getSpecificPlaceData(String genre) throws SQLException{
 		 SQLiteDatabase db = this.getReadableDatabase();
 		 
 		 String selectQuery = "SELECT * FROM PlacesTable WHERE genre = '" + genre + "'";
@@ -323,7 +363,7 @@ public class TestLocalSqliteDatabase extends SQLiteOpenHelper {
 		 
 	 }
 	 
-	 public Cursor getSpecificChurchData(String subcategory){
+	 public Cursor getSpecificChurchData(String subcategory) throws SQLException{
 		 SQLiteDatabase db = this.getReadableDatabase();
 		 
 		 String selectQuery = "SELECT * FROM PlacesTable WHERE subcategory = '" + subcategory + "'";
@@ -334,7 +374,7 @@ public class TestLocalSqliteDatabase extends SQLiteOpenHelper {
 	 }
 	 
 	 
-	 public Cursor getSpecificPlaceImagesData(){
+	 public Cursor getSpecificPlaceImagesData() throws SQLException{
 		 SQLiteDatabase db = this.getReadableDatabase();
 		 
          String selectQuery = "SELECT * FROM PlacesImagesTable ";
@@ -411,16 +451,49 @@ public class TestLocalSqliteDatabase extends SQLiteOpenHelper {
 	     return i;
 	 }
 	 
-	 public void insertValueForIAuxiliaryVariable(int i){
+	 String s;
+	 public String getSuggestionPressedFieldValue(){
+		 String selectQuery = "SELECT suggestion_pressed FROM TableI";
+		 SQLiteDatabase db = this.getReadableDatabase();
+		 
+	     Cursor cursor = db.rawQuery(selectQuery, null);
+	     int count = cursor.getCount();
+			String s = Integer.toString(count);
+			Log.d("Cursor row count: ", s);
+			if (cursor.moveToFirst()){
+		    	 do {
+		    		 s  = cursor.getString(0);
+		    	 }
+		    	 while (cursor.moveToNext());
+		    	 }
+			
+	     return s;
+	 }
+	 
+	 public void setSuggestionPressedField(String s){
 		 SQLiteDatabase db = this.getWritableDatabase();
 		 try{
-		 db.execSQL("INSERT INTO TableI(int_i) VALUES('" + i + "')");
-		 Log.i("Data inserted into TableI: ", "status => true");
+			 db.execSQL("INSERT INTO TableI(suggestion_pressed) VALUES('" + s + "')");
+			 Log.i("Data inserted into TableI: ", "status => true");
 		 }
 		 catch(Exception e){
 			 Log.i("Data inserted into TableI: ", "status => false");
 		 }
+	 }
+	 
+	 
+	 public void insertValueForIAuxiliaryVariable(int i){
+		 SQLiteDatabase db = this.getWritableDatabase();
+		 try{
+			 db.execSQL("INSERT INTO TableI(int_i) VALUES('" + i + "')");
+			 Log.i("Data inserted into TableI: ", "status => true");
 		 }
+		 catch(Exception e){
+			 Log.i("Data inserted into TableI: ", "status => false");
+		 }
+	}
+	 
+	 
 	 
 	 //ArrayList<TestData> getTestDataByName;
 	 public void getArrayListwithPlacesJsonData(ArrayList<PlacesData> pd){

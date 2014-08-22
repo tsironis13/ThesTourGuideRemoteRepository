@@ -43,8 +43,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
-@TargetApi(Build.VERSION_CODES.FROYO) 
 public class PlacesListFragmentActivity extends ActionBarActivity implements SearchView.OnQueryTextListener, SearchView.OnCloseListener{
 
 	private ActionBar mActionBar;
@@ -63,6 +61,7 @@ public class PlacesListFragmentActivity extends ActionBarActivity implements Sea
 	public PlacesListFragmentActivity(){}
 	
 	TestLocalSqliteDatabase t = new TestLocalSqliteDatabase(this);
+	//TestLocalSqliteDatabase t1 = new TestLocalSqliteDatabase(this);
 	
 	private List<String> items = new ArrayList<String>();; 
 	
@@ -84,12 +83,11 @@ public class PlacesListFragmentActivity extends ActionBarActivity implements Sea
 		
 		//searchView = (SearchView) findViewById(R.id.action_search);
 		
-		
         this.list = (ListView) findViewById(R.id.list);
 		
 		menuFragment = new MenuFragment();
 		
-		fragmentStack = new Stack<Fragment>();
+		//fragmentStack = new Stack<Fragment>();
 		
 		mActionBar = getSupportActionBar();
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -148,7 +146,7 @@ public class PlacesListFragmentActivity extends ActionBarActivity implements Sea
 		
 		//Retrieve the SearchView
 		searchView  = (SearchView) MenuItemCompat.getActionView(searchItem);
-		searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+		//searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
 
 		searchView.setIconifiedByDefault(false);
 		/*searchView.setOnQueryTextListener(new OnQueryTextListener(){
@@ -208,18 +206,34 @@ public class PlacesListFragmentActivity extends ActionBarActivity implements Sea
 			cursor.addRow(temp);
 		}
 		
+		//t.setSuggestionPressedField("true");
 		searchView.setSuggestionsAdapter(new ExampleAdapter(this, cursor, items));
 		
 	}
 
+	
+	
 	//@Override
 //	public boolean onQueryTextChange(String newText) {
 	//	showResults(newText + "*");
 	//	return false;
 	//}
 
-
 	
+	
+    @Override
+	protected void onDestroy() {
+		// TODO Auto-generated method stub
+		super.onDestroy();
+		//t.close();
+	}
+
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		Toast.makeText(getApplicationContext(), "ON RESUME !!!!!!!!!", Toast.LENGTH_SHORT).show();
+	}
 
 	@Override
 	public boolean onClose() {
@@ -241,8 +255,8 @@ public class PlacesListFragmentActivity extends ActionBarActivity implements Sea
 			int[] to = new int[] {R.id.nameElinfo};
 			
 			// Create a simple cursor adapter for the definitions and apply them to the ListView
-			SimpleCursorAdapter place = new SimpleCursorAdapter(this,R.layout.placeresult, cursor, columns, to);
-            this.list.setAdapter(place);
+			//SimpleCursorAdapter place = new SimpleCursorAdapter(this,R.layout.placeresult, cursor, columns, to);
+            //this.list.setAdapter(place);
 		}
 		
 	}

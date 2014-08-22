@@ -5,8 +5,11 @@
         by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
     -->
     <style name="BarkTheme" parent="Theme.AppCompat.Light.DarkActionBar"></style> 
+    <style name="AppThemes" parent="android:Theme.Holo.Light.DarkActionBar"></style>
     <style name="AppBaseTheme" parent="Theme.AppCompat.Light">
    
+        
+        
         <!--
             Theme customizations available in newer API levels can go in
             res/values-vXX/styles.xml, while customizations related to

@@ -29,44 +29,44 @@ public class SearchResultsActivity extends ActionBarActivity{
 	        super.onCreate(savedInstanceState);
 	        setContentView(R.layout.search_results);
 	        
-	        this.setDefaultKeyMode(Activity.DEFAULT_KEYS_SEARCH_LOCAL);
+	        //this.setDefaultKeyMode(Activity.DEFAULT_KEYS_SEARCH_LOCAL);
 	        // get the action bar
 	        //ActionBar actionBar = getSupportActionBar();
 	 
 	        // Enabling Back navigation on Action Bar icon
 	        //actionBar.setDisplayHomeAsUpEnabled(true);
 	 
-	        txtQuery = (TextView) findViewById(R.id.txtQuery);
+	       // txtQuery = (TextView) findViewById(R.id.txtQuery);
 	 
 	        
-	        final Intent queryIntent = getIntent();
+	        //final Intent queryIntent = getIntent();
 	        
-	        final String queryAction = queryIntent.getAction();
-	        if(Intent.ACTION_SEARCH.equals(queryAction)){
-	        	this.doSearchQuery(queryIntent);
-	        }
-	        else if(Intent.ACTION_VIEW.equals(queryAction)){
-	        	this.doView(queryIntent);
-	        }
-	        else{
+	       // final String queryAction = queryIntent.getAction();
+	        //if(Intent.ACTION_SEARCH.equals(queryAction)){
+	        	//this.doSearchQuery(queryIntent);
+	       // }
+	       // else if(Intent.ACTION_VIEW.equals(queryAction)){
+	        	//this.doView(queryIntent);
+	        //}
+	        //else{
 	        	Log.d(TAG, "Create intent NOT from search");
-	        }
-	        handleIntent(getIntent());
+	      //  }
+	        //handleIntent(getIntent());
 	 } 
 	 
 	 
 	@Override
 	  protected void onNewIntent(Intent queryIntent) {
 		
-		 setIntent(queryIntent);
-	     handleIntent(queryIntent);
+		// setIntent(queryIntent);
+	    // handleIntent(queryIntent);
 		
 		  super.onNewIntent(queryIntent);
 	        final String queryAction = queryIntent.getAction();
 	        if (Intent.ACTION_SEARCH.equals(queryAction)) {
-	            this.doSearchQuery(queryIntent);
+	           // this.doSearchQuery(queryIntent);
 	        } else if (Intent.ACTION_VIEW.equals(queryAction)) {
-	            this.doView(queryIntent);
+	           // this.doView(queryIntent);
 	        }
 	    }
 	 

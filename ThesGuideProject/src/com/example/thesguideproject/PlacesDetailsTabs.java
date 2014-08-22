@@ -163,11 +163,13 @@ public class PlacesDetailsTabs extends ActionBarActivity implements OnGoogleMapF
         infoBundle.putString("fbLink", fbLink);
         infoBundle.putString("email", email);
        // tabsPagerAdapter.addTab(actionBar.newTab().setText("Info"), InfoFragment.class, infoBundle);
+       
         tabsPagerAdapter.addTab(mActionBar.newTab().setText("Info"), InfoFragment.class, infoBundle);
         
         exhibitionBundle = new Bundle();
         exhibitionBundle.putString("exhibition", exhibition);
         //tabsPagerAdapter.addTab(actionBar.newTab().setText("Exhibition"), ExhibitionFragment.class, exhibitionBundle);
+        if (!exhibition.equals("null"))
         tabsPagerAdapter.addTab(mActionBar.newTab().setText("Exhibition"), ExhibitionFragment.class, exhibitionBundle);
         
         TestLocalSqliteDatabase testDB = new TestLocalSqliteDatabase(this);
@@ -182,11 +184,12 @@ public class PlacesDetailsTabs extends ActionBarActivity implements OnGoogleMapF
      		Log.i("SCRENN HEIGHT => ", s_height);
      		Log.i("SCRENN WIDTH => ", s_width);
         
-        if (button_pressed.equals("museums")){
+     //   if (button_pressed.equals("museums")){
         	
         	//ArrayList<Photo>  photoLinksArray = testDB.getPhotoLinksArray(placenameEl);
         	String[] photoLinkStringArray = testDB.getPhotoLinksArray(placenameEl);
         	int list_length = photoLinkStringArray.length;
+        	if (!photoLinkStringArray[0].equals("null")){
         	String s = Integer.toString(list_length);
         	
         	Log.i("PHOTO LIST RETURN FROM DATABASE =>", s);
@@ -200,7 +203,8 @@ public class PlacesDetailsTabs extends ActionBarActivity implements OnGoogleMapF
         	tabsPagerAdapter.addTab(mActionBar.newTab().setText("Photo tab"), PhotoGridViewFragment.class, photoBundle);
         	
         	testDB.close();
-        }
+        	}
+       // }
      
         
      

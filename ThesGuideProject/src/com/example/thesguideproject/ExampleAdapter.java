@@ -12,9 +12,17 @@ import java.util.List;
 
 
 
+
+
+
+
+import com.example.fragmentClasses.MenuFragment;
+import com.example.sqlHelper.TestLocalSqliteDatabase;
+
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.CursorAdapter;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.util.Log;
@@ -33,8 +41,11 @@ public class ExampleAdapter extends CursorAdapter implements OnClickListener{
 	private Context context; 
     private TextView t;
     private Button text;
-	private Cursor cursor;		
-    
+	private Cursor cursor;	
+	
+	//private FragmentTransaction fragmentTransaction;
+	//private MenuFragment menuFragment;
+	
 	public ExampleAdapter(Context context, Cursor cursor, List items) {
 		super(context, cursor, false);
 		this.items = items;
@@ -109,8 +120,15 @@ public class ExampleAdapter extends CursorAdapter implements OnClickListener{
 		CharSequence s = vH.t.getText();
 		String s1 = s.toString();
 		Log.i("TextView Clicked =>", s1);
-		Intent intent = new Intent(context, StartActivityFromFragment.class);
+		Intent intent = new Intent(context, SearchPlaceResutlActivity.class);
+		intent.putExtra("PlaceName", s1);
 		context.startActivity(intent);
+		//MenuFragment m = new MenuFragment(s1);
+		//PlacesListFragmentActivity p = new PlacesListFragmentActivity();
+		//p.setPlaceSearchFragment();
+		//m.startFragment();
+		//Intent intent = new Intent(context, StartActivityFromFragment.class);
+		//context.startActivity(intent);
 		
 	}
 

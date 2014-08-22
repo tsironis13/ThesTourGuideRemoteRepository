@@ -5,6 +5,7 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import com.example.fragmentClasses.ListPlacesFragment;
+import com.example.fragmentClasses.SearchPlaceResultListFragment;
 import com.example.locationData.PlacesData;
 import com.example.myLocation.GPSTracker;
 import com.example.storage.InternalStorage;
@@ -37,12 +38,14 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class PLacesDataListCursorAdapter extends SimpleCursorAdapter implements OnClickListener {
 
 	private ListPlacesFragment activity;
+	private SearchPlaceResultListFragment searchPlaceResultListFragment;
 	
 	//private CursorAdapterExample activity;
 	private LayoutInflater layoutInflater;
@@ -72,6 +75,19 @@ public class PLacesDataListCursorAdapter extends SimpleCursorAdapter implements 
 		this.current_longtitude = current_longtitude;
 		// TODO Auto-generated constructor stub
 	}*/
+	
+	public PLacesDataListCursorAdapter(String button_pressed, SearchPlaceResultListFragment searchPlaceResultListFragment, Context context, int layout, Cursor cursor, String[] from, int[] to, BitmapTask i, double current_latitude, double current_longtitude) {
+		super(context, layout, cursor, from, to);
+		this.button_pressed = button_pressed;
+		this.searchPlaceResultListFragment = searchPlaceResultListFragment;
+		this.context = context;
+		this.layout = layout;
+		this.cursor = cursor;
+		this.imgFetcher = i;
+		this.current_latitude = current_latitude;
+		this.current_longtitude = current_longtitude;
+		// TODO Auto-generated constructor stub
+	}
 	
 	public PLacesDataListCursorAdapter(String button_pressed, ListPlacesFragment activity, Context context, int layout, Cursor cursor, String[] from, int[] to, BitmapTask i, double current_latitude, double current_longtitude) {
 		super(context, layout, cursor, from, to);
@@ -221,7 +237,7 @@ public class PLacesDataListCursorAdapter extends SimpleCursorAdapter implements 
 		bindView(v, context, cursor);
 		
 		
-		if(image_link != null) {
+		if(!image_link .equals("")) {
 			viewHolder.icon.setTag(image_link);
    			//Drawable dr = imgFetcher.loadImage(this, viewHolder.icon);
 			//BitmapTask bit = new BitmapTask(this);
@@ -232,7 +248,10 @@ public class PLacesDataListCursorAdapter extends SimpleCursorAdapter implements 
    				viewHolder.icon.setImageBitmap(bitmap);
    			}
    		} else {
-   			viewHolder.icon.setImageResource(R.drawable.filler_icon);
+   			//viewHolder.icon.setImageResource(R.drawable.filler_icon);
+   			RelativeLayout imgHolder = (RelativeLayout) v.findViewById(R.id.relativeLayout);
+   			RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(0, 0);
+   			viewHolder.icon.setLayoutParams(params);
    		}
 		
 		viewHolder.nametv.setText(name);
@@ -424,7 +443,11 @@ public class PLacesDataListCursorAdapter extends SimpleCursorAdapter implements 
 		//Toast.makeText(this.context, vH.photoLink1hiddentv.getText(), Toast.LENGTH_SHORT).show();
 		//intent.putExtra("latitude", this.c.getDouble(this.c.getColumnIndex("latitude")));
 		//intent.putExtra("longtitude", this.c.getDouble(this.c.getColumnIndex("longtitude")));
-		this.activity.startActivity(intent);
+		if (this.activity == null){
+			this.searchPlaceResultListFragment.startActivity(intent);
+		}else{
+			this.activity.startActivity(intent);
+		}
 	}
 
 	

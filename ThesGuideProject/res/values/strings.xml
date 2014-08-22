@@ -20,6 +20,7 @@
     <string name="fragmentTestButton">Fragment Test</string>
     <string name="clearDataDBbutton">Clear Data</string>
 	<string name="museumsbutton">Museums</string>
+	<string name="hospitalsbutton">Hospitals</string>
 	<string name="sightseeingsbutton">SightSeeings</string>
 	<string name="churchesbutton">Churches</string>
     <string name="imageInternalStorage">Internal Storage</string>

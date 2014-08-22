@@ -50,13 +50,13 @@ public class SplashScreen extends Activity{
 			}
 		});
 		
-		mViewFlipper = (ViewFlipper) this.findViewById(R.id.view_flipper);
+		/*mViewFlipper = (ViewFlipper) this.findViewById(R.id.view_flipper);
         mViewFlipper.setOnTouchListener(new View.OnTouchListener() {
 			
 			@Override
 			public boolean onTouch(View view, MotionEvent event) {
 				// TODO Auto-generated method stub
-				detector.onTouchEvent(event);
+				//detector.onTouchEvent(event);
                 return true;
 			}
 		});
@@ -69,8 +69,8 @@ public class SplashScreen extends Activity{
 				// TODO Auto-generated method stub
 				//sets auto flipping
                 //mViewFlipper.setAutoStart(true);
-                mViewFlipper.setFlipInterval(2000);
-                mViewFlipper.startFlipping();
+                //mViewFlipper.setFlipInterval(2000);
+                //mViewFlipper.startFlipping();
 			}
 		}); 
         
@@ -84,7 +84,7 @@ public class SplashScreen extends Activity{
 			}
 		}); 
         
-
+*/
 	}
 	
 	

@@ -4,13 +4,13 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
     
-    <TextView 
-        android:id="@+id/textviewdisplay"
-        android:text="Some Text here!Some Text here!Some Text here!Some Text here!Some Text here!Some Text here!Some Text here!"
+    <Button
+        android:id="@+id/buttonffragmentsearc"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">"
-    </TextView>
-    
-	
-    
+        android:layout_height="match_parent"
+        android:text="Button Fragment Search"
+        >
+        
+    </Button>
+
 </LinearLayout>
