@@ -4,36 +4,29 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import com.example.myLocation.GPSTracker;
 import com.example.sqlHelper.TestLocalSqliteDatabase;
 import com.example.storage.InternalStorage;
-import com.example.tasks.ServiceHandler;
+import com.example.tasks.BitmapTask;
 import com.example.tasks.PlacesJsonWebApiTask;
 
-import android.annotation.TargetApi;
 import android.support.v4.app.Fragment;
 import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ListAdapter;
-import android.widget.ListView;
-import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
 
@@ -43,53 +36,66 @@ public class MainActivity extends ListActivity {
  
     //GPSTracker class
     GPSTracker gps;
-   
+    private Cursor allDisplayImageLinkcursor;
+    private BitmapTask imgFetcher;
     // Hashmap for ListView
     ArrayList<HashMap<String, String>> mouseiaList;
-    TestLocalSqliteDatabase testDB = new TestLocalSqliteDatabase(this);
-   // TestLocalSqliteDatabase t = new TestLocalSqliteDatabase(this);
+   // TestLocalSqliteDatabase testDB = new TestLocalSqliteDatabase(this);
+    InternalStorage i = new InternalStorage();
+    private ProgressDialog progressDialog; 
+    int startCursorSize;
+    private static int SPLASH_TIME_OUT = 0000;
     
     @Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
-
-		try {
-			testDB.createDataBase();
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
 		
+		imgFetcher = new BitmapTask(this);
 		
-		
+		//testDB.createDataBase();
 		WifiManager wifi = (WifiManager) getSystemService(Context.WIFI_SERVICE);
 		if (wifi.isWifiEnabled()){
-			testDB.openDataBase();
-			testDB.clearPlacesTableIfExists();
+			//testDB.openDataBase();
+			//allDisplayImageLinkcursor = testDB.getAllPhotoDisplayImageLink(); 	
 			
-			PlacesJsonWebApiTask testwebtask = new PlacesJsonWebApiTask(MainActivity.this);
-			//testDB.setSuggestionPressedField("false");
-			//testDB.close();
-			testwebtask.execute();
 			
+			
+			if (allDisplayImageLinkcursor.moveToFirst()){
+				do{
+					 String name = allDisplayImageLinkcursor.getString(allDisplayImageLinkcursor.getColumnIndex("_id"));
+					 String url = allDisplayImageLinkcursor.getString(allDisplayImageLinkcursor.getColumnIndex("photo_link"));
+					// Toast.makeText(getApplicationContext(), url, Toast.LENGTH_SHORT).show();
+					 
+					 if (url.equals("")){
+						 //testDB.close(); 
+						 //s.add(url);
+					 }
+					 else{
+						 
+					//	Bitmap b = imgFetcher.loadImage(this, url, getApplicationContext(), name);	 
+					//	if (b != null){
+				//			break;
+				//		} 
+			//			else{
+				//			imgFetcher.loadImage(this, url, getApplicationContext(), name);
+			//			}
+					   
+						
+					     //testDB.close();		     
+					 } 
+				}while(allDisplayImageLinkcursor.moveToNext());
+			}
 		}
 		else{
 			
 		}
 		
+		
+		new LoadViewTask().execute();   
+		
+		
 		mouseiaList = new ArrayList<HashMap<String, String>>();
-			ListView lv = getListView();
-        
-        
-			// Calling async task to get json
-			//new GetMouseia().execute();
-
-			/*if (savedInstanceState == null) {
-			getSupportFragmentManager().beginTransaction()
-			.add(R.id.container, new PlaceholderFragment()).commit();
-			}*/
-        
+	/*	    
         Button mapButton = (Button) findViewById(R.id.mapButton);
         Button actBarButton = (Button) findViewById(R.id.actBarButton);
         Button curLocButton = (Button) findViewById(R.id.curLocationButton);
@@ -97,15 +103,15 @@ public class MainActivity extends ListActivity {
         Button fragmentTestButton = (Button) findViewById(R.id.fragmentTestButton);
         Button cursorAdapterButton = (Button) findViewById(R.id.cursorAdapterButton);
         Button internalStorageButton = (Button) findViewById(R.id.internalStorageButton);
-        Button listFragmentButton = (Button) findViewById(R.id.listFragmentTest);
+        
         
         mapButton.setOnClickListener(new View.OnClickListener() {
 
         	@Override
         	public void onClick(View v) {
         		// TODO Auto-generated method stub
-        		Intent myIntent = new Intent(MainActivity.this, MapTestActivity.class);
-        		startActivity(myIntent);
+        		//Intent myIntent = new Intent(MainActivity.this, MapTestActivity.class);
+        		//startActivity(myIntent);
         		}
         	});
         
@@ -122,6 +128,7 @@ public class MainActivity extends ListActivity {
         
         curLocButton.setOnClickListener(new View.OnClickListener() {
 			
+			@SuppressWarnings("static-access")
 			@Override
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
@@ -185,21 +192,7 @@ public class MainActivity extends ListActivity {
 		});
         
         
-        listFragmentButton.setOnClickListener(new View.OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				//Intent cursorAdapter = new Intent(MainActivity.this, CursorAdapterExample.class);
-				//startActivity(cursorAdapter);
-				//PlacesListFragmentTest p = new PlacesListFragmentTest();
-				//t.openDataBase();
-				//t.setSuggestionPressedField("false");
-			//	t.close();
-				Intent cursorAdapter = new Intent(MainActivity.this, PlacesListFragmentActivity.class);
-				startActivity(cursorAdapter);
-			}
-		});
+      
         
         internalStorageButton.setOnClickListener(new View.OnClickListener() {
 			
@@ -210,16 +203,138 @@ public class MainActivity extends ListActivity {
 				//startActivity(internalStorage);
 			}
 		});
+		*/
 }
 
 
+    
+    //To use the AsyncTask, it must be subclassed  
+    private class LoadViewTask extends AsyncTask<Void, Integer, Void>  
+    {  
+        //Before running code in separate thread  
+        @Override  
+        protected void onPreExecute()  
+        {  
+            //Create a new progress dialog  
+            progressDialog = new ProgressDialog(MainActivity.this);  
+            //Set the progress dialog to display a horizontal progress bar  
+            progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);  
+            //Set the dialog title to 'Loading...'  
+            progressDialog.setTitle("Loading...");  
+            //Set the dialog message to 'Loading application View, please wait...'  
+            progressDialog.setMessage("Loading application View, please wait...");  
+            //This dialog can't be canceled by pressing the back key  
+            progressDialog.setCancelable(false);  
+            //This dialog isn't indeterminate  
+            progressDialog.setIndeterminate(false);  
+            //The maximum number of items is 100  
+            progressDialog.setMax(100);  
+            //Set the current progress to zero  
+            progressDialog.setProgress(0);  
+            //Display the progress dialog  
+            progressDialog.show();  
+        }  
+  
+        //The code to be executed in a background thread.  
+        @Override  
+        protected Void doInBackground(Void... params)  
+        {  
+            /* This is just a code that delays the thread execution 4 times, 
+             * during 850 milliseconds and updates the current progress. This 
+             * is where the code that is going to be executed on a background 
+             * thread must be placed. 
+             */  
+            try  
+            {  
+                //Get the current thread's token  
+                synchronized (this)  
+                {  
+                    //Initialize an integer (that will act as a counter) to zero  
+                    int counter = 0;  
+                    //While the counter is smaller than four  
+                    while(counter <= 4)  
+                    {  
+                        //Wait 850 milliseconds  
+                        this.wait(850);  
+                        //Increment the counter  
+                        counter++;  
+                        //Set the current progress.  
+                        //This value is going to be passed to the onProgressUpdate() method.  
+                        publishProgress(counter*25);  
+                    }  
+                }  
+            }  
+            catch (InterruptedException e)  
+            {  
+                e.printStackTrace();  
+            }  
+            return null;  
+        }  
+  
+        //Update the progress  
+        @Override  
+        protected void onProgressUpdate(Integer... values)  
+        {  
+            //set the current progress of the progress dialog  
+            progressDialog.setProgress(values[0]);  
+        }  
+  
+        //after executing the code in the thread  
+        @Override  
+        protected void onPostExecute(Void result)  
+        {  
+            //close the progress dialog  
+            progressDialog.dismiss();  
+            //initialize the View  
+           // setContentView(R.layout.activity_main); 
+            
+           
+            new Handler().postDelayed(new Runnable() {
+
+				/*
+				 * Showing splash screen with a timer. This will be useful when you
+				 * want to show case your app logo / company
+				 */
+
+				@Override
+				public void run() {
+					// This method will be executed once the timer is over
+					// Start your app main activity
+					Intent i = new Intent(MainActivity.this, PlacesListFragmentActivity.class);
+					startActivity(i);
+
+					// close this activity
+					finish();
+				}
+			}, SPLASH_TIME_OUT);
+            
+            
+          /*  Button listFragmentButton = (Button) findViewById(R.id.listFragmentTest);
+            listFragmentButton.setOnClickListener(new View.OnClickListener() {
+    			
+    			@Override
+    			public void onClick(View v) {
+    				// TODO Auto-generated method stub
+    				//Intent cursorAdapter = new Intent(MainActivity.this, CursorAdapterExample.class);
+    				//startActivity(cursorAdapter);
+    				//PlacesListFragmentTest p = new PlacesListFragmentTest();
+    				//t.openDataBase();
+    				//t.setSuggestionPressedField("false");
+    			//	t.close();
+    				
+    				Intent cursorAdapter = new Intent(MainActivity.this, PlacesListFragmentActivity.class);
+    				startActivity(cursorAdapter);
+    			}
+    		});*/
+        }  
+    } 
 
 
     @Override
 	protected void onDestroy() {
 		// TODO Auto-generated method stub
 		super.onDestroy();
-		testDB.close();
+		//testDB.close();
 	}
 
 

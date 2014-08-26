@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
 
     <string name="app_name">ThesGuideProject</string>
     <string name="hello_world">Hello world!</string>
@@ -20,6 +20,7 @@
     <string name="fragmentTestButton">Fragment Test</string>
     <string name="clearDataDBbutton">Clear Data</string>
 	<string name="museumsbutton">Museums</string>
+	<string name="nightlifebutton">Nightlife</string>
 	<string name="hospitalsbutton">Hospitals</string>
 	<string name="sightseeingsbutton">SightSeeings</string>
 	<string name="churchesbutton">Churches</string>
@@ -42,6 +43,10 @@
 	<string name="paleochr">Paleo Christianikes</string>
 	<string name="basiliki">Basiliki</string>
 	<string name="macedonian">Makedonikes</string>
+	<string name="bars">Bars</string>
+	<string name="clubs">Clubs</string>
+	<string name="mpouzoukia">Mpouzoukia</string>
+	<string name="pubs">Pubs</string>
     
 	<string-array name="category_array">
 	    <item>Bar</item>
@@ -50,11 +55,18 @@
 	    <item>Category 4</item>
 	</string-array>
 	
-		<string-array name="subcategory_array">
-		    <item>Sub Category 1</item>
-		    <item>Sub Category 2</item>
-		    <item>Sub Category 3</item>
-		    <item>Sub Category 4</item>
-		</string-array>
+	<string-array name="subcategory_array">
+		<item>Sub Category 1</item>
+	    <item>Sub Category 2</item>
+		<item>Sub Category 3</item>
+		<item>Sub Category 4</item>
+	</string-array>
+		
+	<string-array  name="night_life_subcategories">
+		<item>Clubs</item>
+		<item>Bars</item>
+		<item>Mpouzoukia</item>
+		<item>Pubs</item>
+    </string-array>
     
 </resources>

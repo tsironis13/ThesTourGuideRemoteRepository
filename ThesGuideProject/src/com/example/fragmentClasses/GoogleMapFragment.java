@@ -1,7 +1,6 @@
 package com.example.fragmentClasses;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,8 +9,6 @@ import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
 import android.widget.LinearLayout;
-
-import com.example.thesguideproject.StartActivityFromFragment;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -86,8 +83,8 @@ public class GoogleMapFragment extends SupportMapFragment{
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				Intent intent = new Intent(getActivity(), StartActivityFromFragment.class);
-				startActivity(intent);
+				//Intent intent = new Intent(getActivity(), StartActivityFromFragment.class);
+				//startActivity(intent);
 			}
 		});
 	    

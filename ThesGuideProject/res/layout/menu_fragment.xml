@@ -45,6 +45,20 @@
        		       android:layout_height="match_parent">   
        		   </View>
        		   
+    			<Button
+        			android:id="@+id/nightlifebutton"
+        			android:layout_width="wrap_content"
+        			android:layout_height="match_parent"
+        			android:background="#fac"
+        			android:text="@string/nightlifebutton">
+    			</Button>
+       		   
+       		   <View 
+       		       android:background="#000"
+       		       android:layout_width="1dp"
+       		       android:layout_height="match_parent">   
+       		   </View>
+       		   
         	   <Button
             		android:id="@+id/museumsbutton"
             		android:layout_width="wrap_content"
@@ -60,7 +74,7 @@
        		   </View>
        		   
         	   <Spinner 
-            		android:id="@+id/nightlifespinner"
+            		android:id="@+id/ssnightlifespinner"
             		android:layout_width="wrap_content"
             		android:layout_height="match_parent"
             		android:prompt="@string/spinnercategory_title"

@@ -1,44 +1,20 @@
 package com.example.fragmentClasses;
 
-import java.io.InputStream;
-import java.util.ArrayList;
-
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.HttpStatus;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
-
 import com.example.adapters.TabsPagerAdapter;
-import com.example.tasks.ImageTask;
 import com.example.thesguideproject.PlacesDetailsTabs;
 import com.example.thesguideproject.R;
-import com.example.thesguideproject.StartActivityFromFragment;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingProgressListener;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
-
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
-import android.app.Service;
-import android.content.Context;
-import android.content.Intent;
-import android.content.res.Configuration;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.Drawable;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
-import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,8 +24,6 @@ import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 
 @SuppressLint("ValidFragment") 
@@ -59,7 +33,6 @@ public class PhotoGridViewFragment extends Fragment{
 	//ImagesSlidesFragmentAdapter mAdapter;
 	private static final String STATE_POSITION = "STATE_POSITION";
 	private GridView photoFragmentGridView;
-	private ProgressDialog simpleWaitDialog;
 	//private String[] imageUrls = new String[4];
 	//private ArrayList<String> imageUrls = new ArrayList<String>(4);
 	//private Context context;

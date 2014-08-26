@@ -30,11 +30,11 @@ public class ImageInternalStorage {
 			// Writing the bitmap to the output stream
 			bitmapImage.compress(Bitmap.CompressFormat.PNG, 100, fos);
 			fos.close();
-			Log.i("Saved into application => ", "TRUE");
+			//Log.i("Saved into application => ", "TRUE");
 			
 			return true;
 		} catch (Exception e) {
-			Log.i("Saved into application => ", "FALSE");
+			//Log.i("Saved into application => ", "FALSE");
 			
 			return false;
 		}

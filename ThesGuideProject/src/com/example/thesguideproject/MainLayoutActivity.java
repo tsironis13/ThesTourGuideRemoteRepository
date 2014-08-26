@@ -47,10 +47,9 @@ public class MainLayoutActivity extends FragmentActivity implements OnItemSelect
 	private LayoutInflater layoutInflator;
 	private ArrayList<LocationData> locations;
 	private static final String debugTag = "MainLayoutActivity";
-	private boolean DatabaseExistsOrNotFlag = false;
 	public boolean checkTableIfContainsData = false;
 	
-	TestLocalSqliteDatabase testDB = new TestLocalSqliteDatabase(this);
+	//TestLocalSqliteDatabase testDB = new TestLocalSqliteDatabase(this);
 	
 	//ArrayList<TestData> getTestDataByName;
 	
@@ -79,11 +78,11 @@ public class MainLayoutActivity extends FragmentActivity implements OnItemSelect
 			
 		}
 		else{
-			testDB.openDataBase();
-			checkTableIfContainsData = testDB.checkPlacesDataTable();
+			//testDB.openDataBase();
+			//checkTableIfContainsData = testDB.checkPlacesDataTable();
 			
 			 if (checkTableIfContainsData == false){	
-					testDB.getTableNames();
+					//testDB.getTableNames();
 					Toast.makeText(getApplicationContext(), "Please enable your Wifi!!", Toast.LENGTH_SHORT).show();
 					//TestJsonWebApiTask testwebtask = new TestJsonWebApiTask(MainLayoutActivity.this);
 				    //testwebtask.execute();
@@ -147,7 +146,7 @@ public class MainLayoutActivity extends FragmentActivity implements OnItemSelect
         this.imgFetcher = new ImageTask(this);
         this.layoutInflator = LayoutInflater.from(this);
         
-        final DatabaseHolder db = new DatabaseHolder(this);
+       // final DatabaseHolder db = new DatabaseHolder(this);
         //final TestLocalSqliteDatabase testDB = new TestLocalSqliteDatabase(this);
         
         clearDataButton.setOnClickListener(new View.OnClickListener() {
@@ -155,7 +154,7 @@ public class MainLayoutActivity extends FragmentActivity implements OnItemSelect
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				db.clearTableIfExists();
+				//db.clearTableIfExists();
 			}
 		});
         
@@ -164,7 +163,7 @@ public class MainLayoutActivity extends FragmentActivity implements OnItemSelect
         	@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-        		 db.clearTableIfExists();
+        		// db.clearTableIfExists();
         		 genre_type = "museums";
 				 JsonWebAPITask webtask = new JsonWebAPITask(MainLayoutActivity.this, genre_type);
 				 webtask.execute();
@@ -179,7 +178,7 @@ public class MainLayoutActivity extends FragmentActivity implements OnItemSelect
 			@Override
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
-				db.clearTableIfExists();
+				//db.clearTableIfExists();
        		    genre_type = "sightseeings";
 				JsonWebAPITask webtask = new JsonWebAPITask(MainLayoutActivity.this, genre_type);
 				webtask.execute();
@@ -244,7 +243,7 @@ public class MainLayoutActivity extends FragmentActivity implements OnItemSelect
      				//getTestDataByName = testDB.getTestDataByName();
   					//testDB.getTableNames();
   					//setTestViewUsingBaseAdapter(getTestDataByName);
-  					testDB.close();
+  					//testDB.close();
      				/*try
      				{
      					testDB.openDataBase();
@@ -288,17 +287,12 @@ public class MainLayoutActivity extends FragmentActivity implements OnItemSelect
         
 	}
 	
-	public void databaseExistsOrNot(boolean flag) {
-   		this.DatabaseExistsOrNotFlag = flag;
-   	}
-   	
-	
 	@Override
 	protected void onDestroy() {
 		// TODO Auto-generated method stub
 		super.onDestroy();
 		 try {
-			 testDB.close();
+			// testDB.close();
 			 Log.d(debugTag, "Database closed successfully!");
 		 }
 		 catch(SQLException sqle){

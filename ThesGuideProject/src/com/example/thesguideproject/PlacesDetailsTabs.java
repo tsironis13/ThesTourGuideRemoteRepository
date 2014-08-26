@@ -1,56 +1,28 @@
 package com.example.thesguideproject;
 
-import java.io.InputStream;
-import java.util.ArrayList;
-
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.HttpStatus;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
-
 import com.example.adapters.TabsPagerAdapter;
 import com.example.fragmentClasses.GoogleMapFragment;
 import com.example.fragmentClasses.GoogleMapFragment.OnGoogleMapFragmentListener;
 import com.example.fragmentClasses.PhotoGridViewFragment;
 import com.example.fragmentClasses.InfoFragment;
 import com.example.fragmentClasses.ExhibitionFragment;
-import com.example.fragmentClasses.OnMapFragment;
-import com.example.myLocation.GPSTracker;
 import com.example.sqlHelper.TestLocalSqliteDatabase;
-import com.google.android.gms.maps.CameraUpdate;
-import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
 
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
-import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
-//import android.app.ActionBar;
 import android.app.ProgressDialog;
-import android.support.v7.app.ActionBar.Tab;
 import android.support.v7.widget.SearchView;
-//import android.app.ActionBar.Tab;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.GridView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -84,7 +56,8 @@ public class PlacesDetailsTabs extends ActionBarActivity implements OnGoogleMapF
     private String longtitude;
     private String current_latitude;
     private String current_longtitude;
-    
+    private static final String debugTag = "PlacesDetailsTabs";
+    private TestLocalSqliteDatabase testDB;
     //private Button onMapButton;
     //private ActionBar act;
     private TextView t;
@@ -172,7 +145,8 @@ public class PlacesDetailsTabs extends ActionBarActivity implements OnGoogleMapF
         if (!exhibition.equals("null"))
         tabsPagerAdapter.addTab(mActionBar.newTab().setText("Exhibition"), ExhibitionFragment.class, exhibitionBundle);
         
-        TestLocalSqliteDatabase testDB = new TestLocalSqliteDatabase(this);
+        testDB = new TestLocalSqliteDatabase(this);
+        testDB.openDataBase(debugTag);
         
         DisplayMetrics metrics = new DisplayMetrics();
      		getWindowManager().getDefaultDisplay().getMetrics(metrics);
@@ -202,13 +176,10 @@ public class PlacesDetailsTabs extends ActionBarActivity implements OnGoogleMapF
         	//tabsPagerAdapter.addTab(actionBar.newTab().setText("Photo tab"), PhotoGridViewFragment.class, photoBundle);
         	tabsPagerAdapter.addTab(mActionBar.newTab().setText("Photo tab"), PhotoGridViewFragment.class, photoBundle);
         	
-        	testDB.close();
+        	
         	}
        // }
      
-        
-     
-        
         Bundle onmapBundle = new Bundle();
         onmapBundle.putDouble("doubleCurrentLatitude", doubleCurrentLatitude);
         onmapBundle.putDouble("doubleCurrentLongtitude", doubleCurrentLongtitude);
@@ -257,6 +228,16 @@ public class PlacesDetailsTabs extends ActionBarActivity implements OnGoogleMapF
 	//	actionBar.addTab(actionBar.newTab().setText("OnMap").setTabListener(tabListener));
 		
 
+	}
+
+	
+	
+	
+	@Override
+	protected void onDestroy() {
+		// TODO Auto-generated method stub
+		super.onDestroy();
+		testDB.close(debugTag);
 	}
 
 	public boolean onCreateOptionsMenu(Menu menu){

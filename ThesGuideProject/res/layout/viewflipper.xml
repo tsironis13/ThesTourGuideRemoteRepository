@@ -10,14 +10,15 @@
             android:id="@+id/textButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:visibility="invisible"
             android:text="@string/text" >
 
         </Button>
         
-		<Spinner
+	<!--  	<Spinner
 		    android:layout_width="wrap_content"
 		    android:layout_height="50dp"
-		    android:layout_toRightOf="@+id/textButton" />
+		    android:layout_toRightOf="@+id/textButton" />  -->
 
     <ViewFlipper
         android:id="@+id/view_flipper"
@@ -34,13 +35,13 @@
                 style="@style/ImageTitle"
                 android:text="@string/alexandros" />
 
-            <ImageView
+            <!--  <ImageView
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_gravity="center"
                 android:adjustViewBounds="true"
                 android:scaleType="centerCrop"
-                android:src="@drawable/kamara" />
+                android:src="@drawable/kamara" />-->
 
             <TextView
                 style="@style/ImageTitle"
@@ -52,14 +53,14 @@
             android:layout_height="fill_parent"
             android:layout_marginTop="50dp" >
 
-            <ImageView
+         <!--     <ImageView
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_gravity="center"
                 android:adjustViewBounds="true"
                 android:scaleType="centerCrop"
-                android:src="@drawable/alexandros" />
-
+                android:src="@drawable/alexandros" />  -->
+  
             <TextView
                 style="@style/ImageTitle"
                 android:text="@string/alexandros" />

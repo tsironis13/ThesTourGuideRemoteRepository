@@ -16,7 +16,8 @@ import android.os.Build;
 import android.util.Log;
 
 
-@TargetApi(Build.VERSION_CODES.HONEYCOMB) public class InternalStorage {
+@TargetApi(Build.VERSION_CODES.HONEYCOMB) 
+public class InternalStorage {
 	
 	ArrayList<String> url_array = new ArrayList<String>();
 	ArrayList<Bitmap> bitmap_array = new ArrayList<Bitmap>();

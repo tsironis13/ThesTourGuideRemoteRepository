@@ -29,6 +29,7 @@ public class SearchPlaceResultListFragment extends ListFragment{
 	private String[] columns;
 	private int[] to;
 	private ListView listExample;
+	private static final String debugTag = "SearchPlaceResultListFragment";
 	
 	public SearchPlaceResultListFragment(String nameEl){
 		this.nameEl = nameEl;
@@ -58,20 +59,35 @@ public class SearchPlaceResultListFragment extends ListFragment{
 	    }
 		
 		testDB = new TestLocalSqliteDatabase(getActivity());
-		testDB.openDataBase();
-		getPlaceImageLink = testDB.getPlacePhotoDisplayImageLink(nameEl);
+		testDB.openDataBase(debugTag);
+		/*getPlaceImageLink = testDB.getPlacePhotoDisplayImageLink(nameEl);
 			if (getPlaceImageLink.moveToFirst()){
 				do{
 					 String name = this.getPlaceImageLink.getString(this.getPlaceImageLink.getColumnIndex("_id"));
 					 String url = getPlaceImageLink.getString(this.getPlaceImageLink.getColumnIndex("photo_link"));
-					 this.imgFetcher.loadImage(this, url, getActivity(), name);
+					 if (url.equals("")){
+						 testDB.close();
+					 }
+					 else{
+					     this.imgFetcher.loadImage(this, url, getActivity(), name);
+					     testDB.close();
+					 }
 				}while(getPlaceImageLink.moveToNext());
-			}
+			}*/
 			HelperMethodDependingOnSearchQuery(nameEl);
-			 setAdapterFromSpecificCursor(nameEl, listExample, specificPlacecursor, columns, to, imgFetcher, current_latitude, current_longtitude);
+			setAdapterFromSpecificCursor(nameEl, listExample, specificPlacecursor, columns, to, imgFetcher, current_latitude, current_longtitude);
 	}
 
 	
+	
+	
+	@Override
+	public void onDestroy() {
+		// TODO Auto-generated method stub
+		super.onDestroy();
+		testDB.close(debugTag);
+	}
+
 	public void HelperMethodDependingOnSearchQuery(String nameEl){
 		try{
 			specificPlacecursor = testDB.getPlaceByNameEl(nameEl);
@@ -90,7 +106,7 @@ public class SearchPlaceResultListFragment extends ListFragment{
 	}
 	
 	private void setAdapterFromSpecificCursor(String button_pressed, ListView listExample, Cursor cursor, String[] columns, int[] to, BitmapTask imgFetcher, double current_latitude, double current_longtitude){
-		setListAdapter(new PLacesDataListCursorAdapter(button_pressed, this, getActivity(),  R.layout.places_basic_layout, cursor, columns, to, this.imgFetcher, current_latitude, current_longtitude) );
+		setListAdapter(new PLacesDataListCursorAdapter(button_pressed, this, getActivity(),  R.layout.places_basic_layout, cursor, columns, to, current_latitude, current_longtitude) );
 	}
 	
 	

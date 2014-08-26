@@ -21,6 +21,7 @@ import com.example.sqlHelper.DatabaseHolder;
 import com.example.sqlHelper.TestLocalSqliteDatabase;
 import com.example.thesguideproject.MainActivity;
 import com.example.thesguideproject.MainLayoutActivity;
+import com.example.thesguideproject.SplashScreen;
 
 public class PlacesJsonWebApiTask extends AsyncTask<Void, Integer, String> {
 
@@ -28,6 +29,7 @@ public class PlacesJsonWebApiTask extends AsyncTask<Void, Integer, String> {
 	 private ProgressDialog pDialog;
 	 //private MainLayoutActivity activity;
 	 private MainActivity activity;
+	 private SplashScreen s;
 	 private Context context;
 	 private static final String debugTag = "PlacesJsonWebApiTask";
 	 public String encodedUrl;
@@ -59,6 +61,11 @@ public class PlacesJsonWebApiTask extends AsyncTask<Void, Integer, String> {
 	    	this.context = this.activity.getApplicationContext();
 	 }
 	 
+	 public PlacesJsonWebApiTask(SplashScreen activity){
+	    	super();
+	    	this.s = activity;
+	    	this.context = this.s.getApplicationContext();
+	 } 
 	
 	 // contacts JSONArray
 	    JSONArray persons = null;
@@ -67,7 +74,7 @@ public class PlacesJsonWebApiTask extends AsyncTask<Void, Integer, String> {
 	    protected void onPreExecute() {
 	            super.onPreExecute();
 	            // Showing progress dialog
-	            pDialog = new ProgressDialog(this.activity);
+	            pDialog = new ProgressDialog(this.s);
 	            pDialog.setMessage("Please wait...");
 	            pDialog.setCancelable(false);
 	            pDialog.show();
@@ -101,7 +108,7 @@ public class PlacesJsonWebApiTask extends AsyncTask<Void, Integer, String> {
          
          // ArrayList<LocationData> locData = new ArrayList<LocationData>(); 
            
-          if(result.length() == 0){
+        if(result.length() == 0){
   			AlertDialog.Builder builder = new AlertDialog.Builder(context);
   			builder.setMessage("Unable to find location data. Try again later");
   			
@@ -111,7 +118,7 @@ public class PlacesJsonWebApiTask extends AsyncTask<Void, Integer, String> {
               return;
   		}
   		else {
-  			Toast.makeText(this.activity.getApplicationContext(), "result is full", Toast.LENGTH_SHORT).show();
+  			Toast.makeText(this.s.getApplicationContext(), "result is full", Toast.LENGTH_SHORT).show();
   		}
           
           
@@ -176,7 +183,7 @@ public class PlacesJsonWebApiTask extends AsyncTask<Void, Integer, String> {
         
         	
         	TestLocalSqliteDatabase dbtest = new TestLocalSqliteDatabase(context);
-			dbtest.openDataBase();
+			dbtest.openDataBase(debugTag);
 			//Log.d("Insert: ", "Inserting .."); 
 			//dbholder.addLocation(new LocationData(integer_id, genre, photo_link, name_el, latitude, longtitude));
 			  for (PlacesData td : placesDataArray){
@@ -192,7 +199,7 @@ public class PlacesJsonWebApiTask extends AsyncTask<Void, Integer, String> {
 		        }*/
 			  
 			dbtest.getArrayListwithPlacesJsonData(placesDataArray);
-			dbtest.close();
+			dbtest.close(debugTag);
 			 // Reading all contacts
 	        
         	
@@ -202,6 +209,8 @@ public class PlacesJsonWebApiTask extends AsyncTask<Void, Integer, String> {
         } 
           
           
+        
+        
           
 	  }
 	   

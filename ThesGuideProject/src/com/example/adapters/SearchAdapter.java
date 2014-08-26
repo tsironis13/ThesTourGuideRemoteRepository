@@ -1,4 +1,4 @@
-package com.example.thesguideproject;
+package com.example.adapters;
 
 import java.util.List;
 
@@ -16,8 +16,12 @@ import java.util.List;
 
 
 
+
+
 import com.example.fragmentClasses.MenuFragment;
 import com.example.sqlHelper.TestLocalSqliteDatabase;
+import com.example.thesguideproject.R;
+import com.example.thesguideproject.SearchPlaceResutlActivity;
 
 import android.content.Context;
 import android.content.Intent;
@@ -35,7 +39,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class ExampleAdapter extends CursorAdapter implements OnClickListener{
+public class SearchAdapter extends CursorAdapter implements OnClickListener{
 
 	private List items;
 	private Context context; 
@@ -46,7 +50,7 @@ public class ExampleAdapter extends CursorAdapter implements OnClickListener{
 	//private FragmentTransaction fragmentTransaction;
 	//private MenuFragment menuFragment;
 	
-	public ExampleAdapter(Context context, Cursor cursor, List items) {
+	public SearchAdapter(Context context, Cursor cursor, List items) {
 		super(context, cursor, false);
 		this.items = items;
 		this.context = context;

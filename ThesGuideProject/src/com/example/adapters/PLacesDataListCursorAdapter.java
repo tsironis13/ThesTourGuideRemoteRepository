@@ -76,27 +76,27 @@ public class PLacesDataListCursorAdapter extends SimpleCursorAdapter implements 
 		// TODO Auto-generated constructor stub
 	}*/
 	
-	public PLacesDataListCursorAdapter(String button_pressed, SearchPlaceResultListFragment searchPlaceResultListFragment, Context context, int layout, Cursor cursor, String[] from, int[] to, BitmapTask i, double current_latitude, double current_longtitude) {
+	public PLacesDataListCursorAdapter(String button_pressed, SearchPlaceResultListFragment searchPlaceResultListFragment, Context context, int layout, Cursor cursor, String[] from, int[] to, double current_latitude, double current_longtitude) {
 		super(context, layout, cursor, from, to);
 		this.button_pressed = button_pressed;
 		this.searchPlaceResultListFragment = searchPlaceResultListFragment;
 		this.context = context;
 		this.layout = layout;
 		this.cursor = cursor;
-		this.imgFetcher = i;
+		//this.imgFetcher = i;
 		this.current_latitude = current_latitude;
 		this.current_longtitude = current_longtitude;
 		// TODO Auto-generated constructor stub
 	}
 	
-	public PLacesDataListCursorAdapter(String button_pressed, ListPlacesFragment activity, Context context, int layout, Cursor cursor, String[] from, int[] to, BitmapTask i, double current_latitude, double current_longtitude) {
+	public PLacesDataListCursorAdapter(String button_pressed, ListPlacesFragment activity, Context context, int layout, Cursor cursor, String[] from, int[] to, double current_latitude, double current_longtitude) {
 		super(context, layout, cursor, from, to);
 		this.button_pressed = button_pressed;
 		this.activity = activity;
 		this.context = context;
 		this.layout = layout;
 		this.cursor = cursor;
-		this.imgFetcher = i;
+		//this.imgFetcher = i;
 		this.current_latitude = current_latitude;
 		this.current_longtitude = current_longtitude;
 		// TODO Auto-generated constructor stub
@@ -177,6 +177,7 @@ public class PLacesDataListCursorAdapter extends SimpleCursorAdapter implements 
 	
 	
 	public View getView(int pos, View inView, ViewGroup parent){
+		imgFetcher = new BitmapTask(this);
 		View v = inView;
 		ViewHolder viewHolder;
 		if (v == null) {

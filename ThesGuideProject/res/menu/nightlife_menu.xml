@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+    
+	<group
+       android:checkableBehavior="single">
+    <item 
+        android:id="@+id/bars"
+        android:title="@string/bars" >
+    </item>
+    
+    <item 
+        android:id="@+id/clubs"
+        android:title="@string/clubs" >
+    </item>
+    
+    <item 
+        android:id="@+id/mpouzoukia"
+        android:title="@string/mpouzoukia">
+    </item>
+    
+    <item 
+        android:id="@+id/pubs"
+        android:title="@string/pubs" >
+    </item>
+    
+    </group>
+    
+    
+</menu>

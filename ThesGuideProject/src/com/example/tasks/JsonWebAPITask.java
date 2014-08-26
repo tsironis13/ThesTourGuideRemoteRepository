@@ -1,28 +1,19 @@
 package com.example.tasks;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.HashMap;
 
+import java.util.ArrayList;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
-import android.widget.ListAdapter;
-import android.widget.SimpleAdapter;
 import android.widget.Toast;
-
 import com.example.locationData.LocationData;
 import com.example.sqlHelper.DatabaseHolder;
-import com.example.thesguideproject.ActBarTest;
-import com.example.thesguideproject.MainActivity;
 import com.example.thesguideproject.MainLayoutActivity;
-import com.example.thesguideproject.MapTestActivity;
 
 
 /**

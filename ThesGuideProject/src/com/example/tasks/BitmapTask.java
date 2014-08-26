@@ -7,10 +7,15 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.example.adapters.PLacesDataListCursorAdapter;
 import com.example.fragmentClasses.ListPlacesFragment;
 import com.example.fragmentClasses.SearchPlaceResultListFragment;
 import com.example.storage.InternalStorage;
 import com.example.thesguideproject.CursorAdapterExample;
+import com.example.thesguideproject.MainActivity;
+
+
+import com.example.thesguideproject.PlacesListFragmentActivity;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -20,6 +25,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.util.Log;
+import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -31,8 +37,9 @@ public class BitmapTask  {
     private SimpleCursorAdapter adapt;
     //private BaseAdapter adapt;
     private ArrayList<Bitmap> bitmapArray;
+    private PLacesDataListCursorAdapter p;
     
-    InternalStorage intStorage = new InternalStorage();
+    static InternalStorage intStorage = new InternalStorage();
     private String path = "/data/data/com.example.thesguideproject/app_imageDir";
     
     public BitmapTask(Context ctx)
@@ -41,7 +48,13 @@ public class BitmapTask  {
     }
     
     
-    public Bitmap loadImage(ListPlacesFragment c, String url, Context context, String name){
+    public BitmapTask(PLacesDataListCursorAdapter pLacesDataListCursorAdapter) {
+		// TODO Auto-generated constructor stub
+    	this.p = pLacesDataListCursorAdapter;
+	}
+
+
+	public Bitmap loadImage(PlacesListFragmentActivity mainActivity, String url, Context context, String name){
     	 
     	Bitmap b = intStorage.loadImageFromStorage(path, name);
     	
@@ -51,8 +64,8 @@ public class BitmapTask  {
     	 else
     	 {
     	 new NestedImageTask(context, name).execute(url);
-         Log.d(debugTag, "Image Fetched!!");
-         Log.i("Image Fetched: ", url);
+         //Log.d(debugTag, "Image Fetched!!");
+         //Log.i("Image Fetched: ", url);
          return DEFAULT_ICON;
     	 }
     }
@@ -67,8 +80,8 @@ public class BitmapTask  {
     	 else
     	 {
     	 new NestedImageTask(context, name).execute(url);
-         Log.d(debugTag, "Image Fetched!!");
-         Log.i("Image Fetched: ", url);
+        // Log.d(debugTag, "Image Fetched!!");
+        // Log.i("Image Fetched: ", url);
          return DEFAULT_ICON;
     	 }
     }
@@ -86,14 +99,14 @@ public class BitmapTask  {
             //return imageCache.get(url);
         	int sizeOfBitmap = intStorage.byteSizeOf(b);
         	String size = Integer.toString(sizeOfBitmap);
-        	Log.i("Byte size of Bitmap => ", size + " " + name);
+        	//Log.i("Byte size of Bitmap => ", size + " " + name);
         	
         	return b;
         }
         else {
             new NestedImageTask(context, name).execute(url);
-            Log.d(debugTag, "Image Fetched!!");
-            Log.i("Image Fetched: ", url);
+           // Log.d(debugTag, "Image Fetched!!");
+           // Log.i("Image Fetched: ", url);
             return DEFAULT_ICON;
         }
     }
@@ -120,7 +133,7 @@ public class BitmapTask  {
         }
     }*/
     
-    private class NestedImageTask extends AsyncTask<String, Void, Bitmap>
+    private static class NestedImageTask extends AsyncTask<String, Void, Bitmap>
     {
         private String s_url;
         private Context context;
@@ -160,14 +173,15 @@ public class BitmapTask  {
         }
         
         
-         @Override
+        @Override
         protected void onPostExecute(Bitmap result) {
             super.onPostExecute(result);
             synchronized (this) {
                 //imageCache.put(s_url, result);
                 intStorage.saveToInternalSorage(result, context, name);
+                Log.i("IMAGE SAVED TO INTERNAL STORAGE =>", "OPERATION COMPLETED!");
             }
-            adapt.notifyDataSetChanged();
+            //adapt.notifyDataSetChanged();
         }
         
         

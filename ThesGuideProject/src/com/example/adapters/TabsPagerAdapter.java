@@ -1,49 +1,24 @@
 package com.example.adapters;
 
 import java.util.ArrayList;
-
-
-
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Stack;
 
-import com.example.fragmentClasses.InfoFragment;
-import com.example.fragmentClasses.ExhibitionFragment;
-import com.example.fragmentClasses.OnMapFragment;
-//import com.rufflez.swipeyandlist.TabsAdapter.TabInfo;
-
-
-import com.example.fragmentClasses.PhotoGridViewFragment;
 import com.example.thesguideproject.PlacesDetailsTabs;
-import com.example.adapters.TabsPagerAdapter.TabInfo;
-
-//import android.annotation.TargetApi;
-//import android.app.ActionBar;
-//import android.app.ActionBar.Tab;
-
-
 
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBar.Tab;
 import android.support.v7.app.ActionBar.TabListener;
-//import android.app.ActionBar.TabListener;
-import android.app.FragmentTransaction;
-import android.content.Context;
-import android.os.Build;
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.util.Log;
-import android.widget.Toast;
 
-
+@SuppressLint("UseSparseArrays") 
 public class TabsPagerAdapter extends FragmentStatePagerAdapter implements OnPageChangeListener, TabListener {
 	
 	//private final Context mContext;
@@ -51,11 +26,6 @@ public class TabsPagerAdapter extends FragmentStatePagerAdapter implements OnPag
 	private final ViewPager mViewPager;
 	private final ArrayList<TabInfo> mTabs = new ArrayList<TabInfo>();
 	private final String TAG = "";
-	private String name;
-	private double doubleLatitude;
-	private double doubleLongtitude;
-	private double doubleCurrentLatitude;
-	private double doubleCurrentLongtitude;
 	private Map<Integer, Stack<TabInfo>> history = new HashMap<Integer, Stack<TabInfo>>();
 	private final PlacesDetailsTabs activity;
 	private int TOTAL_TABS;
@@ -224,6 +194,7 @@ public class TabsPagerAdapter extends FragmentStatePagerAdapter implements OnPag
 	}*/
 
 	
+	@SuppressWarnings("rawtypes")
 	public void replace(final int position, final Class fragmentClass, final Bundle args) {
 	    /* Save the fragment to the history. */
 		activity.getSupportFragmentManager().beginTransaction().addToBackStack(null).commit();

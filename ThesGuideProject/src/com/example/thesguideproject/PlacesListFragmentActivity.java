@@ -2,44 +2,35 @@ package com.example.thesguideproject;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Stack;
 
-import com.example.fragmentClasses.DisplayImageFragment;
-import com.example.fragmentClasses.ListPlacesFragment;
+import com.example.adapters.SearchAdapter;
 import com.example.fragmentClasses.MenuFragment;
 import com.example.sqlHelper.TestLocalSqliteDatabase;
+import com.example.tasks.BitmapTask;
 import com.example.thesguideproject.R;
-import com.example.thesguideproject.R.menu;
 
-import android.annotation.TargetApi;
+import android.app.FragmentManager;
+import android.app.ProgressDialog;
 import android.app.SearchManager;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.MatrixCursor;
-import android.os.Build;
+import android.graphics.Bitmap;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.net.wifi.WifiManager;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentManager.OnBackStackChangedListener;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.MenuItemCompat;
-import android.support.v4.widget.SimpleCursorAdapter;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.SearchView;
-import android.support.v7.widget.SearchView.OnQueryTextListener;
 import android.util.Log;
 import android.view.KeyEvent;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.FrameLayout;
-import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -47,16 +38,16 @@ public class PlacesListFragmentActivity extends ActionBarActivity implements Sea
 
 	private ActionBar mActionBar;
 	private SearchView searchView;
-	private ListView list;
-	private Stack<Fragment> fragmentStack;
 	private MenuFragment menuFragment;
 	private Fragment fragment;
-	private Fragment fragment2;
-	private ListPlacesFragment listPlacesFragment;
-	private FragmentManager fragmentManager;
 	private FragmentTransaction fragmentTransaction;
 	TextView hiddentv;
-	
+	private Cursor allDisplayImageLinkcursor;
+	private BitmapTask imgFetcher;
+	private ProgressDialog progressDialog; 
+	private static final String debugTag = "PlacesListFragmentActivity";
+	private String name;
+	private String url;
 	
 	public PlacesListFragmentActivity(){}
 	
@@ -72,22 +63,59 @@ public class PlacesListFragmentActivity extends ActionBarActivity implements Sea
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.placeslistfragmentactivityfragment);
-	
+		t.openDataBase(debugTag);
 		
-		//items.add("antionio");
-		//items.add("john");
-		//items.add("peny");
+		imgFetcher = new BitmapTask(this);
+		
+		//testDB.createDataBase();
+		WifiManager wifi = (WifiManager) getSystemService(Context.WIFI_SERVICE);
+		if (wifi.isWifiEnabled()){
+			//t.openDataBase();
+			allDisplayImageLinkcursor = t.getAllPhotoDisplayImageLink(); 	
+			
+			
+			
+			if (allDisplayImageLinkcursor.moveToFirst()){
+				do{
+					 name = allDisplayImageLinkcursor.getString(allDisplayImageLinkcursor.getColumnIndex("_id"));
+					 url = allDisplayImageLinkcursor.getString(allDisplayImageLinkcursor.getColumnIndex("photo_link"));
+					// Toast.makeText(getApplicationContext(), url, Toast.LENGTH_SHORT).show();
+					 
+					 if (url.equals("")){
+						 //testDB.close(); 
+						 //s.add(url);
+					 }
+					 else{
+						 
+						Bitmap b = imgFetcher.loadImage(this, url, getApplicationContext(), name);	 
+						//if (b != null){
+							//break;
+					//	} 
+					//	else{
+							imgFetcher.loadImage(this, url, getApplicationContext(), name);
+				//		}
+					   
+						
+					     //testDB.close();		     
+					 } 
+				}while(allDisplayImageLinkcursor.moveToNext());
+			}
+		}
+		else{
+			
+		}
+		
+		if (isNetworkConnected()){
+		
+		new LoadViewTask().execute();  
+		}
+		
 		
 		mActionBar= getSupportActionBar();
 		mActionBar.setDisplayHomeAsUpEnabled(true);
 		
-		//searchView = (SearchView) findViewById(R.id.action_search);
-		
-        this.list = (ListView) findViewById(R.id.list);
-		
+		//searchView = (SearchView) findViewById(R.id.action_search);	
 		menuFragment = new MenuFragment();
-		
-		//fragmentStack = new Stack<Fragment>();
 		
 		mActionBar = getSupportActionBar();
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -96,7 +124,8 @@ public class PlacesListFragmentActivity extends ActionBarActivity implements Sea
 		
 		if (savedInstanceState == null){
 			fragmentTransaction = getSupportFragmentManager().beginTransaction().add(R.id.containermenu, menuFragment);
-			t.close();
+			t.close(debugTag);
+			//fragmentTransaction.addToBackStack("menu");
 			fragmentTransaction.commit();
 		}
 	
@@ -105,34 +134,84 @@ public class PlacesListFragmentActivity extends ActionBarActivity implements Sea
 	
 	int y;
 	 
+	
+	private boolean isNetworkConnected() {
+		ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+		NetworkInfo ni = cm.getActiveNetworkInfo();
+		if (ni == null) {
+			// There are no active networks.
+			return false;
+		} else
+			return true;
+	}
+	
+	@SuppressWarnings("static-access")
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
-			
-		int y = t.getAuxiliaryVariableI();
+		
+		
+		//int y = t.getAuxiliaryVariableI();
 	
+		//FragmentTransaction ft2 = getSupportFragmentManager().beginTransaction();
+		int fragments = getSupportFragmentManager().getBackStackEntryCount();
+		if (fragments == 1){
+			//int backStackId = getSupportFragmentManager().getBackStackEntryAt(1).getId();
+			//getSupportFragmentManager().popBackStack("d", 0);
+			//getSupportFragmentManager().popBackStack();
+			getSupportFragmentManager().popBackStack();
+			Toast.makeText(getApplicationContext(), "Fragments in back stack are =>" + fragments, Toast.LENGTH_SHORT).show();
+		}
+		else if (fragments >2){
+			//getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+			int id = getSupportFragmentManager().getBackStackEntryCount();
+			String backStackId = getSupportFragmentManager().getBackStackEntryAt(1).getName();
+			//for (int i=0; i<id-2; i++){
+				//getSupportFragmentManager().popBackStack(backStackId, 0);
+				//getSupportFragmentManager().popBackStack();
+			//}
+			
+			//String backStackId = getSupportFragmentManager().getBackStackEntryAt(1).getName();
+			//if (backStackId.equals("mus")){
+				//getSupportFragmentManager().popBackStack("mus", FragmentManager.POP_BACK_STACK_INCLUSIVE);
+			//}
+			//else{
+				//getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+			//}
+			Toast.makeText(getApplicationContext(), "Fragments in back stack are =>" + fragments, Toast.LENGTH_SHORT).show();
+			Toast.makeText(getApplicationContext(), "Fragments in back stack position 1 =>" + backStackId, Toast.LENGTH_SHORT).show();
+		}
+		//else if(fragments > 1){
+		//	int backStackId = getSupportFragmentManager().getBackStackEntryAt(1).getId();
+		//	getSupportFragmentManager().popBackStack(backStackId, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+		//}
+		
 		// TODO Auto-generated method stub
-		if (keyCode == event.KEYCODE_BACK && y != 0){
+		/*if (keyCode == event.KEYCODE_BACK && y != 0){
 			
 			t.insertValueForIAuxiliaryVariable(0);
-			t.close(); 
+			//t.close(); 
 			String s = Integer.toString(i);
 			Toast.makeText(getApplication(), s+ "pressed!", Toast.LENGTH_SHORT).show();
 			Log.d(this.getClass().getName(), "back button pressed");
 			hiddentv.setText("you are in!");
-			fragment2 = new MenuFragment();
-			FragmentTransaction ft2 = getSupportFragmentManager().beginTransaction().replace(R.id.containermenu, fragment2);
+			//t.close();
+			fragment = new MenuFragment();
+			FragmentTransaction ft2 = getSupportFragmentManager().beginTransaction().replace(R.id.containermenu, fragment);
 			ft2.addToBackStack(null);
 			ft2.commit();
 		}
 		else {
-			fragment2 = new MenuFragment();
-			FragmentTransaction ft2 = getSupportFragmentManager().beginTransaction().replace(R.id.containermenu, fragment2);
+			fragment = new MenuFragment();
+			FragmentTransaction ft2 = getSupportFragmentManager().beginTransaction().replace(R.id.containermenu, fragment);
 			ft2.commit();
+			//t.close();
 			Log.d(this.getClass().getName(), "NO back button pressed");
-		}
+		}*/
 		return super.onKeyDown(keyCode, event);
 		
 	}
+	
+	
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -184,6 +263,7 @@ public class PlacesListFragmentActivity extends ActionBarActivity implements Sea
 		
 		Cursor c = t.searchByPlaceName(query);
 		
+	try{
 		if (c == null){
 			Log.i("Message Matched =>", "false");
 		}
@@ -198,6 +278,10 @@ public class PlacesListFragmentActivity extends ActionBarActivity implements Sea
 				while(c.moveToNext());
 			}
 		}
+	}
+	finally{
+		c.close();
+	}
 		
 		for (int i=0; i<items.size(); i++){
 			temp[0] = i;
@@ -207,7 +291,7 @@ public class PlacesListFragmentActivity extends ActionBarActivity implements Sea
 		}
 		
 		//t.setSuggestionPressedField("true");
-		searchView.setSuggestionsAdapter(new ExampleAdapter(this, cursor, items));
+		searchView.setSuggestionsAdapter(new SearchAdapter(this, cursor, items));
 		
 	}
 
@@ -225,42 +309,9 @@ public class PlacesListFragmentActivity extends ActionBarActivity implements Sea
 	protected void onDestroy() {
 		// TODO Auto-generated method stub
 		super.onDestroy();
-		//t.close();
-	}
-
-	@Override
-	protected void onResume() {
-		// TODO Auto-generated method stub
-		super.onResume();
-		Toast.makeText(getApplicationContext(), "ON RESUME !!!!!!!!!", Toast.LENGTH_SHORT).show();
-	}
-
-	@Override
-	public boolean onClose() {
-		showResults("");
-		return false;
+		//t.close(debugTag);
 	}
 	
-	private void showResults(String query) {
-		Cursor cursor = t.searchByPlaceName((query != null ? query.toString() : "@@@@"));
-		
-		if (cursor == null){
-			
-		}
-		else{
-			// Specify the columns we want to display in the result
-			String columns[] = new String[] {"name_el"};
-			
-			// Specify the Corresponding layout elements where we want the columns to go
-			int[] to = new int[] {R.id.nameElinfo};
-			
-			// Create a simple cursor adapter for the definitions and apply them to the ListView
-			//SimpleCursorAdapter place = new SimpleCursorAdapter(this,R.layout.placeresult, cursor, columns, to);
-            //this.list.setAdapter(place);
-		}
-		
-	}
-
 	@Override
 	public boolean onQueryTextChange(String query) {
 		// TODO Auto-generated method stub
@@ -273,6 +324,14 @@ public class PlacesListFragmentActivity extends ActionBarActivity implements Sea
 		// TODO Auto-generated method stub
 		loadData(query);
 		return true;
+	}
+
+
+
+	@Override
+	public boolean onClose() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 	
@@ -288,9 +347,90 @@ public class PlacesListFragmentActivity extends ActionBarActivity implements Sea
 		return rootView;
 	}
 	 
-	 
+
 	 
  }*/
 	
-	
+	 private class LoadViewTask extends AsyncTask<Void, Integer, Void>  
+	    { 
+		 
+		 
+		  @Override  
+	        protected void onPreExecute()  
+	        {  
+	            //Create a new progress dialog  
+	            progressDialog = new ProgressDialog(PlacesListFragmentActivity.this);  
+	            //Set the progress dialog to display a horizontal progress bar  
+	            progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);  
+	            //Set the dialog title to 'Loading...'  
+	            progressDialog.setTitle("Loading...");  
+	            //Set the dialog message to 'Loading application View, please wait...'  
+	            progressDialog.setMessage("Loading application View, please wait...");  
+	            //This dialog can't be canceled by pressing the back key  
+	            progressDialog.setCancelable(false);  
+	            //This dialog isn't indeterminate  
+	            progressDialog.setIndeterminate(false);  
+	            //The maximum number of items is 100  
+	            progressDialog.setMax(100);  
+	            //Set the current progress to zero  
+	            progressDialog.setProgress(0);  
+	            //Display the progress dialog  
+	            progressDialog.show();  
+	        }  
+		  
+		  //The code to be executed in a background thread.  
+	        @Override  
+	        protected Void doInBackground(Void... params)  
+	        {  
+	            /* This is just a code that delays the thread execution 4 times, 
+	             * during 850 milliseconds and updates the current progress. This 
+	             * is where the code that is going to be executed on a background 
+	             * thread must be placed. 
+	             */  
+	            try  
+	            {  
+	                //Get the current thread's token  
+	                synchronized (this)  
+	                {  
+	                    //Initialize an integer (that will act as a counter) to zero  
+	                    int counter = 0;  
+	                    //While the counter is smaller than four  
+	                    while(counter <= 4)  
+	                    {  
+	                        //Wait 850 milliseconds  
+	                        this.wait(350);  
+	                        //Increment the counter  
+	                        counter++;  
+	                        //Set the current progress.  
+	                        //This value is going to be passed to the onProgressUpdate() method.  
+	                        publishProgress(counter*25);  
+	                    }  
+	                }  
+	            }  
+	            catch (InterruptedException e)  
+	            {  
+	                e.printStackTrace();  
+	            }  
+	            return null;  
+	        }
+	        
+	        
+	        
+	        @Override  
+	        protected void onProgressUpdate(Integer... values)  
+	        {  
+	            //set the current progress of the progress dialog  
+	            progressDialog.setProgress(values[0]);  
+	        }  
+	  
+	        //after executing the code in the thread  
+	        @Override  
+	        protected void onPostExecute(Void result)  
+	        {  
+	            //close the progress dialog  
+	            progressDialog.dismiss();  
+	            }
+		 
+		 
+	    }
 }

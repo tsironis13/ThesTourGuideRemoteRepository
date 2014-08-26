@@ -162,13 +162,13 @@ public class TestLocalSqliteDatabase extends SQLiteOpenHelper {
 	}
 	
 	
-	 public void openDataBase() throws SQLException{
+	 public void openDataBase(String debugTag) throws SQLException{
 		//Open the database
 		try
 		{
 			String myPath = DB_PATH + DB_NAME;
 			myDataBase = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READONLY);
-			Log.d(debugTag, "Database opened successfully!");
+			Log.d(debugTag, "Database opened successfully! from => " + debugTag);
 			
 			
 			Cursor c=myDataBase.rawQuery("SELECT name FROM sqlite_master WHERE type = 'table'",null);
@@ -189,11 +189,11 @@ public class TestLocalSqliteDatabase extends SQLiteOpenHelper {
 		
      }
 		 
-	 @Override
-	 public synchronized void close() {
+	 public synchronized void close(String debugTag) {
 		
 		if(myDataBase != null)
 		myDataBase.close();
+		Log.d(debugTag, "Database closed successfully! from => " + debugTag);
 		super.close();
 	 }
 	 
@@ -494,6 +494,16 @@ public class TestLocalSqliteDatabase extends SQLiteOpenHelper {
 	}
 	 
 	 
+	public void insertValueNotForImageRepeatDownload(int i){
+		SQLiteDatabase db = this.getWritableDatabase();
+		 try{
+			 db.execSQL("INSERT INTO TableI(link_image_count) VALUES('" + i + "')");
+			 Log.i("Data inserted into TableI: ", "status => true");
+		 }
+		 catch(Exception e){
+			 Log.i("Data inserted into TableI: ", "status => false");
+		 }
+	} 
 	 
 	 //ArrayList<TestData> getTestDataByName;
 	 public void getArrayListwithPlacesJsonData(ArrayList<PlacesData> pd){

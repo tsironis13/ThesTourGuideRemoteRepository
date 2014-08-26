@@ -1,16 +1,10 @@
 package com.example.fragmentClasses;
 
 import com.example.myLocation.GPSTracker;
-import com.example.sqlHelper.TestLocalSqliteDatabase;
-import com.example.thesguideproject.CursorAdapterExample;
-import com.example.thesguideproject.PlacesListFragmentActivity;
 import com.example.thesguideproject.R;
-
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
@@ -19,16 +13,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.ScrollView;
-import android.widget.Toast;
 
-public class MenuFragment extends Fragment{
+
+public class MenuFragment extends Fragment {
 	
 	private Button churhesButton;
-	private Button clearButton;
 	private Button museumsButton;
 	private Button hospitalsButton;
+	private Button nightlifeButton;
 	private String genre;
 	private String subcategory;
 	private double current_latitude;
@@ -36,28 +28,22 @@ public class MenuFragment extends Fragment{
 	private Fragment fragment;
 	private FragmentTransaction fragmentTransaction;
 	private GPSTracker gps;
-	private TestLocalSqliteDatabase t;
-	private TestLocalSqliteDatabase t1;
-	//private TestLocalSqliteDatabase t2;
-	private int i=0;
-	private String nameEl; 
+	//private TestLocalSqliteDatabase t;
+	//private int i=0;
 	
 	public MenuFragment(){}
-   
-	//public MenuFragment(String nameEl){
-		//this.nameEl = nameEl;
-	//}
 	
+	
+   
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		View view = inflater.inflate(R.layout.menu_fragment, container, false);
 		
+		nightlifeButton = (Button) view.findViewById(R.id.nightlifebutton);
 		churhesButton = (Button) view.findViewById(R.id.churchesbutton);
-		clearButton = (Button) view.findViewById(R.id.clearDataDBbutton);
 		museumsButton = (Button) view.findViewById(R.id.museumsbutton);
 		hospitalsButton = (Button) view.findViewById(R.id.hospitalsbutton);
-		
+			
 		return view; 
 	}
 	
@@ -80,7 +66,7 @@ public class MenuFragment extends Fragment{
 		
 		fragment = new DisplayImageFragment();
 		fragmentTransaction = getFragmentManager().beginTransaction().replace(R.id.containerlist, fragment);
-		//fragmentTransaction.addToBackStack(null);
+		fragmentTransaction.addToBackStack("d");
 		fragmentTransaction.commit();
 		
 		
@@ -99,84 +85,81 @@ public class MenuFragment extends Fragment{
 			//fragmentTransaction.addToBackStack(null);
 			//fragmentTransaction.commit();
 		//}
-		
-		museumsButton.setOnClickListener(new View.OnClickListener() {
-		
+		nightlifeButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				t = new TestLocalSqliteDatabase(getActivity());
-				t.openDataBase();
-				i = t.getAuxiliaryVariableI();
-				if (i != 10)
-					{
-				  t.insertValueForIAuxiliaryVariable(10);
-				  t.close();
-					}
-				else{
-					t.close();
-				}
-				genre = "museums";
-				ListPlacesFragment listMuseumsFragment = new ListPlacesFragment(genre, "", current_latitude, current_longtitude);
-				//fragmentTransaction = getFragmentManager().beginTransaction().remove(fragment);
-				//fragmentTransaction.commit();
-				fragmentTransaction = getFragmentManager().beginTransaction().replace(R.id.containerlist, listMuseumsFragment);
-				//fragmentTransaction.addToBackStack(null);
-				fragmentTransaction.commit();
-				
+				//t2 = new TestLocalSqliteDatabase(getActivity());
+				//t2.openDataBase();
+				//i = t2.getAuxiliaryVariableI();
+				//if (i != 10)
+				//	{
+				//  t2.insertValueForIAuxiliaryVariable(10);
+				//  t2.close();
+				//	}
+				//else{
+				//	t2.close();
+				//}
+				registerForContextMenu(v); 
+				getActivity().openContextMenu(v);
 			}
 		});
 		
-		churhesButton.setOnClickListener(new View.OnClickListener() {
-			
+		museumsButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				t1 = new TestLocalSqliteDatabase(getActivity());
-				t1.openDataBase();
-				i = t1.getAuxiliaryVariableI();
-				if (i != 10)
-				{
-				t1.insertValueForIAuxiliaryVariable(10);
-				t1.close();
+				genre = "museums";
+				ListPlacesFragment listMuseumsFragment = new ListPlacesFragment(genre, "", current_latitude, current_longtitude);
+				fragmentTransaction = getFragmentManager().beginTransaction().replace(R.id.containerlist, listMuseumsFragment);
+				int fragments = getFragmentManager().getBackStackEntryCount();
+				if (fragments > 1){
+				  String backStackId = getFragmentManager().getBackStackEntryAt(1).getName();
+				  	if (backStackId.equals("hos") || backStackId.equals("mus") || backStackId.equals("nig") || backStackId.equals("ch"))
+				  	{
+				  		getFragmentManager().popBackStack(backStackId,0);
+				  	}
+				        getFragmentManager().popBackStack();
 				}
-				else{
-					t1.close();
-				}
+				fragmentTransaction.addToBackStack("mus");
+				fragmentTransaction.commit();	
+			}
+		});
+		
+		
+		
+		
+		
+		churhesButton.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
 				registerForContextMenu(v); 
-				getActivity().openContextMenu(v);
-				
-				
+				getActivity().openContextMenu(v);	
 			}
 		});
 		
 		
 		hospitalsButton.setOnClickListener(new View.OnClickListener() {
-			
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
 				genre = "hospitals";
 				ListPlacesFragment listMuseumsFragment = new ListPlacesFragment(genre, "", current_latitude, current_longtitude);
-				//fragmentTransaction = getFragmentManager().beginTransaction().remove(fragment);
-				//fragmentTransaction.commit();
 				fragmentTransaction = getFragmentManager().beginTransaction().replace(R.id.containerlist, listMuseumsFragment);
-				//fragmentTransaction.addToBackStack(null);
+				int fragments = getFragmentManager().getBackStackEntryCount();
+				if (fragments > 1){
+				  String backStackId = getFragmentManager().getBackStackEntryAt(1).getName();
+				
+					if (backStackId.equals("hos") || backStackId.equals("mus") || backStackId.equals("nig") || backStackId.equals("ch"))
+					{
+						getFragmentManager().popBackStack(backStackId,0);
+					}
+						getFragmentManager().popBackStack();
+				}
+				fragmentTransaction.addToBackStack("hos");
+				
 				fragmentTransaction.commit();
 			}
 		});
 		
-		clearButton.setOnClickListener(new View.OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				//fragment = new DisplayImageFragment();
-				//fragmentTransaction = getFragmentManager().beginTransaction().replace(R.id.containerlist, fragment);
-				//fragmentTransaction.commit();
-			}
-		});
 	}
-
-	
 	
 	@Override
 	public void onDestroy() {
@@ -185,62 +168,166 @@ public class MenuFragment extends Fragment{
 	}
 
 	@Override
-	public void onResume() {
-		// TODO Auto-generated method stub
-		super.onResume();
-		//Toast.makeText(getActivity(), "ON RESUME!", Toast.LENGTH_SHORT).show();
-	}
-
-
-
-	String palcChr = "PaleoChristian";
-	String bizan = "Byzantine";
-	String basiliki = "Basiliki";
-    String macedon = "Macedonian";
-	@Override
 	public boolean onContextItemSelected(MenuItem item) {
-		String genre = "church";
+		String genre;
+		int fragments = getFragmentManager().getBackStackEntryCount();
 		// TODO Auto-generated method stub
 		switch(item.getItemId()){
-		
+		case R.id.bars:
+			genre = "nightlife";
+			subcategory = "bars";
+			ListPlacesFragment listBarsFragment = new ListPlacesFragment(genre, subcategory, current_latitude, current_longtitude);
+			fragmentTransaction = getFragmentManager().beginTransaction().replace(R.id.containerlist, listBarsFragment);
+			if (fragments > 1){
+				  String backStackId = getFragmentManager().getBackStackEntryAt(1).getName();
+				
+					if (backStackId.equals("hos") || backStackId.equals("mus") || backStackId.equals("nig") || backStackId.equals("ch"))
+					{
+						getFragmentManager().popBackStack(backStackId,0);
+					}
+						getFragmentManager().popBackStack();
+				}
+			fragmentTransaction.addToBackStack("nig");
+			fragmentTransaction.commit();
+			break;
+		case R.id.clubs:
+			genre = "nightlife";
+			subcategory = "clubs";
+			ListPlacesFragment listClubsFragment = new ListPlacesFragment(genre, subcategory, current_latitude, current_longtitude);
+			fragmentTransaction = getFragmentManager().beginTransaction().replace(R.id.containerlist, listClubsFragment);
+			if (fragments > 1){
+				  String backStackId = getFragmentManager().getBackStackEntryAt(1).getName();
+				
+					if (backStackId.equals("hos") || backStackId.equals("mus") || backStackId.equals("nig") || backStackId.equals("ch"))
+					{
+						getFragmentManager().popBackStack(backStackId,0);
+					}
+						getFragmentManager().popBackStack();
+				}
+			fragmentTransaction.addToBackStack("nig");
+			fragmentTransaction.commit();
+			break;
+		case R.id.mpouzoukia:
+			genre = "nightlife";
+			subcategory = "mpouzoukia";
+			ListPlacesFragment listMpouzoukiaFragment = new ListPlacesFragment(genre, subcategory, current_latitude, current_longtitude);
+			fragmentTransaction = getFragmentManager().beginTransaction().replace(R.id.containerlist, listMpouzoukiaFragment);
+			if (fragments > 1){
+				  String backStackId = getFragmentManager().getBackStackEntryAt(1).getName();
+				
+					if (backStackId.equals("hos") || backStackId.equals("mus") || backStackId.equals("nig") || backStackId.equals("ch"))
+					{
+						getFragmentManager().popBackStack(backStackId,0);
+					}
+						getFragmentManager().popBackStack();
+				}
+			fragmentTransaction.addToBackStack("nig");
+			fragmentTransaction.commit();
+			break;
+		case R.id.pubs:
+			genre = "nightlife";
+			subcategory = "pubs";
+			ListPlacesFragment listPubsFragment = new ListPlacesFragment(genre, subcategory, current_latitude, current_longtitude);
+			fragmentTransaction = getFragmentManager().beginTransaction().replace(R.id.containerlist, listPubsFragment);
+			if (fragments > 1){
+				  String backStackId = getFragmentManager().getBackStackEntryAt(1).getName();
+				
+					if (backStackId.equals("hos") || backStackId.equals("mus") || backStackId.equals("nig") || backStackId.equals("ch"))
+					{
+						getFragmentManager().popBackStack(backStackId,0);
+					}
+						getFragmentManager().popBackStack();
+				}
+			fragmentTransaction.addToBackStack("nig");
+			fragmentTransaction.commit();
+			break;
 		 case R.id.paleochristianikes:
-			 subcategory = palcChr;
+			 genre = "church";
+			 subcategory = "PaleoChristian";
 			 ListPlacesFragment listPchrFragment = new ListPlacesFragment(genre, subcategory, current_latitude, current_longtitude);
 			 fragmentTransaction = getFragmentManager().beginTransaction().replace(R.id.containerlist, listPchrFragment);
+			 if (fragments > 1){
+				  String backStackId = getFragmentManager().getBackStackEntryAt(1).getName();
+				
+					if (backStackId.equals("hos") || backStackId.equals("mus") || backStackId.equals("nig") || backStackId.equals("ch"))
+					{
+						getFragmentManager().popBackStack(backStackId,0);
+					}
+						getFragmentManager().popBackStack();
+				}
+			 fragmentTransaction.addToBackStack("ch");
 			 fragmentTransaction.commit();
 			 break;
 		 case R.id.bizantines:
-			 subcategory = bizan;
+			 genre = "church";
+			 subcategory = "Byzantine";
 			 ListPlacesFragment listBizanFragment = new ListPlacesFragment(genre, subcategory, current_latitude, current_longtitude);
 			 fragmentTransaction = getFragmentManager().beginTransaction().replace(R.id.containerlist, listBizanFragment);
+			 if (fragments > 1){
+				  String backStackId = getFragmentManager().getBackStackEntryAt(1).getName();
+				
+					if (backStackId.equals("hos") || backStackId.equals("mus") || backStackId.equals("nig") || backStackId.equals("ch"))
+					{
+						getFragmentManager().popBackStack(backStackId,0);
+					}
+						getFragmentManager().popBackStack();
+				}
+			 fragmentTransaction.addToBackStack("ch");
 			 fragmentTransaction.commit();
 			 break;
 		 case R.id.basiliki:
-			 subcategory = basiliki;
+			 genre = "church";
+			 subcategory = "Basiliki";
 			 ListPlacesFragment listBasilFragment = new ListPlacesFragment(genre, subcategory, current_latitude, current_longtitude);
 			 fragmentTransaction = getFragmentManager().beginTransaction().replace(R.id.containerlist, listBasilFragment);
+			 if (fragments > 1){
+				  String backStackId = getFragmentManager().getBackStackEntryAt(1).getName();
+				
+					if (backStackId.equals("hos") || backStackId.equals("mus") || backStackId.equals("nig") || backStackId.equals("ch"))
+					{
+						getFragmentManager().popBackStack(backStackId,0);
+					}
+						getFragmentManager().popBackStack();
+				}
+			 fragmentTransaction.addToBackStack("ch");
 			 fragmentTransaction.commit();
 			 break;
 		 case R.id.macedonian:
-			 subcategory = macedon;
+			 genre = "church";
+			 subcategory = "Macedonian";
 			 ListPlacesFragment listMacFragment = new ListPlacesFragment(genre, subcategory, current_latitude, current_longtitude);
 			 fragmentTransaction = getFragmentManager().beginTransaction().replace(R.id.containerlist, listMacFragment);
+			 if (fragments > 1){
+				  String backStackId = getFragmentManager().getBackStackEntryAt(1).getName();
+				
+					if (backStackId.equals("hos") || backStackId.equals("mus") || backStackId.equals("nig") || backStackId.equals("ch"))
+					{
+						getFragmentManager().popBackStack(backStackId,0);
+					}
+						getFragmentManager().popBackStack();
+				}
+			 fragmentTransaction.addToBackStack("ch");
 			 fragmentTransaction.commit();
 			 break;
 		}
 		return super.onContextItemSelected(item);
 	}
 
+	
+	
 	@Override
 	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
 		// TODO Auto-generated method stub
-		MenuInflater menuInflater = getActivity().getMenuInflater();
-		menuInflater.inflate(R.menu.categ_churchmenu, menu);
+		if (v.getId() == R.id.churchesbutton){
+			MenuInflater menuInflater = getActivity().getMenuInflater();
+			menuInflater.inflate(R.menu.categ_churchmenu, menu);
+		}
+		else if (v.getId() == R.id.nightlifebutton){
+			MenuInflater menuInflater = getActivity().getMenuInflater();
+			menuInflater.inflate(R.menu.nightlife_menu, menu);
+		}
+		
 	}
 	
-	public void startFragment(){
-		
-		
-	}
 
 }

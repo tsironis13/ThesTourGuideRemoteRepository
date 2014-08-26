@@ -50,7 +50,7 @@ public class CursorAdapterExample extends ActionBarActivity implements OnItemSel
 	private String button_pressed;
 	private ActionBar mActionBar;
 	private SearchView searchView;
-	TestLocalSqliteDatabase testDB = new TestLocalSqliteDatabase(this);
+	//TestLocalSqliteDatabase testDB = new TestLocalSqliteDatabase(this);
 	
 	//GPSTracker class
 	private GPSTracker gps;
@@ -83,13 +83,6 @@ public class CursorAdapterExample extends ActionBarActivity implements OnItemSel
             gps.showSettingsAlert();
         }
 		
-		try {
-			testDB.createDataBase();
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		
 		// create the adapter using the cursor pointing to the desired data as well as the layout information
 		//@SuppressWarnings("deprecation")
 		//SimpleCursorAdapter mAdapter = new SimpleCursorAdapter(this, R.layout.list_example_entry, cursor, columns, to);
@@ -108,7 +101,7 @@ public class CursorAdapterExample extends ActionBarActivity implements OnItemSel
 				button_pressed = "museums";
 				HelperMethodDependingOnButtonClick("museums");
 				setAdapterFromSpecificCursor(button_pressed, listExample, specificPlacecursor, columns, to, imgFetcher, current_latitude, current_longtitude);
-				testDB.close();
+				//testDB.close();
 			}
 		});
 		
@@ -120,7 +113,7 @@ public class CursorAdapterExample extends ActionBarActivity implements OnItemSel
 				button_pressed = "sightseeings";
 				HelperMethodDependingOnButtonClick("sightseeings");
 				setAdapterFromSpecificCursor(button_pressed, listExample, specificPlacecursor, columns, to, imgFetcher, current_latitude, current_longtitude);
-				testDB.close();
+			//	testDB.close();
 			}
 		});
 		
@@ -151,22 +144,22 @@ public class CursorAdapterExample extends ActionBarActivity implements OnItemSel
 		 case R.id.paleochristianikes:
 			 HelperMethodDependingOnChurchMenuItemButtonClick(palcChr);
 			 setAdapterFromSpecificCursor(palcChr, listExample, specificPlacecursor, columns, to, imgFetcher, current_latitude, current_longtitude);
-		     testDB.close();
+		    // testDB.close();
 			 break;
 		 case R.id.bizantines:
 			 HelperMethodDependingOnChurchMenuItemButtonClick(bizan);
 			 setAdapterFromSpecificCursor(bizan, listExample, specificPlacecursor, columns, to, imgFetcher, current_latitude, current_longtitude);
-		     testDB.close();
+		   //  testDB.close();
 			 break;
 		 case R.id.basiliki:
 			 HelperMethodDependingOnChurchMenuItemButtonClick(basiliki);
 			 setAdapterFromSpecificCursor(basiliki, listExample, specificPlacecursor, columns, to, imgFetcher, current_latitude, current_longtitude);
-		     testDB.close();
+		  //   testDB.close();
 			 break;
 		 case R.id.macedonian:
 			 HelperMethodDependingOnChurchMenuItemButtonClick(macedon);
 			 setAdapterFromSpecificCursor(macedon, listExample, specificPlacecursor, columns, to, imgFetcher, current_latitude, current_longtitude);
-		     testDB.close();
+		  //   testDB.close();
 			 break;
 		}
 		return super.onContextItemSelected(item);
@@ -195,8 +188,8 @@ public class CursorAdapterExample extends ActionBarActivity implements OnItemSel
 		
 	}*/
 	public void HelperMethodDependingOnChurchMenuItemButtonClick(String subcategory){
-		testDB.openDataBase();
-		specificPlacecursor = testDB.getSpecificChurchData(subcategory);
+		//testDB.openDataBase();
+		//specificPlacecursor = testDB.getSpecificChurchData(subcategory);
 		
 		// the desired columns to be bound
 		columns = new String[] {"_id", "name_el", "photo_link", "info"};
@@ -207,8 +200,8 @@ public class CursorAdapterExample extends ActionBarActivity implements OnItemSel
 	
 	
 	public void HelperMethodDependingOnButtonClick(String genre){
-		testDB.openDataBase();
-		specificPlacecursor = testDB.getSpecificPlaceData(genre);
+		//testDB.openDataBase();
+		//specificPlacecursor = testDB.getSpecificPlaceData(genre);
 		
 		// the desired columns to be bound
 		columns = new String[] {"_id", "name_el", "photo_link", "info"};
