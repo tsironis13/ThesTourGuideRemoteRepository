@@ -135,6 +135,8 @@ public class SplashScreen extends Activity{
 						// TODO Auto-generated method stub
 						Intent i = new Intent(SplashScreen.this, SplashScreen.class);
 						startActivity(i);
+						
+						finish();
 					}
 				});
 			}else{

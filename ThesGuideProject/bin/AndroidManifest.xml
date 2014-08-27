@@ -78,11 +78,17 @@
             android:configChanges="screenSize|orientation|keyboardHidden">
         </activity>
         
-         <activity 
+        <activity 
             android:name="com.example.myLocation.GPSTracker"
             android:label="@string/app_name" >     
         </activity>
         
+        <activity 
+            android:name="com.example.thesguideproject.FindPathActivity"
+            android:windowSoftInputMode="stateAlwaysHidden"
+            android:label="@string/app_name" >     
+        </activity> 
+         
         <activity 
             android:name="com.example.thesguideproject.PlacesDetailsTabs"
             android:label="@string/app_name" >     

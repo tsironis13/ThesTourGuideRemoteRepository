@@ -19,6 +19,12 @@
         app:actionViewClass="android.support.v7.widget.SearchView"
         android:title="@string/action_search"/>
      
+     <item 
+         android:id="@+id/action_path"
+         hmkcode:showAsAction="always"
+         android:icon="@drawable/ic_action_path"
+         android:title="@string/action_path"/>
+     
      <item
         android:id="@+id/item_clear_memory_cache"
         android:title="@string/menu_item_clear_memory_cache"/>

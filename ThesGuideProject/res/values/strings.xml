@@ -8,6 +8,7 @@
     <string name="mapButton1">Press to see the map</string>
 	<string name="actBarButton1">Press to see the ActionBarTest activity</string>
 	<string name="action_search">Search</string>
+	<string name="action_path">Path</string>
 	<string name="curLocButton1">Press to see your current location</string>
 	<string name="kamara">Kamara</string>
 	<string name="alexandros">Alex statue</string>
@@ -47,6 +48,9 @@
 	<string name="clubs">Clubs</string>
 	<string name="mpouzoukia">Mpouzoukia</string>
 	<string name="pubs">Pubs</string>
+	<string name="rdselectcategory">Select Category</string>
+	<string name="rdcurrentlocation">Current Position</string>
+	<string name="disarableedhint">Pick your Location</string>
     
 	<string-array name="category_array">
 	    <item>Bar</item>

@@ -13,6 +13,7 @@ import android.app.FragmentManager;
 import android.app.ProgressDialog;
 import android.app.SearchManager;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.MatrixCursor;
 import android.graphics.Bitmap;
@@ -31,6 +32,7 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.Window;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -51,10 +53,10 @@ public class PlacesListFragmentActivity extends ActionBarActivity implements Sea
 	
 	public PlacesListFragmentActivity(){}
 	
-	TestLocalSqliteDatabase t = new TestLocalSqliteDatabase(this);
+	private TestLocalSqliteDatabase t = new TestLocalSqliteDatabase(this);
 	//TestLocalSqliteDatabase t1 = new TestLocalSqliteDatabase(this);
 	
-	private List<String> items = new ArrayList<String>();; 
+	private ArrayList<String> items = new ArrayList<String>();
 	
 	MenuFragment m = new MenuFragment();
 	int i;
@@ -64,6 +66,8 @@ public class PlacesListFragmentActivity extends ActionBarActivity implements Sea
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.placeslistfragmentactivityfragment);
 		t.openDataBase(debugTag);
+		
+		
 		
 		imgFetcher = new BitmapTask(this);
 		
@@ -112,12 +116,12 @@ public class PlacesListFragmentActivity extends ActionBarActivity implements Sea
 		
 		
 		mActionBar= getSupportActionBar();
+		mActionBar.setDisplayShowTitleEnabled(false);
 		mActionBar.setDisplayHomeAsUpEnabled(true);
 		
 		//searchView = (SearchView) findViewById(R.id.action_search);	
 		menuFragment = new MenuFragment();
 		
-		mActionBar = getSupportActionBar();
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		hiddentv = (TextView) findViewById(R.id.hiddentv);
 		
@@ -221,6 +225,9 @@ public class PlacesListFragmentActivity extends ActionBarActivity implements Sea
 		//Find the search item
 		MenuItem searchItem = menu.findItem(R.id.action_search);
 		
+		//Find the path item
+		MenuItem pathItem = menu.findItem(R.id.action_path);
+		
 		SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
 		
 		//Retrieve the SearchView
@@ -251,6 +258,21 @@ public class PlacesListFragmentActivity extends ActionBarActivity implements Sea
 	}
 	
 	
+	
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		 // Take appropriate action for each action item click
+        switch (item.getItemId()) {
+        case R.id.action_path:
+        	Intent i = new Intent(PlacesListFragmentActivity.this, FindPathActivity.class);
+        	startActivity(i);
+        	return true;
+        default:
+        	return super.onOptionsItemSelected(item);
+        }
+	}
+
 	private void loadData(String query){
 		
 		items.clear();
@@ -279,7 +301,8 @@ public class PlacesListFragmentActivity extends ActionBarActivity implements Sea
 			}
 		}
 	}
-	finally{
+	finally
+	{
 		c.close();
 	}
 		
