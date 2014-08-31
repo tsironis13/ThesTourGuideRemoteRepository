@@ -42,6 +42,7 @@ public class PlacesJsonWebApiTask extends AsyncTask<Void, Integer, String> {
 	 private static final String TAG_PLACES = "places";
 	 private static final String TAG_ID = "id";
 	 private static final String TAG_NAME_EL = "name_el";
+	 private static final String TAG_NAME_EL_LOWER = "nameel_lower";
 	 private static final String TAG_NAME_EN = "name_en";
 	 private static final String TAG_LINK = "link";
 	 private static final String TAG_LATITUDE = "latitude";
@@ -134,6 +135,7 @@ public class PlacesJsonWebApiTask extends AsyncTask<Void, Integer, String> {
         		String id = c.getString(TAG_ID);
         		int integer_id = Integer.parseInt(id);
         		String name_el = c.getString(TAG_NAME_EL);
+        		String nameel_lower = c.getString(TAG_NAME_EL_LOWER);
         		String name_en = c.getString(TAG_NAME_EN);
         		String link = c.getString(TAG_LINK);
         		String latitude = c.getString(TAG_LATITUDE);
@@ -175,7 +177,7 @@ public class PlacesJsonWebApiTask extends AsyncTask<Void, Integer, String> {
 					e.printStackTrace();
 				}
         		
-        		placesDataArray.add(new PlacesData(integer_id, name_el, name_en, link, double_latitude, double_longtitude, 
+        		placesDataArray.add(new PlacesData(integer_id, name_el, nameel_lower, name_en, link, double_latitude, double_longtitude, 
         				photo_link, genre, info, exhibition, menu, link1, link2, link3, link4, link5, subcategory, tel, email, fb_link));
         	}
         	

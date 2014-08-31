@@ -95,7 +95,7 @@ public class SearchAdapter extends CursorAdapter implements OnClickListener{
 		}
 		
 		this.cursor.moveToPosition(position);
-		String placeNameEl = this.cursor.getString(this.cursor.getColumnIndex("name_el"));
+		String placeNameEl = this.cursor.getString(this.cursor.getColumnIndex("nameel_lower"));
 		
 		viewHolder.t.setText(placeNameEl);
 		viewHolder.t.setOnClickListener(this);

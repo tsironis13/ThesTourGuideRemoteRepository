@@ -6,6 +6,7 @@ public class PlacesData {
 
 	private int id;
 	private String name_el;
+	private String nameel_lower;
 	private String name_en;
 	private String link;
 	private double latitude; 
@@ -27,11 +28,12 @@ public class PlacesData {
 	
 	public PlacesData(){}
 	
-	public PlacesData(int id, String name_el, String name_en, String link, double latitude, double longtitude, 
+	public PlacesData(int id, String name_el, String nameel_lower, String name_en, String link, double latitude, double longtitude, 
 			String photo_link, String genre, String info, String exhibition, String menu, String link1, String link2, String link3, String link4,
 			String link5, String subcategory, String tel, String email, String fb_link){
 		this.id = id;
 		this.name_el = name_el;
+		this.nameel_lower = nameel_lower;
 		this.name_en = name_en;
 		this.link = link;
 		this.latitude = latitude;
@@ -66,6 +68,14 @@ public class PlacesData {
 	
 	public String getNameEl(){
 		return name_el;
+	}
+	
+	public void setNameElLower(String nameel_lower){
+		this.nameel_lower = nameel_lower;
+	}
+	
+	public String getNameElLower(){
+		return nameel_lower;
 	}
 	
 	public void setNameEn(String name_en){

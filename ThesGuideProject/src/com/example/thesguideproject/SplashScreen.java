@@ -54,7 +54,7 @@ public class SplashScreen extends Activity{
     private TestLocalSqliteDatabase testDB;
     private TestLocalSqliteDatabase testDB1;
     private Cursor allDisplayImageLinkcursor;
-    private static int SPLASH_TIME_OUT = 4000;
+    private static int SPLASH_TIME_OUT = 6000;
     private static int SPLASH_TIME_OUT2 = 2000;
     //TestLocalSqliteDatabase t;
     private static final String debugTag = "SplashScreen";

@@ -51,6 +51,9 @@
 	<string name="rdselectcategory">Select Category</string>
 	<string name="rdcurrentlocation">Current Position</string>
 	<string name="disarableedhint">Pick your Location</string>
+	<string name="spoint">Starting Point</string>
+	<string name="dpoint">Destination Point</string>
+	<string name="rdselectdescategory">Select Dest Cat</string>
     
 	<string-array name="category_array">
 	    <item>Bar</item>

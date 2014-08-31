@@ -149,11 +149,15 @@ public class PlacesListFragmentActivity extends ActionBarActivity implements Sea
 			return true;
 	}
 	
+	
+	
+	
+	
 	@SuppressWarnings("static-access")
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		
-		
+	 if (keyCode==KeyEvent.KEYCODE_BACK){	
 		//int y = t.getAuxiliaryVariableI();
 	
 		//FragmentTransaction ft2 = getSupportFragmentManager().beginTransaction();
@@ -211,6 +215,8 @@ public class PlacesListFragmentActivity extends ActionBarActivity implements Sea
 			//t.close();
 			Log.d(this.getClass().getName(), "NO back button pressed");
 		}*/
+		
+	 }
 		return super.onKeyDown(keyCode, event);
 		
 	}
@@ -265,7 +271,7 @@ public class PlacesListFragmentActivity extends ActionBarActivity implements Sea
 		 // Take appropriate action for each action item click
         switch (item.getItemId()) {
         case R.id.action_path:
-        	Intent i = new Intent(PlacesListFragmentActivity.this, FindPathActivity.class);
+        	Intent i = new Intent(PlacesListFragmentActivity.this, FindPathFragmentActivity.class);
         	startActivity(i);
         	return true;
         default:
@@ -278,7 +284,7 @@ public class PlacesListFragmentActivity extends ActionBarActivity implements Sea
 		items.clear();
 		
 		Log.i("Query =>", query);
-		String columns[] = new String[] {"_id", "name_el"};
+		String columns[] = new String[] {"_id", "nameel_lower"};
 		Object[] temp = new Object[] { 0, "default" };
 		
 		MatrixCursor cursor = new MatrixCursor(columns);

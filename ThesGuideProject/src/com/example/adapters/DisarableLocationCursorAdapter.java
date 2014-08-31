@@ -2,7 +2,8 @@ package com.example.adapters;
 
 import java.util.List;
 
-import com.example.thesguideproject.FindPathActivity;
+import com.example.fragmentClasses.SettingsMapFragment;
+import com.example.thesguideproject.FindPathFragmentActivity;
 import com.example.thesguideproject.R;
 
 import android.content.Context;
@@ -23,13 +24,17 @@ public class DisarableLocationCursorAdapter extends CursorAdapter implements OnC
 	private List items;
 	private Context context; 
 	private Cursor cursor;
-	private FindPathActivity findPathActivity = new FindPathActivity();
+	private String flag;
+	private String placeNameEl;
+	private String lang;
 	
-	public DisarableLocationCursorAdapter(Context context, Cursor cursor, List items){
-		super(context, cursor, false);
+	public DisarableLocationCursorAdapter(Context settingsMapFragment, Cursor cursor, List items, String flag, String lang){
+		super(settingsMapFragment, cursor, false);
 		this.items = items;
-		this.context = context;
+		this.context = settingsMapFragment;
 		this.cursor = cursor;
+		this.flag = flag;
+		this.lang = lang;
 	}
 
 	
@@ -72,7 +77,12 @@ public class DisarableLocationCursorAdapter extends CursorAdapter implements OnC
 				}
 				
 				this.cursor.moveToPosition(position);
-				String placeNameEl = this.cursor.getString(this.cursor.getColumnIndex("name_el"));
+				if (lang.equals("Latin")){
+					 placeNameEl = this.cursor.getString(this.cursor.getColumnIndex("name_en"));
+				}
+				else{
+				     placeNameEl = this.cursor.getString(this.cursor.getColumnIndex("nameel_lower"));
+				}
 				
 				viewHolder.t.setText(placeNameEl);
 				viewHolder.t.setOnClickListener(this);
@@ -100,6 +110,7 @@ public class DisarableLocationCursorAdapter extends CursorAdapter implements OnC
 
 	@Override
 	public void onClick(View v) {
+		SettingsMapFragment settingsMapFragment = new SettingsMapFragment();
 		ViewHolder vH = (ViewHolder) v.getTag();
 		CharSequence s = vH.t.getText();
 		String s1 = s.toString();
@@ -107,7 +118,14 @@ public class DisarableLocationCursorAdapter extends CursorAdapter implements OnC
 		//Object pos = (Object) v.getTag();
 		//items.remove(pos);
 		//this.notifyDataSetChanged();
-		findPathActivity.setStartingPointTextViewText(s1);
+		if (flag.equals("startingPoint")){
+			settingsMapFragment.setStartingPointTextViewText(s1);
+		 // findPathActivity.setStartingPointTextViewText(s1);
+		}
+		else{
+			settingsMapFragment.setDestinantionPointTextViewText(s1);
+			//findPathActivity.setDestinantionPointTextViewText(s1);
+		}
 		//FindPathActivity.setStartingPointTextViewText(s1);	
 	}
 	

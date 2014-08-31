@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+    
+	<group
+       android:checkableBehavior="single">
+    <item 
+        android:id="@+id/mouseiadest"
+        android:title="@string/museumsbutton" >
+    </item>
+    
+    <item 
+        android:id="@+id/axiotheatadest"
+        android:title="@string/sightseeingsbutton" >
+    </item>
+    
+    <item 
+        android:id="@+id/nosokomeiadest"
+        android:title="@string/hospitalsbutton">
+    </item>
+    
+    <item 
+        android:id="@+id/ekklisiesdest"
+        android:title="@string/churchesbutton" >
+    </item>
+    
+    </group>
+    
+    
+</menu>

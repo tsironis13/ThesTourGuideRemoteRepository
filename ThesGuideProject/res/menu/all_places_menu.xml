@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+    
+   <group
+       android:checkableBehavior="single">
+    <item 
+        android:id="@+id/mouseia"
+        android:title="@string/museumsbutton" >
+    </item>
+    
+    <item 
+        android:id="@+id/axiotheata"
+        android:title="@string/sightseeingsbutton" >
+    </item>
+    
+    <item 
+        android:id="@+id/nosokomeia"
+        android:title="@string/hospitalsbutton">
+    </item>
+    
+    <item 
+        android:id="@+id/ekklisies"
+        android:title="@string/churchesbutton" >
+    </item>
+    
+    </group>
+
+</menu>

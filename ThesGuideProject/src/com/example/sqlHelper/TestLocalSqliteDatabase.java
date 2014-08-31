@@ -345,12 +345,21 @@ public class TestLocalSqliteDatabase extends SQLiteOpenHelper {
 	 public Cursor searchByPlaceName(String inputText) throws SQLException{
 		 SQLiteDatabase db = this.getReadableDatabase();
 		 
-		 String searchQuery = "SELECT name_el FROM PlacesTable WHERE name_el LIKE '%" + inputText + "%'";
+		 String searchQuery = "SELECT name_el FROM PlacesTable WHERE nameel_lower LIKE '%" + inputText + "%'";
 		 
 		 Cursor cursor = db.rawQuery(searchQuery, null);
 		 return cursor;
 	 }
-	  
+	 
+	 public Cursor searchByPlaceNameEn(String inputText) throws SQLException{
+		 SQLiteDatabase db = this.getReadableDatabase();
+		 
+		 String searchQuery = "SELECT name_el FROM PlacesTable WHERE name_en LIKE '%" + inputText + "%'";
+		 
+		 Cursor cursor = db.rawQuery(searchQuery, null);
+		 return cursor;
+	 }
+	 
 	 public Cursor getSpecificPlaceData(String genre) throws SQLException{
 		 SQLiteDatabase db = this.getReadableDatabase();
 		 
@@ -517,6 +526,7 @@ public class TestLocalSqliteDatabase extends SQLiteOpenHelper {
 					 
 					 int id = placesData.getId();
 					 String name_el = placesData.getNameEl();
+					 String nameel_lower = placesData.getNameElLower();
 					 String name_en = placesData.getNameEn();
 					 String link = placesData.getLink();
 					 double latitude = placesData.getLatitude();
@@ -541,8 +551,8 @@ public class TestLocalSqliteDatabase extends SQLiteOpenHelper {
 					 //db.execSQL("INSERT INTO TestTable(_id, name, surname, type) VALUES(1, 'giannis ' , 'tsironis ' , 'male ')");
 					 //db.execSQL("INSERT INTO TestTable(_id, name, surname, type) VALUES(2, 'nikos ' , 'tsironis ' , 'male ')");
 					 //db.execSQL("INSERT INTO TestTable(_id, name, surname, type) VALUES(3, 'aggelos ' , 'tsironis ' , 'male ')");
-db.execSQL("INSERT INTO PlacesTable(_id, name_el, name_en, link, latitude, longtitude, info, exhibition, menu, photo_link, genre, subcategory, tel, email, fb_link, link1, link2, link3, link4, link5) VALUES('" + id + "','" + name_el + "','" + name_en 
-		+ "','" + link + "','" + latitude + "','" + longtitude + "','" + info + "','" + exhibition + "','" + menu + "','" + photo_link + "','" + genre + "','" + subcategory + "','" + tel + "','" + 
+db.execSQL("INSERT INTO PlacesTable(_id, name_el, nameel_lower, name_en, link, latitude, longtitude, info, exhibition, menu, photo_link, genre, subcategory, tel, email, fb_link, link1, link2, link3, link4, link5) VALUES('" + id + 
+		"','" + name_el + "','" + nameel_lower + "','" + name_en + "','" + link + "','" + latitude + "','" + longtitude + "','" + info + "','" + exhibition + "','" + menu + "','" + photo_link + "','" + genre + "','" + subcategory + "','" + tel + "','" + 
 		email + "','" + fb_link + "','"  + link1 + "','" + link2 + "','" + link3 + "','" + link4 + "','" + link5 + "')");
 				  }
 			  
