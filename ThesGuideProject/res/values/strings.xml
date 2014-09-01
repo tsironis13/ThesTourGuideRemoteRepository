@@ -3,6 +3,7 @@
 
     <string name="app_name">ThesGuideProject</string>
     <string name="hello_world">Hello world!</string>
+    <string name="english">English</string>
     <string name="action_settings">Settings</string>
     <string name="phoneNum">Phone number:</string>
     <string name="mapButton1">Press to see the map</string>
@@ -21,6 +22,7 @@
     <string name="fragmentTestButton">Fragment Test</string>
     <string name="clearDataDBbutton">Clear Data</string>
 	<string name="museumsbutton">Museums</string>
+	<string name="foodbutton">Food</string>
 	<string name="nightlifebutton">Nightlife</string>
 	<string name="hospitalsbutton">Hospitals</string>
 	<string name="sightseeingsbutton">SightSeeings</string>
@@ -48,6 +50,10 @@
 	<string name="clubs">Clubs</string>
 	<string name="mpouzoukia">Mpouzoukia</string>
 	<string name="pubs">Pubs</string>
+	<string name="barrestaurants">Bar-Restaurants</string>
+	<string name="restaurants">Restaurants</string>
+	<string name="seafood">Seafood</string>
+	<string name="intercuisine">International Cuisine</string>
 	<string name="rdselectcategory">Select Category</string>
 	<string name="rdcurrentlocation">Current Position</string>
 	<string name="disarableedhint">Pick your Location</string>
@@ -55,6 +61,13 @@
 	<string name="dpoint">Destination Point</string>
 	<string name="rdselectdescategory">Select Dest Cat</string>
     
+	
+	
+	
+	<string name="greek">Ελληνικά</string>
+	
+	
+	
 	<string-array name="category_array">
 	    <item>Bar</item>
 	    <item>Club</item>

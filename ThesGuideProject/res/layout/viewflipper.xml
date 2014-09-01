@@ -1,12 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center"
+    android:id="@+id/splashscreenrelativelayout"
     android:orientation="vertical" >
 
 
+    
+    <Button
+        android:id="@+id/greekButton"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        android:text="@string/greek">
+    </Button>
+    
+    <Button 
+        android:id="@+id/englishButton"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        android:text="@string/english" >
+    </Button>
+    
+    
+    <Button
+         android:id="@+id/textButton"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_gravity="center"
+         android:visibility="invisible" >
+    </Button>
+    
 
-		<Button
+		<!--  <Button
             android:id="@+id/textButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -15,12 +43,12 @@
 
         </Button>
         
-	<!--  	<Spinner
+	 	<Spinner
 		    android:layout_width="wrap_content"
 		    android:layout_height="50dp"
-		    android:layout_toRightOf="@+id/textButton" />  -->
+		    android:layout_toRightOf="@+id/textButton" />  
 
-    <ViewFlipper
+     <ViewFlipper
         android:id="@+id/view_flipper"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
@@ -35,13 +63,13 @@
                 style="@style/ImageTitle"
                 android:text="@string/alexandros" />
 
-            <!--  <ImageView
+            <ImageView
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_gravity="center"
                 android:adjustViewBounds="true"
                 android:scaleType="centerCrop"
-                android:src="@drawable/kamara" />-->
+                android:src="@drawable/kamara" />
 
             <TextView
                 style="@style/ImageTitle"
@@ -53,19 +81,19 @@
             android:layout_height="fill_parent"
             android:layout_marginTop="50dp" >
 
-         <!--     <ImageView
+           <ImageView
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_gravity="center"
                 android:adjustViewBounds="true"
                 android:scaleType="centerCrop"
-                android:src="@drawable/alexandros" />  -->
+                android:src="@drawable/alexandros" />  
   
             <TextView
                 style="@style/ImageTitle"
                 android:text="@string/alexandros" />
         </RelativeLayout>
-    </ViewFlipper>
+    </ViewFlipper>   
 
     <LinearLayout
         style="@style/ButtonContainer"
@@ -85,6 +113,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@android:drawable/ic_media_play" />
-    </LinearLayout>
+    </LinearLayout>  -->
 
-</RelativeLayout>
+</LinearLayout>

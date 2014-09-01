@@ -21,6 +21,7 @@ public class MenuFragment extends Fragment {
 	private Button museumsButton;
 	private Button hospitalsButton;
 	private Button nightlifeButton;
+	private Button foodButton;
 	private String genre;
 	private String subcategory;
 	private double current_latitude;
@@ -39,10 +40,22 @@ public class MenuFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.menu_fragment, container, false);
 		
+		String language = getArguments().getString("language");
+		
+		foodButton = (Button) view.findViewById(R.id.foodButton);
 		nightlifeButton = (Button) view.findViewById(R.id.nightlifebutton);
 		churhesButton = (Button) view.findViewById(R.id.churchesbutton);
 		museumsButton = (Button) view.findViewById(R.id.museumsbutton);
 		hospitalsButton = (Button) view.findViewById(R.id.hospitalsbutton);
+		
+		if (language.equals("Greek")){
+			foodButton.setText("Φαγητό");
+			nightlifeButton.setText("Νυχτεριρή Ζωή");
+			churhesButton.setText("Εκκλησίες");
+			museumsButton.setText("Μουσεία");
+			hospitalsButton.setText("Νοσοκομεία");
+		}
+		
 			
 		return view; 
 	}
@@ -85,6 +98,15 @@ public class MenuFragment extends Fragment {
 			//fragmentTransaction.addToBackStack(null);
 			//fragmentTransaction.commit();
 		//}
+		foodButton.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				registerForContextMenu(v); 
+				getActivity().openContextMenu(v);	
+			}
+		});
+		
+		
 		nightlifeButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -147,7 +169,7 @@ public class MenuFragment extends Fragment {
 				if (fragments > 1){
 				  String backStackId = getFragmentManager().getBackStackEntryAt(1).getName();
 				
-					if (backStackId.equals("hos") || backStackId.equals("mus") || backStackId.equals("nig") || backStackId.equals("ch"))
+					if (backStackId.equals("food") || backStackId.equals("hos") || backStackId.equals("mus") || backStackId.equals("nig") || backStackId.equals("ch"))
 					{
 						getFragmentManager().popBackStack(backStackId,0);
 					}
@@ -173,6 +195,74 @@ public class MenuFragment extends Fragment {
 		int fragments = getFragmentManager().getBackStackEntryCount();
 		// TODO Auto-generated method stub
 		switch(item.getItemId()){
+		case R.id.barrestaurants:
+			genre ="food";
+			subcategory = "bar-restaurant";
+			ListPlacesFragment listBarRestFragment = new ListPlacesFragment(genre, subcategory, current_latitude, current_longtitude);
+			fragmentTransaction = getFragmentManager().beginTransaction().replace(R.id.containerlist, listBarRestFragment);
+			if (fragments > 1){
+				  String backStackId = getFragmentManager().getBackStackEntryAt(1).getName();
+				
+					if (backStackId.equals("food") || backStackId.equals("hos") || backStackId.equals("mus") || backStackId.equals("nig") || backStackId.equals("ch"))
+					{
+						getFragmentManager().popBackStack(backStackId,0);
+					}
+						getFragmentManager().popBackStack();
+				}
+			fragmentTransaction.addToBackStack("food");
+			fragmentTransaction.commit();
+	   		break;
+		case R.id.restaurants:
+			genre ="food";
+			subcategory = "restaurants";
+			ListPlacesFragment listRestFragment = new ListPlacesFragment(genre, subcategory, current_latitude, current_longtitude);
+			fragmentTransaction = getFragmentManager().beginTransaction().replace(R.id.containerlist, listRestFragment);
+			if (fragments > 1){
+				  String backStackId = getFragmentManager().getBackStackEntryAt(1).getName();
+				
+					if (backStackId.equals("food") || backStackId.equals("hos") || backStackId.equals("mus") || backStackId.equals("nig") || backStackId.equals("ch"))
+					{
+						getFragmentManager().popBackStack(backStackId,0);
+					}
+						getFragmentManager().popBackStack();
+				}
+			fragmentTransaction.addToBackStack("food");
+			fragmentTransaction.commit();
+			break;
+		case R.id.intercuisine:
+			genre ="food";
+			subcategory = "intercuisine";
+			ListPlacesFragment listInterCoisFragment = new ListPlacesFragment(genre, subcategory, current_latitude, current_longtitude);
+			fragmentTransaction = getFragmentManager().beginTransaction().replace(R.id.containerlist, listInterCoisFragment);
+			if (fragments > 1){
+				  String backStackId = getFragmentManager().getBackStackEntryAt(1).getName();
+				
+					if (backStackId.equals("food") || backStackId.equals("hos") || backStackId.equals("mus") || backStackId.equals("nig") || backStackId.equals("ch"))
+					{
+						getFragmentManager().popBackStack(backStackId,0);
+					}
+						getFragmentManager().popBackStack();
+				}
+			fragmentTransaction.addToBackStack("food");
+			fragmentTransaction.commit();
+			break;
+		case R.id.seafood:
+			genre ="food";
+			subcategory = "seafood";
+			ListPlacesFragment listSeafoodFragment = new ListPlacesFragment(genre, subcategory, current_latitude, current_longtitude);
+			fragmentTransaction = getFragmentManager().beginTransaction().replace(R.id.containerlist, listSeafoodFragment);
+			if (fragments > 1){
+				  String backStackId = getFragmentManager().getBackStackEntryAt(1).getName();
+				
+					if (backStackId.equals("food") || backStackId.equals("hos") || backStackId.equals("mus") || backStackId.equals("nig") || backStackId.equals("ch"))
+					{
+						getFragmentManager().popBackStack(backStackId,0);
+					}
+						getFragmentManager().popBackStack();
+				}
+			fragmentTransaction.addToBackStack("food");
+			fragmentTransaction.commit();
+			break;
 		case R.id.bars:
 			genre = "nightlife";
 			subcategory = "bars";
@@ -181,7 +271,7 @@ public class MenuFragment extends Fragment {
 			if (fragments > 1){
 				  String backStackId = getFragmentManager().getBackStackEntryAt(1).getName();
 				
-					if (backStackId.equals("hos") || backStackId.equals("mus") || backStackId.equals("nig") || backStackId.equals("ch"))
+					if (backStackId.equals("food") || backStackId.equals("hos") || backStackId.equals("mus") || backStackId.equals("nig") || backStackId.equals("ch"))
 					{
 						getFragmentManager().popBackStack(backStackId,0);
 					}
@@ -198,7 +288,7 @@ public class MenuFragment extends Fragment {
 			if (fragments > 1){
 				  String backStackId = getFragmentManager().getBackStackEntryAt(1).getName();
 				
-					if (backStackId.equals("hos") || backStackId.equals("mus") || backStackId.equals("nig") || backStackId.equals("ch"))
+					if (backStackId.equals("food") || backStackId.equals("hos") || backStackId.equals("mus") || backStackId.equals("nig") || backStackId.equals("ch"))
 					{
 						getFragmentManager().popBackStack(backStackId,0);
 					}
@@ -215,7 +305,7 @@ public class MenuFragment extends Fragment {
 			if (fragments > 1){
 				  String backStackId = getFragmentManager().getBackStackEntryAt(1).getName();
 				
-					if (backStackId.equals("hos") || backStackId.equals("mus") || backStackId.equals("nig") || backStackId.equals("ch"))
+					if (backStackId.equals("food") || backStackId.equals("hos") || backStackId.equals("mus") || backStackId.equals("nig") || backStackId.equals("ch"))
 					{
 						getFragmentManager().popBackStack(backStackId,0);
 					}
@@ -232,7 +322,7 @@ public class MenuFragment extends Fragment {
 			if (fragments > 1){
 				  String backStackId = getFragmentManager().getBackStackEntryAt(1).getName();
 				
-					if (backStackId.equals("hos") || backStackId.equals("mus") || backStackId.equals("nig") || backStackId.equals("ch"))
+					if (backStackId.equals("food") || backStackId.equals("hos") || backStackId.equals("mus") || backStackId.equals("nig") || backStackId.equals("ch"))
 					{
 						getFragmentManager().popBackStack(backStackId,0);
 					}
@@ -249,7 +339,7 @@ public class MenuFragment extends Fragment {
 			 if (fragments > 1){
 				  String backStackId = getFragmentManager().getBackStackEntryAt(1).getName();
 				
-					if (backStackId.equals("hos") || backStackId.equals("mus") || backStackId.equals("nig") || backStackId.equals("ch"))
+					if (backStackId.equals("food") || backStackId.equals("hos") || backStackId.equals("mus") || backStackId.equals("nig") || backStackId.equals("ch"))
 					{
 						getFragmentManager().popBackStack(backStackId,0);
 					}
@@ -266,7 +356,7 @@ public class MenuFragment extends Fragment {
 			 if (fragments > 1){
 				  String backStackId = getFragmentManager().getBackStackEntryAt(1).getName();
 				
-					if (backStackId.equals("hos") || backStackId.equals("mus") || backStackId.equals("nig") || backStackId.equals("ch"))
+					if (backStackId.equals("food") || backStackId.equals("hos") || backStackId.equals("mus") || backStackId.equals("nig") || backStackId.equals("ch"))
 					{
 						getFragmentManager().popBackStack(backStackId,0);
 					}
@@ -283,7 +373,7 @@ public class MenuFragment extends Fragment {
 			 if (fragments > 1){
 				  String backStackId = getFragmentManager().getBackStackEntryAt(1).getName();
 				
-					if (backStackId.equals("hos") || backStackId.equals("mus") || backStackId.equals("nig") || backStackId.equals("ch"))
+					if (backStackId.equals("food") || backStackId.equals("hos") || backStackId.equals("mus") || backStackId.equals("nig") || backStackId.equals("ch"))
 					{
 						getFragmentManager().popBackStack(backStackId,0);
 					}
@@ -300,7 +390,7 @@ public class MenuFragment extends Fragment {
 			 if (fragments > 1){
 				  String backStackId = getFragmentManager().getBackStackEntryAt(1).getName();
 				
-					if (backStackId.equals("hos") || backStackId.equals("mus") || backStackId.equals("nig") || backStackId.equals("ch"))
+					if (backStackId.equals("food") || backStackId.equals("hos") || backStackId.equals("mus") || backStackId.equals("nig") || backStackId.equals("ch"))
 					{
 						getFragmentManager().popBackStack(backStackId,0);
 					}
@@ -325,6 +415,10 @@ public class MenuFragment extends Fragment {
 		else if (v.getId() == R.id.nightlifebutton){
 			MenuInflater menuInflater = getActivity().getMenuInflater();
 			menuInflater.inflate(R.menu.nightlife_menu, menu);
+		}
+		else if (v.getId() == R.id.foodButton){
+			MenuInflater menuInflater = getActivity().getMenuInflater();
+			menuInflater.inflate(R.menu.food_menu, menu);
 		}
 		
 	}

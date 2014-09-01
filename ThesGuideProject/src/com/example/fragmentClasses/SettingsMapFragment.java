@@ -4,10 +4,13 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 import com.example.adapters.DisarableLocationCursorAdapter;
+import com.example.myLocation.GPSTracker;
 import com.example.sqlHelper.TestLocalSqliteDatabase;
 import com.example.thesguideproject.R;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.database.Cursor;
 import android.database.MatrixCursor;
 import android.os.Bundle;
@@ -35,7 +38,7 @@ import android.widget.TextView;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.Toast;
 
-public class SettingsMapFragment extends ListFragment{
+public class SettingsMapFragment extends ListFragment implements DialogInterface.OnClickListener {
 
 	private static EditText disarableLocationEditText;
 	private static EditText disarabledestLocationEditText;
@@ -52,6 +55,15 @@ public class SettingsMapFragment extends ListFragment{
 	private ArrayList<String> categoryPlacesList;
 	private String flag;
 	private FragmentTransaction fragmentTransaction;
+	private double startlatitude;
+	private double startlongtitude;
+	private double destlatitude;
+	private double destlongtitude;
+	private double startlatitude2;
+	private double startlongtitude2;
+	private double destlatitude2;
+	private double destlongtitude2;
+	private GPSTracker gps;
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -94,55 +106,164 @@ public class SettingsMapFragment extends ListFragment{
 
 			@Override
 			public void afterTextChanged(Editable s) {
-				// TODO Auto-generated method stub
-				if (startingpointtv.getText().length()> 1){
-				GoogleMapFragment g = new GoogleMapFragment();
-				Bundle onmapBundle = new Bundle();
-		        onmapBundle.putDouble("doubleCurrentLatitude", 233.34);
-		        onmapBundle.putDouble("doubleCurrentLongtitude", 2311.45);
-		        onmapBundle.putDouble("doublePlaceLatitude", 232.45);
-		        onmapBundle.putDouble("doublePlaceLongtitude", 23222.11);
-		        g.setArguments(onmapBundle);
-		        fragmentTransaction = getFragmentManager().beginTransaction().replace(R.id.containermapview, g);
-		        //fragmentTransaction.addToBackStack(null);
-		        fragmentTransaction.commit();}
+				
+				CoverFragment c = new CoverFragment();
+				fragmentTransaction = getFragmentManager().beginTransaction().replace(R.id.containermapview, c);
+				//fragmentTransaction.addToBackStack(null);
+				fragmentTransaction.commit();
+				
+				String startpointtvcontent = startingpointtv.getText().toString();
+				boolean flag = false;
+				if (!destinationpointtv.getText().toString().equals(startpointtvcontent)){
+					flag = true;
+				}
+				
+				
+				if (startingpointtv.getText().length()> 0 &&  flag == true){
+					
+					if (startingpointtv.getText().toString().equals("current location")){
+						gps = new GPSTracker(getActivity());
+						
+						if (gps.canGetLocation()){
+							startlatitude = gps.getLatitude();
+							startlongtitude = gps.getLongitude();
+						}
+						else
+						{
+				            gps.showSettingsAlert();
+				        }
+					}
+					else{
+						Cursor startcursor = testDB.getPlaceByNameEl(startingpointtv.getText().toString());
+							if (startcursor.moveToFirst()){
+								do{
+									startlatitude = startcursor.getDouble(startcursor.getColumnIndex("latitude"));
+									startlongtitude = startcursor.getDouble(startcursor.getColumnIndex("longtitude"));
+								}while(startcursor.moveToNext());
+							}
+					}
+					
+					Cursor destcursor = testDB.getPlaceByNameEl(destinationpointtv.getText().toString());
+					if (destcursor.moveToFirst()){
+						do{
+						   destlatitude = destcursor.getDouble(destcursor.getColumnIndex("latitude"));
+					       destlongtitude = destcursor.getDouble(destcursor.getColumnIndex("longtitude"));
+						}while(destcursor.moveToNext());
+					}
+					
+					
+					GoogleMapFragment g = new GoogleMapFragment();
+					Bundle onmapBundle = new Bundle();
+					onmapBundle.putDouble("doubleCurrentLatitude", startlatitude);
+					onmapBundle.putDouble("doubleCurrentLongtitude", startlongtitude);
+					onmapBundle.putDouble("doublePlaceLatitude", destlatitude);
+					onmapBundle.putDouble("doublePlaceLongtitude", destlongtitude);
+					g.setArguments(onmapBundle);
+					fragmentTransaction = getFragmentManager().beginTransaction().replace(R.id.containermapview, g);
+					//fragmentTransaction.addToBackStack(null);
+					fragmentTransaction.commit();
+				}
+				else if (startingpointtv.getText().length() == 0){
+					
+				}
+				else{
+					AlertDialog ald = new AlertDialog.Builder(getActivity())
+					.setMessage("Destination must differ from Starting Point")
+					//.setNeutralButton("Cancel", this)
+					//.setPositiveButton("OK", this)
+					.create();
+					ald.show();
+					
+					
+					
+				}
 			}
-
 			@Override
 			public void beforeTextChanged(CharSequence s, int start, int count,
 					int after) {
 				// TODO Auto-generated method stub
 				
 			}
-
 			@Override
 			public void onTextChanged(CharSequence s, int start, int before,
 					int count) {
 				// TODO Auto-generated method stub
 				
 			}
-			
-			
-			
 		});
 		
 		startingpointtv.addTextChangedListener(new TextWatcher(){
 
 			@Override
 			public void afterTextChanged(Editable s) {
-				// TODO Auto-generated method stub
-				if (destinationpointtv.getText().length() > 1){
 				
-				GoogleMapFragment g = new GoogleMapFragment();
-				Bundle onmapBundle = new Bundle();
-		        onmapBundle.putDouble("doubleCurrentLatitude", 233.34);
-		        onmapBundle.putDouble("doubleCurrentLongtitude", 2311.45);
-		        onmapBundle.putDouble("doublePlaceLatitude", 232.45);
-		        onmapBundle.putDouble("doublePlaceLongtitude", 23222.11);
-		        g.setArguments(onmapBundle);
-		        fragmentTransaction = getFragmentManager().beginTransaction().replace(R.id.containermapview, g);
-		        //fragmentTransaction.addToBackStack(null);
-		        fragmentTransaction.commit();}
+				CoverFragment c = new CoverFragment();
+				fragmentTransaction = getFragmentManager().beginTransaction().replace(R.id.containermapview, c);
+				//fragmentTransaction.addToBackStack(null);
+				fragmentTransaction.commit();
+				
+				String destinpointtvcontent = destinationpointtv.getText().toString();
+				boolean flag = false;
+				if (!startingpointtv.getText().toString().equals(destinpointtvcontent)){
+					flag = true;
+				}
+				
+				
+				if (destinationpointtv.getText().length() > 0 && flag == true){
+					
+					
+					if (startingpointtv.getText().toString().equals("current location")){
+						gps = new GPSTracker(getActivity());
+						
+						if (gps.canGetLocation()){
+							startlatitude = gps.getLatitude();
+							startlongtitude = gps.getLongitude();
+						}
+						else
+						{
+				            gps.showSettingsAlert();
+				        }
+					}else{
+					
+						Cursor startcursor = testDB.getPlaceByNameEl(startingpointtv.getText().toString());
+						if (startcursor.moveToFirst()){
+							do{
+								startlatitude2 = startcursor.getDouble(startcursor.getColumnIndex("latitude"));
+						   		startlongtitude2 = startcursor.getDouble(startcursor.getColumnIndex("longtitude"));	
+							}while(startcursor.moveToNext());
+						}
+					}
+					
+					Cursor destcursor = testDB.getPlaceByNameEl(destinationpointtv.getText().toString());
+					if (destcursor.moveToFirst()){
+						do{
+						   destlatitude2 = destcursor.getDouble(destcursor.getColumnIndex("latitude"));
+						   destlongtitude2 = destcursor.getDouble(destcursor.getColumnIndex("longtitude"));	
+						}while(destcursor.moveToNext());
+					}
+					
+					GoogleMapFragment g = new GoogleMapFragment();
+					Bundle onmapBundle = new Bundle();
+					onmapBundle.putDouble("doubleCurrentLatitude", startlatitude2);
+					onmapBundle.putDouble("doubleCurrentLongtitude", startlongtitude2);
+					onmapBundle.putDouble("doublePlaceLatitude", destlatitude2);
+					onmapBundle.putDouble("doublePlaceLongtitude", destlongtitude2);
+					g.setArguments(onmapBundle);
+					fragmentTransaction = getFragmentManager().beginTransaction().replace(R.id.containermapview, g);
+					//fragmentTransaction.addToBackStack(null);
+					fragmentTransaction.commit();
+				}
+				else if (destinationpointtv.getText().length() == 0){
+					
+				}
+				else{
+					AlertDialog ald = new AlertDialog.Builder(getActivity())
+					.setMessage("Starting Point must differ from Destination")
+					//.setNeutralButton("Cancel", this)
+					//.setPositiveButton("OK", this)
+					.create();
+					ald.show();
+				}
 			}
 
 			@Override
@@ -233,8 +354,10 @@ public class SettingsMapFragment extends ListFragment{
 			@Override
 			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 				// TODO Auto-generated method stub
+				disarableLocationEditText.setFocusable(false);
 				registerForContextMenu(buttonView); 
 				getActivity().openContextMenu(buttonView);	
+				
 			}
 			
 		});
@@ -463,6 +586,13 @@ public class SettingsMapFragment extends ListFragment{
 	 	   disarabledestLocationEditText.setText("");
 	 	 
 	     }
+
+	@Override
+	public void onClick(DialogInterface arg0, int arg1) {
+		// TODO Auto-generated method stub
+		
+	}
+
 	
 	
 

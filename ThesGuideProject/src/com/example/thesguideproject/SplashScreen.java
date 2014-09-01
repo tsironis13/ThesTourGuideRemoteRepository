@@ -9,6 +9,12 @@ import java.util.ArrayList;
 
 
 
+
+
+
+
+
+
 import com.example.sqlHelper.TestLocalSqliteDatabase;
 import com.example.storage.InternalStorage;
 import com.example.tasks.BitmapTask;
@@ -24,6 +30,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -34,8 +41,12 @@ import android.view.GestureDetector;
 import android.view.GestureDetector.SimpleOnGestureListener;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.ViewGroup.LayoutParams;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
 
@@ -46,7 +57,7 @@ public class SplashScreen extends Activity{
     private ViewFlipper mViewFlipper;  
     private Button playButton;
     private Button pauseButton;
-    private Button text;
+   
     private Context mContext;
     //A ProgressDialog object  
     private ProgressDialog progressDialog;  
@@ -54,7 +65,7 @@ public class SplashScreen extends Activity{
     private TestLocalSqliteDatabase testDB;
     private TestLocalSqliteDatabase testDB1;
     private Cursor allDisplayImageLinkcursor;
-    private static int SPLASH_TIME_OUT = 6000;
+    private static int SPLASH_TIME_OUT = 4000;
     private static int SPLASH_TIME_OUT2 = 2000;
     //TestLocalSqliteDatabase t;
     private static final String debugTag = "SplashScreen";
@@ -70,10 +81,16 @@ public class SplashScreen extends Activity{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.viewflipper);
 		testDB = new TestLocalSqliteDatabase(this);
+		
+		final Button englishButton = (Button) findViewById(R.id.englishButton);
+		final Button greekButton = (Button) findViewById(R.id.greekButton);
+		
+		final Button text = (Button) findViewById(R.id.textButton);
+		
 		//testDB1 = new TestLocalSqliteDatabase(this);
 		//imgFetcher = new BitmapTask(this);
 		//Initialize a LoadViewTask object and call the execute() method  
-		text = (Button) findViewById(R.id.textButton);
+		//text = (Button) findViewById(R.id.textButton);
 		/*text = (Button) findViewById(R.id.textButton);
 		text.setOnClickListener(new View.OnClickListener() {
 			
@@ -115,11 +132,39 @@ public class SplashScreen extends Activity{
 				public void run() {
 					// This method will be executed once the timer is over
 					// Start your app main activity
-					Intent i = new Intent(SplashScreen.this, PlacesListFragmentActivity.class);
-					startActivity(i);
+					greekButton.setVisibility(View.VISIBLE);
+					englishButton.setVisibility(View.VISIBLE);
+					
+					greekButton.setOnClickListener(new View.OnClickListener() {
+						
+						@Override
+						public void onClick(View v) {
+							// TODO Auto-generated method stub
+							Intent i = new Intent(SplashScreen.this, PlacesListFragmentActivity.class);
+							i.putExtra("language", "Greek");
+							startActivity(i);
+
+							// close this activity
+							//finish();
+						}
+					});
+					
+					englishButton.setOnClickListener(new View.OnClickListener() {
+						
+						@Override
+						public void onClick(View v) {
+							// TODO Auto-generated method stub
+							Intent i = new Intent(SplashScreen.this, PlacesListFragmentActivity.class);
+							i.putExtra("language", "English");
+							startActivity(i);
+						}
+					});
+					
+					//Intent i = new Intent(SplashScreen.this, PlacesListFragmentActivity.class);
+					//startActivity(i);
 
 					// close this activity
-					finish();
+					//finish();
 				}
 			}, SPLASH_TIME_OUT);
 		}
@@ -127,7 +172,13 @@ public class SplashScreen extends Activity{
 			boolean flag = testDB.checkPlacesDataTable();
 			if (flag == false){
 				Toast.makeText(getApplicationContext(), "Please enable wifi widget to download app data!", Toast.LENGTH_SHORT).show();
+				
+			
+				
+				//Button text = new Button(SplashScreen.this);
+				
 				text.setVisibility(0);
+				text.setText("Reopen App");
 				text.setOnClickListener(new View.OnClickListener() {
 					
 					@Override
@@ -153,11 +204,50 @@ public class SplashScreen extends Activity{
 				public void run() {
 					// This method will be executed once the timer is over
 					// Start your app main activity
-					Intent i = new Intent(SplashScreen.this, PlacesListFragmentActivity.class);
-					startActivity(i);
+					greekButton.setVisibility(View.VISIBLE);
+					englishButton.setVisibility(View.VISIBLE);
+					
+					/*LinearLayout r = (LinearLayout) findViewById(R.id.splashscreenrelativelayout);
+					r.setOrientation(LinearLayout.VERTICAL);
+					
+					ViewGroup.LayoutParams greekButtonparams = greekButton.getLayoutParams();
+					greekButtonparams.width = 100;
+					greekButton.setLayoutParams(greekButtonparams);
+					
+					ViewGroup.LayoutParams englishButtonparams = englishButton.getLayoutParams();
+					englishButtonparams.width = 100;
+					englishButton.setLayoutParams(englishButtonparams);
+					//LayoutParams lp = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+					
+					r.addView(greekButton, greekButtonparams);
+					r.addView(englishButton, englishButtonparams);*/
+					
+					greekButton.setOnClickListener(new View.OnClickListener() {
+						
+						@Override
+						public void onClick(View v) {
+							// TODO Auto-generated method stub
+							Intent i = new Intent(SplashScreen.this, PlacesListFragmentActivity.class);
+							i.putExtra("language", "Greek");
+							startActivity(i);
 
-					// close this activity
-					finish();
+							// close this activity
+							//finish();
+						}
+					});
+					
+					englishButton.setOnClickListener(new View.OnClickListener() {
+						
+						@Override
+						public void onClick(View v) {
+							// TODO Auto-generated method stub
+							Intent i = new Intent(SplashScreen.this, PlacesListFragmentActivity.class);
+							i.putExtra("language", "English");
+							startActivity(i);
+						}
+					});
+					
+					
 				}
 			}, SPLASH_TIME_OUT2);
 		  }

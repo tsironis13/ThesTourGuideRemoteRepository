@@ -50,6 +50,7 @@ public class PlacesListFragmentActivity extends ActionBarActivity implements Sea
 	private static final String debugTag = "PlacesListFragmentActivity";
 	private String name;
 	private String url;
+	private String language;
 	
 	public PlacesListFragmentActivity(){}
 	
@@ -65,6 +66,9 @@ public class PlacesListFragmentActivity extends ActionBarActivity implements Sea
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.placeslistfragmentactivityfragment);
+		Bundle extras = getIntent().getExtras();
+		language = extras.getString("language");
+		
 		t.openDataBase(debugTag);
 		
 		
@@ -120,7 +124,10 @@ public class PlacesListFragmentActivity extends ActionBarActivity implements Sea
 		mActionBar.setDisplayHomeAsUpEnabled(true);
 		
 		//searchView = (SearchView) findViewById(R.id.action_search);	
+		Bundle langbundle = new Bundle();
+		langbundle.putString("language", language);
 		menuFragment = new MenuFragment();
+		menuFragment.setArguments(langbundle);
 		
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		hiddentv = (TextView) findViewById(R.id.hiddentv);

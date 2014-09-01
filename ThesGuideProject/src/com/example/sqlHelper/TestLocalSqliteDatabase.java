@@ -333,6 +333,9 @@ public class TestLocalSqliteDatabase extends SQLiteOpenHelper {
 		 return cursor;
 	 }
 	 
+	 
+	 
+	 
 	 public Cursor getCountPlaces() throws SQLException{
 		 SQLiteDatabase db = this.getReadableDatabase();
 		 

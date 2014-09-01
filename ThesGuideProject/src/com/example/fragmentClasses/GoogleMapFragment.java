@@ -1,14 +1,19 @@
 package com.example.fragmentClasses;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
 import android.widget.LinearLayout;
+
+import com.example.myLocation.GPSTracker;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -17,7 +22,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-public class GoogleMapFragment extends SupportMapFragment{
+public class GoogleMapFragment extends SupportMapFragment {
 
 	private static final String SUPPORT_MAP_BUNDLE_KEY = "MapOptions";
 	private OnGoogleMapFragmentListener mCallback;
@@ -26,6 +31,7 @@ public class GoogleMapFragment extends SupportMapFragment{
 	private Double placeLong;
 	private Double placeLat;
 	private LatLng placePosition;
+	private LatLng secondPlacePosition;
 	
     public static interface OnGoogleMapFragmentListener {
         void onMapReady(GoogleMap map);
@@ -61,9 +67,14 @@ public class GoogleMapFragment extends SupportMapFragment{
 		// TODO Auto-generated method stub
 		View view = super.onCreateView(inflater, container, savedInstanceState);
 		
+		currentLong = getArguments().getDouble("doubleCurrentLongtitude");
+		currentLat = getArguments().getDouble("doubleCurrentLatitude");
+			
+		placeLong = getArguments().getDouble("doublePlaceLongtitude");
+		placeLat = getArguments().getDouble("doublePlaceLatitude");
+		
 		//Set a linearLayout to add buttons
 	    LinearLayout linearLayout = new LinearLayout(getActivity());
-	    
 	    
 	    LayoutParams params = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
 	    linearLayout.setBackgroundColor(Color.LTGRAY);
@@ -83,16 +94,13 @@ public class GoogleMapFragment extends SupportMapFragment{
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				//Intent intent = new Intent(getActivity(), StartActivityFromFragment.class);
-				//startActivity(intent);
+				Intent intent = new Intent(android.content.Intent.ACTION_VIEW, 
+			    Uri.parse("http://maps.google.com/maps?saddr=" + currentLat + "," + currentLong + "&daddr=" + placeLat + "," + placeLong + ""));
+				startActivity(intent);
 			}
 		});
 	    
-	    currentLong = getArguments().getDouble("doubleCurrentLongtitude");
-		currentLat = getArguments().getDouble("doubleCurrentLatitude");
-		
-		placeLong = getArguments().getDouble("doublePlaceLongtitude");
-		placeLat = getArguments().getDouble("doublePlaceLatitude");
+	   
 		
 		ViewGroup viewGroup = (ViewGroup) view;
 
@@ -112,11 +120,15 @@ public class GoogleMapFragment extends SupportMapFragment{
            
             //Creating a LatLng object for a specific location
             placePosition = new LatLng(placeLat, placeLong);
+            
+            secondPlacePosition = new LatLng(currentLat, currentLong);
+            
+            googleMap.addMarker(new MarkerOptions().position(secondPlacePosition).title("Start"));
            
             googleMap.addMarker(new MarkerOptions().position(placePosition).title("Finish"));
-           
-            CameraUpdate center= CameraUpdateFactory.newLatLng(new LatLng(placeLat, placeLong));
-            CameraUpdate zoom= CameraUpdateFactory.zoomTo(16);
+                       
+            CameraUpdate center= CameraUpdateFactory.newLatLng(placePosition);
+            CameraUpdate zoom= CameraUpdateFactory.zoomTo(12);
 
             googleMap.moveCamera(center);
             googleMap.animateCamera(zoom);
@@ -124,6 +136,7 @@ public class GoogleMapFragment extends SupportMapFragment{
         return view;
 	}
 
+	
 	
 	
 }
