@@ -152,6 +152,9 @@ public class PlacesJsonWebApiTask extends AsyncTask<Void, Integer, String> {
         		String info = null;
         		String exhibition = null;
         		String menu = null;
+        		String info_en = null;
+        		String exhibition_en = null;
+        		String menu_en = null;
         		String link1 = null;
         		String link2 = null;
         		String link3 = null;
@@ -163,6 +166,9 @@ public class PlacesJsonWebApiTask extends AsyncTask<Void, Integer, String> {
         				info = descObject.getString("info");
         				exhibition = descObject.getString("exhibition");
         				menu = descObject.getString("menu");
+        				info_en = descObject.getString("info_en");
+        				exhibition_en =  descObject.getString("exhibition_en");
+        				menu_en = descObject.getString("menu_en");
         				link1 = descObject.getString("photo_link1");
         				link2 = descObject.getString("photo_link2");
         				link3 = descObject.getString("photo_link3");
@@ -178,7 +184,7 @@ public class PlacesJsonWebApiTask extends AsyncTask<Void, Integer, String> {
 				}
         		
         		placesDataArray.add(new PlacesData(integer_id, name_el, nameel_lower, name_en, link, double_latitude, double_longtitude, 
-        				photo_link, genre, info, exhibition, menu, link1, link2, link3, link4, link5, subcategory, tel, email, fb_link));
+        				photo_link, genre, info, exhibition, menu, info_en, exhibition_en, menu_en, link1, link2, link3, link4, link5, subcategory, tel, email, fb_link));
         	}
         	
         	

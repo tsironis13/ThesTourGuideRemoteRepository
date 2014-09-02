@@ -397,6 +397,51 @@ public class TestLocalSqliteDatabase extends SQLiteOpenHelper {
 		 
 	 }
 	 
+	 public String[] getPhotoLinksArrayFromNameEn(String place_name){
+		 ArrayList<String> photoListArrayList = new ArrayList<String>();
+		 
+		 String selectQuery = "SELECT link1,link2,link3,link4,link5 FROM PlacesTable WHERE name_en = '" + place_name + "'";
+		 
+		 SQLiteDatabase db = this.getReadableDatabase();
+	     Cursor cursor = db.rawQuery(selectQuery, null);
+	     
+	     if (cursor.moveToFirst()){
+	    	 do {
+	    		 
+	    		if (cursor.getString(0) != null){
+	    		 photoListArrayList.add(cursor.getString(0));
+	    		}
+	    		if (cursor.getString(1) != null){
+		    		 photoListArrayList.add(cursor.getString(1));
+		    	}
+	    		if (cursor.getString(2) != null){
+		    		 photoListArrayList.add(cursor.getString(2));
+		    	}
+	    		Log.i("Link4 Content =>",  cursor.getString(3).toString());
+	    		if (cursor.getString(3).toString().equals("null")){
+	    			
+		    		 //photoListArrayList.add(cursor.getString(3));
+	    			Toast.makeText(myContext, "Is Null", Toast.LENGTH_SHORT).show();
+		    	}
+	    		else{
+	    			photoListArrayList.add(cursor.getString(3));
+	    			Toast.makeText(myContext, "Not Null", Toast.LENGTH_SHORT).show();
+	    		}
+	    		if (cursor.getString(4) != null){
+		    		 photoListArrayList.add(cursor.getString(4));
+		    	}
+	    		// photoLinkStringArray[0] = cursor.getString(0);
+	    		// photoLinkStringArray[1] = cursor.getString(1);
+	    		 //photoLinkStringArray[2] = cursor.getString(2);
+	    		 //photoLinkStringArray[3] = cursor.getString(0);
+	    	 } while (cursor.moveToNext()); 
+	     }
+	    
+	     String[] photoLinkStringArray = photoListArrayList.toArray(new String[photoListArrayList.size()]);
+	     return photoLinkStringArray;
+	 }
+	 
+	 
 	 public String[] getPhotoLinksArray(String place_name){
 		 ///ArrayList<Photo> photoList = new ArrayList<Photo>();
 		 //String[] photoLinkStringArray = new String[8]; 
@@ -539,6 +584,9 @@ public class TestLocalSqliteDatabase extends SQLiteOpenHelper {
 					 String info = placesData.getInfo();
 					 String exhibition = placesData.getExhibition();
 					 String menu = placesData.getMenu();
+					 String info_en = placesData.getInfoEn();
+					 String exhibition_en = placesData.getExhibitionEn();
+					 String menu_en = placesData.getMenuEn();
 					 String link1 = placesData.getLink1();
 					 String link2 = placesData.getLink2();
 					 String link3 = placesData.getLink3();
@@ -554,8 +602,8 @@ public class TestLocalSqliteDatabase extends SQLiteOpenHelper {
 					 //db.execSQL("INSERT INTO TestTable(_id, name, surname, type) VALUES(1, 'giannis ' , 'tsironis ' , 'male ')");
 					 //db.execSQL("INSERT INTO TestTable(_id, name, surname, type) VALUES(2, 'nikos ' , 'tsironis ' , 'male ')");
 					 //db.execSQL("INSERT INTO TestTable(_id, name, surname, type) VALUES(3, 'aggelos ' , 'tsironis ' , 'male ')");
-db.execSQL("INSERT INTO PlacesTable(_id, name_el, nameel_lower, name_en, link, latitude, longtitude, info, exhibition, menu, photo_link, genre, subcategory, tel, email, fb_link, link1, link2, link3, link4, link5) VALUES('" + id + 
-		"','" + name_el + "','" + nameel_lower + "','" + name_en + "','" + link + "','" + latitude + "','" + longtitude + "','" + info + "','" + exhibition + "','" + menu + "','" + photo_link + "','" + genre + "','" + subcategory + "','" + tel + "','" + 
+db.execSQL("INSERT INTO PlacesTable(_id, name_el, nameel_lower, name_en, link, latitude, longtitude, info, exhibition, menu, info_en, exhibition_en, menu_en, photo_link, genre, subcategory, tel, email, fb_link, link1, link2, link3, link4, link5) VALUES('" + id + 
+		"','" + name_el + "','" + nameel_lower + "','" + name_en + "','" + link + "','" + latitude + "','" + longtitude + "','" + info + "','" + exhibition + "','" + menu + "','" + info_en + "','" + exhibition_en + "','" + menu_en + "','" + photo_link + "','" + genre + "','" + subcategory + "','" + tel + "','" + 
 		email + "','" + fb_link + "','"  + link1 + "','" + link2 + "','" + link3 + "','" + link4 + "','" + link5 + "')");
 				  }
 			  

@@ -1,6 +1,6 @@
 package com.example.fragmentClasses;
 
-import com.example.adapters.PLacesDataListCursorAdapter;
+import com.example.adapters.PlacesDataListCursorAdapter;
 import com.example.adapters.SelectLocationSimpleCursorAdapter;
 import com.example.sqlHelper.TestLocalSqliteDatabase;
 import com.example.thesguideproject.R;

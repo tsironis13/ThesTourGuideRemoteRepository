@@ -7,7 +7,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import com.example.adapters.PLacesDataListCursorAdapter;
+import com.example.adapters.InEnglishPlacesDataListCursorAdapter;
+import com.example.adapters.PlacesDataListCursorAdapter;
 import com.example.fragmentClasses.ListPlacesFragment;
 import com.example.fragmentClasses.SearchPlaceResultListFragment;
 import com.example.storage.InternalStorage;
@@ -37,7 +38,8 @@ public class BitmapTask  {
     private SimpleCursorAdapter adapt;
     //private BaseAdapter adapt;
     private ArrayList<Bitmap> bitmapArray;
-    private PLacesDataListCursorAdapter p;
+    private PlacesDataListCursorAdapter p;
+    private InEnglishPlacesDataListCursorAdapter inEngPlacesAdapter;
     
     static InternalStorage intStorage = new InternalStorage();
     private String path = "/data/data/com.example.thesguideproject/app_imageDir";
@@ -47,8 +49,11 @@ public class BitmapTask  {
         imageCache = new HashMap<String, Bitmap>();
     }
     
+    public BitmapTask(InEnglishPlacesDataListCursorAdapter inEnglishPlacesAdapter){
+    	this.inEngPlacesAdapter = inEnglishPlacesAdapter; 
+    }
     
-    public BitmapTask(PLacesDataListCursorAdapter pLacesDataListCursorAdapter) {
+    public BitmapTask(PlacesDataListCursorAdapter pLacesDataListCursorAdapter) {
 		// TODO Auto-generated constructor stub
     	this.p = pLacesDataListCursorAdapter;
 	}

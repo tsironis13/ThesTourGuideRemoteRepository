@@ -6,23 +6,19 @@
    <group
        android:checkableBehavior="single">
     <item 
-        android:id="@+id/bizantines"
-        android:title="@string/byzantine" >
+        android:id="@+id/bizantines">
     </item>
     
     <item 
-        android:id="@+id/paleochristianikes"
-        android:title="@string/paleochr" >
+        android:id="@+id/paleochristianikes" >
     </item>
     
     <item 
-        android:id="@+id/basiliki"
-        android:title="@string/basiliki">
+        android:id="@+id/basiliki" >
     </item>
     
     <item 
-        android:id="@+id/macedonian"
-        android:title="@string/macedonian" >
+        android:id="@+id/macedonian" >
     </item>
     
     </group>

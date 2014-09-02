@@ -1,6 +1,6 @@
 package com.example.fragmentClasses;
 
-import com.example.adapters.PLacesDataListCursorAdapter;
+import com.example.adapters.PlacesDataListCursorAdapter;
 import com.example.myLocation.GPSTracker;
 import com.example.sqlHelper.TestLocalSqliteDatabase;
 import com.example.tasks.BitmapTask;
@@ -106,7 +106,7 @@ public class SearchPlaceResultListFragment extends ListFragment{
 	}
 	
 	private void setAdapterFromSpecificCursor(String button_pressed, ListView listExample, Cursor cursor, String[] columns, int[] to, BitmapTask imgFetcher, double current_latitude, double current_longtitude){
-		setListAdapter(new PLacesDataListCursorAdapter(button_pressed, this, getActivity(),  R.layout.places_basic_layout, cursor, columns, to, current_latitude, current_longtitude) );
+		setListAdapter(new PlacesDataListCursorAdapter(button_pressed, this, getActivity(),  R.layout.places_basic_layout, cursor, columns, to, current_latitude, current_longtitude) );
 	}
 	
 	

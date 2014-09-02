@@ -2,7 +2,8 @@ package com.example.fragmentClasses;
 
 import java.util.ArrayList;
 
-import com.example.adapters.PLacesDataListCursorAdapter;
+import com.example.adapters.InEnglishPlacesDataListCursorAdapter;
+import com.example.adapters.PlacesDataListCursorAdapter;
 import com.example.sqlHelper.TestLocalSqliteDatabase;
 import com.example.tasks.BitmapTask;
 import com.example.thesguideproject.R;
@@ -33,6 +34,7 @@ public class ListPlacesFragment extends ListFragment{
 	private String genre;
 	private String subcategory;
 	private static final String debugTag = "ListPlacesFragment";
+	private String language;
 	
 	//genre is also NameEl
 	public ListPlacesFragment(String genre, String subcategory, double current_latitude, double current_longtitude) {
@@ -56,6 +58,8 @@ public class ListPlacesFragment extends ListFragment{
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		View view = inflater.inflate(R.layout.list_fragment, container, false);	
+		language = getArguments().getString("language");
+		
 		testDB = new TestLocalSqliteDatabase(getActivity());
 		testDB.openDataBase(debugTag);
 		//String s = getArguments().getString("genre");
@@ -73,27 +77,44 @@ public class ListPlacesFragment extends ListFragment{
 		//button_pressed = "church";
 		if (genre.equals("museums")){
 			
-		    HelperMethodDependingOnButtonClick(genre);
-		    //setAdapterFromSpecificCursor(genre, listExample, specificPlacecursor, columns, to, imgFetcher, current_latitude, current_longtitude);
-		    setAdapterFromSpecificCursor(genre, listExample, specificPlacecursor, columns, to, current_latitude, current_longtitude);
-		    
+			if (language.equals("English")){
+				HelperMethodDependingOnButtonClick(genre);
+				inEnglishSetAdapterFromSpecificCursor(genre, listExample, specificPlacecursor, columns, to, current_latitude, current_longtitude);
+			}
+			else{
+				HelperMethodDependingOnButtonClick(genre);
+				//setAdapterFromSpecificCursor(genre, listExample, specificPlacecursor, columns, to, imgFetcher, current_latitude, current_longtitude);
+				setAdapterFromSpecificCursor(genre, listExample, specificPlacecursor, columns, to, current_latitude, current_longtitude);
+			}
 		    
 		   // Toast.makeText(getActivity(), "You clicked ListPlacesFragment!!", Toast.LENGTH_SHORT).show();
 		}  
 		else if (genre.equals("hospitals")){
-			HelperMethodDependingOnButtonClick(genre);
-		    //setAdapterFromSpecificCursor(genre, listExample, specificPlacecursor, columns, to, imgFetcher, current_latitude, current_longtitude);
-		    setAdapterFromSpecificCursor(genre, listExample, specificPlacecursor, columns, to, current_latitude, current_longtitude);
+			
+			if (language.equals("English")){
+				HelperMethodDependingOnButtonClick(genre);
+				inEnglishSetAdapterFromSpecificCursor(genre, listExample, specificPlacecursor, columns, to, current_latitude, current_longtitude);
+			}
+			else{
+				HelperMethodDependingOnButtonClick(genre);
+				//setAdapterFromSpecificCursor(genre, listExample, specificPlacecursor, columns, to, imgFetcher, current_latitude, current_longtitude);
+				setAdapterFromSpecificCursor(genre, listExample, specificPlacecursor, columns, to, current_latitude, current_longtitude);
+			}
 		}
 		
 		else {
-			Toast.makeText(getActivity(), genre.toString(), Toast.LENGTH_SHORT).show();
+			
+			if (language.equals("English")){
+				HelperMethodDependingOnMenuItemButtonClick(subcategory);
+				inEnglishSetAdapterFromSpecificCursor(subcategory, listExample, specificPlacecursor, columns, to, current_latitude, current_longtitude);
+			}else{
+			//Toast.makeText(getActivity(), genre.toString(), Toast.LENGTH_SHORT).show();
 			//testDB1.openDataBase();
 			HelperMethodDependingOnMenuItemButtonClick(subcategory);
 			//HelperMethodDependingOnSearchQuery(genre);
 			//Toast.makeText(getActivity(), "You clicked ListPlacesFragment and Churches in specific!!", Toast.LENGTH_SHORT).show();
 			setAdapterFromSpecificCursor(subcategory, listExample, specificPlacecursor, columns, to, current_latitude, current_longtitude);
-			
+			}
 		}
 	}
 
@@ -103,6 +124,7 @@ public class ListPlacesFragment extends ListFragment{
 		testDB.close(debugTag);
 	}
 
+	
 	public void HelperMethodDependingOnSearchQuery(String nameEl){
 		specificPlacecursor = testDB.getPlaceByNameEl(nameEl);
 		// the desired columns to be bound
@@ -128,10 +150,13 @@ public class ListPlacesFragment extends ListFragment{
 	} 
 
 	private void setAdapterFromSpecificCursor(String button_pressed, ListView listExample, Cursor cursor, String[] columns, int[] to, double current_latitude, double current_longtitude){
-		setListAdapter(new PLacesDataListCursorAdapter(button_pressed, this, getActivity(),  R.layout.places_basic_layout, cursor, columns, to, current_latitude, current_longtitude) );
+		setListAdapter(new PlacesDataListCursorAdapter(button_pressed, this, getActivity(),  R.layout.places_basic_layout, cursor, columns, to, current_latitude, current_longtitude) );
 	}
 
-
+	
+	private void inEnglishSetAdapterFromSpecificCursor(String button_pressed, ListView listExample, Cursor cursor, String[] columns, int[] to, double current_latitude, double current_longtitude){
+		setListAdapter(new InEnglishPlacesDataListCursorAdapter(button_pressed, this, getActivity(),  R.layout.places_basic_layout, cursor, columns, to, current_latitude, current_longtitude) );
+	}
 	//private void setAdapterFromSpecificCursor(String button_pressed, ListView listExample, Cursor cursor, String[] columns, int[] to, double current_latitude, double current_longtitude){
 	//	setListAdapter(new PLacesDataListCursorAdapter(button_pressed, this, getActivity(),  R.layout.places_basic_layout, cursor, columns, to, current_latitude, current_longtitude) );
 //	}

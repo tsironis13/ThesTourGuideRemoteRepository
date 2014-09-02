@@ -42,10 +42,10 @@
     <string name="menu_item_pause_on_fling">Pause on fling</string>
 	<string name="texresource">TextView TEXT</string>
 	<string name="TextButton">KAALSEEEE</string>
-	<string name="byzantine">Byzantines</string>
-	<string name="paleochr">Paleo Christianikes</string>
-	<string name="basiliki">Basiliki</string>
-	<string name="macedonian">Makedonikes</string>
+	<string name="byzantine">Byzantine</string>
+	<string name="paleochr">Old Christian</string>
+	<string name="basiliki">Basilica</string>
+	<string name="macedonian">Macedonian</string>
 	<string name="bars">Bars</string>
 	<string name="clubs">Clubs</string>
 	<string name="mpouzoukia">Mpouzoukia</string>

@@ -16,6 +16,9 @@ public class PlacesData {
 	private String info;
 	private String exhibition;
 	private String menu;
+	private String info_en;
+	private String exhibition_en;
+	private String menu_en;
 	private String link1;
 	private String link2;
 	private String link3;
@@ -29,7 +32,7 @@ public class PlacesData {
 	public PlacesData(){}
 	
 	public PlacesData(int id, String name_el, String nameel_lower, String name_en, String link, double latitude, double longtitude, 
-			String photo_link, String genre, String info, String exhibition, String menu, String link1, String link2, String link3, String link4,
+			String photo_link, String genre, String info, String exhibition, String menu, String info_en, String exhibition_en, String menu_en, String link1, String link2, String link3, String link4,
 			String link5, String subcategory, String tel, String email, String fb_link){
 		this.id = id;
 		this.name_el = name_el;
@@ -43,6 +46,9 @@ public class PlacesData {
 		this.info = info;
 		this.exhibition = exhibition;
 		this.menu = menu;
+		this.info_en = info_en;
+		this.exhibition_en = exhibition_en;
+		this.menu_en = menu_en;
 		this.link1 = link1;
 		this.link2 = link2;
 		this.link3 = link3;
@@ -148,6 +154,30 @@ public class PlacesData {
 	
 	public String getMenu(){
 		return menu;
+	}
+	
+	public void setInfoEn(String info_en){
+		this.info_en = info_en;
+	}
+	
+	public String getInfoEn(){
+		return info_en;
+	}
+	
+	public void setExhibitionEn(String exhibition_en){
+		this.exhibition_en = exhibition_en;
+	}
+	
+	public String getExhibitionEn(){
+		return exhibition_en;
+	}
+	
+	public void setMenuEn(String menu_en){
+		this.menu_en = menu_en;
+	}
+	
+	public String getMenuEn(){
+		return menu_en;
 	}
 	
 	public void setLink1(String link1){

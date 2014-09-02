@@ -66,6 +66,7 @@ public class PlacesDetailsTabs extends ActionBarActivity implements OnGoogleMapF
     private TabsPagerAdapter tabsPagerAdapter;
     private Context context;
     private SearchView searchView;
+    private String language;
     Bundle exhibitionBundle = new Bundle();
     
     private ActionBar mActionBar;
@@ -86,6 +87,7 @@ public class PlacesDetailsTabs extends ActionBarActivity implements OnGoogleMapF
 
 		Intent i = getIntent();
 		
+		language = i.getStringExtra("language");
 		button_pressed = i.getStringExtra("button_pressed_text");
 		placenameEl = i.getStringExtra("placeNameEl");
 		description_info = i.getStringExtra("desc_info");
@@ -161,24 +163,42 @@ public class PlacesDetailsTabs extends ActionBarActivity implements OnGoogleMapF
      //   if (button_pressed.equals("museums")){
         	
         	//ArrayList<Photo>  photoLinksArray = testDB.getPhotoLinksArray(placenameEl);
-        	String[] photoLinkStringArray = testDB.getPhotoLinksArray(placenameEl);
-        	int list_length = photoLinkStringArray.length;
-        	if (!photoLinkStringArray[0].equals("null")){
-        	String s = Integer.toString(list_length);
+     	 if (language.equals("English")){
+     		String[] photoLinkStringArray1 = testDB.getPhotoLinksArrayFromNameEn(placenameEl);
+     		int list_length1 = photoLinkStringArray1.length;
+     				if (!photoLinkStringArray1[0].equals("null")){
+     						String s = Integer.toString(list_length1);
         	
-        	Log.i("PHOTO LIST RETURN FROM DATABASE =>", s);
+     						Log.i("PHOTO LIST RETURN FROM DATABASE =>", s);
   	
-        	//Toast.makeText(getApplicationContext(), "Button pressed text =>" + " " + button_pressed, Toast.LENGTH_SHORT).show();
-        	Bundle photoBundle = new Bundle();
-        	photoBundle.putSerializable("linksList", photoLinkStringArray);
-        	photoBundle.putInt("Screen Height", scr_height);
-        	photoBundle.putInt("Screen Width", scr_width);
-        	//tabsPagerAdapter.addTab(actionBar.newTab().setText("Photo tab"), PhotoGridViewFragment.class, photoBundle);
-        	tabsPagerAdapter.addTab(mActionBar.newTab().setText("Photo tab"), PhotoGridViewFragment.class, photoBundle);
+     						//Toast.makeText(getApplicationContext(), "Button pressed text =>" + " " + button_pressed, Toast.LENGTH_SHORT).show();
+     						Bundle photoBundle = new Bundle();
+     						photoBundle.putSerializable("linksList", photoLinkStringArray1);
+     						photoBundle.putInt("Screen Height", scr_height);
+     						photoBundle.putInt("Screen Width", scr_width);
+     						//tabsPagerAdapter.addTab(actionBar.newTab().setText("Photo tab"), PhotoGridViewFragment.class, photoBundle);
+     						tabsPagerAdapter.addTab(mActionBar.newTab().setText("Photo tab"), PhotoGridViewFragment.class, photoBundle);
+     		        }
+     	 }			
+     	 else{	
+     		String[] photoLinkStringArray = testDB.getPhotoLinksArray(placenameEl);
+        	int list_length = photoLinkStringArray.length;
+        			if (!photoLinkStringArray[0].equals("null")){
+        					String s = Integer.toString(list_length);
         	
-        	
-        	}
-       // }
+        					Log.i("PHOTO LIST RETURN FROM DATABASE =>", s);
+  	
+        					//Toast.makeText(getApplicationContext(), "Button pressed text =>" + " " + button_pressed, Toast.LENGTH_SHORT).show();
+        					Bundle photoBundle = new Bundle();
+        					photoBundle.putSerializable("linksList", photoLinkStringArray);
+        					photoBundle.putInt("Screen Height", scr_height);
+        					photoBundle.putInt("Screen Width", scr_width);
+        					//tabsPagerAdapter.addTab(actionBar.newTab().setText("Photo tab"), PhotoGridViewFragment.class, photoBundle);
+        					tabsPagerAdapter.addTab(mActionBar.newTab().setText("Photo tab"), PhotoGridViewFragment.class, photoBundle);
+        			}	
+     	 }
+        
+        
      
         Bundle onmapBundle = new Bundle();
         onmapBundle.putDouble("doubleCurrentLatitude", doubleCurrentLatitude);

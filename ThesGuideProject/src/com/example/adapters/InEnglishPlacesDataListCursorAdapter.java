@@ -1,6 +1,5 @@
 package com.example.adapters;
 
-import java.io.InputStream;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
@@ -8,41 +7,28 @@ import com.example.fragmentClasses.ListPlacesFragment;
 import com.example.fragmentClasses.SearchPlaceResultListFragment;
 import com.example.locationData.PlacesData;
 import com.example.myLocation.GPSTracker;
-import com.example.storage.InternalStorage;
 import com.example.tasks.BitmapTask;
-import com.example.tasks.ImageTask;
-import com.example.thesguideproject.CursorAdapterExample;
-import com.example.thesguideproject.PlacesListFragmentActivity;
-import com.example.thesguideproject.R;
 import com.example.thesguideproject.PlacesDetailsTabs;
+import com.example.thesguideproject.R;
 
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.Drawable;
-import android.os.AsyncTask;
-import android.os.Build;
-import android.os.Bundle;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.support.v4.widget.SimpleCursorAdapter.ViewBinder;
 import android.support.v7.app.ActionBar;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-public class PLacesDataListCursorAdapter extends SimpleCursorAdapter implements OnClickListener {
+public class InEnglishPlacesDataListCursorAdapter extends SimpleCursorAdapter implements OnClickListener{
 
 	private ListPlacesFragment activity;
 	private SearchPlaceResultListFragment searchPlaceResultListFragment;
@@ -76,7 +62,7 @@ public class PLacesDataListCursorAdapter extends SimpleCursorAdapter implements 
 		// TODO Auto-generated constructor stub
 	}*/
 	
-	public PLacesDataListCursorAdapter(String button_pressed, SearchPlaceResultListFragment searchPlaceResultListFragment, Context context, int layout, Cursor cursor, String[] from, int[] to, double current_latitude, double current_longtitude) {
+	public InEnglishPlacesDataListCursorAdapter(String button_pressed, SearchPlaceResultListFragment searchPlaceResultListFragment, Context context, int layout, Cursor cursor, String[] from, int[] to, double current_latitude, double current_longtitude) {
 		super(context, layout, cursor, from, to);
 		this.button_pressed = button_pressed;
 		this.searchPlaceResultListFragment = searchPlaceResultListFragment;
@@ -89,7 +75,7 @@ public class PLacesDataListCursorAdapter extends SimpleCursorAdapter implements 
 		// TODO Auto-generated constructor stub
 	}
 	
-	public PLacesDataListCursorAdapter(String button_pressed, ListPlacesFragment activity, Context context, int layout, Cursor cursor, String[] from, int[] to, double current_latitude, double current_longtitude) {
+	public InEnglishPlacesDataListCursorAdapter(String button_pressed, ListPlacesFragment activity, Context context, int layout, Cursor cursor, String[] from, int[] to, double current_latitude, double current_longtitude) {
 		super(context, layout, cursor, from, to);
 		this.button_pressed = button_pressed;
 		this.activity = activity;
@@ -210,18 +196,18 @@ public class PLacesDataListCursorAdapter extends SimpleCursorAdapter implements 
 		this.cursor.moveToPosition(pos);
 		String name = this.cursor.getString(this.cursor.getColumnIndex("_id"));
 		int integer_id = Integer.parseInt(name);
-		String placeNameEl = this.cursor.getString(this.cursor.getColumnIndex("name_el"));
+		String placeNameEl = this.cursor.getString(this.cursor.getColumnIndex("name_en"));
 		String image_link = this.cursor.getString(this.cursor.getColumnIndex("photo_link"));
 		double place_latitude = this.cursor.getDouble(this.cursor.getColumnIndex("latitude"));
 		String str_placelatitude = Double.toString(place_latitude);
 		double place_longtitude = this.cursor.getDouble(this.cursor.getColumnIndex("longtitude"));
 		String str_placelongtitude = Double.toString(place_longtitude);
-		String descInfo = this.cursor.getString(this.cursor.getColumnIndex("info"));
+		String descInfo = this.cursor.getString(this.cursor.getColumnIndex("info_en"));
 		String tel = this.cursor.getString(this.cursor.getColumnIndex("tel"));
 		String link = this.cursor.getString(this.cursor.getColumnIndex("link"));
 		String fbLink = this.cursor.getString(this.cursor.getColumnIndex("fb_link"));
 		String email = this.cursor.getString(this.cursor.getColumnIndex("email"));
-		String exhibition = this.cursor.getString(this.cursor.getColumnIndex("exhibition"));
+		String exhibition = this.cursor.getString(this.cursor.getColumnIndex("exhibition_en"));
 		String link1 = this.cursor.getString(this.cursor.getColumnIndex("link1"));
 		String link2 = this.cursor.getString(this.cursor.getColumnIndex("link2"));
 		String link3 = this.cursor.getString(this.cursor.getColumnIndex("link3"));
@@ -425,6 +411,7 @@ public class PLacesDataListCursorAdapter extends SimpleCursorAdapter implements 
 		//intent.putExtra("nameEl", vH.surnametv.getTag().toString());
 		String str_current_latitude = Double.toString(current_latitude);
 		String str_current_longtitude = Double.toString(current_longtitude);
+		intent.putExtra("language", "English");
 		intent.putExtra("current latitude" , str_current_latitude);
 		intent.putExtra("current longtitude", str_current_longtitude);
 		intent.putExtra("placeNameEl", vH.placeNametv.getText());
@@ -450,10 +437,6 @@ public class PLacesDataListCursorAdapter extends SimpleCursorAdapter implements 
 			this.activity.startActivity(intent);
 		}
 	}
-
-	
-	
-	
 
 	
 	

@@ -142,6 +142,7 @@ public class SplashScreen extends Activity{
 							// TODO Auto-generated method stub
 							Intent i = new Intent(SplashScreen.this, PlacesListFragmentActivity.class);
 							i.putExtra("language", "Greek");
+							Toast.makeText(getApplicationContext(), "Greek", Toast.LENGTH_SHORT).show();
 							startActivity(i);
 
 							// close this activity
@@ -156,6 +157,7 @@ public class SplashScreen extends Activity{
 							// TODO Auto-generated method stub
 							Intent i = new Intent(SplashScreen.this, PlacesListFragmentActivity.class);
 							i.putExtra("language", "English");
+							Toast.makeText(getApplicationContext(), "English", Toast.LENGTH_SHORT).show();
 							startActivity(i);
 						}
 					});
@@ -229,6 +231,7 @@ public class SplashScreen extends Activity{
 							// TODO Auto-generated method stub
 							Intent i = new Intent(SplashScreen.this, PlacesListFragmentActivity.class);
 							i.putExtra("language", "Greek");
+							Toast.makeText(getApplicationContext(), "Greek", Toast.LENGTH_SHORT).show();
 							startActivity(i);
 
 							// close this activity
@@ -243,6 +246,7 @@ public class SplashScreen extends Activity{
 							// TODO Auto-generated method stub
 							Intent i = new Intent(SplashScreen.this, PlacesListFragmentActivity.class);
 							i.putExtra("language", "English");
+							Toast.makeText(getApplicationContext(), "English", Toast.LENGTH_SHORT).show();
 							startActivity(i);
 						}
 					});

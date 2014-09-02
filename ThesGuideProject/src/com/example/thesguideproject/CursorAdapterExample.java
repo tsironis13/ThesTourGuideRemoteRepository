@@ -2,7 +2,7 @@ package com.example.thesguideproject;
 
 import java.io.IOException;
 
-import com.example.adapters.PLacesDataListCursorAdapter;
+import com.example.adapters.PlacesDataListCursorAdapter;
 import com.example.myLocation.GPSTracker;
 import com.example.sqlHelper.TestLocalSqliteDatabase;
 import com.example.tasks.BitmapTask;

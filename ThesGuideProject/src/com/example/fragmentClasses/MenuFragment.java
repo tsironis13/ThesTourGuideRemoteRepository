@@ -2,12 +2,14 @@ package com.example.fragmentClasses;
 
 import com.example.myLocation.GPSTracker;
 import com.example.thesguideproject.R;
+
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -29,6 +31,7 @@ public class MenuFragment extends Fragment {
 	private Fragment fragment;
 	private FragmentTransaction fragmentTransaction;
 	private GPSTracker gps;
+	private String language;
 	//private TestLocalSqliteDatabase t;
 	//private int i=0;
 	
@@ -40,7 +43,7 @@ public class MenuFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.menu_fragment, container, false);
 		
-		String language = getArguments().getString("language");
+		language = getArguments().getString("language");
 		
 		foodButton = (Button) view.findViewById(R.id.foodButton);
 		nightlifeButton = (Button) view.findViewById(R.id.nightlifebutton);
@@ -77,7 +80,10 @@ public class MenuFragment extends Fragment {
             gps.showSettingsAlert();
         }
 		
+		Bundle langbundle = new Bundle();
+		langbundle.putString("language", language);
 		fragment = new DisplayImageFragment();
+		fragment.setArguments(langbundle);
 		fragmentTransaction = getFragmentManager().beginTransaction().replace(R.id.containerlist, fragment);
 		fragmentTransaction.addToBackStack("d");
 		fragmentTransaction.commit();
@@ -130,7 +136,10 @@ public class MenuFragment extends Fragment {
 			@Override
 			public void onClick(View v) {
 				genre = "museums";
+				Bundle langBundle = new Bundle();
+				langBundle.putString("language", language);
 				ListPlacesFragment listMuseumsFragment = new ListPlacesFragment(genre, "", current_latitude, current_longtitude);
+				listMuseumsFragment.setArguments(langBundle);
 				fragmentTransaction = getFragmentManager().beginTransaction().replace(R.id.containerlist, listMuseumsFragment);
 				int fragments = getFragmentManager().getBackStackEntryCount();
 				if (fragments > 1){
@@ -163,7 +172,10 @@ public class MenuFragment extends Fragment {
 			@Override
 			public void onClick(View v) {
 				genre = "hospitals";
+				Bundle langBundle = new Bundle();
+				langBundle.putString("language", language);
 				ListPlacesFragment listMuseumsFragment = new ListPlacesFragment(genre, "", current_latitude, current_longtitude);
+				listMuseumsFragment.setArguments(langBundle);
 				fragmentTransaction = getFragmentManager().beginTransaction().replace(R.id.containerlist, listMuseumsFragment);
 				int fragments = getFragmentManager().getBackStackEntryCount();
 				if (fragments > 1){
@@ -175,8 +187,7 @@ public class MenuFragment extends Fragment {
 					}
 						getFragmentManager().popBackStack();
 				}
-				fragmentTransaction.addToBackStack("hos");
-				
+				fragmentTransaction.addToBackStack("hos");		
 				fragmentTransaction.commit();
 			}
 		});
@@ -197,8 +208,11 @@ public class MenuFragment extends Fragment {
 		switch(item.getItemId()){
 		case R.id.barrestaurants:
 			genre ="food";
+			Bundle langBundle = new Bundle();
+			langBundle.putString("language", language);
 			subcategory = "bar-restaurant";
 			ListPlacesFragment listBarRestFragment = new ListPlacesFragment(genre, subcategory, current_latitude, current_longtitude);
+			listBarRestFragment.setArguments(langBundle);
 			fragmentTransaction = getFragmentManager().beginTransaction().replace(R.id.containerlist, listBarRestFragment);
 			if (fragments > 1){
 				  String backStackId = getFragmentManager().getBackStackEntryAt(1).getName();
@@ -214,8 +228,11 @@ public class MenuFragment extends Fragment {
 	   		break;
 		case R.id.restaurants:
 			genre ="food";
+			Bundle langrestBundle = new Bundle();
+			langrestBundle.putString("language", language);
 			subcategory = "restaurants";
 			ListPlacesFragment listRestFragment = new ListPlacesFragment(genre, subcategory, current_latitude, current_longtitude);
+			listRestFragment.setArguments(langrestBundle);
 			fragmentTransaction = getFragmentManager().beginTransaction().replace(R.id.containerlist, listRestFragment);
 			if (fragments > 1){
 				  String backStackId = getFragmentManager().getBackStackEntryAt(1).getName();
@@ -231,8 +248,11 @@ public class MenuFragment extends Fragment {
 			break;
 		case R.id.intercuisine:
 			genre ="food";
+			Bundle langintBundle = new Bundle();
+			langintBundle.putString("language", language);
 			subcategory = "intercuisine";
 			ListPlacesFragment listInterCoisFragment = new ListPlacesFragment(genre, subcategory, current_latitude, current_longtitude);
+			listInterCoisFragment.setArguments(langintBundle);
 			fragmentTransaction = getFragmentManager().beginTransaction().replace(R.id.containerlist, listInterCoisFragment);
 			if (fragments > 1){
 				  String backStackId = getFragmentManager().getBackStackEntryAt(1).getName();
@@ -248,8 +268,11 @@ public class MenuFragment extends Fragment {
 			break;
 		case R.id.seafood:
 			genre ="food";
+			Bundle langseafBundle = new Bundle();
+			langseafBundle.putString("language", language);
 			subcategory = "seafood";
 			ListPlacesFragment listSeafoodFragment = new ListPlacesFragment(genre, subcategory, current_latitude, current_longtitude);
+			listSeafoodFragment.setArguments(langseafBundle);
 			fragmentTransaction = getFragmentManager().beginTransaction().replace(R.id.containerlist, listSeafoodFragment);
 			if (fragments > 1){
 				  String backStackId = getFragmentManager().getBackStackEntryAt(1).getName();
@@ -265,8 +288,11 @@ public class MenuFragment extends Fragment {
 			break;
 		case R.id.bars:
 			genre = "nightlife";
+			Bundle langbarsBundle = new Bundle();
+			langbarsBundle.putString("language", language);
 			subcategory = "bars";
 			ListPlacesFragment listBarsFragment = new ListPlacesFragment(genre, subcategory, current_latitude, current_longtitude);
+			listBarsFragment.setArguments(langbarsBundle);
 			fragmentTransaction = getFragmentManager().beginTransaction().replace(R.id.containerlist, listBarsFragment);
 			if (fragments > 1){
 				  String backStackId = getFragmentManager().getBackStackEntryAt(1).getName();
@@ -282,8 +308,11 @@ public class MenuFragment extends Fragment {
 			break;
 		case R.id.clubs:
 			genre = "nightlife";
+			Bundle langclubsBundle = new Bundle();
+			langclubsBundle.putString("language", language);
 			subcategory = "clubs";
 			ListPlacesFragment listClubsFragment = new ListPlacesFragment(genre, subcategory, current_latitude, current_longtitude);
+			listClubsFragment.setArguments(langclubsBundle);
 			fragmentTransaction = getFragmentManager().beginTransaction().replace(R.id.containerlist, listClubsFragment);
 			if (fragments > 1){
 				  String backStackId = getFragmentManager().getBackStackEntryAt(1).getName();
@@ -299,8 +328,11 @@ public class MenuFragment extends Fragment {
 			break;
 		case R.id.mpouzoukia:
 			genre = "nightlife";
+			Bundle langmpouzBundle = new Bundle();
+			langmpouzBundle.putString("language", language);
 			subcategory = "mpouzoukia";
 			ListPlacesFragment listMpouzoukiaFragment = new ListPlacesFragment(genre, subcategory, current_latitude, current_longtitude);
+			listMpouzoukiaFragment.setArguments(langmpouzBundle);
 			fragmentTransaction = getFragmentManager().beginTransaction().replace(R.id.containerlist, listMpouzoukiaFragment);
 			if (fragments > 1){
 				  String backStackId = getFragmentManager().getBackStackEntryAt(1).getName();
@@ -316,8 +348,11 @@ public class MenuFragment extends Fragment {
 			break;
 		case R.id.pubs:
 			genre = "nightlife";
+			Bundle langnightBundle = new Bundle();
+			langnightBundle.putString("language", language);
 			subcategory = "pubs";
 			ListPlacesFragment listPubsFragment = new ListPlacesFragment(genre, subcategory, current_latitude, current_longtitude);
+			listPubsFragment.setArguments(langnightBundle);
 			fragmentTransaction = getFragmentManager().beginTransaction().replace(R.id.containerlist, listPubsFragment);
 			if (fragments > 1){
 				  String backStackId = getFragmentManager().getBackStackEntryAt(1).getName();
@@ -333,8 +368,11 @@ public class MenuFragment extends Fragment {
 			break;
 		 case R.id.paleochristianikes:
 			 genre = "church";
+			 Bundle langpaleoBundle = new Bundle();
+			 langpaleoBundle.putString("language", language);
 			 subcategory = "PaleoChristian";
 			 ListPlacesFragment listPchrFragment = new ListPlacesFragment(genre, subcategory, current_latitude, current_longtitude);
+			 listPchrFragment.setArguments(langpaleoBundle);
 			 fragmentTransaction = getFragmentManager().beginTransaction().replace(R.id.containerlist, listPchrFragment);
 			 if (fragments > 1){
 				  String backStackId = getFragmentManager().getBackStackEntryAt(1).getName();
@@ -350,8 +388,11 @@ public class MenuFragment extends Fragment {
 			 break;
 		 case R.id.bizantines:
 			 genre = "church";
+			 Bundle langbizBundle = new Bundle();
+			 langbizBundle.putString("language", language);
 			 subcategory = "Byzantine";
 			 ListPlacesFragment listBizanFragment = new ListPlacesFragment(genre, subcategory, current_latitude, current_longtitude);
+			 listBizanFragment.setArguments(langbizBundle);
 			 fragmentTransaction = getFragmentManager().beginTransaction().replace(R.id.containerlist, listBizanFragment);
 			 if (fragments > 1){
 				  String backStackId = getFragmentManager().getBackStackEntryAt(1).getName();
@@ -367,8 +408,11 @@ public class MenuFragment extends Fragment {
 			 break;
 		 case R.id.basiliki:
 			 genre = "church";
+			 Bundle langbasilBundle = new Bundle();
+			 langbasilBundle.putString("language", language);
 			 subcategory = "Basiliki";
 			 ListPlacesFragment listBasilFragment = new ListPlacesFragment(genre, subcategory, current_latitude, current_longtitude);
+			 listBasilFragment.setArguments(langbasilBundle);
 			 fragmentTransaction = getFragmentManager().beginTransaction().replace(R.id.containerlist, listBasilFragment);
 			 if (fragments > 1){
 				  String backStackId = getFragmentManager().getBackStackEntryAt(1).getName();
@@ -384,8 +428,11 @@ public class MenuFragment extends Fragment {
 			 break;
 		 case R.id.macedonian:
 			 genre = "church";
+			 Bundle langmacBundle = new Bundle();
+			 langmacBundle.putString("language", language);
 			 subcategory = "Macedonian";
 			 ListPlacesFragment listMacFragment = new ListPlacesFragment(genre, subcategory, current_latitude, current_longtitude);
+			 listMacFragment.setArguments(langmacBundle);
 			 fragmentTransaction = getFragmentManager().beginTransaction().replace(R.id.containerlist, listMacFragment);
 			 if (fragments > 1){
 				  String backStackId = getFragmentManager().getBackStackEntryAt(1).getName();
@@ -410,7 +457,23 @@ public class MenuFragment extends Fragment {
 		// TODO Auto-generated method stub
 		if (v.getId() == R.id.churchesbutton){
 			MenuInflater menuInflater = getActivity().getMenuInflater();
-			menuInflater.inflate(R.menu.categ_churchmenu, menu);
+			menuInflater.inflate(R.menu.categ_churchmenu, menu);	
+			MenuItem macitem = menu.findItem(R.id.macedonian);
+			MenuItem palitem = menu.findItem(R.id.paleochristianikes);
+			MenuItem byzitem = menu.findItem(R.id.bizantines);
+			MenuItem basitem = menu.findItem(R.id.basiliki);
+			if (language.equals("Greek")){
+				macitem.setTitle("Μακεδονικές");
+				palitem.setTitle("Παλεό-Χριστιανικές");
+				byzitem.setTitle("Βυζαντινές");
+				basitem.setTitle("Βασιλικές");
+			}	
+			else{
+				macitem.setTitle("Macedonian");
+				palitem.setTitle("Old-Christian");
+				byzitem.setTitle("Byzantine");
+				basitem.setTitle("Basilica");
+			}
 		}
 		else if (v.getId() == R.id.nightlifebutton){
 			MenuInflater menuInflater = getActivity().getMenuInflater();
@@ -422,6 +485,16 @@ public class MenuFragment extends Fragment {
 		}
 		
 	}
+
+	@Override
+	public void onPrepareOptionsMenu(Menu menu) {
+		// TODO Auto-generated method stub
+			super.onPrepareOptionsMenu(menu);
+			
+			
+	}
 	
 
+	
+	
 }

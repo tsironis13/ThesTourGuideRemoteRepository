@@ -6,7 +6,6 @@
     
     <TextView 
         android:id="@+id/textviewdisplay"
-        android:text="Some Text here!Some Text here!Some Text here!Some Text here!Some Text here!Some Text here!Some Text here!"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
     </TextView>
