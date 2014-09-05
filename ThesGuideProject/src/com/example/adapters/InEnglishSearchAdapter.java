@@ -1,63 +1,36 @@
 package com.example.adapters;
 
 import java.util.List;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-import com.example.fragmentClasses.MenuFragment;
-import com.example.sqlHelper.TestLocalSqliteDatabase;
 import com.example.thesguideproject.R;
 import com.example.thesguideproject.SearchPlaceResutlActivity;
-
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.CursorAdapter;
-import android.support.v4.widget.SimpleCursorAdapter;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-public class SearchAdapter extends CursorAdapter implements OnClickListener{
+public class InEnglishSearchAdapter extends CursorAdapter implements OnClickListener{
 
 	private List items;
 	private Context context; 
     private TextView t;
     private Button text;
 	private Cursor cursor;	
-	private String lang;
 	private String placeNameEl;
 	//private FragmentTransaction fragmentTransaction;
 	//private MenuFragment menuFragment;
 	
-	public SearchAdapter(Context context, Cursor cursor, List items, String lang) {
+	public InEnglishSearchAdapter(Context context, Cursor cursor, List items) {
 		super(context, cursor, false);
 		this.items = items;
 		this.context = context;
 		this.cursor = cursor;
-		this.lang = lang;
 		// TODO Auto-generated constructor stub
 	}
     
@@ -98,31 +71,13 @@ public class SearchAdapter extends CursorAdapter implements OnClickListener{
 		}
 		
 		this.cursor.moveToPosition(position);
-		if (lang.equals("Latin")){
-			 placeNameEl = this.cursor.getString(this.cursor.getColumnIndex("name_en"));
-		}
-		else{
-		     placeNameEl = this.cursor.getString(this.cursor.getColumnIndex("nameel_lower"));
-		}
-		
+	    placeNameEl = this.cursor.getString(this.cursor.getColumnIndex("name_en"));
+	
 		viewHolder.t.setText(placeNameEl);
 		viewHolder.t.setOnClickListener(this);
 		
 		return v;
 	}
-
-
-	/*@Override
-	public View newView(Context context, Cursor cursor, ViewGroup parent) {
-		// TODO Auto-generated method stub
-		LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		 
-        View view = inflater.inflate(R.layout.item, parent, false);
- 
-        text = (TextView) view.findViewById(R.id.text);
- 
-        return view;
-	}*/
 
 	@Override
 	public void onClick(View v) {
@@ -133,8 +88,8 @@ public class SearchAdapter extends CursorAdapter implements OnClickListener{
 		String s1 = s.toString();
 		Log.i("TextView Clicked =>", s1);
 		Intent intent = new Intent(context, SearchPlaceResutlActivity.class);
-		intent.putExtra("language", "Greek");
 		intent.putExtra("PlaceName", s1);
+		intent.putExtra("language", "English");
 		context.startActivity(intent);
 		//MenuFragment m = new MenuFragment(s1);
 		//PlacesListFragmentActivity p = new PlacesListFragmentActivity();
@@ -150,9 +105,5 @@ public class SearchAdapter extends CursorAdapter implements OnClickListener{
 		// TODO Auto-generated method stub
 		return null;
 	}
-
 	
-	
-	
-
 }

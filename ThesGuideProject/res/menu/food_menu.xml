@@ -4,23 +4,19 @@
     <group
        android:checkableBehavior="single">
     <item 
-        android:id="@+id/barrestaurants"
-        android:title="@string/barrestaurants" >
+        android:id="@+id/barrestaurants" >
     </item>
     
     <item 
-        android:id="@+id/restaurants"
-        android:title="@string/restaurants" >
+        android:id="@+id/restaurants" >
     </item>
     
     <item 
-        android:id="@+id/intercuisine"
-        android:title="@string/intercuisine">
+        android:id="@+id/intercuisine" >
     </item>
     
     <item 
-        android:id="@+id/seafood"
-        android:title="@string/seafood" >
+        android:id="@+id/seafood" >
     </item>
     
     </group>

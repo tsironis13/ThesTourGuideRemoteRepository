@@ -38,7 +38,21 @@
             		android:background="#afc"
                     android:text="@string/clearDataDBbutton">    
                </Button>
-       
+       			
+       		   <View 
+       		       android:background="#000"
+       		       android:layout_width="1dp"
+       		       android:layout_height="match_parent">   
+       		   </View>
+        	   
+       		   <Button
+            		android:id="@+id/sightseeingsbutton"
+            		android:layout_width="wrap_content"
+            		android:layout_height="match_parent"
+            		android:background="#fac"
+            		android:text="@string/sightseeingsbutton">       
+        	   </Button>
+       		   
        		    <View 
        		       android:background="#000"
        		       android:layout_width="1dp"
@@ -109,20 +123,7 @@
         	       android:text="@string/hospitalsbutton">
         	   </Button>
         	   
-        	   <View 
-       		       android:background="#000"
-       		       android:layout_width="1dp"
-       		       android:layout_height="match_parent">   
-       		   </View>
-        	   
-        	   <Button
-            		android:id="@+id/sightseeingsbutton"
-            		android:layout_width="wrap_content"
-            		android:layout_height="match_parent"
-            		android:background="#fac"
-            		android:text="@string/sightseeingsbutton">       
-        	   </Button>
-        		
+        	 
         	   <View 
        		       android:background="#000"
        		       android:layout_width="1dp"

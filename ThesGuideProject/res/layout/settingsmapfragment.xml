@@ -2,23 +2,39 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="horizontal" >"
     
 	  
    <RelativeLayout
        android:layout_width="match_parent"
-       android:layout_height="match_parent">"
+       android:layout_height="match_parent">
     
     <TextView 
         android:id="@+id/startpointlabeltv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
         android:layout_alignParentLeft="true" 
-        android:text="@string/spoint">
+        >
     </TextView>
     
+    <CheckBox 
+        android:id="@+id/currentpositioncb"
+        android:layout_below="@+id/startpointlabeltv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true" >
+    </CheckBox>
     
-    <RadioGroup 
+    <Button 
+        android:id="@+id/selectcategoryb"
+        android:layout_below="@+id/currentpositioncb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true" >
+    </Button>
+    
+   <!--   <RadioGroup 
         android:id="@+id/radiogroupstartingpoint" 
         android:layout_below="@+id/startpointlabeltv"
         android:layout_width="wrap_content"
@@ -40,33 +56,38 @@
             android:text="@string/rdselectcategory"
             />
         
-    </RadioGroup>
+    </RadioGroup>   -->
     
-   
+    
     <EditText 
         android:id="@+id/pickyourdisarablelocationet"
-        android:layout_below="@+id/radiogroupstartingpoint"
+        android:layout_below="@+id/selectcategoryb"
         android:inputType="textMultiLine"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true" 
-        android:hint="@string/disarableedhint">
+        >
     </EditText>
     
-    <TextView 
-        android:id="@+id/startingpointtv"
-        android:layout_below="@+id/pickyourdisarablelocationet"
-        android:layout_width="wrap_content"
-        android:maxWidth="200dp"
-        android:layout_height="wrap_content"
-        android:ellipsize="middle"
-        android:layout_alignParentLeft="true" 
-        android:visibility="visible">
+    <TextView
+        android:id="@+id/fromtv"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="invisible"
+        android:layout_below="@+id/pickyourdisarablelocationet">
     </TextView>
     
-      <ListView 
+     <TextView
+        android:id="@+id/totv"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="invisible"
+        android:layout_below="@+id/fromtv">
+    </TextView>
+    
+     <ListView 
         android:id="@+id/android:list"
-        android:layout_below="@+id/startingpointtv"
+        android:layout_below="@+id/totv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:clickable="true"
@@ -77,12 +98,57 @@
      <TextView 
         android:id="@+id/destinationpointlabeltv"
         android:layout_alignParentRight="true" 
-        android:layout_marginRight="10dp"
+        android:layout_marginRight="5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+     </TextView>
+     
+      <CheckBox 
+        android:id="@+id/currentpositiondestcb"
+        android:layout_below="@+id/destinationpointlabeltv"
+        android:layout_marginRight="5dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/dpoint">
-     </TextView>
-    
+        android:layout_alignParentRight="true" >
+      </CheckBox>
+     
+      <Button 
+        android:id="@+id/selectdestcategoryb"
+        android:layout_below="@+id/currentpositiondestcb"
+        android:layout_marginLeft="5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true" >
+    </Button>
+     
+      <EditText 
+        android:id="@+id/pickyourdisarabledestlocationet"
+        android:layout_below="@+id/selectdestcategoryb"
+         android:inputType="textMultiLine"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true" >
+     </EditText>  
+      
+     <TextView 
+        android:id="@+id/startingpointtv"
+        android:layout_below="@+id/pickyourdisarablelocationet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:visibility="visible">
+    </TextView>
+      
+     <TextView 
+        android:id="@+id/destinationpointtv"
+        android:layout_below="@+id/startingpointtv"
+        android:layout_marginLeft="5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="visible">
+    </TextView> 
+      
+    <!--
      <RadioButton 
         android:id="@+id/selectdestinationcategoryrd"
         android:layout_below="@+id/destinationpointlabeltv"
@@ -103,30 +169,8 @@
          android:visibility="invisible"
           />
      
-     <EditText 
-        android:id="@+id/pickyourdisarabledestlocationet"
-        android:layout_below="@+id/invisibletv"
-        android:inputType="textMultiLine"
-        android:layout_alignParentRight="true" 
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="13dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="@string/disarableedhint">
-     </EditText>
-        
-     <TextView 
-        android:id="@+id/destinationpointtv"
-        android:layout_below="@+id/pickyourdisarabledestlocationet"
-        android:layout_alignParentRight="true" 
-        android:layout_marginRight="10dp"
-        android:maxWidth="200dp"
-        android:gravity="right"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="visible">
-    </TextView>
-     
+  
+     -->
     
     </RelativeLayout>
     

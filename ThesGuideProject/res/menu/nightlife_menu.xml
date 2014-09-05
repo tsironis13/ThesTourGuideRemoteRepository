@@ -13,10 +13,10 @@
         android:title="@string/clubs" >
     </item>
     
-    <item 
+   <!--  <item 
         android:id="@+id/mpouzoukia"
         android:title="@string/mpouzoukia">
-    </item>
+    </item>    -->
     
     <item 
         android:id="@+id/pubs"

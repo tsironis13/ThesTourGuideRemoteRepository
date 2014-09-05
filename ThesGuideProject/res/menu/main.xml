@@ -24,8 +24,14 @@
          hmkcode:showAsAction="always"
          android:icon="@drawable/ic_action_path"
          android:title="@string/action_path"/>
+    
+     <item 
+         android:id="@+id/close"
+         hmkcode:showAsAction="never"
+         android:title="konta"
+         />
      
-     <item
+    <item
         android:id="@+id/item_clear_memory_cache"
         android:title="@string/menu_item_clear_memory_cache"/>
     <item

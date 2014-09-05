@@ -88,7 +88,18 @@ public class ListPlacesFragment extends ListFragment{
 			}
 		    
 		   // Toast.makeText(getActivity(), "You clicked ListPlacesFragment!!", Toast.LENGTH_SHORT).show();
-		}  
+		} 
+		else if (genre.equals("sightseeings")){
+			if (language.equals("English")){
+				HelperMethodDependingOnButtonClick(genre);
+				inEnglishSetAdapterFromSpecificCursor(genre, listExample, specificPlacecursor, columns, to, current_latitude, current_longtitude);
+			}
+			else{
+				HelperMethodDependingOnButtonClick(genre);
+				//setAdapterFromSpecificCursor(genre, listExample, specificPlacecursor, columns, to, imgFetcher, current_latitude, current_longtitude);
+				setAdapterFromSpecificCursor(genre, listExample, specificPlacecursor, columns, to, current_latitude, current_longtitude);
+			}
+		}
 		else if (genre.equals("hospitals")){
 			
 			if (language.equals("English")){

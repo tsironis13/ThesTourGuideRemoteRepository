@@ -324,6 +324,15 @@ public class TestLocalSqliteDatabase extends SQLiteOpenHelper {
 		 return cursor;
 	 }
 	 
+	 public Cursor getPlaceByNameEn(String nameEn) throws SQLException{
+		 SQLiteDatabase db = this.getReadableDatabase();
+		 
+		 String selectQuery = "SELECT * FROM PlacesTable WHERE name_en = '" + nameEn + "'";
+		 
+		 Cursor cursor = db.rawQuery(selectQuery, null);
+		 return cursor;
+	 }
+	 
 	 public Cursor getPlaceByNameEl(String nameEl) throws SQLException{
 		 SQLiteDatabase db = this.getReadableDatabase();
 		 
@@ -333,7 +342,12 @@ public class TestLocalSqliteDatabase extends SQLiteOpenHelper {
 		 return cursor;
 	 }
 	 
-	 
+	 public Cursor getAllPlaces() throws SQLException{
+		 SQLiteDatabase db = this.getReadableDatabase();
+		 String selectQuery = "SELECT * FROM PlacesTable ";
+		 Cursor cursor = db.rawQuery(selectQuery, null);
+		 return cursor; 
+	 }
 	 
 	 
 	 public Cursor getCountPlaces() throws SQLException{
@@ -348,7 +362,7 @@ public class TestLocalSqliteDatabase extends SQLiteOpenHelper {
 	 public Cursor searchByPlaceName(String inputText) throws SQLException{
 		 SQLiteDatabase db = this.getReadableDatabase();
 		 
-		 String searchQuery = "SELECT name_el FROM PlacesTable WHERE nameel_lower LIKE '%" + inputText + "%'";
+		 String searchQuery = "SELECT name_el, name_en FROM PlacesTable WHERE nameel_lower LIKE '%" + inputText + "%'";
 		 
 		 Cursor cursor = db.rawQuery(searchQuery, null);
 		 return cursor;
@@ -357,7 +371,7 @@ public class TestLocalSqliteDatabase extends SQLiteOpenHelper {
 	 public Cursor searchByPlaceNameEn(String inputText) throws SQLException{
 		 SQLiteDatabase db = this.getReadableDatabase();
 		 
-		 String searchQuery = "SELECT name_el FROM PlacesTable WHERE name_en LIKE '%" + inputText + "%'";
+		 String searchQuery = "SELECT name_el, name_en FROM PlacesTable WHERE name_en LIKE '%" + inputText + "%'";
 		 
 		 Cursor cursor = db.rawQuery(searchQuery, null);
 		 return cursor;

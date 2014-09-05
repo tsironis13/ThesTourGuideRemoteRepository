@@ -1,5 +1,6 @@
 package com.example.fragmentClasses;
 
+import com.example.adapters.InEnglishPlacesDataListCursorAdapter;
 import com.example.adapters.PlacesDataListCursorAdapter;
 import com.example.myLocation.GPSTracker;
 import com.example.sqlHelper.TestLocalSqliteDatabase;
@@ -46,6 +47,7 @@ public class SearchPlaceResultListFragment extends ListFragment{
 	public void onActivityCreated(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onActivityCreated(savedInstanceState);
+		String language = getArguments().getString("language");
 		
 		gps = new GPSTracker(getActivity());
 		
@@ -74,8 +76,13 @@ public class SearchPlaceResultListFragment extends ListFragment{
 					 }
 				}while(getPlaceImageLink.moveToNext());
 			}*/
+		if (language.equals("English")){
+			InEnglishHelperMethodDependingOnSearchQuery(nameEl);
+			inEnglishSetAdapterFromSpecificCursor(nameEl, listExample, specificPlacecursor, columns, to, imgFetcher, current_latitude, current_longtitude);
+		}else{
 			HelperMethodDependingOnSearchQuery(nameEl);
 			setAdapterFromSpecificCursor(nameEl, listExample, specificPlacecursor, columns, to, imgFetcher, current_latitude, current_longtitude);
+		}	
 	}
 
 	
@@ -88,11 +95,25 @@ public class SearchPlaceResultListFragment extends ListFragment{
 		testDB.close(debugTag);
 	}
 
+	public void InEnglishHelperMethodDependingOnSearchQuery(String nameEn){
+		try{
+			specificPlacecursor = testDB.getPlaceByNameEn(nameEn);
+			// the desired columns to be bound
+			columns = new String[] {"_id", "name_en", "photo_link", "info", "latitude", "longtitude"};
+						
+			// the XML defined views which the data will be bound to
+			to = new int[] {R.id.locationName, R.id.placeNametv, R.id.locationImage};
+			}
+			finally{
+				//specificPlacecursor.close();
+			}
+	}
+	
+	
 	public void HelperMethodDependingOnSearchQuery(String nameEl){
 		try{
 			specificPlacecursor = testDB.getPlaceByNameEl(nameEl);
 			
-				
 			// the desired columns to be bound
 			columns = new String[] {"_id", "name_el", "photo_link", "info", "latitude", "longtitude"};
 			
@@ -103,6 +124,10 @@ public class SearchPlaceResultListFragment extends ListFragment{
 				//specificPlacecursor.close();
 				//
 			}
+	}
+	
+	private void inEnglishSetAdapterFromSpecificCursor(String button_pressed, ListView listExample, Cursor cursor, String[] columns, int[] to, BitmapTask imgFetcher, double current_latitude, double current_longtitude){
+		setListAdapter(new InEnglishPlacesDataListCursorAdapter(button_pressed, this, getActivity(),  R.layout.places_basic_layout, cursor, columns, to, current_latitude, current_longtitude) );
 	}
 	
 	private void setAdapterFromSpecificCursor(String button_pressed, ListView listExample, Cursor cursor, String[] columns, int[] to, BitmapTask imgFetcher, double current_latitude, double current_longtitude){

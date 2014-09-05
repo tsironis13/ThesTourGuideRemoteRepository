@@ -20,9 +20,13 @@ public class SearchPlaceResutlActivity extends FragmentActivity{
 		
 		Intent intent = getIntent();
 		String nameEl = intent.getStringExtra("PlaceName");
+		String language = intent.getStringExtra("language");
 		
 		if (savedInstanceState == null) { 
+			Bundle langbundle = new Bundle();
+			langbundle.putString("language", language);
 			searchPlaceResultListFragment = new SearchPlaceResultListFragment(nameEl);
+			searchPlaceResultListFragment.setArguments(langbundle);
 			getSupportFragmentManager().beginTransaction() .add(R.id.searchresultlist, searchPlaceResultListFragment).commit(); 
 		}
 

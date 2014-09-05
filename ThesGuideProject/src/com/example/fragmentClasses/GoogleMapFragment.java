@@ -30,6 +30,7 @@ public class GoogleMapFragment extends SupportMapFragment {
 	private Double currentLat;
 	private Double placeLong;
 	private Double placeLat;
+	private String language;
 	private LatLng placePosition;
 	private LatLng secondPlacePosition;
 	
@@ -67,6 +68,7 @@ public class GoogleMapFragment extends SupportMapFragment {
 		// TODO Auto-generated method stub
 		View view = super.onCreateView(inflater, container, savedInstanceState);
 		
+		language = getArguments().getString("language");
 		currentLong = getArguments().getDouble("doubleCurrentLongtitude");
 		currentLat = getArguments().getDouble("doubleCurrentLatitude");
 			
@@ -86,11 +88,15 @@ public class GoogleMapFragment extends SupportMapFragment {
 	    //For buttons visibility, you must set the layout params in order to give some width and height: 
 	    LayoutParams paramss = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
 	    //paramss.height=100;
-	    button.setText("Map Details");
+	    if (language.equals("English")){
+	    	button.setText("How to reach");
+	    }else{
+	    	button.setText("Πως να φτάσετε");
+	    }
+	    
 	    button.setLayoutParams(paramss);
 		
 	    button.setOnClickListener(new View.OnClickListener() {
-			
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
@@ -115,7 +121,7 @@ public class GoogleMapFragment extends SupportMapFragment {
             
             googleMap.setMyLocationEnabled(true);
             googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-            googleMap.setPadding(0, 103, 0, 0);
+            googleMap.setPadding(0, 100, 0, 0);
             //googleMap.setOnMapClickListener(listener);
            
             //Creating a LatLng object for a specific location

@@ -1,5 +1,9 @@
 package com.example.thesguideproject;
 
+import java.util.ArrayList;
+
+import com.example.adapters.InEnglishSearchAdapter;
+import com.example.adapters.SearchAdapter;
 import com.example.adapters.TabsPagerAdapter;
 import com.example.fragmentClasses.GoogleMapFragment;
 import com.example.fragmentClasses.GoogleMapFragment.OnGoogleMapFragmentListener;
@@ -12,6 +16,8 @@ import com.google.android.gms.maps.model.LatLng;
 
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.MatrixCursor;
 import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.ViewPager;
@@ -26,7 +32,7 @@ import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class PlacesDetailsTabs extends ActionBarActivity implements OnGoogleMapFragmentListener{
+public class PlacesDetailsTabs extends ActionBarActivity implements OnGoogleMapFragmentListener, SearchView.OnQueryTextListener, SearchView.OnCloseListener{
 
 	// Google Map
     private GoogleMap googleMap;
@@ -67,7 +73,8 @@ public class PlacesDetailsTabs extends ActionBarActivity implements OnGoogleMapF
     private Context context;
     private SearchView searchView;
     private String language;
-    Bundle exhibitionBundle = new Bundle();
+    private  Bundle exhibitionBundle = new Bundle();
+    private ArrayList<String> items = new ArrayList<String>();
     
     private ActionBar mActionBar;
 
@@ -138,14 +145,22 @@ public class PlacesDetailsTabs extends ActionBarActivity implements OnGoogleMapF
         infoBundle.putString("fbLink", fbLink);
         infoBundle.putString("email", email);
        // tabsPagerAdapter.addTab(actionBar.newTab().setText("Info"), InfoFragment.class, infoBundle);
+       if (language.equals("Greek")){
+    	   tabsPagerAdapter.addTab(mActionBar.newTab().setText("Πληροφοριες"), InfoFragment.class, infoBundle);
+       }else{
+    	   tabsPagerAdapter.addTab(mActionBar.newTab().setText("Info"), InfoFragment.class, infoBundle);
+       }
        
-        tabsPagerAdapter.addTab(mActionBar.newTab().setText("Info"), InfoFragment.class, infoBundle);
-        
         exhibitionBundle = new Bundle();
         exhibitionBundle.putString("exhibition", exhibition);
         //tabsPagerAdapter.addTab(actionBar.newTab().setText("Exhibition"), ExhibitionFragment.class, exhibitionBundle);
         if (!exhibition.equals("null"))
-        tabsPagerAdapter.addTab(mActionBar.newTab().setText("Exhibition"), ExhibitionFragment.class, exhibitionBundle);
+        	if (language.equals("Greek")){
+        		tabsPagerAdapter.addTab(mActionBar.newTab().setText("Εκθεσεις"), ExhibitionFragment.class, exhibitionBundle);
+        	}else{
+        		tabsPagerAdapter.addTab(mActionBar.newTab().setText("Exhibition"), ExhibitionFragment.class, exhibitionBundle);
+        	}
+        
         
         testDB = new TestLocalSqliteDatabase(this);
         testDB.openDataBase(debugTag);
@@ -194,20 +209,26 @@ public class PlacesDetailsTabs extends ActionBarActivity implements OnGoogleMapF
         					photoBundle.putInt("Screen Height", scr_height);
         					photoBundle.putInt("Screen Width", scr_width);
         					//tabsPagerAdapter.addTab(actionBar.newTab().setText("Photo tab"), PhotoGridViewFragment.class, photoBundle);
-        					tabsPagerAdapter.addTab(mActionBar.newTab().setText("Photo tab"), PhotoGridViewFragment.class, photoBundle);
+        					tabsPagerAdapter.addTab(mActionBar.newTab().setText("Φωτογραφιες"), PhotoGridViewFragment.class, photoBundle);
         			}	
      	 }
         
         
      
         Bundle onmapBundle = new Bundle();
+        onmapBundle.putString("language", language);
         onmapBundle.putDouble("doubleCurrentLatitude", doubleCurrentLatitude);
         onmapBundle.putDouble("doubleCurrentLongtitude", doubleCurrentLongtitude);
         onmapBundle.putDouble("doublePlaceLatitude", doublelatitude);
         onmapBundle.putDouble("doublePlaceLongtitude", doublelongtitude);
         //tabsPagerAdapter.addTab(actionBar.newTab().setText("OnMap"), OnMapFragment.class, onmapBundle);
         //tabsPagerAdapter.addTab(actionBar.newTab().setText("OnMap"), GoogleMapFragment.class, onmapBundle);
-        tabsPagerAdapter.addTab(mActionBar.newTab().setText("OnMap"), GoogleMapFragment.class, onmapBundle);
+        if (language.equals("Greek")){
+        	tabsPagerAdapter.addTab(mActionBar.newTab().setText("Στο χάρτη"), GoogleMapFragment.class, onmapBundle);
+        }else{
+        	tabsPagerAdapter.addTab(mActionBar.newTab().setText("OnMap"), GoogleMapFragment.class, onmapBundle);
+        }
+        	
       //  tabsPagerAdapter.replace(2, ExhibitionFragment.class, exhibitionBundle);
         
       /*  ActionBar.TabListener tabListener = new ActionBar.TabListener() {
@@ -268,7 +289,10 @@ public class PlacesDetailsTabs extends ActionBarActivity implements OnGoogleMapF
 		MenuItem searchItem = menu.findItem(R.id.action_search);
 		
 		//Retrieve the SearchView
-		searchView  = (SearchView) MenuItemCompat.getActionView(searchItem);		
+		searchView  = (SearchView) MenuItemCompat.getActionView(searchItem);	
+		
+		searchView.setIconifiedByDefault(false);
+        searchView.setOnQueryTextListener(this);
 		
 		return super.onCreateOptionsMenu(menu);
 	}
@@ -286,6 +310,186 @@ public class PlacesDetailsTabs extends ActionBarActivity implements OnGoogleMapF
 	        default:
 	            return super.onOptionsItemSelected(item);
 	    }
+	}
+
+	@Override
+	public boolean onClose() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean onQueryTextChange(String query) {
+		// TODO Auto-generated method stub
+		loadData(query);
+		return true;
+	}
+
+	@Override
+	public boolean onQueryTextSubmit(String query) {
+		// TODO Auto-generated method stub
+		loadData(query);
+		return true;
+	}
+	
+private void loadData(String query){
+		
+		items.clear();
+		
+	 if(language.equals("English")){
+		 String pattern = "^[A-Za-z0-9. ]+$";
+			if (query.matches(pattern)){
+						String columns[] = new String[] {"_id", "name_en"};
+						Object[] temp = new Object[] { 0, "default" };
+
+						MatrixCursor cursor = new MatrixCursor(columns);
+						Cursor c = testDB.searchByPlaceNameEn(query);
+
+						try{
+							if (c == null){
+								Log.i("Message Matched =>", "false");
+							}
+							else{
+								if (c.moveToFirst()){
+									do{
+										String s = c.getString(c.getColumnIndex("name_en"));
+										//Log.i("Cursor contents =>", s);
+										items.add(s);
+									}
+									while(c.moveToNext());
+								}
+							}
+						}
+						finally
+						{
+							c.close();
+						}
+
+						for (int i=0; i<items.size(); i++){
+							temp[0] = i;
+							temp[1] = items.get(i);
+							cursor.addRow(temp);
+						}
+
+						//String lang = "Latin";
+						searchView.setSuggestionsAdapter(new InEnglishSearchAdapter(this, cursor, items));
+				}
+				else{
+						Log.i("Query =>", query);
+						String columns[] = new String[] {"_id", "name_en"};
+						Object[] temp = new Object[] { 0, "default" };
+			
+						MatrixCursor cursor = new MatrixCursor(columns);
+						Cursor c = testDB.searchByPlaceName(query);
+			
+						try{
+							if (c == null){
+								Log.i("Message Matched =>", "false");
+							}
+							else{
+								//Log.i("Message Matched =>", "true");
+								if (c.moveToFirst()){
+									do{
+										String s = c.getString(c.getColumnIndex("name_en"));
+										//Log.i("Cursor contents =>", s);
+										items.add(s);
+									}
+									while(c.moveToNext());
+								}
+							}
+						}
+						finally
+						{
+							c.close();
+						}
+			
+						for (int i=0; i<items.size(); i++){
+							temp[0] = i;
+							temp[1] = items.get(i);
+							cursor.addRow(temp);
+						}
+						//t.setSuggestionPressedField("true");
+						//String lang = "Greek";	
+						searchView.setSuggestionsAdapter(new InEnglishSearchAdapter(this, cursor, items));
+				}
+	 }	
+	 else{	
+		String pattern = "^[A-Za-z0-9. ]+$";
+		if (query.matches(pattern)){
+					String columns[] = new String[] {"_id", "name_en"};
+					Object[] temp = new Object[] { 0, "default" };
+
+					MatrixCursor cursor = new MatrixCursor(columns);
+					Cursor c = testDB.searchByPlaceNameEn(query);
+
+					try{
+						if (c == null){
+							Log.i("Message Matched =>", "false");
+						}
+						else{
+							if (c.moveToFirst()){
+								do{
+									String s = c.getString(c.getColumnIndex("name_el"));
+									//Log.i("Cursor contents =>", s);
+									items.add(s);
+								}
+								while(c.moveToNext());
+							}
+						}
+					}
+					finally
+					{
+						c.close();
+					}
+
+					for (int i=0; i<items.size(); i++){
+						temp[0] = i;
+						temp[1] = items.get(i);
+						cursor.addRow(temp);
+					}
+
+					String lang = "Latin";
+					searchView.setSuggestionsAdapter(new SearchAdapter(this, cursor, items, lang));
+			}
+			else{
+					Log.i("Query =>", query);
+					String columns[] = new String[] {"_id", "nameel_lower"};
+					Object[] temp = new Object[] { 0, "default" };
+		
+					MatrixCursor cursor = new MatrixCursor(columns);
+					Cursor c = testDB.searchByPlaceName(query);
+		
+					try{
+						if (c == null){
+							Log.i("Message Matched =>", "false");
+						}
+						else{
+							//Log.i("Message Matched =>", "true");
+							if (c.moveToFirst()){
+								do{
+									String s = c.getString(c.getColumnIndex("name_el"));
+									//Log.i("Cursor contents =>", s);
+									items.add(s);
+								}
+								while(c.moveToNext());
+							}
+						}
+					}
+					finally
+					{
+						c.close();
+					}
+		
+					for (int i=0; i<items.size(); i++){
+						temp[0] = i;
+						temp[1] = items.get(i);
+						cursor.addRow(temp);
+					}
+					//t.setSuggestionPressedField("true");
+					String lang = "Greek";	
+					searchView.setSuggestionsAdapter(new SearchAdapter(this, cursor, items, lang));
+			}
+	 }
 	}
 	
 }

@@ -49,6 +49,7 @@ public class FindPathFragmentActivity extends ActionBarActivity implements OnGoo
 	private SettingsMapFragment settingsMapFragment;
 	private FragmentTransaction fragmentTransaction;
 	private GoogleMap mUIGoogleMap;
+	private String language;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -56,8 +57,14 @@ public class FindPathFragmentActivity extends ActionBarActivity implements OnGoo
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.findpathfragmentactivity);	
 		
+		Bundle extras = getIntent().getExtras();
+		language = extras.getString("language");
+		
 		settingsMapFragment = new SettingsMapFragment();
+		Bundle langbundle = new Bundle();
+		langbundle.putString("language", language);
 		if (savedInstanceState == null){
+			settingsMapFragment.setArguments(langbundle);
 			fragmentTransaction = getSupportFragmentManager().beginTransaction().add(R.id.containersettings, settingsMapFragment);
 			fragmentTransaction.commit();
 		}

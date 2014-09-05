@@ -3,6 +3,8 @@ package com.example.thesguideproject;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.example.adapters.DisarableLocationCursorAdapter;
+import com.example.adapters.InEnglishSearchAdapter;
 import com.example.adapters.SearchAdapter;
 import com.example.fragmentClasses.MenuFragment;
 import com.example.sqlHelper.TestLocalSqliteDatabase;
@@ -192,8 +194,8 @@ public class PlacesListFragmentActivity extends ActionBarActivity implements Sea
 			//else{
 				//getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
 			//}
-			Toast.makeText(getApplicationContext(), "Fragments in back stack are =>" + fragments, Toast.LENGTH_SHORT).show();
-			Toast.makeText(getApplicationContext(), "Fragments in back stack position 1 =>" + backStackId, Toast.LENGTH_SHORT).show();
+			//Toast.makeText(getApplicationContext(), "Fragments in back stack are =>" + fragments, Toast.LENGTH_SHORT).show();
+			//Toast.makeText(getApplicationContext(), "Fragments in back stack position 1 =>" + backStackId, Toast.LENGTH_SHORT).show();
 		}
 		//else if(fragments > 1){
 		//	int backStackId = getSupportFragmentManager().getBackStackEntryAt(1).getId();
@@ -237,9 +239,11 @@ public class PlacesListFragmentActivity extends ActionBarActivity implements Sea
 				
 		//Find the search item
 		MenuItem searchItem = menu.findItem(R.id.action_search);
-		
 		//Find the path item
 		MenuItem pathItem = menu.findItem(R.id.action_path);
+		//Find the close item
+		MenuItem closeItem = menu.findItem(R.id.close);
+		
 		
 		SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
 		
@@ -248,30 +252,12 @@ public class PlacesListFragmentActivity extends ActionBarActivity implements Sea
 		//searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
 
 		searchView.setIconifiedByDefault(false);
-		/*searchView.setOnQueryTextListener(new OnQueryTextListener(){
 
-			@Override
-			public boolean onQueryTextChange(String query) {
-				// TODO Auto-generated method stub
-				loadData(query);
-				return true;
-			}
-
-			@Override
-			public boolean onQueryTextSubmit(String arg0) {
-				// TODO Auto-generated method stub
-				return false;
-			}
-			
-		});*/
         searchView.setOnQueryTextListener(this);
         //searchView.setOnCloseListener(this);
         
 		return super.onCreateOptionsMenu(menu);
 	}
-	
-	
-	
 	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
@@ -279,7 +265,13 @@ public class PlacesListFragmentActivity extends ActionBarActivity implements Sea
         switch (item.getItemId()) {
         case R.id.action_path:
         	Intent i = new Intent(PlacesListFragmentActivity.this, FindPathFragmentActivity.class);
+        	i.putExtra("language", language);
         	startActivity(i);
+        	return true;
+        case R.id.close:
+        	Intent closeIntent = new Intent(PlacesListFragmentActivity.this, CloseExpandableListFragmentActivity.class);
+        	closeIntent.putExtra("language", language);
+        	startActivity(closeIntent);
         	return true;
         default:
         	return super.onOptionsItemSelected(item);
@@ -290,57 +282,162 @@ public class PlacesListFragmentActivity extends ActionBarActivity implements Sea
 		
 		items.clear();
 		
-		Log.i("Query =>", query);
-		String columns[] = new String[] {"_id", "nameel_lower"};
-		Object[] temp = new Object[] { 0, "default" };
-		
-		MatrixCursor cursor = new MatrixCursor(columns);
-		
-		Cursor c = t.searchByPlaceName(query);
-		
-	try{
-		if (c == null){
-			Log.i("Message Matched =>", "false");
-		}
-		else{
-			//Log.i("Message Matched =>", "true");
-			if (c.moveToFirst()){
-				do{
-					String s = c.getString(c.getColumnIndex("name_el"));
-					Log.i("Cursor contents =>", s);
-					items.add(s);
+	 if(language.equals("English")){
+		 String pattern = "^[A-Za-z0-9. ]+$";
+			if (query.matches(pattern)){
+						String columns[] = new String[] {"_id", "name_en"};
+						Object[] temp = new Object[] { 0, "default" };
+
+						MatrixCursor cursor = new MatrixCursor(columns);
+						Cursor c = t.searchByPlaceNameEn(query);
+
+						try{
+							if (c == null){
+								Log.i("Message Matched =>", "false");
+							}
+							else{
+								if (c.moveToFirst()){
+									do{
+										String s = c.getString(c.getColumnIndex("name_en"));
+										//Log.i("Cursor contents =>", s);
+										items.add(s);
+									}
+									while(c.moveToNext());
+								}
+							}
+						}
+						finally
+						{
+							c.close();
+						}
+
+						for (int i=0; i<items.size(); i++){
+							temp[0] = i;
+							temp[1] = items.get(i);
+							cursor.addRow(temp);
+						}
+
+						//String lang = "Latin";
+						searchView.setSuggestionsAdapter(new InEnglishSearchAdapter(this, cursor, items));
 				}
-				while(c.moveToNext());
-			}
-		}
-	}
-	finally
-	{
-		c.close();
-	}
-		
-		for (int i=0; i<items.size(); i++){
-			temp[0] = i;
-			temp[1] = items.get(i);
+				else{
+						Log.i("Query =>", query);
+						String columns[] = new String[] {"_id", "name_en"};
+						Object[] temp = new Object[] { 0, "default" };
 			
-			cursor.addRow(temp);
-		}
+						MatrixCursor cursor = new MatrixCursor(columns);
+						Cursor c = t.searchByPlaceName(query);
+			
+						try{
+							if (c == null){
+								Log.i("Message Matched =>", "false");
+							}
+							else{
+								//Log.i("Message Matched =>", "true");
+								if (c.moveToFirst()){
+									do{
+										String s = c.getString(c.getColumnIndex("name_en"));
+										//Log.i("Cursor contents =>", s);
+										items.add(s);
+									}
+									while(c.moveToNext());
+								}
+							}
+						}
+						finally
+						{
+							c.close();
+						}
+			
+						for (int i=0; i<items.size(); i++){
+							temp[0] = i;
+							temp[1] = items.get(i);
+							cursor.addRow(temp);
+						}
+						//t.setSuggestionPressedField("true");
+						//String lang = "Greek";	
+						searchView.setSuggestionsAdapter(new InEnglishSearchAdapter(this, cursor, items));
+				}
+	 }	
+	 else{	
+		String pattern = "^[A-Za-z0-9. ]+$";
+		if (query.matches(pattern)){
+					String columns[] = new String[] {"_id", "name_en"};
+					Object[] temp = new Object[] { 0, "default" };
+
+					MatrixCursor cursor = new MatrixCursor(columns);
+					Cursor c = t.searchByPlaceNameEn(query);
+
+					try{
+						if (c == null){
+							Log.i("Message Matched =>", "false");
+						}
+						else{
+							if (c.moveToFirst()){
+								do{
+									String s = c.getString(c.getColumnIndex("name_el"));
+									//Log.i("Cursor contents =>", s);
+									items.add(s);
+								}
+								while(c.moveToNext());
+							}
+						}
+					}
+					finally
+					{
+						c.close();
+					}
+
+					for (int i=0; i<items.size(); i++){
+						temp[0] = i;
+						temp[1] = items.get(i);
+						cursor.addRow(temp);
+					}
+
+					String lang = "Latin";
+					searchView.setSuggestionsAdapter(new SearchAdapter(this, cursor, items, lang));
+			}
+			else{
+					Log.i("Query =>", query);
+					String columns[] = new String[] {"_id", "nameel_lower"};
+					Object[] temp = new Object[] { 0, "default" };
 		
-		//t.setSuggestionPressedField("true");
-		searchView.setSuggestionsAdapter(new SearchAdapter(this, cursor, items));
+					MatrixCursor cursor = new MatrixCursor(columns);
+					Cursor c = t.searchByPlaceName(query);
 		
+					try{
+						if (c == null){
+							Log.i("Message Matched =>", "false");
+						}
+						else{
+							//Log.i("Message Matched =>", "true");
+							if (c.moveToFirst()){
+								do{
+									String s = c.getString(c.getColumnIndex("name_el"));
+									//Log.i("Cursor contents =>", s);
+									items.add(s);
+								}
+								while(c.moveToNext());
+							}
+						}
+					}
+					finally
+					{
+						c.close();
+					}
+		
+					for (int i=0; i<items.size(); i++){
+						temp[0] = i;
+						temp[1] = items.get(i);
+						cursor.addRow(temp);
+					}
+					//t.setSuggestionPressedField("true");
+					String lang = "Greek";	
+					searchView.setSuggestionsAdapter(new SearchAdapter(this, cursor, items, lang));
+			}
+	 }
 	}
 
-	
-	
-	//@Override
-//	public boolean onQueryTextChange(String newText) {
-	//	showResults(newText + "*");
-	//	return false;
-	//}
-
-	
-	
     @Override
 	protected void onDestroy() {
 		// TODO Auto-generated method stub

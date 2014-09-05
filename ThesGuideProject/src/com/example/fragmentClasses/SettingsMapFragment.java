@@ -30,6 +30,8 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.view.inputmethod.InputMethodSubtype;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -45,9 +47,13 @@ public class SettingsMapFragment extends ListFragment implements DialogInterface
 	private static ListView listView;
 	private static TextView startingpointtv;
 	private static TextView destinationpointtv;
-	private RadioButton currentpositionrb;
-	private RadioButton categoryrb;
-	private RadioButton selectdestinationcategoryrd;
+	private static TextView startpointlabeltv;
+	private static TextView fromtv;
+	private static TextView totv;
+	private CheckBox currentpositioncb;
+	private CheckBox currentpositiondestcb;
+	private Button selectcategoryb;
+	private Button selectdestinationcategoryb;
 	private ArrayList<String> items = new ArrayList<String>();
 	private TestLocalSqliteDatabase testDB;
 	private static final String debugTag = "FindPathActivity";
@@ -64,12 +70,13 @@ public class SettingsMapFragment extends ListFragment implements DialogInterface
 	private double destlatitude2;
 	private double destlongtitude2;
 	private GPSTracker gps;
+	private static String language;
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		View view = inflater.inflate(R.layout.settingsmapfragment, container, false);	
-		
+		language = getArguments().getString("language");
 		//InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
 	    
 		
@@ -78,14 +85,44 @@ public class SettingsMapFragment extends ListFragment implements DialogInterface
 		categoryPlacesList = new ArrayList<String>();
 		
 		//listView = (ListView) findViewById(R.id.list);
+		startpointlabeltv = (TextView) view.findViewById(R.id.startpointlabeltv);
+		destinationpointtv = (TextView) view.findViewById(R.id.destinationpointlabeltv);
+		currentpositioncb = (CheckBox) view.findViewById(R.id.currentpositioncb);
+		selectcategoryb = (Button) view.findViewById(R.id.selectcategoryb);
+		disarableLocationEditText = (EditText) view.findViewById(R.id.pickyourdisarablelocationet);
+		disarabledestLocationEditText = (EditText) view.findViewById(R.id.pickyourdisarabledestlocationet);
+		currentpositiondestcb = (CheckBox) view.findViewById(R.id.currentpositiondestcb);
+		selectdestinationcategoryb = (Button) view.findViewById(R.id.selectdestcategoryb);
+		fromtv = (TextView) view.findViewById(R.id.fromtv);
+		totv = (TextView) view.findViewById(R.id.totv);
+	if (language.equals("Greek")){
+		 startpointlabeltv.setText("Αφετηρία");
+		 currentpositioncb.setText("Τρέχουσα θέση");
+		 selectcategoryb.setText("Κατηγορία");
+		 disarableLocationEditText.setHint("Ψάξε τοποθεσία");
+		 destinationpointtv.setText("Προορισμός");
+		 currentpositiondestcb.setText("Τρέχουσα θέση");
+		 selectdestinationcategoryb.setText("Κατηγορία");
+		 disarabledestLocationEditText.setHint("Ψάξε τοποθεσία");
+		 fromtv.setText("Από:");
+		 totv.setText("Προς");
+	 }
+	 else{
+		 startpointlabeltv.setText("Starting Point");
+		 currentpositioncb.setText("Current location");
+		 selectcategoryb.setText("Pick category");
+		 disarableLocationEditText.setHint("Search location");
+		 destinationpointtv.setText("Destination");
+		 currentpositiondestcb.setText("Current location");
+		 selectdestinationcategoryb.setText("Pick category");
+		 disarabledestLocationEditText.setHint("Search location");
+		 fromtv.setText("From");
+		 totv.setText("To");
+	 }
 		
 		startingpointtv = (TextView) view.findViewById(R.id.startingpointtv);
 		destinationpointtv = (TextView) view.findViewById(R.id.destinationpointtv);
-		disarableLocationEditText = (EditText) view.findViewById(R.id.pickyourdisarablelocationet);
-		disarabledestLocationEditText = (EditText) view.findViewById(R.id.pickyourdisarabledestlocationet);
-		currentpositionrb = (RadioButton) view.findViewById(R.id.currentpositionrd);
-		categoryrb = (RadioButton) view.findViewById(R.id.selectcategoryrd);
-		selectdestinationcategoryrd = (RadioButton) view.findViewById(R.id.selectdestinationcategoryrd);
+		//selectdestinationcategoryrd = (RadioButton) view.findViewById(R.id.selectdestinationcategoryrd);
 		InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
 		imm.showSoftInput(disarableLocationEditText, InputMethodManager.SHOW_IMPLICIT);
 		InputMethodManager imm2 = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -113,17 +150,23 @@ public class SettingsMapFragment extends ListFragment implements DialogInterface
 				fragmentTransaction.commit();
 				
 				String startpointtvcontent = startingpointtv.getText().toString();
+				Toast.makeText(getActivity(), startpointtvcontent, Toast.LENGTH_SHORT).show();
 				boolean flag = false;
-				if (!destinationpointtv.getText().toString().equals(startpointtvcontent)){
+				//if (!destinationpointtv.getText().toString().equals(startpointtvcontent)){
+				//	flag = true;
+				//	Log.i("FLAG =>", "TRUE, NOT MATCHING");
+				//}
+				String fromtvcontent = fromtv.getText().toString();
+				if (!totv.getText().toString().equals(fromtvcontent)){
 					flag = true;
 				}
 				
-				
 				if (startingpointtv.getText().length()> 0 &&  flag == true){
 					
-					if (startingpointtv.getText().toString().equals("current location")){
+					if (fromtv.getText().toString().equals("current location") || fromtv.getText().toString().equals("Τρέχουσα θέση")){
 						gps = new GPSTracker(getActivity());
 						
+						Log.i("starting point is =>", fromtv.getText().toString());
 						if (gps.canGetLocation()){
 							startlatitude = gps.getLatitude();
 							startlongtitude = gps.getLongitude();
@@ -134,7 +177,8 @@ public class SettingsMapFragment extends ListFragment implements DialogInterface
 				        }
 					}
 					else{
-						Cursor startcursor = testDB.getPlaceByNameEl(startingpointtv.getText().toString());
+						Cursor startcursor = testDB.getPlaceByNameEl(fromtv.getText().toString());
+						Log.i("starting point is =>", fromtv.getText().toString());
 							if (startcursor.moveToFirst()){
 								do{
 									startlatitude = startcursor.getDouble(startcursor.getColumnIndex("latitude"));
@@ -143,17 +187,33 @@ public class SettingsMapFragment extends ListFragment implements DialogInterface
 							}
 					}
 					
-					Cursor destcursor = testDB.getPlaceByNameEl(destinationpointtv.getText().toString());
-					if (destcursor.moveToFirst()){
-						do{
-						   destlatitude = destcursor.getDouble(destcursor.getColumnIndex("latitude"));
-					       destlongtitude = destcursor.getDouble(destcursor.getColumnIndex("longtitude"));
-						}while(destcursor.moveToNext());
-					}
 					
+					if (totv.getText().toString().equals("current location") || totv.getText().toString().equals("Τρέχουσα θέση")){
+						gps = new GPSTracker(getActivity());
+						
+						Log.i("starting point is =>", fromtv.getText().toString());
+						if (gps.canGetLocation()){
+							destlatitude = gps.getLatitude();
+							destlongtitude = gps.getLongitude();
+						}
+						else
+						{
+				            gps.showSettingsAlert();
+				        }
+					}else{
+						Cursor destcursor = testDB.getPlaceByNameEl(totv.getText().toString());
+						Log.i("destination point is =>", totv.getText().toString());
+						if (destcursor.moveToFirst()){
+							do{
+								destlatitude = destcursor.getDouble(destcursor.getColumnIndex("latitude"));
+					       		destlongtitude = destcursor.getDouble(destcursor.getColumnIndex("longtitude"));
+							}while(destcursor.moveToNext());
+						}
+					}
 					
 					GoogleMapFragment g = new GoogleMapFragment();
 					Bundle onmapBundle = new Bundle();
+					onmapBundle.putString("language", language);
 					onmapBundle.putDouble("doubleCurrentLatitude", startlatitude);
 					onmapBundle.putDouble("doubleCurrentLongtitude", startlongtitude);
 					onmapBundle.putDouble("doublePlaceLatitude", destlatitude);
@@ -166,30 +226,21 @@ public class SettingsMapFragment extends ListFragment implements DialogInterface
 				else if (startingpointtv.getText().length() == 0){
 					
 				}
-				else{
+				else {
 					AlertDialog ald = new AlertDialog.Builder(getActivity())
 					.setMessage("Destination must differ from Starting Point")
 					//.setNeutralButton("Cancel", this)
 					//.setPositiveButton("OK", this)
 					.create();
-					ald.show();
-					
-					
-					
+					ald.show();	
 				}
 			}
 			@Override
 			public void beforeTextChanged(CharSequence s, int start, int count,
-					int after) {
-				// TODO Auto-generated method stub
-				
-			}
+					int after) {}
 			@Override
 			public void onTextChanged(CharSequence s, int start, int before,
-					int count) {
-				// TODO Auto-generated method stub
-				
-			}
+					int count) {}
 		});
 		
 		startingpointtv.addTextChangedListener(new TextWatcher(){
@@ -204,7 +255,11 @@ public class SettingsMapFragment extends ListFragment implements DialogInterface
 				
 				String destinpointtvcontent = destinationpointtv.getText().toString();
 				boolean flag = false;
-				if (!startingpointtv.getText().toString().equals(destinpointtvcontent)){
+				//if (!startingpointtv.getText().toString().equals(destinpointtvcontent)){
+				//	flag = true;
+				//}
+				String totvcontent = totv.getText().toString();
+				if (!fromtv.getText().toString().equals(totvcontent)){
 					flag = true;
 				}
 				
@@ -212,38 +267,52 @@ public class SettingsMapFragment extends ListFragment implements DialogInterface
 				if (destinationpointtv.getText().length() > 0 && flag == true){
 					
 					
-					if (startingpointtv.getText().toString().equals("current location")){
+					if (totv.getText().toString().equals("current location") || totv.getText().toString().equals("Τρέχουσα θέση")){
 						gps = new GPSTracker(getActivity());
 						
 						if (gps.canGetLocation()){
-							startlatitude = gps.getLatitude();
-							startlongtitude = gps.getLongitude();
+							destlatitude2 = gps.getLatitude();
+							destlongtitude2 = gps.getLongitude();
 						}
 						else
 						{
 				            gps.showSettingsAlert();
 				        }
-					}else{
-					
-						Cursor startcursor = testDB.getPlaceByNameEl(startingpointtv.getText().toString());
+					}
+					else{
+						Cursor startcursor = testDB.getPlaceByNameEl(totv.getText().toString());
 						if (startcursor.moveToFirst()){
 							do{
-								startlatitude2 = startcursor.getDouble(startcursor.getColumnIndex("latitude"));
-						   		startlongtitude2 = startcursor.getDouble(startcursor.getColumnIndex("longtitude"));	
+								destlatitude2 = startcursor.getDouble(startcursor.getColumnIndex("latitude"));
+						   		destlongtitude2 = startcursor.getDouble(startcursor.getColumnIndex("longtitude"));	
 							}while(startcursor.moveToNext());
 						}
 					}
 					
-					Cursor destcursor = testDB.getPlaceByNameEl(destinationpointtv.getText().toString());
-					if (destcursor.moveToFirst()){
-						do{
-						   destlatitude2 = destcursor.getDouble(destcursor.getColumnIndex("latitude"));
-						   destlongtitude2 = destcursor.getDouble(destcursor.getColumnIndex("longtitude"));	
-						}while(destcursor.moveToNext());
+					if (fromtv.getText().toString().equals("current location") || fromtv.getText().toString().equals("Τρέχουσα θέση")){
+						gps = new GPSTracker(getActivity());
+						
+						if (gps.canGetLocation()){
+							startlatitude2 = gps.getLatitude();
+							startlongtitude2 = gps.getLongitude();
+						}
+						else
+						{
+				            gps.showSettingsAlert();
+				        }
+					}else{ 
+						Cursor destcursor = testDB.getPlaceByNameEl(fromtv.getText().toString());
+							if (destcursor.moveToFirst()){
+								do{
+									startlatitude2 = destcursor.getDouble(destcursor.getColumnIndex("latitude"));
+									startlongtitude2 = destcursor.getDouble(destcursor.getColumnIndex("longtitude"));	
+								}while(destcursor.moveToNext());
+							}
 					}
-					
+							
 					GoogleMapFragment g = new GoogleMapFragment();
 					Bundle onmapBundle = new Bundle();
+					onmapBundle.putString("language", language);
 					onmapBundle.putDouble("doubleCurrentLatitude", startlatitude2);
 					onmapBundle.putDouble("doubleCurrentLongtitude", startlongtitude2);
 					onmapBundle.putDouble("doublePlaceLatitude", destlatitude2);
@@ -268,39 +337,23 @@ public class SettingsMapFragment extends ListFragment implements DialogInterface
 
 			@Override
 			public void beforeTextChanged(CharSequence s, int start, int count,
-					int after) {
-				// TODO Auto-generated method stub
-				
-			}
+					int after) {}
 
 			@Override
 			public void onTextChanged(CharSequence s, int start, int before,
-					int count) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			
+					int count) {}
 			
 		});
 		
-		
-		
 		disarabledestLocationEditText.addTextChangedListener(new TextWatcher(){
 			@Override
-			public void afterTextChanged(Editable s) {
-				// TODO Auto-generated method stub
-				
-			}
-
+			public void afterTextChanged(Editable s) {}
 			@Override
-			public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-				// TODO Auto-generated method stub
-				
-			}
+			public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
 			@Override
 			public void onTextChanged(CharSequence s, int start, int before, int count) {
+				currentpositiondestcb.setChecked(false);
 				flag = "destinationPoint";
 			    Editable getEditableText = disarabledestLocationEditText.getText();
 			    String getStringText = getEditableText.toString();
@@ -312,19 +365,13 @@ public class SettingsMapFragment extends ListFragment implements DialogInterface
 		
 		disarableLocationEditText.addTextChangedListener(new TextWatcher(){
 			@Override
-			public void afterTextChanged(Editable s) {
-				//listView.setVisibility(View.GONE);
-				
-			}
-
+			public void afterTextChanged(Editable s) {}
 			@Override
-			public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-				
-				
-			}
+			public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
 			@Override
 			public void onTextChanged(CharSequence s, int start, int before, int count) {
+				currentpositioncb.setChecked(false);
 				flag = "startingPoint";
 			    Editable getEditableText = disarableLocationEditText.getText();
 			    String getStringText = getEditableText.toString();
@@ -334,43 +381,54 @@ public class SettingsMapFragment extends ListFragment implements DialogInterface
 		});
 		
 		
-		
-		
-		currentpositionrb.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+		currentpositiondestcb.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 			@Override
 			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 				if (isChecked == true){
-					startingpointtv.setText("current location");
-				
-					
-					
-					//setListAdapter(null);
+					if (language.equals("English")){
+						totv.setText("current location");
+						destinationpointtv.setText("To: current location");
+					}else{
+						totv.setText("Τρέχουσα θέση");
+						destinationpointtv.setText("Προς: Τρέχουσα θέση");
+					}
 				}
 			}
 		});
 		
-		selectdestinationcategoryrd.setOnCheckedChangeListener(new OnCheckedChangeListener(){
-
-			@Override
-			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-				// TODO Auto-generated method stub
-				disarableLocationEditText.setFocusable(false);
-				registerForContextMenu(buttonView); 
-				getActivity().openContextMenu(buttonView);	
-				
-			}
-			
-		});
-		
-		categoryrb.setOnCheckedChangeListener(new OnCheckedChangeListener(){
+		currentpositioncb.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 			@Override
 			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 				if (isChecked == true){
-					registerForContextMenu(buttonView); 
-					getActivity().openContextMenu(buttonView);	
+					if (language.equals("English")){
+						fromtv.setText("current location");
+						startingpointtv.setText("From: current location");
+					}else{
+					    fromtv.setText("Τρέχουσα θέση");
+						startingpointtv.setText("Από: Τρέχουσα θέση");
+					}
 				}
-			}	
+			}
 		});
+		
+		selectdestinationcategoryb.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				currentpositiondestcb.setChecked(false);
+				registerForContextMenu(v); 
+				getActivity().openContextMenu(v);		
+			}
+		});
+		
+		selectcategoryb.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				currentpositioncb.setChecked(false);
+				registerForContextMenu(v); 
+				getActivity().openContextMenu(v);	
+			}
+		});
+		
 	}
 
 	private void loadData(String getStringText, String flag) {
@@ -380,7 +438,7 @@ public class SettingsMapFragment extends ListFragment implements DialogInterface
 		
 		String pattern = "^[A-Za-z0-9. ]+$";
 		if (getStringText.matches(pattern)){
-			if (getStringText.length()>2){	
+			if (getStringText.length()>1){	
 				
 				String columns[] = new String[] {"_id", "name_en"};
 				Object[] temp = new Object[] { 0, "default" };
@@ -431,7 +489,7 @@ public class SettingsMapFragment extends ListFragment implements DialogInterface
 		
 	
 		
-			if (getStringText.length()>2){	
+			if (getStringText.length()>1){	
 		
 					String columns[] = new String[] {"_id", "nameel_lower"};
 					Object[] temp = new Object[] { 0, "default" };
@@ -483,7 +541,7 @@ public class SettingsMapFragment extends ListFragment implements DialogInterface
 	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
 		// TODO Auto-generated method stub
 		super.onCreateContextMenu(menu, v, menuInfo);
-		if (v.getId() == R.id.selectcategoryrd){
+		if (v.getId() == R.id.selectcategoryb){
 			MenuInflater menuInflater = getActivity().getMenuInflater();
 			menuInflater.inflate(R.menu.all_places_menu, menu);
 		}
@@ -556,12 +614,27 @@ public class SettingsMapFragment extends ListFragment implements DialogInterface
 	
 	public static void s(String text, String flag){
 		if (flag.equals("startingpoint")){
-			startingpointtv.setVisibility(View.VISIBLE);
-			startingpointtv.setText(text);
+			if (language.equals("English")){
+				startingpointtv.setVisibility(View.VISIBLE);
+				fromtv.setText(text);
+				startingpointtv.setText("From: " + text);
+			}else{
+				startingpointtv.setVisibility(View.VISIBLE);
+				fromtv.setText(text);
+				startingpointtv.setText("Από: " + text);
+			}
 		}
 		else{
-			destinationpointtv.setVisibility(View.VISIBLE);
-			destinationpointtv.setText(text);
+			if (language.equals("English")){
+				destinationpointtv.setVisibility(View.VISIBLE);
+				totv.setText(text);
+				destinationpointtv.setText("To: " + text);
+			}else{
+				destinationpointtv.setVisibility(View.VISIBLE);
+				totv.setText(text);
+				destinationpointtv.setText("Προς: " + text);
+			}
+			
 		}
 	} 
 	
@@ -572,20 +645,36 @@ public class SettingsMapFragment extends ListFragment implements DialogInterface
 	       listView.setAdapter(null);
 	       //disarableLocationEditText.setInputType(0);
 	       //getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-		   startingpointtv.setVisibility(View.VISIBLE);
-		   startingpointtv.setText(text);
-		   disarableLocationEditText.setText("");
+		  if (language.equals("English")){
+			  startingpointtv.setVisibility(View.VISIBLE);
+			  fromtv.setText(text);
+			  startingpointtv.setText("From: " + text);
+			  disarableLocationEditText.setText("");
+		  }else{ 
+			  startingpointtv.setVisibility(View.VISIBLE);
+			  fromtv.setText(text);
+			  startingpointtv.setText("Από: " + text);
+			  disarableLocationEditText.setText("");
+		  }
 	    }
 	 
 	 public static void setDestinantionPointTextViewText(String text){
 	        listView.setAdapter(null);
 	        //disarableLocationEditText.setInputType(0);
 	        //getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-	       destinationpointtv.setVisibility(View.VISIBLE);
-	       destinationpointtv.setText(text);
-	 	   disarabledestLocationEditText.setText("");
-	 	 
+	     if (language.equals("English")){
+	    	 destinationpointtv.setVisibility(View.VISIBLE);
+	    	 totv.setText(text);
+		     destinationpointtv.setText("To: " + text);
+		 	 disarabledestLocationEditText.setText("");
+	     }else{  
+	    	 destinationpointtv.setVisibility(View.VISIBLE);
+	    	 totv.setText(text);
+	    	 destinationpointtv.setText("Προς: " + text);
+	    	 disarabledestLocationEditText.setText("");
 	     }
+	 	   
+	 }
 
 	@Override
 	public void onClick(DialogInterface arg0, int arg1) {
