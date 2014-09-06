@@ -40,21 +40,109 @@ public class CloseExpandableListFragment extends Fragment{
 	private Double curlongtitude = 22.937125;
 	private final int min_distance = 2;
 	private TestLocalSqliteDatabase testDB;
+	//private Cursor cursor;
 	private Cursor cursor;
-	private HashMap<String, Double> placesDistances;
-	int sum=0;
+	private String name;
+	private HashMap<String, Double> museumsDistances;
+	private HashMap<String, Double> hospitalsDistances;
+	private HashMap<String, Double> sightsDistances;
+	private HashMap<String, Double> foodDistances;
+	private HashMap<String, Double> churchDistances;
+	private HashMap<String, Double> nightlifeDistances;
+	private HashMap<String, Double> barrestDistances;
+	private HashMap<String, Double> restDistances;
+	private HashMap<String, Double> intercDistances;
+	private HashMap<String, Double> seafDistances;
+	private HashMap<String, Double> byzDistances;
+	private HashMap<String, Double> basDistances;
+	private HashMap<String, Double> paleoDistances;
+	private HashMap<String, Double> macDistances;
+	private HashMap<String, Double> barsDistances;
+	private HashMap<String, Double> clubsDistances;
+	private HashMap<String, Double> pubsDistances;
+	private int sum_museums = 0;
+	private int sum_hospitals = 0;
+	private int sum_sights = 0;
+	private int sum_food = 0;
+	private int sum_church = 0;
+	private int sum_nightlife = 0;
+	private int sum_seafood;
+	private int sum_intcuis;
+	private int sum_barrest;
+	private int sum_rest;
+	private int sum_byz;
+	private int sum_bas;
+	private int sum_pal;
+	private int sum_mac;
+	private int sum_clubs;
+	private int sum_bars;
+	private int sum_pubs;
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.expandablelistfragment, container, false);
+		language = getArguments().getString("language");
+		
 		testDB = new TestLocalSqliteDatabase(getActivity());
 		testDB.openDataBase(debugTag);
 		
-		placesDistances = new HashMap<String, Double>();
+		museumsDistances = new HashMap<String, Double>();
 		cursor = testDB.getSpecificPlaceData("museums");
 		if (cursor.moveToFirst()){
 			do{
-				String name = this.cursor.getString(this.cursor.getColumnIndex("name_en"));
+			  if (language.equals("English")){	
+				 name = this.cursor.getString(this.cursor.getColumnIndex("name_en"));
+			  }else{
+				 name = this.cursor.getString(this.cursor.getColumnIndex("name_el")); 
+			  }
+				Double latitude = this.cursor.getDouble(this.cursor.getColumnIndex("latitude"));
+				Double longtitude = this.cursor.getDouble(this.cursor.getColumnIndex("longtitude"));
+				
+				double apostasi = GPSTracker.getDistance(this.curlatitude, this.curlongtitude, latitude, longtitude);
+				double distanceInKm = apostasi/1000;
+				DecimalFormat df = new DecimalFormat("#.##");
+				
+				if (distanceInKm <= min_distance){
+					museumsDistances.put(name, distanceInKm);
+					//Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT).show();
+				}
+				
+			}while(cursor.moveToNext());
+		}
+		
+		hospitalsDistances = new HashMap<String, Double>();
+		cursor = testDB.getSpecificPlaceData("hospitals");
+		if (cursor.moveToFirst()){
+			do{
+			  if (language.equals("English")){	
+				 name = this.cursor.getString(this.cursor.getColumnIndex("name_en"));
+			  }else{
+				 name = this.cursor.getString(this.cursor.getColumnIndex("name_el")); 
+			  }
+				Double latitude = this.cursor.getDouble(this.cursor.getColumnIndex("latitude"));
+				Double longtitude = this.cursor.getDouble(this.cursor.getColumnIndex("longtitude"));
+				
+				double apostasi = GPSTracker.getDistance(this.curlatitude, this.curlongtitude, latitude, longtitude);
+				double distanceInKm = apostasi/1000;
+				DecimalFormat df = new DecimalFormat("#.##");
+				
+				if (distanceInKm <= min_distance){
+					hospitalsDistances.put(name, distanceInKm);
+					//Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT).show();
+				}
+				
+			}while(cursor.moveToNext());
+		}
+		
+		sightsDistances = new HashMap<String, Double>();
+		cursor = testDB.getSpecificPlaceData("sightseeings");
+		if (cursor.moveToFirst()){
+			do{
+			  if (language.equals("English")){	
+				 name = this.cursor.getString(this.cursor.getColumnIndex("name_en"));
+			  }else{
+				 name = this.cursor.getString(this.cursor.getColumnIndex("name_el")); 
+			  }
 				Double latitude = this.cursor.getDouble(this.cursor.getColumnIndex("latitude"));
 				Double longtitude = this.cursor.getDouble(this.cursor.getColumnIndex("longtitude"));
 				
@@ -64,16 +152,356 @@ public class CloseExpandableListFragment extends Fragment{
 				String s = Double.toString(distanceInKm);
 				
 				if (distanceInKm <= min_distance){
-					placesDistances.put(name, distanceInKm);
-					Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT).show();
+					sightsDistances.put(name, distanceInKm);
+					//Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT).show();
 				}
 				
 			}while(cursor.moveToNext());
 		}
 		
+		foodDistances = new HashMap<String, Double>();
+		cursor = testDB.getSpecificPlaceData("food");
+		if (cursor.moveToFirst()){
+			do{
+			  if (language.equals("English")){	
+				 name = this.cursor.getString(this.cursor.getColumnIndex("name_en"));
+			  }else{
+				 name = this.cursor.getString(this.cursor.getColumnIndex("name_el")); 
+			  }
+				Double latitude = this.cursor.getDouble(this.cursor.getColumnIndex("latitude"));
+				Double longtitude = this.cursor.getDouble(this.cursor.getColumnIndex("longtitude"));
+				
+				double apostasi = GPSTracker.getDistance(this.curlatitude, this.curlongtitude, latitude, longtitude);
+				double distanceInKm = apostasi/1000;
+				DecimalFormat df = new DecimalFormat("#.##");
+				String s = Double.toString(distanceInKm);
+				
+				if (distanceInKm <= min_distance){
+					foodDistances.put(name, distanceInKm);
+					//Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT).show();
+				}
+				
+			}while(cursor.moveToNext());
+		}
+		
+		churchDistances = new HashMap<String, Double>();
+		cursor = testDB.getSpecificPlaceData("church");
+		if (cursor.moveToFirst()){
+			do{
+			  if (language.equals("English")){	
+				 name = this.cursor.getString(this.cursor.getColumnIndex("name_en"));
+			  }else{
+				 name = this.cursor.getString(this.cursor.getColumnIndex("name_el")); 
+			  }
+				Double latitude = this.cursor.getDouble(this.cursor.getColumnIndex("latitude"));
+				Double longtitude = this.cursor.getDouble(this.cursor.getColumnIndex("longtitude"));
+				
+				double apostasi = GPSTracker.getDistance(this.curlatitude, this.curlongtitude, latitude, longtitude);
+				double distanceInKm = apostasi/1000;
+				DecimalFormat df = new DecimalFormat("#.##");
+				String s = Double.toString(distanceInKm);
+				
+				if (distanceInKm <= min_distance){
+					churchDistances.put(name, distanceInKm);
+					//Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT).show();
+				}
+				
+			}while(cursor.moveToNext());
+		}
+		
+		nightlifeDistances = new HashMap<String, Double>();
+		cursor = testDB.getSpecificPlaceData("nightlife");
+		if (cursor.moveToFirst()){
+			do{
+			  if (language.equals("English")){	
+				 name = this.cursor.getString(this.cursor.getColumnIndex("name_en"));
+			  }else{
+				 name = this.cursor.getString(this.cursor.getColumnIndex("name_el")); 
+			  }
+				Double latitude = this.cursor.getDouble(this.cursor.getColumnIndex("latitude"));
+				Double longtitude = this.cursor.getDouble(this.cursor.getColumnIndex("longtitude"));
+				
+				double apostasi = GPSTracker.getDistance(this.curlatitude, this.curlongtitude, latitude, longtitude);
+				double distanceInKm = apostasi/1000;
+				DecimalFormat df = new DecimalFormat("#.##");
+				String s = Double.toString(distanceInKm);
+				
+				if (distanceInKm <= min_distance){
+					nightlifeDistances.put(name, distanceInKm);
+					//Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT).show();
+				}
+				
+			}while(cursor.moveToNext());
+		}
+		
+		barrestDistances = new HashMap<String, Double>();
+		cursor = testDB.getSpecificChurchData("bar-restaurant");
+		if (cursor.moveToFirst()){
+			do{
+			  if (language.equals("English")){	
+				 name = this.cursor.getString(this.cursor.getColumnIndex("name_en"));
+			  }else{
+				 name = this.cursor.getString(this.cursor.getColumnIndex("name_el")); 
+			  }
+				Double latitude = this.cursor.getDouble(this.cursor.getColumnIndex("latitude"));
+				Double longtitude = this.cursor.getDouble(this.cursor.getColumnIndex("longtitude"));
+				
+				double apostasi = GPSTracker.getDistance(this.curlatitude, this.curlongtitude, latitude, longtitude);
+				double distanceInKm = apostasi/1000;
+				DecimalFormat df = new DecimalFormat("#.##");
+				String s = Double.toString(distanceInKm);
+				
+				if (distanceInKm <= min_distance){
+					barrestDistances.put(name, distanceInKm);
+					//Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT).show();
+				}
+				
+			}while(cursor.moveToNext());
+		}
+		
+		restDistances = new HashMap<String, Double>();
+		cursor = testDB.getSpecificChurchData("restaurants");
+		if (cursor.moveToFirst()){
+			do{
+			  if (language.equals("English")){	
+				 name = this.cursor.getString(this.cursor.getColumnIndex("name_en"));
+			  }else{
+				 name = this.cursor.getString(this.cursor.getColumnIndex("name_el")); 
+			  }
+				Double latitude = this.cursor.getDouble(this.cursor.getColumnIndex("latitude"));
+				Double longtitude = this.cursor.getDouble(this.cursor.getColumnIndex("longtitude"));
+				
+				double apostasi = GPSTracker.getDistance(this.curlatitude, this.curlongtitude, latitude, longtitude);
+				double distanceInKm = apostasi/1000;
+				DecimalFormat df = new DecimalFormat("#.##");
+				String s = Double.toString(distanceInKm);
+				
+				if (distanceInKm <= min_distance){
+					restDistances.put(name, distanceInKm);
+					//Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT).show();
+				}
+				
+			}while(cursor.moveToNext());
+		}
+		
+		intercDistances = new HashMap<String, Double>();
+		cursor = testDB.getSpecificChurchData("intcuisine");
+		if (cursor.moveToFirst()){
+			do{
+			  if (language.equals("English")){	
+				 name = this.cursor.getString(this.cursor.getColumnIndex("name_en"));
+			  }else{
+				 name = this.cursor.getString(this.cursor.getColumnIndex("name_el")); 
+			  }
+				Double latitude = this.cursor.getDouble(this.cursor.getColumnIndex("latitude"));
+				Double longtitude = this.cursor.getDouble(this.cursor.getColumnIndex("longtitude"));
+				
+				double apostasi = GPSTracker.getDistance(this.curlatitude, this.curlongtitude, latitude, longtitude);
+				double distanceInKm = apostasi/1000;
+				DecimalFormat df = new DecimalFormat("#.##");
+				
+				if (distanceInKm <= min_distance){
+					intercDistances.put(name, distanceInKm);
+					//Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT).show();
+				}
+				
+			}while(cursor.moveToNext());
+		}
+		
+		seafDistances = new HashMap<String, Double>();
+		cursor = testDB.getSpecificChurchData("seafood");
+		if (cursor.moveToFirst()){
+			do{
+			  if (language.equals("English")){	
+				 name = this.cursor.getString(this.cursor.getColumnIndex("name_en"));
+			  }else{
+				 name = this.cursor.getString(this.cursor.getColumnIndex("name_el")); 
+			  }
+				Double latitude = this.cursor.getDouble(this.cursor.getColumnIndex("latitude"));
+				Double longtitude = this.cursor.getDouble(this.cursor.getColumnIndex("longtitude"));
+				
+				double apostasi = GPSTracker.getDistance(this.curlatitude, this.curlongtitude, latitude, longtitude);
+				double distanceInKm = apostasi/1000;
+				DecimalFormat df = new DecimalFormat("#.##");
+				
+				if (distanceInKm <= min_distance){
+					seafDistances.put(name, distanceInKm);
+					//Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT).show();
+				}
+				
+			}while(cursor.moveToNext());
+		}
+		
+		byzDistances = new HashMap<String, Double>();
+		cursor = testDB.getSpecificChurchData("Byzantine");
+		if (cursor.moveToFirst()){
+			do{
+			  if (language.equals("English")){	
+				 name = this.cursor.getString(this.cursor.getColumnIndex("name_en"));
+			  }else{
+				 name = this.cursor.getString(this.cursor.getColumnIndex("name_el")); 
+			  }
+				Double latitude = this.cursor.getDouble(this.cursor.getColumnIndex("latitude"));
+				Double longtitude = this.cursor.getDouble(this.cursor.getColumnIndex("longtitude"));
+				
+				double apostasi = GPSTracker.getDistance(this.curlatitude, this.curlongtitude, latitude, longtitude);
+				double distanceInKm = apostasi/1000;
+				DecimalFormat df = new DecimalFormat("#.##");
+				
+				if (distanceInKm <= min_distance){
+					byzDistances.put(name, distanceInKm);
+					//Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT).show();
+				}
+				
+			}while(cursor.moveToNext());
+		}
+		
+		basDistances = new HashMap<String, Double>();
+		cursor = testDB.getSpecificChurchData("Basiliki");
+		if (cursor.moveToFirst()){
+			do{
+			  if (language.equals("English")){	
+				 name = this.cursor.getString(this.cursor.getColumnIndex("name_en"));
+			  }else{
+				 name = this.cursor.getString(this.cursor.getColumnIndex("name_el")); 
+			  }
+				Double latitude = this.cursor.getDouble(this.cursor.getColumnIndex("latitude"));
+				Double longtitude = this.cursor.getDouble(this.cursor.getColumnIndex("longtitude"));
+				
+				double apostasi = GPSTracker.getDistance(this.curlatitude, this.curlongtitude, latitude, longtitude);
+				double distanceInKm = apostasi/1000;
+				DecimalFormat df = new DecimalFormat("#.##");
+				
+				if (distanceInKm <= min_distance){
+					basDistances.put(name, distanceInKm);
+					//Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT).show();
+				}
+				
+			}while(cursor.moveToNext());
+		}
+		
+		paleoDistances = new HashMap<String, Double>();
+		cursor = testDB.getSpecificChurchData("PaleoChristian");
+		if (cursor.moveToFirst()){
+			do{
+			  if (language.equals("English")){	
+				 name = this.cursor.getString(this.cursor.getColumnIndex("name_en"));
+			  }else{
+				 name = this.cursor.getString(this.cursor.getColumnIndex("name_el")); 
+			  }
+				Double latitude = this.cursor.getDouble(this.cursor.getColumnIndex("latitude"));
+				Double longtitude = this.cursor.getDouble(this.cursor.getColumnIndex("longtitude"));
+				
+				double apostasi = GPSTracker.getDistance(this.curlatitude, this.curlongtitude, latitude, longtitude);
+				double distanceInKm = apostasi/1000;
+				DecimalFormat df = new DecimalFormat("#.##");
+				
+				if (distanceInKm <= min_distance){
+					paleoDistances.put(name, distanceInKm);
+					//Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT).show();
+				}
+				
+			}while(cursor.moveToNext());
+		}
+		
+		macDistances = new HashMap<String, Double>();
+		cursor = testDB.getSpecificChurchData("Macedonian");
+		if (cursor.moveToFirst()){
+			do{
+			  if (language.equals("English")){	
+				 name = this.cursor.getString(this.cursor.getColumnIndex("name_en"));
+			  }else{
+				 name = this.cursor.getString(this.cursor.getColumnIndex("name_el")); 
+			  }
+				Double latitude = this.cursor.getDouble(this.cursor.getColumnIndex("latitude"));
+				Double longtitude = this.cursor.getDouble(this.cursor.getColumnIndex("longtitude"));
+				
+				double apostasi = GPSTracker.getDistance(this.curlatitude, this.curlongtitude, latitude, longtitude);
+				double distanceInKm = apostasi/1000;
+				DecimalFormat df = new DecimalFormat("#.##");
+				
+				if (distanceInKm <= min_distance){
+					macDistances.put(name, distanceInKm);
+					//Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT).show();
+				}
+				
+			}while(cursor.moveToNext());
+		}
+		
+		clubsDistances = new HashMap<String, Double>();
+		cursor = testDB.getSpecificChurchData("clubs");
+		if (cursor.moveToFirst()){
+			do{
+			  if (language.equals("English")){	
+				 name = this.cursor.getString(this.cursor.getColumnIndex("name_en"));
+			  }else{
+				 name = this.cursor.getString(this.cursor.getColumnIndex("name_el")); 
+			  }
+				Double latitude = this.cursor.getDouble(this.cursor.getColumnIndex("latitude"));
+				Double longtitude = this.cursor.getDouble(this.cursor.getColumnIndex("longtitude"));
+				
+				double apostasi = GPSTracker.getDistance(this.curlatitude, this.curlongtitude, latitude, longtitude);
+				double distanceInKm = apostasi/1000;
+				DecimalFormat df = new DecimalFormat("#.##");
+				
+				if (distanceInKm <= min_distance){
+					clubsDistances.put(name, distanceInKm);
+					//Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT).show();
+				}
+				
+			}while(cursor.moveToNext());
+		}
+		
+		barsDistances = new HashMap<String, Double>();
+		cursor = testDB.getSpecificChurchData("bars");
+		if (cursor.moveToFirst()){
+			do{
+			  if (language.equals("English")){	
+				 name = this.cursor.getString(this.cursor.getColumnIndex("name_en"));
+			  }else{
+				 name = this.cursor.getString(this.cursor.getColumnIndex("name_el")); 
+			  }
+				Double latitude = this.cursor.getDouble(this.cursor.getColumnIndex("latitude"));
+				Double longtitude = this.cursor.getDouble(this.cursor.getColumnIndex("longtitude"));
+				
+				double apostasi = GPSTracker.getDistance(this.curlatitude, this.curlongtitude, latitude, longtitude);
+				double distanceInKm = apostasi/1000;
+				DecimalFormat df = new DecimalFormat("#.##");
+				
+				if (distanceInKm <= min_distance){
+					barsDistances.put(name, distanceInKm);
+					//Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT).show();
+				}
+				
+			}while(cursor.moveToNext());
+		}
+		
+		pubsDistances = new HashMap<String, Double>();
+		cursor = testDB.getSpecificChurchData("pubs");
+		if (cursor.moveToFirst()){
+			do{
+			  if (language.equals("English")){	
+				 name = this.cursor.getString(this.cursor.getColumnIndex("name_en"));
+			  }else{
+				 name = this.cursor.getString(this.cursor.getColumnIndex("name_el")); 
+			  }
+				Double latitude = this.cursor.getDouble(this.cursor.getColumnIndex("latitude"));
+				Double longtitude = this.cursor.getDouble(this.cursor.getColumnIndex("longtitude"));
+				
+				double apostasi = GPSTracker.getDistance(this.curlatitude, this.curlongtitude, latitude, longtitude);
+				double distanceInKm = apostasi/1000;
+				DecimalFormat df = new DecimalFormat("#.##");
+				
+				if (distanceInKm <= min_distance){
+					pubsDistances.put(name, distanceInKm);
+					//Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT).show();
+				}
+				
+			}while(cursor.moveToNext());
+		}
 		
 		messagetv = (TextView) view.findViewById(R.id.messageclosetv);
-		language = getArguments().getString("language");
+		
 		if (language.equals("English")){
 			messagetv.setText("Places with distance less than 2km");
 		}else{
@@ -90,6 +518,7 @@ public class CloseExpandableListFragment extends Fragment{
 		return view;
 	}
 
+	@SuppressWarnings({ "rawtypes", "unused" })
 	private void prepareListData(){
 		listDataHeader = new ArrayList<String>();
 		listDataChild = new HashMap<String, ArrayList<String>>();
@@ -100,40 +529,79 @@ public class CloseExpandableListFragment extends Fragment{
 			listDataHeader.add("Museums");
 			listDataHeader.add("Hospitals");
 			listDataHeader.add("Nightlife");
+			listDataHeader.add("Food");
+			listDataHeader.add("Churches");
 			
         }else{
         	listDataHeader.add("Αξιοθέατα");
 			listDataHeader.add("Μουσεία");
+			listDataHeader.add("Νοσοκομεία");
 			listDataHeader.add("Νυχτερινή Ζωή");
-			//listDataHeader.add("Νοσοκομεία");
+			listDataHeader.add("Φαγητό");
+			listDataHeader.add("Εκκλησίες");
         }
 		
 		if (language.equals("English")){
 			// Adding child data
 			ArrayList<String> sightseeings = new ArrayList<String>();
-			sightseeings.add("leukos pyrgos");
-			sightseeings.add("kamara");
+	        Iterator sightsIterator = sightsDistances.keySet().iterator();
+	        while(sightsIterator.hasNext()) {
+	        	String key=(String) sightsIterator.next();
+	            Double value=(Double) sightsDistances.get(key);
+	        	
+	            sightseeings.add(key);
+	            sum_sights = sum_sights + 1;
+	        } 	    
 			
-		
 	        ArrayList<String> museums = new ArrayList<String>();
-	        Iterator myVeryOwnIterator = placesDistances.keySet().iterator();
-	        while(myVeryOwnIterator.hasNext()) {
-	        	String key=(String)myVeryOwnIterator.next();
-	            Double value=(Double)placesDistances.get(key);
+	        Iterator museumsIterator = museumsDistances.keySet().iterator();
+	        while(museumsIterator.hasNext()) {
+	        	String key=(String) museumsIterator.next();
+	            Double value=(Double) museumsDistances.get(key);
 	        	
 	        	museums.add(key);
-	            sum = sum + 1;
+	            sum_museums = sum_museums + 1;
 	        	
 	        }
-	       // museums.add("arxaiologiko");
-	       // museums.add("byzantino");
-	       // museums.add("noisis");
-	            
-	        ArrayList<String> hospitals = new ArrayList<String>();
-	        hospitals.add("papageorgiou");
-	        hospitals.add("papanikolaou");
-	        hospitals.add("genimatas");
 	        
+	        ArrayList<String> hospitals = new ArrayList<String>();
+	        Iterator hospitalsIterator = hospitalsDistances.keySet().iterator();
+	        while(hospitalsIterator.hasNext()) {
+	        	String key=(String) hospitalsIterator.next();
+	            Double value=(Double) hospitalsDistances.get(key);
+	        	
+	            hospitals.add(key);
+	            sum_hospitals = sum_hospitals + 1;
+	        } 	    
+	        
+	        //ArrayList<String> hospitals = new ArrayList<String>();
+	        Iterator foodIterator = foodDistances.keySet().iterator();
+	        while(foodIterator.hasNext()) {
+	        	String key=(String) foodIterator.next();
+	            Double value=(Double) foodDistances.get(key);
+	        	
+	           // hospitals.add(key);
+	            sum_food = sum_food + 1;
+	        } 	
+	        
+	        Iterator churchIterator = churchDistances.keySet().iterator();
+	        while(churchIterator.hasNext()) {
+	        	String key=(String) churchIterator.next();
+	            Double value=(Double) churchDistances.get(key);
+	        	
+	           // hospitals.add(key);
+	            sum_church = sum_church + 1;
+	        } 	
+	        
+	        Iterator nightlifeIterator = nightlifeDistances.keySet().iterator();
+	        while(nightlifeIterator.hasNext()) {
+	        	String key=(String) nightlifeIterator.next();
+	            Double value=(Double) nightlifeDistances.get(key);
+	        	
+	           // hospitals.add(key);
+	            sum_nightlife = sum_nightlife + 1;
+	        } 	
+	    
 	        listDataChild.put(listDataHeader.get(0), sightseeings); // Header, Child data
 	        listDataChild.put(listDataHeader.get(1), museums);
 	        listDataChild.put(listDataHeader.get(2), hospitals);
@@ -199,7 +667,8 @@ public class CloseExpandableListFragment extends Fragment{
                 return childPosition;
          }
 
-         @Override
+         @SuppressWarnings({ "rawtypes", "unused" })
+		@Override
          public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
         	 
         	 
@@ -211,27 +680,191 @@ public class CloseExpandableListFragment extends Fragment{
         	 if (headerTitle.equals("Nightlife")){
         		 //String childText = (String) getChild(groupPosition, childPosition);
         		 if (language.equals("English")){
-        			 listSecondLevelHeader.add("bars");
-        			 listSecondLevelHeader.add("clubs");
-        			 listSecondLevelHeader.add("pubs");
+        			 listSecondLevelHeader.add("Bars");
+        			 listSecondLevelHeader.add("Clubs");
+        			 listSecondLevelHeader.add("Pubs");
         			 
-        			 ArrayList<String> bars = new ArrayList<String>();
-        			 bars.add("bar1");
-        			 bars.add("bar2");
+        			  ArrayList<String> bars = new ArrayList<String>();
+        			  sum_bars = 0;
+          			  Iterator barsIterator = barsDistances.keySet().iterator();
+          			  while(barsIterator.hasNext()) {
+         	        	String key=(String) barsIterator.next();
+         	            Double value=(Double) barsDistances.get(key);
+         	        	
+         	            bars.add(key);
+         	            sum_bars = sum_bars + 1;
+          			  } 
+        			  
+        			  ArrayList<String> clubs = new ArrayList<String>();
+        			  sum_clubs = 0;
+          			  Iterator clubsIterator = clubsDistances.keySet().iterator();
+          			  while(clubsIterator.hasNext()) {
+         	        	String key=(String) clubsIterator.next();
+         	            Double value=(Double) clubsDistances.get(key);
+         	        	
+         	            clubs.add(key);
+         	            sum_clubs = sum_clubs + 1;
+          			  } 
         			 
-        			 ArrayList<String> clubs = new ArrayList<String>();
-        			 clubs.add("club1");
-        			 clubs.add("club2");
+        			  ArrayList<String> pubs = new ArrayList<String>();
+        			  sum_pubs = 0;
+          			  Iterator pubsIterator = pubsDistances.keySet().iterator();
+          			  while(pubsIterator.hasNext()) {
+         	        	String key=(String) pubsIterator.next();
+         	            Double value=(Double) pubsDistances.get(key);
+         	        	
+         	            pubs.add(key);
+         	            sum_pubs = sum_pubs + 1;
+          			  } 
         			 
         			 listSecondLevelDataChild.put(listSecondLevelHeader.get(0), bars); // Header, Child data
         			 listSecondLevelDataChild.put(listSecondLevelHeader.get(1), clubs);
+        			 listSecondLevelDataChild.put(listSecondLevelHeader.get(2), pubs);
         		 }
         		 
-                CustExpListview SecondLevelexplv = new CustExpListview(getActivity());
+        		 CustExpListview SecondLevelexplv = new CustExpListview(getActivity());
+                 SecondLevelexplv.setAdapter(new SecondLevelAdapter(listSecondLevelHeader, listSecondLevelDataChild));
+                 //SecondLevelexplv.setGroupIndicator(null);
+                 return SecondLevelexplv;
+        	
+        	 }	 
+        	else if (headerTitle.equals("Food")){
+        		if (language.equals("English")){
+        			listSecondLevelHeader.add("Bar-Restaurants");
+       			 	listSecondLevelHeader.add("Restaurants");
+       			 	listSecondLevelHeader.add("International Cuisine");
+       			    listSecondLevelHeader.add("Seafood");
+       			    
+       			  ArrayList<String> barrest = new ArrayList<String>();
+       			  sum_barrest = 0;
+       			  Iterator barrestIterator = barrestDistances.keySet().iterator();
+       			  while(barrestIterator.hasNext()) {
+      	        	String key=(String) barrestIterator.next();
+      	            Double value=(Double) barrestDistances.get(key);
+      	        	
+      	            barrest.add(key);
+      	            sum_barrest = sum_barrest + 1;
+       			  } 
+       			  
+       			  ArrayList<String> rest = new ArrayList<String>();
+      			  sum_rest = 0;
+      			  Iterator restIterator = restDistances.keySet().iterator();
+      			  while(restIterator.hasNext()) {
+     	        	String key=(String) restIterator.next();
+     	            Double value=(Double) restDistances.get(key);
+     	        	
+     	            rest.add(key);
+     	            sum_rest = sum_rest + 1;
+      			  } 	
+      			  
+      			  ArrayList<String> interc = new ArrayList<String>();
+      			  sum_intcuis = 0;
+       			  Iterator intIterator = intercDistances.keySet().iterator();
+      			  while(intIterator.hasNext()) {
+     	        	String key=(String) intIterator.next();
+     	            Double value=(Double) intercDistances.get(key);
+     	        	
+     	            interc.add(key);
+     	            sum_intcuis = sum_intcuis + 1;
+      			  } 	
+      			  
+      			  ArrayList<String> seaf = new ArrayList<String>();
+      			  sum_seafood = 0; 
+      			  Iterator seafIterator = seafDistances.keySet().iterator();
+      			  while(seafIterator.hasNext()) {
+     	        	String key=(String) seafIterator.next();
+     	            Double value=(Double) seafDistances.get(key);
+     	        	
+     	            seaf.add(key);
+     	            sum_seafood = sum_seafood + 1;
+      			  } 	
+       			   
+       			listSecondLevelDataChild.put(listSecondLevelHeader.get(0), barrest);
+       			listSecondLevelDataChild.put(listSecondLevelHeader.get(1), rest);
+       			listSecondLevelDataChild.put(listSecondLevelHeader.get(2), interc);
+       			listSecondLevelDataChild.put(listSecondLevelHeader.get(3), seaf);
+       			    
+        		}else{
+        			listSecondLevelHeader.add("Μπαρ-Ρεστοράν");
+       			 	listSecondLevelHeader.add("Ρεστοράν");
+       			 	listSecondLevelHeader.add("Διεθνής Κουζίνα");
+       			    listSecondLevelHeader.add("Ψαροταβέρνες");
+        		}
+        		
+        		CustExpListview SecondLevelexplv = new CustExpListview(getActivity());
                 SecondLevelexplv.setAdapter(new SecondLevelAdapter(listSecondLevelHeader, listSecondLevelDataChild));
                 //SecondLevelexplv.setGroupIndicator(null);
                 return SecondLevelexplv;
-        	 }else{
+        	}
+        	else if (headerTitle.equals("Churches")){
+        		if (language.equals("English")){
+        			listSecondLevelHeader.add("Byzantine");
+       			 	listSecondLevelHeader.add("Basiliki");
+       			 	listSecondLevelHeader.add("PaleoChristian");
+       			    listSecondLevelHeader.add("Macedonian");
+       			    
+       			  ArrayList<String> byz = new ArrayList<String>();
+       			  sum_byz = 0;
+       			  Iterator byzIterator = byzDistances.keySet().iterator();
+       			  while(byzIterator.hasNext()) {
+      	        	String key=(String) byzIterator.next();
+      	            Double value=(Double) byzDistances.get(key);
+      	        	
+      	            byz.add(key);
+      	            sum_byz = sum_byz + 1;
+       			  } 
+       			  
+       			  ArrayList<String> bas = new ArrayList<String>();
+      			  sum_bas = 0;
+      			  Iterator basIterator = basDistances.keySet().iterator();
+      			  while(basIterator.hasNext()) {
+     	        	String key=(String) basIterator.next();
+     	            Double value=(Double) basDistances.get(key);
+     	        	
+     	            bas.add(key);
+     	            sum_bas = sum_bas + 1;
+      			  } 	
+      			  
+      			  ArrayList<String> pal = new ArrayList<String>();
+      			  sum_pal = 0;
+       			  Iterator palIterator = paleoDistances.keySet().iterator();
+      			  while(palIterator.hasNext()) {
+     	        	String key=(String) palIterator.next();
+     	            Double value=(Double) paleoDistances.get(key);
+     	        	
+     	            pal.add(key);
+     	            sum_pal = sum_pal + 1;
+      			  } 	
+      			  
+      			  ArrayList<String> mac = new ArrayList<String>();
+      			  sum_mac = 0; 
+      			  Iterator macIterator = macDistances.keySet().iterator();
+      			  while(macIterator.hasNext()) {
+     	        	String key=(String) macIterator.next();
+     	            Double value=(Double) macDistances.get(key);
+     	        	
+     	            mac.add(key);
+     	            sum_mac = sum_mac + 1;
+      			  } 	
+       			   
+       			listSecondLevelDataChild.put(listSecondLevelHeader.get(0), byz);
+       			listSecondLevelDataChild.put(listSecondLevelHeader.get(1), bas);
+       			listSecondLevelDataChild.put(listSecondLevelHeader.get(2), pal);
+       			listSecondLevelDataChild.put(listSecondLevelHeader.get(3), mac);
+       			    
+        		}else{
+        			listSecondLevelHeader.add("Μπαρ-Ρεστοράν");
+       			 	listSecondLevelHeader.add("Ρεστοράν");
+       			 	listSecondLevelHeader.add("Διεθνής Κουζίνα");
+       			    listSecondLevelHeader.add("Ψαροταβέρνες");
+        		}
+        		
+        		CustExpListview SecondLevelexplv = new CustExpListview(getActivity());
+                SecondLevelexplv.setAdapter(new SecondLevelAdapter(listSecondLevelHeader, listSecondLevelDataChild));
+                //SecondLevelexplv.setGroupIndicator(null);
+                return SecondLevelexplv;
+        	} 
+            else{
         		  String childText = (String) getChild(groupPosition, childPosition);
         		  Log.i("Child Text =>", childText);
         		// if (convertView == null) {
@@ -251,7 +884,17 @@ public class CloseExpandableListFragment extends Fragment{
         	 String headerTitle = (String) getGroup(groupPosition);
         	 if (headerTitle.equals("Nightlife")){
         		 return 1;
-        	 }else{
+        	 }
+        	 else if (headerTitle.equals("Food")){
+        		 return 1;
+        	 }
+        	 else if (headerTitle.equals("Churches")){
+        		 return 1;
+        	 }
+        	 else if (headerTitle.equals("Nightlife")){
+        		 return 1;
+        	 }
+        	 else{
                 return this.listDataChild.get(this.listDataHeader.get(groupPosition)).size();}
         	// return 3;
          }
@@ -286,11 +929,28 @@ public class CloseExpandableListFragment extends Fragment{
          
                 TextView sumtv = (TextView) convertView.findViewById(R.id.sumtv);
                 if (headerTitle.equals("Museums")){
-                	String s = Integer.toString(sum);
-                	sumtv.setText(s);
+                	String string_museums = Integer.toString(sum_museums);
+                	sumtv.setText(string_museums);
                 }
-                else{
-                	sumtv.setText("15");
+                else if (headerTitle.equals("Hospitals")){
+                	String string_hospitals = Integer.toString(sum_hospitals);
+                	sumtv.setText(string_hospitals);
+                }
+                else if (headerTitle.equals("Sightseeings")){
+                	String string_sights = Integer.toString(sum_sights);
+                	sumtv.setText(string_sights);
+                }
+                else if (headerTitle.equals("Food")){
+                	String string_food = Integer.toString(sum_food);
+                	sumtv.setText(string_food);
+                }
+                else if (headerTitle.equals("Churches")){
+                	String string_church = Integer.toString(sum_church);
+                	sumtv.setText(string_church);
+                }
+                else if (headerTitle.equals("Nightlife")){
+                	String string_nightlife = Integer.toString(sum_nightlife);
+                	sumtv.setText(string_nightlife);
                 }
                 
                 return convertView;
@@ -326,7 +986,7 @@ public class CloseExpandableListFragment extends Fragment{
 
          protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
                 widthMeasureSpec = MeasureSpec.makeMeasureSpec(600, MeasureSpec.AT_MOST);
-                heightMeasureSpec = MeasureSpec.makeMeasureSpec(800, MeasureSpec.AT_MOST);
+                heightMeasureSpec = MeasureSpec.makeMeasureSpec(MeasureSpec.EXACTLY, MeasureSpec.AT_MOST);
                 super.onMeasure(widthMeasureSpec, heightMeasureSpec);
          }
 
@@ -409,6 +1069,52 @@ public class CloseExpandableListFragment extends Fragment{
              lblListHeader.setTypeface(null, Typeface.BOLD);
              lblListHeader.setText(headerTitle);
       
+             TextView seclevelsumtv = (TextView) convertView.findViewById(R.id.secondlevelsumtv);
+             if (headerTitle.equals("Bar-Restaurants")){
+             	String string_barrest = Integer.toString(sum_barrest);
+             	seclevelsumtv.setText(string_barrest);
+             }
+             else if (headerTitle.equals("Restaurants")){
+            	 String string_rest = Integer.toString(sum_rest);
+              	 seclevelsumtv.setText(string_rest);
+             }
+             else if (headerTitle.equals("International Cuisine")){
+            	 String string_inter = Integer.toString(sum_intcuis);
+              	 seclevelsumtv.setText(string_inter);
+             }
+             else if (headerTitle.equals("Seafood")){
+            	 String string_seaf = Integer.toString(sum_seafood);
+              	 seclevelsumtv.setText(string_seaf);
+             }
+             else if (headerTitle.equals("Byzantine")){
+            	 String string_byz = Integer.toString(sum_byz);
+              	 seclevelsumtv.setText(string_byz);
+             }
+             else if (headerTitle.equals("Basiliki")){
+            	 String string_bas = Integer.toString(sum_bas);
+              	 seclevelsumtv.setText(string_bas);
+             }
+             else if (headerTitle.equals("PaleoChristian")){
+            	 String string_pal = Integer.toString(sum_pal);
+              	 seclevelsumtv.setText(string_pal);
+             }
+             else if (headerTitle.equals("Macedonian")){
+            	 String string_mac = Integer.toString(sum_mac);
+              	 seclevelsumtv.setText(string_mac);
+             }
+             else if (headerTitle.equals("Bars")){
+            	 String string_bars = Integer.toString(sum_bars);
+              	 seclevelsumtv.setText(string_bars);
+             }
+             else if (headerTitle.equals("Clubs")){
+            	 String string_clubs = Integer.toString(sum_clubs);
+              	 seclevelsumtv.setText(string_clubs);
+             }
+             else if (headerTitle.equals("Pubs")){
+            	 String string_pubs = Integer.toString(sum_pubs);
+              	 seclevelsumtv.setText(string_pubs);
+             }
+             
              return convertView;
         	 
                /* TextView tv = new TextView(getActivity());
