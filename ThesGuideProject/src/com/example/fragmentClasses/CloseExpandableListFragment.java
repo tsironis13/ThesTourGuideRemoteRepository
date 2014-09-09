@@ -8,8 +8,10 @@ import java.util.Iterator;
 import com.example.myLocation.GPSTracker;
 import com.example.sqlHelper.TestLocalSqliteDatabase;
 import com.example.thesguideproject.R;
+import com.example.thesguideproject.SearchPlaceResutlActivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -22,8 +24,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.OnChildClickListener;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -38,7 +42,7 @@ public class CloseExpandableListFragment extends Fragment{
 	private HashMap<String, ArrayList<String>> listDataChild;
 	private Double curlatitude = 40.639431;
 	private Double curlongtitude = 22.937125;
-	private final int min_distance = 2;
+	private final double min_distance = 2;
 	private TestLocalSqliteDatabase testDB;
 	//private Cursor cursor;
 	private Cursor cursor;
@@ -77,11 +81,26 @@ public class CloseExpandableListFragment extends Fragment{
 	private int sum_clubs;
 	private int sum_bars;
 	private int sum_pubs;
+	private GPSTracker gps;
+	//private double curlatitude;
+	//private double curlongtitude;
+	ArrayList<String> oncalllist;
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.expandablelistfragment, container, false);
 		language = getArguments().getString("language");
+		
+		gps = new GPSTracker(getActivity());
+		
+		if (gps.canGetLocation()){
+			curlatitude = gps.getLatitude();
+			curlongtitude = gps.getLongitude();
+		}
+		else
+		{
+	        gps.showSettingsAlert();
+	    }
 		
 		testDB = new TestLocalSqliteDatabase(getActivity());
 		testDB.openDataBase(debugTag);
@@ -111,6 +130,7 @@ public class CloseExpandableListFragment extends Fragment{
 		}
 		
 		hospitalsDistances = new HashMap<String, Double>();
+		oncalllist = new ArrayList<String>();
 		cursor = testDB.getSpecificPlaceData("hospitals");
 		if (cursor.moveToFirst()){
 			do{
@@ -121,6 +141,11 @@ public class CloseExpandableListFragment extends Fragment{
 			  }
 				Double latitude = this.cursor.getDouble(this.cursor.getColumnIndex("latitude"));
 				Double longtitude = this.cursor.getDouble(this.cursor.getColumnIndex("longtitude"));
+				String oncall = this.cursor.getString(this.cursor.getColumnIndex("menu"));
+				
+					if (oncall.equals("yes")){
+						oncalllist.add(name);
+					}
 				
 				double apostasi = GPSTracker.getDistance(this.curlatitude, this.curlongtitude, latitude, longtitude);
 				double distanceInKm = apostasi/1000;
@@ -518,7 +543,7 @@ public class CloseExpandableListFragment extends Fragment{
 		return view;
 	}
 
-	@SuppressWarnings({ "rawtypes", "unused" })
+
 	private void prepareListData(){
 		listDataHeader = new ArrayList<String>();
 		listDataChild = new HashMap<String, ArrayList<String>>();
@@ -541,7 +566,7 @@ public class CloseExpandableListFragment extends Fragment{
 			listDataHeader.add("Εκκλησίες");
         }
 		
-		if (language.equals("English")){
+		if (language.equals("English") || language.equals("Greek")){
 			// Adding child data
 			ArrayList<String> sightseeings = new ArrayList<String>();
 	        Iterator sightsIterator = sightsDistances.keySet().iterator();
@@ -558,7 +583,7 @@ public class CloseExpandableListFragment extends Fragment{
 	        while(museumsIterator.hasNext()) {
 	        	String key=(String) museumsIterator.next();
 	            Double value=(Double) museumsDistances.get(key);
-	        	
+	        	Log.i("distance mus => ", value.toString());
 	        	museums.add(key);
 	            sum_museums = sum_museums + 1;
 	        	
@@ -621,14 +646,23 @@ public class CloseExpandableListFragment extends Fragment{
 
 			@Override
 			public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {           
-				Toast.makeText(
-                        getActivity(),
-                        listDataHeader.get(groupPosition)
-                                + " : "
+				String item = listDataChild.get(listDataHeader.get(groupPosition)).get(childPosition);
+			 if (language.equals("English")){	
+				Intent intent = new Intent(getActivity(), SearchPlaceResutlActivity.class);
+				intent.putExtra("PlaceName", item);
+				intent.putExtra("language", "English");
+				startActivity(intent);
+			 }else{
+				 Intent intent = new Intent(getActivity(), SearchPlaceResutlActivity.class);
+				 intent.putExtra("PlaceName", item);
+				 intent.putExtra("language", "Greek");
+				 startActivity(intent); 
+			 }	
+				/*Toast.makeText(getActivity(),listDataHeader.get(groupPosition) + " : "
                                 + listDataChild.get(
                                         listDataHeader.get(groupPosition)).get(
                                         childPosition), Toast.LENGTH_SHORT)
-                        .show();
+                        .show(); */
 				return false;
 			}			
 		});
@@ -667,7 +701,7 @@ public class CloseExpandableListFragment extends Fragment{
                 return childPosition;
          }
 
-         @SuppressWarnings({ "rawtypes", "unused" })
+       
 		@Override
          public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
         	 
@@ -677,12 +711,54 @@ public class CloseExpandableListFragment extends Fragment{
         	 listSecondLevelHeader = new ArrayList<String>();
         	 listSecondLevelDataChild = new HashMap<String, ArrayList<String>>();
         	 
-        	 if (headerTitle.equals("Nightlife")){
+        	 if (headerTitle.equals("Nightlife") || headerTitle.equals("Νυχτερινή Ζωή")){
         		 //String childText = (String) getChild(groupPosition, childPosition);
         		 if (language.equals("English")){
         			 listSecondLevelHeader.add("Bars");
         			 listSecondLevelHeader.add("Clubs");
         			 listSecondLevelHeader.add("Pubs");
+        			 
+        			  ArrayList<String> bars = new ArrayList<String>();
+        			  sum_bars = 0;
+          			  Iterator barsIterator = barsDistances.keySet().iterator();
+          			  while(barsIterator.hasNext()) {
+         	        	String key=(String) barsIterator.next();
+         	            Double value=(Double) barsDistances.get(key);
+         	        	
+         	            bars.add(key);
+         	            sum_bars = sum_bars + 1;
+          			  } 
+        			  
+        			  ArrayList<String> clubs = new ArrayList<String>();
+        			  sum_clubs = 0;
+          			  Iterator clubsIterator = clubsDistances.keySet().iterator();
+          			  while(clubsIterator.hasNext()) {
+         	        	String key=(String) clubsIterator.next();
+         	            Double value=(Double) clubsDistances.get(key);
+         	        	
+         	            clubs.add(key);
+         	            sum_clubs = sum_clubs + 1;
+          			  } 
+        			 
+        			  ArrayList<String> pubs = new ArrayList<String>();
+        			  sum_pubs = 0;
+          			  Iterator pubsIterator = pubsDistances.keySet().iterator();
+          			  while(pubsIterator.hasNext()) {
+         	        	String key=(String) pubsIterator.next();
+         	            Double value=(Double) pubsDistances.get(key);
+         	        	
+         	            pubs.add(key);
+         	            sum_pubs = sum_pubs + 1;
+          			  } 
+        			 
+        			 listSecondLevelDataChild.put(listSecondLevelHeader.get(0), bars); // Header, Child data
+        			 listSecondLevelDataChild.put(listSecondLevelHeader.get(1), clubs);
+        			 listSecondLevelDataChild.put(listSecondLevelHeader.get(2), pubs);
+        		 }
+        		 else{
+        			 listSecondLevelHeader.add("Μπαρ");
+        			 listSecondLevelHeader.add("Κλαμπ");
+        			 listSecondLevelHeader.add("Μπυραρίες");
         			 
         			  ArrayList<String> bars = new ArrayList<String>();
         			  sum_bars = 0;
@@ -728,7 +804,7 @@ public class CloseExpandableListFragment extends Fragment{
                  return SecondLevelexplv;
         	
         	 }	 
-        	else if (headerTitle.equals("Food")){
+        	else if (headerTitle.equals("Food") || headerTitle.equals("Φαγητό")){
         		if (language.equals("English")){
         			listSecondLevelHeader.add("Bar-Restaurants");
        			 	listSecondLevelHeader.add("Restaurants");
@@ -789,6 +865,55 @@ public class CloseExpandableListFragment extends Fragment{
        			 	listSecondLevelHeader.add("Ρεστοράν");
        			 	listSecondLevelHeader.add("Διεθνής Κουζίνα");
        			    listSecondLevelHeader.add("Ψαροταβέρνες");
+       			    
+       			 ArrayList<String> barrest = new ArrayList<String>();
+      			  sum_barrest = 0;
+      			  Iterator barrestIterator = barrestDistances.keySet().iterator();
+      			  while(barrestIterator.hasNext()) {
+     	        	String key=(String) barrestIterator.next();
+     	            Double value=(Double) barrestDistances.get(key);
+     	        	
+     	            barrest.add(key);
+     	            sum_barrest = sum_barrest + 1;
+      			  } 
+      			  
+      			  ArrayList<String> rest = new ArrayList<String>();
+     			  sum_rest = 0;
+     			  Iterator restIterator = restDistances.keySet().iterator();
+     			  while(restIterator.hasNext()) {
+    	        	String key=(String) restIterator.next();
+    	            Double value=(Double) restDistances.get(key);
+    	        	
+    	            rest.add(key);
+    	            sum_rest = sum_rest + 1;
+     			  } 	
+     			  
+     			  ArrayList<String> interc = new ArrayList<String>();
+     			  sum_intcuis = 0;
+      			  Iterator intIterator = intercDistances.keySet().iterator();
+     			  while(intIterator.hasNext()) {
+    	        	String key=(String) intIterator.next();
+    	            Double value=(Double) intercDistances.get(key);
+    	        	
+    	            interc.add(key);
+    	            sum_intcuis = sum_intcuis + 1;
+     			  } 	
+     			  
+     			  ArrayList<String> seaf = new ArrayList<String>();
+     			  sum_seafood = 0; 
+     			  Iterator seafIterator = seafDistances.keySet().iterator();
+     			  while(seafIterator.hasNext()) {
+    	        	String key=(String) seafIterator.next();
+    	            Double value=(Double) seafDistances.get(key);
+    	        	
+    	            seaf.add(key);
+    	            sum_seafood = sum_seafood + 1;
+     			  } 	
+      			   
+      			listSecondLevelDataChild.put(listSecondLevelHeader.get(0), barrest);
+      			listSecondLevelDataChild.put(listSecondLevelHeader.get(1), rest);
+      			listSecondLevelDataChild.put(listSecondLevelHeader.get(2), interc);
+      			listSecondLevelDataChild.put(listSecondLevelHeader.get(3), seaf);
         		}
         		
         		CustExpListview SecondLevelexplv = new CustExpListview(getActivity());
@@ -796,7 +921,7 @@ public class CloseExpandableListFragment extends Fragment{
                 //SecondLevelexplv.setGroupIndicator(null);
                 return SecondLevelexplv;
         	}
-        	else if (headerTitle.equals("Churches")){
+        	else if (headerTitle.equals("Churches") || headerTitle.equals("Εκκλησίες")){
         		if (language.equals("English")){
         			listSecondLevelHeader.add("Byzantine");
        			 	listSecondLevelHeader.add("Basiliki");
@@ -853,10 +978,59 @@ public class CloseExpandableListFragment extends Fragment{
        			listSecondLevelDataChild.put(listSecondLevelHeader.get(3), mac);
        			    
         		}else{
-        			listSecondLevelHeader.add("Μπαρ-Ρεστοράν");
-       			 	listSecondLevelHeader.add("Ρεστοράν");
-       			 	listSecondLevelHeader.add("Διεθνής Κουζίνα");
-       			    listSecondLevelHeader.add("Ψαροταβέρνες");
+        			listSecondLevelHeader.add("Βυζαντινές");
+       			 	listSecondLevelHeader.add("Βασιλικές");
+       			 	listSecondLevelHeader.add("Παλεό-Χριστιανικές");
+       			    listSecondLevelHeader.add("Μακεδονικές");
+       			    
+       			 ArrayList<String> byz = new ArrayList<String>();
+      			  sum_byz = 0;
+      			  Iterator byzIterator = byzDistances.keySet().iterator();
+      			  while(byzIterator.hasNext()) {
+     	        	String key=(String) byzIterator.next();
+     	            Double value=(Double) byzDistances.get(key);
+     	        	
+     	            byz.add(key);
+     	            sum_byz = sum_byz + 1;
+      			  } 
+      			  
+      			  ArrayList<String> bas = new ArrayList<String>();
+     			  sum_bas = 0;
+     			  Iterator basIterator = basDistances.keySet().iterator();
+     			  while(basIterator.hasNext()) {
+    	        	String key=(String) basIterator.next();
+    	            Double value=(Double) basDistances.get(key);
+    	        	
+    	            bas.add(key);
+    	            sum_bas = sum_bas + 1;
+     			  } 	
+     			  
+     			  ArrayList<String> pal = new ArrayList<String>();
+     			  sum_pal = 0;
+      			  Iterator palIterator = paleoDistances.keySet().iterator();
+     			  while(palIterator.hasNext()) {
+    	        	String key=(String) palIterator.next();
+    	            Double value=(Double) paleoDistances.get(key);
+    	        	
+    	            pal.add(key);
+    	            sum_pal = sum_pal + 1;
+     			  } 	
+     			  
+     			  ArrayList<String> mac = new ArrayList<String>();
+     			  sum_mac = 0; 
+     			  Iterator macIterator = macDistances.keySet().iterator();
+     			  while(macIterator.hasNext()) {
+    	        	String key=(String) macIterator.next();
+    	            Double value=(Double) macDistances.get(key);
+    	        	
+    	            mac.add(key);
+    	            sum_mac = sum_mac + 1;
+     			  } 	
+      			   
+      			listSecondLevelDataChild.put(listSecondLevelHeader.get(0), byz);
+      			listSecondLevelDataChild.put(listSecondLevelHeader.get(1), bas);
+      			listSecondLevelDataChild.put(listSecondLevelHeader.get(2), pal);
+      			listSecondLevelDataChild.put(listSecondLevelHeader.get(3), mac);
         		}
         		
         		CustExpListview SecondLevelexplv = new CustExpListview(getActivity());
@@ -865,33 +1039,45 @@ public class CloseExpandableListFragment extends Fragment{
                 return SecondLevelexplv;
         	} 
             else{
+            	 LayoutInflater infalInflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                 convertView = infalInflater.inflate(R.layout.listitem, null); 
+            	
+            	  ArrayList<String> list = new ArrayList<String>();
+            	
         		  String childText = (String) getChild(groupPosition, childPosition);
-        		  Log.i("Child Text =>", childText);
-        		// if (convertView == null) {
-                     LayoutInflater infalInflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                     convertView = infalInflater.inflate(R.layout.listitem, null);
-               //  }
-        		 TextView txtListChild = (TextView) convertView.findViewById(R.id.lblListItem);
-        	     txtListChild.setText(childText);
+        		  list.add(childText);
+        		  Log.i("list element =>", childText);
+        		  
+        		  TextView txtListChild = (TextView) convertView.findViewById(R.id.lblListItem);
+         	      txtListChild.setText(childText);
+        		  
+        		  for (int i=0; i<oncalllist.size(); i++){
+        			  for (int j=0; j<list.size(); j++){
+        				  if (oncalllist.get(i).equals(list.get(j))){
+        					  Log.i("on-call =>", list.get(j).toString());
+        					  //Toast.makeText(getActivity(), "on-call", Toast.LENGTH_SHORT).show();
+        					  txtListChild.setTextColor(Color.RED);
+        				  }
+        			  }
+        		  }
+        		 
+        		 
+
         	     
         	     return convertView;
-        	 }
-                
+        	 }          
          }
-
+        
          @Override
          public int getChildrenCount(int groupPosition) {
         	 String headerTitle = (String) getGroup(groupPosition);
-        	 if (headerTitle.equals("Nightlife")){
+        	 if (headerTitle.equals("Nightlife") || headerTitle.equals("Νυχτερινή Ζωή")){
         		 return 1;
         	 }
-        	 else if (headerTitle.equals("Food")){
+        	 else if (headerTitle.equals("Food") || headerTitle.equals("Φαγητό")){
         		 return 1;
         	 }
-        	 else if (headerTitle.equals("Churches")){
-        		 return 1;
-        	 }
-        	 else if (headerTitle.equals("Nightlife")){
+        	 else if (headerTitle.equals("Churches") || headerTitle.equals("Εκκλησίες")){
         		 return 1;
         	 }
         	 else{
@@ -928,27 +1114,27 @@ public class CloseExpandableListFragment extends Fragment{
                 lblListHeader.setText(headerTitle);
          
                 TextView sumtv = (TextView) convertView.findViewById(R.id.sumtv);
-                if (headerTitle.equals("Museums")){
+                if (headerTitle.equals("Museums") || headerTitle.equals("Μουσεία")){
                 	String string_museums = Integer.toString(sum_museums);
                 	sumtv.setText(string_museums);
                 }
-                else if (headerTitle.equals("Hospitals")){
+                else if (headerTitle.equals("Hospitals") || headerTitle.equals("Νοσοκομεία")){
                 	String string_hospitals = Integer.toString(sum_hospitals);
                 	sumtv.setText(string_hospitals);
                 }
-                else if (headerTitle.equals("Sightseeings")){
+                else if (headerTitle.equals("Sightseeings") || headerTitle.equals("Αξιοθέατα")){
                 	String string_sights = Integer.toString(sum_sights);
                 	sumtv.setText(string_sights);
                 }
-                else if (headerTitle.equals("Food")){
+                else if (headerTitle.equals("Food") || headerTitle.equals("Φαγητό")){
                 	String string_food = Integer.toString(sum_food);
                 	sumtv.setText(string_food);
                 }
-                else if (headerTitle.equals("Churches")){
+                else if (headerTitle.equals("Churches") || headerTitle.equals("Εκκλησίες")){
                 	String string_church = Integer.toString(sum_church);
                 	sumtv.setText(string_church);
                 }
-                else if (headerTitle.equals("Nightlife")){
+                else if (headerTitle.equals("Nightlife") || headerTitle.equals("Νυχτερινή Ζωή")){
                 	String string_nightlife = Integer.toString(sum_nightlife);
                 	sumtv.setText(string_nightlife);
                 }
@@ -986,7 +1172,7 @@ public class CloseExpandableListFragment extends Fragment{
 
          protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
                 widthMeasureSpec = MeasureSpec.makeMeasureSpec(600, MeasureSpec.AT_MOST);
-                heightMeasureSpec = MeasureSpec.makeMeasureSpec(MeasureSpec.EXACTLY, MeasureSpec.AT_MOST);
+                heightMeasureSpec = MeasureSpec.makeMeasureSpec(3000, MeasureSpec.AT_MOST);
                 super.onMeasure(widthMeasureSpec, heightMeasureSpec);
          }
 
@@ -996,6 +1182,7 @@ public class CloseExpandableListFragment extends Fragment{
 
 		 private ArrayList<String> listSecondLevelHeader;
 		 private HashMap<String, ArrayList<String>> listSecondLevelDataChild;
+		 private int i = 0;
 		 
 		 public SecondLevelAdapter(ArrayList<String> listSecondLevelHeader, HashMap<String, ArrayList<String>> listSecondLevelDataChild){
 			 this.listSecondLevelHeader = listSecondLevelHeader;
@@ -1070,47 +1257,47 @@ public class CloseExpandableListFragment extends Fragment{
              lblListHeader.setText(headerTitle);
       
              TextView seclevelsumtv = (TextView) convertView.findViewById(R.id.secondlevelsumtv);
-             if (headerTitle.equals("Bar-Restaurants")){
+             if (headerTitle.equals("Bar-Restaurants")|| headerTitle.equals("Μπαρ-Ρεστοράν")){
              	String string_barrest = Integer.toString(sum_barrest);
              	seclevelsumtv.setText(string_barrest);
              }
-             else if (headerTitle.equals("Restaurants")){
+             else if (headerTitle.equals("Restaurants") || headerTitle.equals("Ρεστοράν")){
             	 String string_rest = Integer.toString(sum_rest);
               	 seclevelsumtv.setText(string_rest);
              }
-             else if (headerTitle.equals("International Cuisine")){
+             else if (headerTitle.equals("International Cuisine") || headerTitle.equals("Διεθνής Κουζίνα")){
             	 String string_inter = Integer.toString(sum_intcuis);
               	 seclevelsumtv.setText(string_inter);
              }
-             else if (headerTitle.equals("Seafood")){
+             else if (headerTitle.equals("Seafood") || headerTitle.equals("Ψαροταβέρνες")){
             	 String string_seaf = Integer.toString(sum_seafood);
               	 seclevelsumtv.setText(string_seaf);
              }
-             else if (headerTitle.equals("Byzantine")){
+             else if (headerTitle.equals("Byzantine") || headerTitle.equals("Βυζαντινές")){
             	 String string_byz = Integer.toString(sum_byz);
               	 seclevelsumtv.setText(string_byz);
              }
-             else if (headerTitle.equals("Basiliki")){
+             else if (headerTitle.equals("Basiliki") || headerTitle.equals("Βασιλικές")){
             	 String string_bas = Integer.toString(sum_bas);
               	 seclevelsumtv.setText(string_bas);
              }
-             else if (headerTitle.equals("PaleoChristian")){
+             else if (headerTitle.equals("PaleoChristian") || headerTitle.equals("Παλεό-Χριστιανικές")){
             	 String string_pal = Integer.toString(sum_pal);
               	 seclevelsumtv.setText(string_pal);
              }
-             else if (headerTitle.equals("Macedonian")){
+             else if (headerTitle.equals("Macedonian") || headerTitle.equals("Μακεδονικές")){
             	 String string_mac = Integer.toString(sum_mac);
               	 seclevelsumtv.setText(string_mac);
              }
-             else if (headerTitle.equals("Bars")){
+             else if (headerTitle.equals("Bars") || headerTitle.equals("Μπαρ")){
             	 String string_bars = Integer.toString(sum_bars);
               	 seclevelsumtv.setText(string_bars);
              }
-             else if (headerTitle.equals("Clubs")){
+             else if (headerTitle.equals("Clubs") || headerTitle.equals("Κλαμπ")){
             	 String string_clubs = Integer.toString(sum_clubs);
               	 seclevelsumtv.setText(string_clubs);
              }
-             else if (headerTitle.equals("Pubs")){
+             else if (headerTitle.equals("Pubs") || headerTitle.equals("Μπυραρίες")){
             	 String string_pubs = Integer.toString(sum_pubs);
               	 seclevelsumtv.setText(string_pubs);
              }
@@ -1131,13 +1318,29 @@ public class CloseExpandableListFragment extends Fragment{
          public boolean hasStableIds() {
                return true;
          }
-
+         
          @Override
          public boolean isChildSelectable(int groupPosition, int childPosition) {
-        	 Toast.makeText(getActivity(), listSecondLevelDataChild.get(
-        			 listSecondLevelHeader.get(groupPosition)).get(
-                     childPosition), Toast.LENGTH_SHORT).show();
-                return true;
+        	 i++;
+        	 String s = Integer.toString(i);
+        	 Log.i("aux variable =>", s);
+        	 String item = listSecondLevelDataChild.get(listSecondLevelHeader.get(groupPosition)).get(childPosition);
+        if (i == 1){	
+        	if (language.equals("English")){
+        		Intent intent = new Intent(getActivity(), SearchPlaceResutlActivity.class);
+        		intent.putExtra("PlaceName", item);
+        		intent.putExtra("language", "English");
+        		startActivity(intent);
+			}else{
+				Intent intent = new Intent(getActivity(), SearchPlaceResutlActivity.class);
+				intent.putExtra("PlaceName", item);
+				intent.putExtra("language", "Greek");
+				startActivity(intent);
+			}
+			 
+        }else{
+        i = 0;}
+             return true;
          }
 
 

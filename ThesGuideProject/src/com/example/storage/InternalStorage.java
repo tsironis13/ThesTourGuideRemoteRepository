@@ -16,7 +16,6 @@ import android.os.Build;
 import android.util.Log;
 
 
-@TargetApi(Build.VERSION_CODES.HONEYCOMB) 
 public class InternalStorage {
 	
 	ArrayList<String> url_array = new ArrayList<String>();
@@ -100,7 +99,7 @@ public class InternalStorage {
 		fis = new FileInputStream(f);
 		b = BitmapFactory.decodeStream(fis, null, o2);
 		o.inJustDecodeBounds = false;
-		o2.inBitmap = b;
+		//o2.inBitmap = b;
 		fis.close();
 		
 		} catch(FileNotFoundException e){
@@ -125,7 +124,7 @@ public class InternalStorage {
 	        File f=new File(path, name);
 	        b = BitmapFactory.decodeStream(new FileInputStream(f)); 
 	        o.inJustDecodeBounds = false;
-	        o.inBitmap = b;
+	        //o.inBitmap = b;
 	    } 
 	    catch (FileNotFoundException e) 
 	    {

@@ -119,9 +119,10 @@ public class PlacesDataListCursorAdapter extends SimpleCursorAdapter implements 
 	private static class ViewHolder{
 		TextView nametv, placeNametv, distance, latitudetv, longtitudetv, desc_infohiddentv, 
 		telhiddentv, linkhiddentv, fbLinkhiddentv, emailhiddentv, exhibitionhiddentv,
-		photoLink1hiddentv, photoLink2hiddentv, photoLink3hiddentv, photoLink4hiddentv;
+		photoLink1hiddentv, photoLink2hiddentv, photoLink3hiddentv, photoLink4hiddentv, hiddenoncalltv;
 		ImageView icon;
 		Button infoButton;
+		Button oncallButton;
 		
 		ViewHolder(View v){
 			desc_infohiddentv = (TextView) v.findViewById(R.id.descinfohiddentv);
@@ -141,6 +142,8 @@ public class PlacesDataListCursorAdapter extends SimpleCursorAdapter implements 
 			distance = (TextView) v.findViewById(R.id.distance);
 			icon = (ImageView) v.findViewById(R.id.locationImage);
 			infoButton = (Button) v.findViewById(R.id.info_button);
+			oncallButton = (Button) v.findViewById(R.id.oncallbutton);
+			hiddenoncalltv = (TextView) v.findViewById(R.id.hiddenoncalltv);
 		}
 	}
 	
@@ -200,7 +203,10 @@ public class PlacesDataListCursorAdapter extends SimpleCursorAdapter implements 
             viewHolder.longtitudetv = (TextView) v.findViewById(R.id.longtitudetv);
             viewHolder.distance = (TextView) v.findViewById(R.id.distance);
             viewHolder.icon = (ImageView) v.findViewById(R.id.locationImage);
+            viewHolder.hiddenoncalltv = (TextView) v.findViewById(R.id.hiddenoncalltv);
             viewHolder.infoButton = (Button) v.findViewById(R.id.info_button);
+            viewHolder.oncallButton = (Button) v.findViewById(R.id.oncallbutton);
+            viewHolder.oncallButton.setTag(viewHolder);
             viewHolder.infoButton.setTag(viewHolder);
             v.setTag(viewHolder);   
         }
@@ -222,6 +228,7 @@ public class PlacesDataListCursorAdapter extends SimpleCursorAdapter implements 
 		String fbLink = this.cursor.getString(this.cursor.getColumnIndex("fb_link"));
 		String email = this.cursor.getString(this.cursor.getColumnIndex("email"));
 		String exhibition = this.cursor.getString(this.cursor.getColumnIndex("exhibition"));
+		String menu = this.cursor.getString(this.cursor.getColumnIndex("menu"));
 		String link1 = this.cursor.getString(this.cursor.getColumnIndex("link1"));
 		String link2 = this.cursor.getString(this.cursor.getColumnIndex("link2"));
 		String link3 = this.cursor.getString(this.cursor.getColumnIndex("link3"));
@@ -255,7 +262,7 @@ public class PlacesDataListCursorAdapter extends SimpleCursorAdapter implements 
    			viewHolder.icon.setLayoutParams(params);
    		}
 		
-		viewHolder.nametv.setText(name);
+		//viewHolder.nametv.setText(name);
 		viewHolder.desc_infohiddentv.setText(descInfo);
 		viewHolder.telhiddentv.setText(tel);
 		viewHolder.linkhiddentv.setText(link);
@@ -272,6 +279,13 @@ public class PlacesDataListCursorAdapter extends SimpleCursorAdapter implements 
 		viewHolder.longtitudetv.setText(str_placelongtitude);
 		viewHolder.distance.setText(dx + " km");
 		viewHolder.infoButton.setOnClickListener(this);
+		viewHolder.hiddenoncalltv.setText(menu);
+		if (viewHolder.hiddenoncalltv.getText().equals("yes")){
+			viewHolder.oncallButton.setVisibility(View.VISIBLE);
+		}
+		else{
+			viewHolder.oncallButton.setVisibility(View.INVISIBLE);
+		}
 		
 		//InternalStorage intStorage = new InternalStorage();
 		//String path = "/data/data/com.example.thesguideproject/app_imageDir";

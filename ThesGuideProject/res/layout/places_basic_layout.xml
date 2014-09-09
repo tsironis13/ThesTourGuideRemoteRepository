@@ -24,9 +24,10 @@
         
         <TextView 
             android:id="@+id/locationName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:layout_toRightOf="@+id/locationImage"
+            android:visibility="invisible"
             android:layout_marginLeft="4dip">
          </TextView>
          
@@ -36,6 +37,7 @@
 			android:layout_height="wrap_content" 
 			android:layout_marginLeft="4dip"
 			android:layout_toRightOf="@+id/locationImage" 
+			android:paddingBottom="10dp"
 			android:layout_below="@+id/locationName">    
         </TextView>
         
@@ -132,10 +134,28 @@
             android:visibility="invisible" >
          </TextView>
          
+         <TextView 
+            android:id="@+id/hiddenoncalltv"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:visibility="invisible" >
+         </TextView> 
+         
+           <Button 
+               android:id="@+id/oncallbutton"
+               android:layout_toRightOf="@+id/placeNametv"
+               android:layout_below="@+id/locationName"
+               android:layout_height="25dp"
+               android:layout_width="30dp"
+               android:layout_marginLeft="10dp"
+               android:visibility="invisible"
+               android:background="@drawable/redcross">    
+          </Button>
         
     </RelativeLayout>
     
-    <Button android:id="@+id/info_button"
+    <Button 
+        android:id="@+id/info_button"
         android:layout_height="25dp"
         android:layout_width="30dp"
         android:layout_marginRight="5dp"

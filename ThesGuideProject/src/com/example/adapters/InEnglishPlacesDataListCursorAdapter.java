@@ -105,9 +105,9 @@ public class InEnglishPlacesDataListCursorAdapter extends SimpleCursorAdapter im
 	private static class ViewHolder{
 		TextView nametv, placeNametv, distance, latitudetv, longtitudetv, desc_infohiddentv, 
 		telhiddentv, linkhiddentv, fbLinkhiddentv, emailhiddentv, exhibitionhiddentv,
-		photoLink1hiddentv, photoLink2hiddentv, photoLink3hiddentv, photoLink4hiddentv;
+		photoLink1hiddentv, photoLink2hiddentv, photoLink3hiddentv, photoLink4hiddentv, hiddenoncalltv;
 		ImageView icon;
-		Button infoButton;
+		Button infoButton, oncallButton;
 		
 		ViewHolder(View v){
 			desc_infohiddentv = (TextView) v.findViewById(R.id.descinfohiddentv);
@@ -127,6 +127,8 @@ public class InEnglishPlacesDataListCursorAdapter extends SimpleCursorAdapter im
 			distance = (TextView) v.findViewById(R.id.distance);
 			icon = (ImageView) v.findViewById(R.id.locationImage);
 			infoButton = (Button) v.findViewById(R.id.info_button);
+			oncallButton = (Button) v.findViewById(R.id.oncallbutton);
+			hiddenoncalltv = (TextView) v.findViewById(R.id.hiddenoncalltv);
 		}
 	}
 	
@@ -188,6 +190,8 @@ public class InEnglishPlacesDataListCursorAdapter extends SimpleCursorAdapter im
             viewHolder.icon = (ImageView) v.findViewById(R.id.locationImage);
             viewHolder.infoButton = (Button) v.findViewById(R.id.info_button);
             viewHolder.infoButton.setTag(viewHolder);
+            viewHolder.oncallButton = (Button) v.findViewById(R.id.oncallbutton);
+            viewHolder.hiddenoncalltv = (TextView) v.findViewById(R.id.hiddenoncalltv);
             v.setTag(viewHolder);   
         }
 		else{
@@ -208,6 +212,7 @@ public class InEnglishPlacesDataListCursorAdapter extends SimpleCursorAdapter im
 		String fbLink = this.cursor.getString(this.cursor.getColumnIndex("fb_link"));
 		String email = this.cursor.getString(this.cursor.getColumnIndex("email"));
 		String exhibition = this.cursor.getString(this.cursor.getColumnIndex("exhibition_en"));
+		String menu = this.cursor.getString(this.cursor.getColumnIndex("menu"));
 		String link1 = this.cursor.getString(this.cursor.getColumnIndex("link1"));
 		String link2 = this.cursor.getString(this.cursor.getColumnIndex("link2"));
 		String link3 = this.cursor.getString(this.cursor.getColumnIndex("link3"));
@@ -257,6 +262,13 @@ public class InEnglishPlacesDataListCursorAdapter extends SimpleCursorAdapter im
 		viewHolder.latitudetv.setText(str_placelatitude);
 		viewHolder.longtitudetv.setText(str_placelongtitude);
 		viewHolder.distance.setText(dx + " km");
+		viewHolder.hiddenoncalltv.setText(menu);
+		if (viewHolder.hiddenoncalltv.getText().equals("yes")){
+			viewHolder.oncallButton.setVisibility(View.VISIBLE);
+		}
+		else{
+			viewHolder.oncallButton.setVisibility(View.INVISIBLE);
+		}
 		viewHolder.infoButton.setOnClickListener(this);
 		
 		//InternalStorage intStorage = new InternalStorage();
