@@ -1,14 +1,18 @@
 package com.example.adapters;
 
 import java.util.List;
+
 import com.example.thesguideproject.R;
 import com.example.thesguideproject.SearchPlaceResutlActivity;
+
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.CursorAdapter;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -23,14 +27,16 @@ public class InEnglishSearchAdapter extends CursorAdapter implements OnClickList
     private Button text;
 	private Cursor cursor;	
 	private String placeNameEl;
+	private MenuItem searchItem;
 	//private FragmentTransaction fragmentTransaction;
 	//private MenuFragment menuFragment;
 	
-	public InEnglishSearchAdapter(Context context, Cursor cursor, List items) {
+	public InEnglishSearchAdapter(Context context, Cursor cursor, List items, MenuItem searchItem) {
 		super(context, cursor, false);
 		this.items = items;
 		this.context = context;
 		this.cursor = cursor;
+		this.searchItem = searchItem;
 		// TODO Auto-generated constructor stub
 	}
     
@@ -91,6 +97,7 @@ public class InEnglishSearchAdapter extends CursorAdapter implements OnClickList
 		intent.putExtra("PlaceName", s1);
 		intent.putExtra("language", "English");
 		context.startActivity(intent);
+		MenuItemCompat.collapseActionView(searchItem);
 		//MenuFragment m = new MenuFragment(s1);
 		//PlacesListFragmentActivity p = new PlacesListFragmentActivity();
 		//p.setPlaceSearchFragment();

@@ -19,6 +19,8 @@ import java.util.List;
 
 
 
+
+
 import com.example.fragmentClasses.MenuFragment;
 import com.example.sqlHelper.TestLocalSqliteDatabase;
 import com.example.thesguideproject.R;
@@ -28,10 +30,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.CursorAdapter;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -49,15 +53,17 @@ public class SearchAdapter extends CursorAdapter implements OnClickListener{
 	private Cursor cursor;	
 	private String lang;
 	private String placeNameEl;
+	private MenuItem searchItem;
 	//private FragmentTransaction fragmentTransaction;
 	//private MenuFragment menuFragment;
 	
-	public SearchAdapter(Context context, Cursor cursor, List items, String lang) {
+	public SearchAdapter(Context context, Cursor cursor, List items, String lang, MenuItem searchItem) {
 		super(context, cursor, false);
 		this.items = items;
 		this.context = context;
 		this.cursor = cursor;
 		this.lang = lang;
+		this.searchItem = searchItem;
 		// TODO Auto-generated constructor stub
 	}
     
@@ -136,6 +142,7 @@ public class SearchAdapter extends CursorAdapter implements OnClickListener{
 		intent.putExtra("language", "Greek");
 		intent.putExtra("PlaceName", s1);
 		context.startActivity(intent);
+		MenuItemCompat.collapseActionView(searchItem);
 		//MenuFragment m = new MenuFragment(s1);
 		//PlacesListFragmentActivity p = new PlacesListFragmentActivity();
 		//p.setPlaceSearchFragment();

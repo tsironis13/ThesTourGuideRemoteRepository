@@ -37,7 +37,7 @@
 			android:layout_height="wrap_content" 
 			android:layout_marginLeft="4dip"
 			android:layout_toRightOf="@+id/locationImage" 
-			android:paddingBottom="10dp"
+			android:paddingBottom="5dp"
 			android:layout_below="@+id/locationName">    
         </TextView>
         

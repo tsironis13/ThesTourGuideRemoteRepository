@@ -29,6 +29,7 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -77,6 +78,7 @@ public class PlacesDetailsTabs extends ActionBarActivity implements OnGoogleMapF
     private ArrayList<String> items = new ArrayList<String>();
     
     private ActionBar mActionBar;
+    private MenuItem searchItem;
 
 	@Override
 	public void onMapReady(GoogleMap map) {
@@ -90,8 +92,13 @@ public class PlacesDetailsTabs extends ActionBarActivity implements OnGoogleMapF
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.testlayout);
 		mActionBar = getSupportActionBar();
-		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
+		mActionBar.setHomeButtonEnabled(false);
+		mActionBar.setDisplayHomeAsUpEnabled(false);
+		mActionBar.setDisplayShowHomeEnabled(true);
+		mActionBar.setIcon(R.drawable.ic_launcher);
+		mActionBar.setDisplayShowTitleEnabled(false);
+		//getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+		
 		Intent i = getIntent();
 		
 		language = i.getStringExtra("language");
@@ -286,14 +293,29 @@ public class PlacesDetailsTabs extends ActionBarActivity implements OnGoogleMapF
 		getMenuInflater().inflate(R.menu.main, menu);
 		
 		//Find the search item
-		MenuItem searchItem = menu.findItem(R.id.action_search);
+		searchItem = menu.findItem(R.id.action_search);
 		
 		//Retrieve the SearchView
 		searchView  = (SearchView) MenuItemCompat.getActionView(searchItem);	
 		
 		searchView.setIconifiedByDefault(false);
+		if (language.equals("English")){
+			searchView.setQueryHint("Place...");
+		}else{
+			searchView.setQueryHint("Τοποθεσία...");
+		}
         searchView.setOnQueryTextListener(this);
-		
+        searchView.setOnQueryTextFocusChangeListener(new View.OnFocusChangeListener() {
+			@Override
+			public void onFocusChange(View v, boolean hasFocus) {
+				if (!hasFocus){
+					MenuItemCompat.collapseActionView(searchItem);
+					searchView.setQuery("", false);
+				}
+			}
+		});
+        
+        
 		return super.onCreateOptionsMenu(menu);
 	}
 	
@@ -371,8 +393,9 @@ private void loadData(String query){
 							cursor.addRow(temp);
 						}
 
+
 						//String lang = "Latin";
-						searchView.setSuggestionsAdapter(new InEnglishSearchAdapter(this, cursor, items));
+						searchView.setSuggestionsAdapter(new InEnglishSearchAdapter(this, cursor, items, searchItem));
 				}
 				else{
 						Log.i("Query =>", query);
@@ -408,9 +431,10 @@ private void loadData(String query){
 							temp[1] = items.get(i);
 							cursor.addRow(temp);
 						}
+						
 						//t.setSuggestionPressedField("true");
 						//String lang = "Greek";	
-						searchView.setSuggestionsAdapter(new InEnglishSearchAdapter(this, cursor, items));
+						searchView.setSuggestionsAdapter(new InEnglishSearchAdapter(this, cursor, items, searchItem));
 				}
 	 }	
 	 else{	
@@ -449,7 +473,7 @@ private void loadData(String query){
 					}
 
 					String lang = "Latin";
-					searchView.setSuggestionsAdapter(new SearchAdapter(this, cursor, items, lang));
+					searchView.setSuggestionsAdapter(new SearchAdapter(this, cursor, items, lang, searchItem));
 			}
 			else{
 					Log.i("Query =>", query);
@@ -487,7 +511,7 @@ private void loadData(String query){
 					}
 					//t.setSuggestionPressedField("true");
 					String lang = "Greek";	
-					searchView.setSuggestionsAdapter(new SearchAdapter(this, cursor, items, lang));
+					searchView.setSuggestionsAdapter(new SearchAdapter(this, cursor, items, lang, searchItem));
 			}
 	 }
 	}

@@ -2,7 +2,6 @@ package com.example.thesguideproject;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import com.example.adapters.DisarableLocationCursorAdapter;
 import com.example.adapters.InEnglishSearchAdapter;
 import com.example.adapters.SearchAdapter;
@@ -10,7 +9,7 @@ import com.example.fragmentClasses.MenuFragment;
 import com.example.sqlHelper.TestLocalSqliteDatabase;
 import com.example.tasks.BitmapTask;
 import com.example.thesguideproject.R;
-
+import android.annotation.TargetApi;
 import android.app.FragmentManager;
 import android.app.ProgressDialog;
 import android.app.SearchManager;
@@ -23,6 +22,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -34,18 +34,19 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.Window;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class PlacesListFragmentActivity extends ActionBarActivity implements SearchView.OnQueryTextListener, SearchView.OnCloseListener{
+ public class PlacesListFragmentActivity extends ActionBarActivity implements SearchView.OnQueryTextListener, SearchView.OnCloseListener{
 
 	private ActionBar mActionBar;
 	private SearchView searchView;
 	private MenuFragment menuFragment;
 	private Fragment fragment;
 	private FragmentTransaction fragmentTransaction;
-	TextView hiddentv;
+	private TextView hiddentv;
 	private Cursor allDisplayImageLinkcursor;
 	private BitmapTask imgFetcher;
 	private ProgressDialog progressDialog; 
@@ -54,8 +55,10 @@ public class PlacesListFragmentActivity extends ActionBarActivity implements Sea
 	private String url;
 	private String language;
 	
+	
 	public PlacesListFragmentActivity(){}
 	
+	private MenuItem searchItem;
 	private TestLocalSqliteDatabase t = new TestLocalSqliteDatabase(this);
 	//TestLocalSqliteDatabase t1 = new TestLocalSqliteDatabase(this);
 	
@@ -122,8 +125,12 @@ public class PlacesListFragmentActivity extends ActionBarActivity implements Sea
 		
 		
 		mActionBar= getSupportActionBar();
+		mActionBar.setHomeButtonEnabled(false);
+		mActionBar.setDisplayHomeAsUpEnabled(false);
+		mActionBar.setDisplayShowHomeEnabled(true);
+		mActionBar.setIcon(R.drawable.ic_launcher);
 		mActionBar.setDisplayShowTitleEnabled(false);
-		mActionBar.setDisplayHomeAsUpEnabled(true);
+		
 		
 		//searchView = (SearchView) findViewById(R.id.action_search);	
 		Bundle langbundle = new Bundle();
@@ -131,7 +138,7 @@ public class PlacesListFragmentActivity extends ActionBarActivity implements Sea
 		menuFragment = new MenuFragment();
 		menuFragment.setArguments(langbundle);
 		
-		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+		//getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		hiddentv = (TextView) findViewById(R.id.hiddentv);
 		
 		
@@ -238,7 +245,7 @@ public class PlacesListFragmentActivity extends ActionBarActivity implements Sea
 		getMenuInflater().inflate(R.menu.main, menu);
 				
 		//Find the search item
-		MenuItem searchItem = menu.findItem(R.id.action_search);
+		searchItem = menu.findItem(R.id.action_search);
 		//Find the path item
 		MenuItem pathItem = menu.findItem(R.id.action_path);
 		//Find the close item
@@ -250,10 +257,22 @@ public class PlacesListFragmentActivity extends ActionBarActivity implements Sea
 		//Retrieve the SearchView
 		searchView  = (SearchView) MenuItemCompat.getActionView(searchItem);
 		//searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
-
+		if (language.equals("English")){
+			searchView.setQueryHint("Place...");
+		}else{
+			searchView.setQueryHint("Τοποθεσία...");
+		}
 		searchView.setIconifiedByDefault(false);
-
         searchView.setOnQueryTextListener(this);
+        searchView.setOnQueryTextFocusChangeListener(new View.OnFocusChangeListener() {
+			@Override
+			public void onFocusChange(View v, boolean hasFocus) {
+				if (!hasFocus){
+					MenuItemCompat.collapseActionView(searchItem);
+					searchView.setQuery("", false);
+				}	
+			}
+		});
         //searchView.setOnCloseListener(this);
         
 		return super.onCreateOptionsMenu(menu);
@@ -263,6 +282,9 @@ public class PlacesListFragmentActivity extends ActionBarActivity implements Sea
 	public boolean onOptionsItemSelected(MenuItem item) {
 		 // Take appropriate action for each action item click
         switch (item.getItemId()) {
+        case R.id.homeAsUp:
+        	Toast.makeText(getApplicationContext(), "home", Toast.LENGTH_SHORT).show();
+        	return true;
         case R.id.action_path:
         	Intent i = new Intent(PlacesListFragmentActivity.this, FindPathFragmentActivity.class);
         	i.putExtra("language", language);
@@ -318,7 +340,8 @@ public class PlacesListFragmentActivity extends ActionBarActivity implements Sea
 						}
 
 						//String lang = "Latin";
-						searchView.setSuggestionsAdapter(new InEnglishSearchAdapter(this, cursor, items));
+						searchView.setSuggestionsAdapter(new InEnglishSearchAdapter(this, cursor, items, searchItem));
+						
 				}
 				else{
 						Log.i("Query =>", query);
@@ -356,7 +379,7 @@ public class PlacesListFragmentActivity extends ActionBarActivity implements Sea
 						}
 						//t.setSuggestionPressedField("true");
 						//String lang = "Greek";	
-						searchView.setSuggestionsAdapter(new InEnglishSearchAdapter(this, cursor, items));
+						searchView.setSuggestionsAdapter(new InEnglishSearchAdapter(this, cursor, items, searchItem));
 				}
 	 }	
 	 else{	
@@ -395,7 +418,7 @@ public class PlacesListFragmentActivity extends ActionBarActivity implements Sea
 					}
 
 					String lang = "Latin";
-					searchView.setSuggestionsAdapter(new SearchAdapter(this, cursor, items, lang));
+					searchView.setSuggestionsAdapter(new SearchAdapter(this, cursor, items, lang, searchItem));
 			}
 			else{
 					Log.i("Query =>", query);
@@ -433,7 +456,7 @@ public class PlacesListFragmentActivity extends ActionBarActivity implements Sea
 					}
 					//t.setSuggestionPressedField("true");
 					String lang = "Greek";	
-					searchView.setSuggestionsAdapter(new SearchAdapter(this, cursor, items, lang));
+					searchView.setSuggestionsAdapter(new SearchAdapter(this, cursor, items, lang, searchItem));
 			}
 	 }
 	}
@@ -455,6 +478,7 @@ public class PlacesListFragmentActivity extends ActionBarActivity implements Sea
 	@Override
 	public boolean onQueryTextSubmit(String query) {
 		// TODO Auto-generated method stub
+		//searchView.onActionViewCollapsed();
 		loadData(query);
 		return true;
 	}

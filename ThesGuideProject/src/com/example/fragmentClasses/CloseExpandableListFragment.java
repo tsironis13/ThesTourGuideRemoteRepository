@@ -119,7 +119,6 @@ public class CloseExpandableListFragment extends Fragment{
 				
 				double apostasi = GPSTracker.getDistance(this.curlatitude, this.curlongtitude, latitude, longtitude);
 				double distanceInKm = apostasi/1000;
-				DecimalFormat df = new DecimalFormat("#.##");
 				
 				if (distanceInKm <= min_distance){
 					museumsDistances.put(name, distanceInKm);
@@ -149,8 +148,7 @@ public class CloseExpandableListFragment extends Fragment{
 				
 				double apostasi = GPSTracker.getDistance(this.curlatitude, this.curlongtitude, latitude, longtitude);
 				double distanceInKm = apostasi/1000;
-				DecimalFormat df = new DecimalFormat("#.##");
-				
+			
 				if (distanceInKm <= min_distance){
 					hospitalsDistances.put(name, distanceInKm);
 					//Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT).show();
@@ -173,9 +171,7 @@ public class CloseExpandableListFragment extends Fragment{
 				
 				double apostasi = GPSTracker.getDistance(this.curlatitude, this.curlongtitude, latitude, longtitude);
 				double distanceInKm = apostasi/1000;
-				DecimalFormat df = new DecimalFormat("#.##");
-				String s = Double.toString(distanceInKm);
-				
+			
 				if (distanceInKm <= min_distance){
 					sightsDistances.put(name, distanceInKm);
 					//Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT).show();
@@ -198,9 +194,7 @@ public class CloseExpandableListFragment extends Fragment{
 				
 				double apostasi = GPSTracker.getDistance(this.curlatitude, this.curlongtitude, latitude, longtitude);
 				double distanceInKm = apostasi/1000;
-				DecimalFormat df = new DecimalFormat("#.##");
-				String s = Double.toString(distanceInKm);
-				
+			
 				if (distanceInKm <= min_distance){
 					foodDistances.put(name, distanceInKm);
 					//Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT).show();
@@ -223,8 +217,6 @@ public class CloseExpandableListFragment extends Fragment{
 				
 				double apostasi = GPSTracker.getDistance(this.curlatitude, this.curlongtitude, latitude, longtitude);
 				double distanceInKm = apostasi/1000;
-				DecimalFormat df = new DecimalFormat("#.##");
-				String s = Double.toString(distanceInKm);
 				
 				if (distanceInKm <= min_distance){
 					churchDistances.put(name, distanceInKm);
@@ -248,8 +240,6 @@ public class CloseExpandableListFragment extends Fragment{
 				
 				double apostasi = GPSTracker.getDistance(this.curlatitude, this.curlongtitude, latitude, longtitude);
 				double distanceInKm = apostasi/1000;
-				DecimalFormat df = new DecimalFormat("#.##");
-				String s = Double.toString(distanceInKm);
 				
 				if (distanceInKm <= min_distance){
 					nightlifeDistances.put(name, distanceInKm);
@@ -273,8 +263,6 @@ public class CloseExpandableListFragment extends Fragment{
 				
 				double apostasi = GPSTracker.getDistance(this.curlatitude, this.curlongtitude, latitude, longtitude);
 				double distanceInKm = apostasi/1000;
-				DecimalFormat df = new DecimalFormat("#.##");
-				String s = Double.toString(distanceInKm);
 				
 				if (distanceInKm <= min_distance){
 					barrestDistances.put(name, distanceInKm);
@@ -298,9 +286,7 @@ public class CloseExpandableListFragment extends Fragment{
 				
 				double apostasi = GPSTracker.getDistance(this.curlatitude, this.curlongtitude, latitude, longtitude);
 				double distanceInKm = apostasi/1000;
-				DecimalFormat df = new DecimalFormat("#.##");
-				String s = Double.toString(distanceInKm);
-				
+			
 				if (distanceInKm <= min_distance){
 					restDistances.put(name, distanceInKm);
 					//Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT).show();
@@ -323,8 +309,7 @@ public class CloseExpandableListFragment extends Fragment{
 				
 				double apostasi = GPSTracker.getDistance(this.curlatitude, this.curlongtitude, latitude, longtitude);
 				double distanceInKm = apostasi/1000;
-				DecimalFormat df = new DecimalFormat("#.##");
-				
+			
 				if (distanceInKm <= min_distance){
 					intercDistances.put(name, distanceInKm);
 					//Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT).show();
@@ -347,8 +332,7 @@ public class CloseExpandableListFragment extends Fragment{
 				
 				double apostasi = GPSTracker.getDistance(this.curlatitude, this.curlongtitude, latitude, longtitude);
 				double distanceInKm = apostasi/1000;
-				DecimalFormat df = new DecimalFormat("#.##");
-				
+			
 				if (distanceInKm <= min_distance){
 					seafDistances.put(name, distanceInKm);
 					//Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT).show();
@@ -371,8 +355,7 @@ public class CloseExpandableListFragment extends Fragment{
 				
 				double apostasi = GPSTracker.getDistance(this.curlatitude, this.curlongtitude, latitude, longtitude);
 				double distanceInKm = apostasi/1000;
-				DecimalFormat df = new DecimalFormat("#.##");
-				
+		
 				if (distanceInKm <= min_distance){
 					byzDistances.put(name, distanceInKm);
 					//Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT).show();
@@ -395,8 +378,7 @@ public class CloseExpandableListFragment extends Fragment{
 				
 				double apostasi = GPSTracker.getDistance(this.curlatitude, this.curlongtitude, latitude, longtitude);
 				double distanceInKm = apostasi/1000;
-				DecimalFormat df = new DecimalFormat("#.##");
-				
+		
 				if (distanceInKm <= min_distance){
 					basDistances.put(name, distanceInKm);
 					//Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT).show();
@@ -419,8 +401,7 @@ public class CloseExpandableListFragment extends Fragment{
 				
 				double apostasi = GPSTracker.getDistance(this.curlatitude, this.curlongtitude, latitude, longtitude);
 				double distanceInKm = apostasi/1000;
-				DecimalFormat df = new DecimalFormat("#.##");
-				
+		
 				if (distanceInKm <= min_distance){
 					paleoDistances.put(name, distanceInKm);
 					//Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT).show();
@@ -443,8 +424,7 @@ public class CloseExpandableListFragment extends Fragment{
 				
 				double apostasi = GPSTracker.getDistance(this.curlatitude, this.curlongtitude, latitude, longtitude);
 				double distanceInKm = apostasi/1000;
-				DecimalFormat df = new DecimalFormat("#.##");
-				
+			
 				if (distanceInKm <= min_distance){
 					macDistances.put(name, distanceInKm);
 					//Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT).show();
@@ -467,8 +447,7 @@ public class CloseExpandableListFragment extends Fragment{
 				
 				double apostasi = GPSTracker.getDistance(this.curlatitude, this.curlongtitude, latitude, longtitude);
 				double distanceInKm = apostasi/1000;
-				DecimalFormat df = new DecimalFormat("#.##");
-				
+			
 				if (distanceInKm <= min_distance){
 					clubsDistances.put(name, distanceInKm);
 					//Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT).show();
@@ -491,8 +470,7 @@ public class CloseExpandableListFragment extends Fragment{
 				
 				double apostasi = GPSTracker.getDistance(this.curlatitude, this.curlongtitude, latitude, longtitude);
 				double distanceInKm = apostasi/1000;
-				DecimalFormat df = new DecimalFormat("#.##");
-				
+			
 				if (distanceInKm <= min_distance){
 					barsDistances.put(name, distanceInKm);
 					//Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT).show();
@@ -515,8 +493,7 @@ public class CloseExpandableListFragment extends Fragment{
 				
 				double apostasi = GPSTracker.getDistance(this.curlatitude, this.curlongtitude, latitude, longtitude);
 				double distanceInKm = apostasi/1000;
-				DecimalFormat df = new DecimalFormat("#.##");
-				
+			
 				if (distanceInKm <= min_distance){
 					pubsDistances.put(name, distanceInKm);
 					//Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT).show();

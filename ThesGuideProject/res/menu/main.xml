@@ -22,15 +22,15 @@
      <item 
          android:id="@+id/action_path"
          hmkcode:showAsAction="always"
-         android:icon="@drawable/ic_action_path"
+         android:icon="@drawable/action_rout"
          android:title="@string/action_path"/>
     
      <item 
          android:id="@+id/close"
-         hmkcode:showAsAction="never"
-         android:title="konta"
-         />
-     
+         hmkcode:showAsAction="ifRoom"
+         android:icon="@drawable/ic_action_location_searching"
+         android:title="konta" />
+   <!--   
     <item
         android:id="@+id/item_clear_memory_cache"
         android:title="@string/menu_item_clear_memory_cache"/>
@@ -46,6 +46,6 @@
         android:id="@+id/item_pause_on_fling"
         android:checkable="true"
         android:title="@string/menu_item_pause_on_fling"
-        android:visible="false"/>
+        android:visible="false"/>   --> 
 
 </menu>
