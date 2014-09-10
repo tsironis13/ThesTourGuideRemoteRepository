@@ -250,6 +250,11 @@ import android.widget.Toast;
 		MenuItem pathItem = menu.findItem(R.id.action_path);
 		//Find the close item
 		MenuItem closeItem = menu.findItem(R.id.close);
+		if (language.equals("English")){
+			closeItem.setTitle("Nearby");
+		}else{
+			closeItem.setTitle("Κοντά");
+		}
 		
 		
 		SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
@@ -282,9 +287,6 @@ import android.widget.Toast;
 	public boolean onOptionsItemSelected(MenuItem item) {
 		 // Take appropriate action for each action item click
         switch (item.getItemId()) {
-        case R.id.homeAsUp:
-        	Toast.makeText(getApplicationContext(), "home", Toast.LENGTH_SHORT).show();
-        	return true;
         case R.id.action_path:
         	Intent i = new Intent(PlacesListFragmentActivity.this, FindPathFragmentActivity.class);
         	i.putExtra("language", language);

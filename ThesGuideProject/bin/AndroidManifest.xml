@@ -33,7 +33,7 @@
         android:required="true" />
     
     <uses-sdk
-        android:minSdkVersion="3"
+        android:minSdkVersion="4"
         android:targetSdkVersion="19" />
 
     <application
@@ -65,6 +65,11 @@
           
         <activity 
             android:name="com.example.thesguideproject.MainLayoutActivity"
+            android:label="@string/app_name">
+        </activity>
+        
+        <activity 
+            android:name="com.example.thesguideproject.CalendarTest"
             android:label="@string/app_name">
         </activity>
         

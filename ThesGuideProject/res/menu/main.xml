@@ -28,8 +28,7 @@
      <item 
          android:id="@+id/close"
          hmkcode:showAsAction="ifRoom"
-         android:icon="@drawable/ic_action_location_searching"
-         android:title="konta" />
+         android:icon="@drawable/ic_action_location_searching" />
    <!--   
     <item
         android:id="@+id/item_clear_memory_cache"
