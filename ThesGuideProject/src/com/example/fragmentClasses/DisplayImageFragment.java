@@ -2,11 +2,8 @@ package com.example.fragmentClasses;
 
 import java.io.IOException;
 import java.io.InputStream;
-
-import com.example.thesguideproject.CalendarTest;
 import com.example.thesguideproject.R;
 import com.example.thesguideproject.SplashScreen;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
@@ -34,16 +31,6 @@ public class DisplayImageFragment extends Fragment{
 		// TODO Auto-generated method stub
 		View view = inflater.inflate(R.layout.display_image_fragment, container, false);
 		textView = (TextView) view.findViewById(R.id.textviewdisplay);
-		Button bu = (Button) view.findViewById(R.id.im);
-		bu.setText("calendar test");
-		bu.setOnClickListener(new View.OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				Intent i = new Intent(getActivity(), CalendarTest.class);
-				startActivity(i);
-			}
-		});
 		
 		language = getArguments().getString("language");
 			if (language.equals("English")){

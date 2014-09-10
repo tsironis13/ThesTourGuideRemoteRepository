@@ -25,6 +25,7 @@ public class MenuFragment extends Fragment {
 	private Button nightlifeButton;
 	private Button foodButton;
 	private Button sightseeingsButton;
+	private Button eventsButton;
 	private String genre;
 	private String subcategory;
 	private double current_latitude;
@@ -46,6 +47,7 @@ public class MenuFragment extends Fragment {
 		
 		language = getArguments().getString("language");
 		
+		eventsButton = (Button) view.findViewById(R.id.eventsbutton);
 		sightseeingsButton = (Button) view.findViewById(R.id.sightseeingsbutton);
 		foodButton = (Button) view.findViewById(R.id.foodButton);
 		nightlifeButton = (Button) view.findViewById(R.id.nightlifebutton);
@@ -107,6 +109,25 @@ public class MenuFragment extends Fragment {
 			//fragmentTransaction.addToBackStack(null);
 			//fragmentTransaction.commit();
 		//}
+		eventsButton.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				CalendarFragment calendarFragment = new CalendarFragment();
+				fragmentTransaction = getFragmentManager().beginTransaction().add(R.id.containerlist, calendarFragment);
+				int fragments = getFragmentManager().getBackStackEntryCount();
+				if (fragments > 1){
+				  String backStackId = getFragmentManager().getBackStackEntryAt(1).getName();
+				  	if (backStackId.equals("events") || backStackId.equals("sig") || backStackId.equals("hos") || backStackId.equals("mus") || backStackId.equals("nig") || backStackId.equals("ch"))
+				  	{
+				  		getFragmentManager().popBackStack(backStackId,0);
+				  	}
+				        getFragmentManager().popBackStack();
+				}
+				fragmentTransaction.addToBackStack("events");
+				fragmentTransaction.commit();	
+			}
+		});
+		
 		foodButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -127,7 +148,7 @@ public class MenuFragment extends Fragment {
 				int fragments = getFragmentManager().getBackStackEntryCount();
 				if (fragments > 1){
 				  String backStackId = getFragmentManager().getBackStackEntryAt(1).getName();
-				  	if (backStackId.equals("sig") || backStackId.equals("hos") || backStackId.equals("mus") || backStackId.equals("nig") || backStackId.equals("ch"))
+				  	if (backStackId.equals("events") || backStackId.equals("sig") || backStackId.equals("hos") || backStackId.equals("mus") || backStackId.equals("nig") || backStackId.equals("ch"))
 				  	{
 				  		getFragmentManager().popBackStack(backStackId,0);
 				  	}
@@ -169,7 +190,7 @@ public class MenuFragment extends Fragment {
 				int fragments = getFragmentManager().getBackStackEntryCount();
 				if (fragments > 1){
 				  String backStackId = getFragmentManager().getBackStackEntryAt(1).getName();
-				  	if (backStackId.equals("sig") || backStackId.equals("hos") || backStackId.equals("mus") || backStackId.equals("nig") || backStackId.equals("ch"))
+				  	if (backStackId.equals("events") || backStackId.equals("sig") || backStackId.equals("hos") || backStackId.equals("mus") || backStackId.equals("nig") || backStackId.equals("ch"))
 				  	{
 				  		getFragmentManager().popBackStack(backStackId,0);
 				  	}
@@ -201,7 +222,7 @@ public class MenuFragment extends Fragment {
 				if (fragments > 1){
 				  String backStackId = getFragmentManager().getBackStackEntryAt(1).getName();
 				
-					if (backStackId.equals("sig") || backStackId.equals("food") || backStackId.equals("hos") || backStackId.equals("mus") || backStackId.equals("nig") || backStackId.equals("ch"))
+					if (backStackId.equals("events") || backStackId.equals("sig") || backStackId.equals("food") || backStackId.equals("hos") || backStackId.equals("mus") || backStackId.equals("nig") || backStackId.equals("ch"))
 					{
 						getFragmentManager().popBackStack(backStackId,0);
 					}
@@ -237,7 +258,7 @@ public class MenuFragment extends Fragment {
 			if (fragments > 1){
 				  String backStackId = getFragmentManager().getBackStackEntryAt(1).getName();
 				
-					if (backStackId.equals("sig") || backStackId.equals("food") || backStackId.equals("hos") || backStackId.equals("mus") || backStackId.equals("nig") || backStackId.equals("ch"))
+					if (backStackId.equals("events") || backStackId.equals("sig") || backStackId.equals("food") || backStackId.equals("hos") || backStackId.equals("mus") || backStackId.equals("nig") || backStackId.equals("ch"))
 					{
 						getFragmentManager().popBackStack(backStackId,0);
 					}
@@ -257,7 +278,7 @@ public class MenuFragment extends Fragment {
 			if (fragments > 1){
 				  String backStackId = getFragmentManager().getBackStackEntryAt(1).getName();
 				
-					if (backStackId.equals("sig") || backStackId.equals("food") || backStackId.equals("hos") || backStackId.equals("mus") || backStackId.equals("nig") || backStackId.equals("ch"))
+					if (backStackId.equals("events") || backStackId.equals("sig") || backStackId.equals("food") || backStackId.equals("hos") || backStackId.equals("mus") || backStackId.equals("nig") || backStackId.equals("ch"))
 					{
 						getFragmentManager().popBackStack(backStackId,0);
 					}
@@ -277,7 +298,7 @@ public class MenuFragment extends Fragment {
 			if (fragments > 1){
 				  String backStackId = getFragmentManager().getBackStackEntryAt(1).getName();
 				
-					if (backStackId.equals("sig") || backStackId.equals("food") || backStackId.equals("hos") || backStackId.equals("mus") || backStackId.equals("nig") || backStackId.equals("ch"))
+					if (backStackId.equals("events") || backStackId.equals("sig") || backStackId.equals("food") || backStackId.equals("hos") || backStackId.equals("mus") || backStackId.equals("nig") || backStackId.equals("ch"))
 					{
 						getFragmentManager().popBackStack(backStackId,0);
 					}
@@ -297,7 +318,7 @@ public class MenuFragment extends Fragment {
 			if (fragments > 1){
 				  String backStackId = getFragmentManager().getBackStackEntryAt(1).getName();
 				
-					if (backStackId.equals("sig") || backStackId.equals("food") || backStackId.equals("hos") || backStackId.equals("mus") || backStackId.equals("nig") || backStackId.equals("ch"))
+					if (backStackId.equals("events") || backStackId.equals("sig") || backStackId.equals("food") || backStackId.equals("hos") || backStackId.equals("mus") || backStackId.equals("nig") || backStackId.equals("ch"))
 					{
 						getFragmentManager().popBackStack(backStackId,0);
 					}
@@ -317,7 +338,7 @@ public class MenuFragment extends Fragment {
 			if (fragments > 1){
 				  String backStackId = getFragmentManager().getBackStackEntryAt(1).getName();
 				
-					if (backStackId.equals("sig") || backStackId.equals("food") || backStackId.equals("hos") || backStackId.equals("mus") || backStackId.equals("nig") || backStackId.equals("ch"))
+					if (backStackId.equals("events") || backStackId.equals("sig") || backStackId.equals("food") || backStackId.equals("hos") || backStackId.equals("mus") || backStackId.equals("nig") || backStackId.equals("ch"))
 					{
 						getFragmentManager().popBackStack(backStackId,0);
 					}
@@ -337,7 +358,7 @@ public class MenuFragment extends Fragment {
 			if (fragments > 1){
 				  String backStackId = getFragmentManager().getBackStackEntryAt(1).getName();
 				
-					if (backStackId.equals("sig") || backStackId.equals("food") || backStackId.equals("hos") || backStackId.equals("mus") || backStackId.equals("nig") || backStackId.equals("ch"))
+					if (backStackId.equals("events") || backStackId.equals("sig") || backStackId.equals("food") || backStackId.equals("hos") || backStackId.equals("mus") || backStackId.equals("nig") || backStackId.equals("ch"))
 					{
 						getFragmentManager().popBackStack(backStackId,0);
 					}
@@ -377,7 +398,7 @@ public class MenuFragment extends Fragment {
 			if (fragments > 1){
 				  String backStackId = getFragmentManager().getBackStackEntryAt(1).getName();
 				
-					if (backStackId.equals("sig") || backStackId.equals("food") || backStackId.equals("hos") || backStackId.equals("mus") || backStackId.equals("nig") || backStackId.equals("ch"))
+					if (backStackId.equals("events") || backStackId.equals("sig") || backStackId.equals("food") || backStackId.equals("hos") || backStackId.equals("mus") || backStackId.equals("nig") || backStackId.equals("ch"))
 					{
 						getFragmentManager().popBackStack(backStackId,0);
 					}
@@ -397,7 +418,7 @@ public class MenuFragment extends Fragment {
 			 if (fragments > 1){
 				  String backStackId = getFragmentManager().getBackStackEntryAt(1).getName();
 				
-					if (backStackId.equals("sig") || backStackId.equals("food") || backStackId.equals("hos") || backStackId.equals("mus") || backStackId.equals("nig") || backStackId.equals("ch"))
+					if (backStackId.equals("events") || backStackId.equals("sig") || backStackId.equals("food") || backStackId.equals("hos") || backStackId.equals("mus") || backStackId.equals("nig") || backStackId.equals("ch"))
 					{
 						getFragmentManager().popBackStack(backStackId,0);
 					}
@@ -417,7 +438,7 @@ public class MenuFragment extends Fragment {
 			 if (fragments > 1){
 				  String backStackId = getFragmentManager().getBackStackEntryAt(1).getName();
 				
-					if (backStackId.equals("sig") || backStackId.equals("food") || backStackId.equals("hos") || backStackId.equals("mus") || backStackId.equals("nig") || backStackId.equals("ch"))
+					if (backStackId.equals("events") || backStackId.equals("sig") || backStackId.equals("food") || backStackId.equals("hos") || backStackId.equals("mus") || backStackId.equals("nig") || backStackId.equals("ch"))
 					{
 						getFragmentManager().popBackStack(backStackId,0);
 					}
@@ -437,7 +458,7 @@ public class MenuFragment extends Fragment {
 			 if (fragments > 1){
 				  String backStackId = getFragmentManager().getBackStackEntryAt(1).getName();
 				
-					if (backStackId.equals("sig") || backStackId.equals("food") || backStackId.equals("hos") || backStackId.equals("mus") || backStackId.equals("nig") || backStackId.equals("ch"))
+					if (backStackId.equals("events") || backStackId.equals("sig") || backStackId.equals("food") || backStackId.equals("hos") || backStackId.equals("mus") || backStackId.equals("nig") || backStackId.equals("ch"))
 					{
 						getFragmentManager().popBackStack(backStackId,0);
 					}
@@ -457,7 +478,7 @@ public class MenuFragment extends Fragment {
 			 if (fragments > 1){
 				  String backStackId = getFragmentManager().getBackStackEntryAt(1).getName();
 				
-					if (backStackId.equals("sig") || backStackId.equals("food") || backStackId.equals("hos") || backStackId.equals("mus") || backStackId.equals("nig") || backStackId.equals("ch"))
+					if (backStackId.equals("events") || backStackId.equals("sig") || backStackId.equals("food") || backStackId.equals("hos") || backStackId.equals("mus") || backStackId.equals("nig") || backStackId.equals("ch"))
 					{
 						getFragmentManager().popBackStack(backStackId,0);
 					}

@@ -1,4 +1,4 @@
-package com.example.thesguideproject;
+package com.example.fragmentClasses;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -7,13 +7,18 @@ import java.util.GregorianCalendar;
 import java.util.Locale;
 
 import com.example.adapters.CalendarAdapter;
+import com.example.thesguideproject.R;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.text.format.DateFormat;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -22,36 +27,38 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class CalendarTest extends Activity{
+public class CalendarFragment extends Fragment{
 
+	private GridView gridview;
+	private TextView title;
 	public GregorianCalendar month, itemmonth;// calendar instances.
-
 	public CalendarAdapter adapter;// adapter instance
 	public Handler handler;// for grabbing some event values for showing the dot
 							// marker.
 	public ArrayList<String> items; // container to store calendar items which
 									// needs showing the event marker
 
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.calendar);
-		 Locale.setDefault(Locale.getDefault());
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)  {
+		
+		View view = inflater.inflate(R.layout.calendar, container, false);	
+		
+		Locale.setDefault(Locale.getDefault());
 		month = (GregorianCalendar) GregorianCalendar.getInstance();
 		itemmonth = (GregorianCalendar) month.clone();
 
 		items = new ArrayList<String>();
-		adapter = new CalendarAdapter(this, month);
+		adapter = new CalendarAdapter(getActivity(), month);
 
-		GridView gridview = (GridView) findViewById(R.id.gridview);
+		gridview = (GridView) view.findViewById(R.id.gridview);
 		gridview.setAdapter(adapter);
 
 		handler = new Handler();
 		handler.post(calendarUpdater);
 
-		TextView title = (TextView) findViewById(R.id.title);
+		title = (TextView) view.findViewById(R.id.title);
 		title.setText(android.text.format.DateFormat.format("MMMM yyyy", month));
 
-		RelativeLayout previous = (RelativeLayout) findViewById(R.id.previous);
+		RelativeLayout previous = (RelativeLayout) view.findViewById(R.id.previous);
 
 		previous.setOnClickListener(new OnClickListener() {
 
@@ -62,7 +69,7 @@ public class CalendarTest extends Activity{
 			}
 		});
 
-		RelativeLayout next = (RelativeLayout) findViewById(R.id.next);
+		RelativeLayout next = (RelativeLayout) view.findViewById(R.id.next);
 		next.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -74,9 +81,16 @@ public class CalendarTest extends Activity{
 		});
 
 		gridview.setOnItemClickListener(new OnItemClickListener() {
-			public void onItemClick(AdapterView<?> parent, View v,
-					int position, long id) {
+			public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
 
+				Bundle langbundle = new Bundle();
+				langbundle.putString("language", "English");
+				Fragment fragment = new DisplayImageFragment();
+				fragment.setArguments(langbundle);
+				FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction().replace(R.id.containerdetails, fragment);
+				//fragmentTransaction.addToBackStack("d");
+				fragmentTransaction.commit();
+				
 				((CalendarAdapter) parent.getAdapter()).setSelected(v);
 				String selectedGridDate = CalendarAdapter.dayString
 						.get(position);
@@ -96,8 +110,11 @@ public class CalendarTest extends Activity{
 
 				showToast(selectedGridDate);
 
+			
+				
 			}
 		});
+		return view;
 	}
 
 	protected void setNextMonth() {
@@ -125,13 +142,11 @@ public class CalendarTest extends Activity{
 	}
 
 	protected void showToast(String string) {
-		Toast.makeText(this, string, Toast.LENGTH_SHORT).show();
+		Toast.makeText(getActivity(), string, Toast.LENGTH_SHORT).show();
 
 	}
 
 	public void refreshCalendar() {
-		TextView title = (TextView) findViewById(R.id.title);
-
 		adapter.refreshDays();
 		adapter.notifyDataSetChanged();
 		handler.post(calendarUpdater); // generate some calendar items

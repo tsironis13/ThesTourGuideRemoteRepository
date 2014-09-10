@@ -5,16 +5,16 @@
     android:background="@drawable/background"
     android:orientation="vertical" >
 
-    <RelativeLayout
+      <RelativeLayout
         android:id="@+id/header"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="35dp"
         android:background="@drawable/calendar_top" >
 
         <RelativeLayout
             android:id="@+id/previous"
             android:layout_width="40dip"
-            android:layout_height="30dip"
+            android:layout_height="20dip"
             android:layout_alignParentLeft="true" >
 
             <ImageView
@@ -29,7 +29,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="5dip"
             android:textColor="#000000"
             android:textSize="18dip"
             android:textStyle="bold" />
@@ -37,7 +36,7 @@
         <RelativeLayout
             android:id="@+id/next"
             android:layout_width="40dip"
-            android:layout_height="30dip"
+            android:layout_height="20dip"
             android:layout_alignParentRight="true" >
 
             <ImageView
@@ -46,15 +45,23 @@
                 android:layout_centerInParent="true"
                 android:background="@drawable/arrow_right" />
         </RelativeLayout>
-    </RelativeLayout>
-
-    <GridView
+   </RelativeLayout>
+   
+       <GridView
         android:id="@+id/gridview"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="170dp"
         android:layout_gravity="center_horizontal"
         android:listSelector="@android:color/transparent"
         android:numColumns="7"
         android:stretchMode="columnWidth" />
+    
+     <FrameLayout 
+	    android:id="@+id/containerdetails"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:background="#ccc">
+	</FrameLayout> 
+    
 
 </LinearLayout>
