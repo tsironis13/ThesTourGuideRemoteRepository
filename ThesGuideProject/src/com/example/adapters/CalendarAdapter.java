@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class CalendarAdapter extends BaseAdapter {
 	private Context mContext;
@@ -44,14 +45,15 @@ public class CalendarAdapter extends BaseAdapter {
 
 	public CalendarAdapter(Context c, GregorianCalendar monthCalendar) {
 		CalendarAdapter.dayString = new ArrayList<String>();
-		 Locale.setDefault( Locale.US );
+		 Locale.setDefault(Locale.getDefault());
 		month = monthCalendar;
 		selectedDate = (GregorianCalendar) monthCalendar.clone();
 		mContext = c;
 		month.set(GregorianCalendar.DAY_OF_MONTH, 1);
 		this.items = new ArrayList<String>();
-		df = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
+		df = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
 		curentDateString = df.format(selectedDate.getTime());
+		//Toast.makeText(mContext, curentDateString, Toast.LENGTH_SHORT).show();
 		refreshDays();
 	}
 

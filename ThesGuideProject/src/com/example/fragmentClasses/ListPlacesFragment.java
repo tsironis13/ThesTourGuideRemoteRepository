@@ -35,6 +35,7 @@ public class ListPlacesFragment extends ListFragment{
 	private String subcategory;
 	private static final String debugTag = "ListPlacesFragment";
 	private String language;
+	private String currentDate;
 	
 	//genre is also NameEl
 	public ListPlacesFragment(String genre, String subcategory, double current_latitude, double current_longtitude) {
@@ -44,6 +45,13 @@ public class ListPlacesFragment extends ListFragment{
 		this.current_longtitude = current_longtitude;
 	}
 	
+	public ListPlacesFragment(String genre, String subcategory, double current_latitude, double current_longtitude, String currentDate) {
+		this.genre = genre;
+		this.subcategory = subcategory;
+		this.current_latitude = current_latitude;
+		this.current_longtitude = current_longtitude;
+		this.currentDate = currentDate;
+	}
 	//public static ListPlacesFragment newInstance(String g){
 		
 		//Bundle bundle = new Bundle();
@@ -75,7 +83,17 @@ public class ListPlacesFragment extends ListFragment{
 		super.onActivityCreated(savedInstanceState);
 		
 		//button_pressed = "church";
-		if (genre.equals("museums")){
+		if (genre.equals("events")){
+			if (language.equals("English")){
+				HelperMethodDependingOnCurrentEvents(genre);
+				inEnglishSetAdapterFromSpecificCursor(genre, listExample, specificPlacecursor, columns, to, current_latitude, current_longtitude);
+			}
+			else{
+				HelperMethodDependingOnCurrentEvents(genre);
+				setAdapterFromSpecificCursor(genre, listExample, specificPlacecursor, columns, to, current_latitude, current_longtitude);
+			}
+		}
+		else if (genre.equals("museums")){
 			
 			if (language.equals("English")){
 				HelperMethodDependingOnButtonClick(genre);
@@ -142,6 +160,14 @@ public class ListPlacesFragment extends ListFragment{
 		columns = new String[] {"_id", "name_el", "photo_link", "info", "latitude", "longtitude"};
 		// the XML defined views which the data will be bound to
 		to = new int[] {R.id.locationName, R.id.placeNametv, R.id.locationImage};		
+	}
+	
+	public void HelperMethodDependingOnCurrentEvents(String genre){
+		specificPlacecursor = testDB.getEventsByCurrentDate(currentDate);
+		// the desired columns to be bound
+		columns = new String[] {"_id", "name_el", "photo_link", "info", "latitude", "longtitude"};
+		// the XML defined views which the data will be bound to
+		to = new int[] {R.id.locationName, R.id.placeNametv, R.id.locationImage};	
 	}
 	
 	public void HelperMethodDependingOnButtonClick(String genre){

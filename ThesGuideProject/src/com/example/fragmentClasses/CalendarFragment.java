@@ -1,15 +1,20 @@
 package com.example.fragmentClasses;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Locale;
 
 import com.example.adapters.CalendarAdapter;
+import com.example.myLocation.GPSTracker;
+import com.example.sqlHelper.TestLocalSqliteDatabase;
 import com.example.thesguideproject.R;
 
 import android.app.Activity;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -29,6 +34,12 @@ import android.widget.Toast;
 
 public class CalendarFragment extends Fragment{
 
+	private double current_latitude;
+	private double current_longtitude;
+	private GPSTracker gps;
+	private String genre;
+	private SimpleDateFormat df;
+	private String currentDate;
 	private GridView gridview;
 	private TextView title;
 	public GregorianCalendar month, itemmonth;// calendar instances.
@@ -37,13 +48,38 @@ public class CalendarFragment extends Fragment{
 							// marker.
 	public ArrayList<String> items; // container to store calendar items which
 									// needs showing the event marker
-
+    private String language;
+	private static final String debugTag = "CalendarFragment";
+	private TestLocalSqliteDatabase testDB;
+	private Cursor currentDateEventscursor;
+	String adate = "11/9/2014";
+	String s;
+	
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)  {
 		
 		View view = inflater.inflate(R.layout.calendar, container, false);	
+		language = getArguments().getString("language");
 		
 		Locale.setDefault(Locale.getDefault());
 		month = (GregorianCalendar) GregorianCalendar.getInstance();
+		
+		df = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+		currentDate = df.format(month.getTime());
+		Toast.makeText(getActivity(), currentDate, Toast.LENGTH_SHORT).show();
+		Log.i("current date", currentDate);
+		try {
+			Date strDate = df.parse(adate);
+			 if (new Date().after(strDate)){
+				 //Toast.makeText(getActivity(), "current date after adate", Toast.LENGTH_SHORT).show();
+			 }
+			 else{
+				// Toast.makeText(getActivity(), "current date before adate", Toast.LENGTH_SHORT).show();
+			 }
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		
+		Log.i("month =>", month.toString());
 		itemmonth = (GregorianCalendar) month.clone();
 
 		items = new ArrayList<String>();
@@ -61,7 +97,6 @@ public class CalendarFragment extends Fragment{
 		RelativeLayout previous = (RelativeLayout) view.findViewById(R.id.previous);
 
 		previous.setOnClickListener(new OnClickListener() {
-
 			@Override
 			public void onClick(View v) {
 				setPreviousMonth();
@@ -71,29 +106,26 @@ public class CalendarFragment extends Fragment{
 
 		RelativeLayout next = (RelativeLayout) view.findViewById(R.id.next);
 		next.setOnClickListener(new OnClickListener() {
-
 			@Override
 			public void onClick(View v) {
 				setNextMonth();
 				refreshCalendar();
-
 			}
 		});
 
 		gridview.setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
 
-				Bundle langbundle = new Bundle();
+				/*Bundle langbundle = new Bundle();
 				langbundle.putString("language", "English");
 				Fragment fragment = new DisplayImageFragment();
 				fragment.setArguments(langbundle);
 				FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction().replace(R.id.containerdetails, fragment);
 				//fragmentTransaction.addToBackStack("d");
-				fragmentTransaction.commit();
+				fragmentTransaction.commit();*/
 				
 				((CalendarAdapter) parent.getAdapter()).setSelected(v);
-				String selectedGridDate = CalendarAdapter.dayString
-						.get(position);
+				String selectedGridDate = CalendarAdapter.dayString.get(position);
 				String[] separatedTime = selectedGridDate.split("-");
 				String gridvalueString = separatedTime[2].replaceFirst("^0*",
 						"");// taking last part of date. ie; 2 from 2012-12-02.
@@ -117,33 +149,58 @@ public class CalendarFragment extends Fragment{
 		return view;
 	}
 
+	
+	
+	
+	@Override
+	public void onActivityCreated(Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		super.onActivityCreated(savedInstanceState);
+		gps = new GPSTracker(getActivity());
+		
+		if (gps.canGetLocation()){
+			 current_latitude = gps.getLatitude();
+             current_longtitude = gps.getLongitude();
+		}
+		else
+		{
+            gps.showSettingsAlert();
+        }
+		
+		genre = "events";
+		Bundle langBundle = new Bundle();
+		langBundle.putString("language", language);
+		ListPlacesFragment listEventsFragment = new ListPlacesFragment(genre, "", current_latitude, current_longtitude, currentDate);
+		listEventsFragment.setArguments(langBundle);
+		FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction().replace(R.id.containerdetails, listEventsFragment);
+		fragmentTransaction.commit();
+	}
+
+
+
+
 	protected void setNextMonth() {
-		if (month.get(GregorianCalendar.MONTH) == month
-				.getActualMaximum(GregorianCalendar.MONTH)) {
-			month.set((month.get(GregorianCalendar.YEAR) + 1),
-					month.getActualMinimum(GregorianCalendar.MONTH), 1);
+		if (month.get(GregorianCalendar.MONTH) == month.getActualMaximum(GregorianCalendar.MONTH)) {
+			
+			month.set((month.get(GregorianCalendar.YEAR) + 1), month.getActualMinimum(GregorianCalendar.MONTH), 1);
+			
 		} else {
-			month.set(GregorianCalendar.MONTH,
-					month.get(GregorianCalendar.MONTH) + 1);
+			month.set(GregorianCalendar.MONTH, month.get(GregorianCalendar.MONTH) + 1);
 		}
 
 	}
 
 	protected void setPreviousMonth() {
-		if (month.get(GregorianCalendar.MONTH) == month
-				.getActualMinimum(GregorianCalendar.MONTH)) {
-			month.set((month.get(GregorianCalendar.YEAR) - 1),
-					month.getActualMaximum(GregorianCalendar.MONTH), 1);
+		if (month.get(GregorianCalendar.MONTH) == month.getActualMinimum(GregorianCalendar.MONTH)) {
+			month.set((month.get(GregorianCalendar.YEAR) - 1), month.getActualMaximum(GregorianCalendar.MONTH), 1);
 		} else {
-			month.set(GregorianCalendar.MONTH,
-					month.get(GregorianCalendar.MONTH) - 1);
+			month.set(GregorianCalendar.MONTH, month.get(GregorianCalendar.MONTH) - 1);
 		}
 
 	}
 
 	protected void showToast(String string) {
 		Toast.makeText(getActivity(), string, Toast.LENGTH_SHORT).show();
-
 	}
 
 	public void refreshCalendar() {
@@ -155,13 +212,12 @@ public class CalendarFragment extends Fragment{
 	}
 
 	public Runnable calendarUpdater = new Runnable() {
-
 		@Override
 		public void run() {
 			items.clear();
 
 			// Print dates of the current week
-			SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd",Locale.US);
+			SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd",Locale.getDefault());
 			String itemvalue;
 			for (int i = 0; i < 7; i++) {
 				itemvalue = df.format(itemmonth.getTime());
@@ -178,6 +234,15 @@ public class CalendarFragment extends Fragment{
 			adapter.notifyDataSetChanged();
 		}
 	};
+
+	@Override
+	public void onDestroy() {
+		// TODO Auto-generated method stub
+		super.onDestroy();
+	}
+	
+	
+	
 }
 
 

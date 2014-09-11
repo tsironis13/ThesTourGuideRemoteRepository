@@ -377,6 +377,14 @@ public class TestLocalSqliteDatabase extends SQLiteOpenHelper {
 		 return cursor;
 	 }
 	 
+	 public Cursor getEventsByCurrentDate(String currentDate) throws SQLException{
+		 SQLiteDatabase db = this.getReadableDatabase();
+		 
+		 //String searchQuery = "SELECT * FROM PlacesTable WHERE menu_en = '" + currentDate + "'";
+		 Cursor cursor = db.rawQuery("SELECT * FROM PlacesTable WHERE menu_en > ? ", new String[]{currentDate});
+		 return cursor;
+	 }
+	 
 	 public Cursor getSpecificPlaceData(String genre) throws SQLException{
 		 SQLiteDatabase db = this.getReadableDatabase();
 		 

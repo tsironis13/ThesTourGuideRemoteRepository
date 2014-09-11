@@ -112,7 +112,10 @@ public class MenuFragment extends Fragment {
 		eventsButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				Bundle langBundle = new Bundle();
+				langBundle.putString("language", language);
 				CalendarFragment calendarFragment = new CalendarFragment();
+				calendarFragment.setArguments(langBundle);
 				fragmentTransaction = getFragmentManager().beginTransaction().add(R.id.containerlist, calendarFragment);
 				int fragments = getFragmentManager().getBackStackEntryCount();
 				if (fragments > 1){
