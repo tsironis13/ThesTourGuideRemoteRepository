@@ -55,13 +55,15 @@
         android:listSelector="@android:color/transparent"
         android:numColumns="7"
         android:stretchMode="columnWidth" />
-    
+  
+       
      <FrameLayout 
 	    android:id="@+id/containerdetails"
 	    android:layout_width="match_parent"
-	    android:layout_height="wrap_content"
+	    android:layout_height="match_parent"
 	    android:background="#ccc">
-	</FrameLayout> 
+	</FrameLayout>
+	
     
 
 </LinearLayout>

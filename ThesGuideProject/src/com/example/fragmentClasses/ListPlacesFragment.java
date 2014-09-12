@@ -1,9 +1,17 @@
 package com.example.fragmentClasses;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.Locale;
 
+import com.example.adapters.EventsBaseAdapter;
 import com.example.adapters.InEnglishPlacesDataListCursorAdapter;
 import com.example.adapters.PlacesDataListCursorAdapter;
+import com.example.locationData.LocationData;
+import com.example.locationData.PlacesData;
 import com.example.sqlHelper.TestLocalSqliteDatabase;
 import com.example.tasks.BitmapTask;
 import com.example.thesguideproject.R;
@@ -12,10 +20,14 @@ import android.annotation.SuppressLint;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 @SuppressLint("ValidFragment") 
@@ -25,6 +37,7 @@ public class ListPlacesFragment extends ListFragment{
 	private BitmapTask imgFetcher = new BitmapTask(getActivity());
 	private Cursor specificPlacecursor;
 	private Cursor allDisplayImageLinkcursor;
+	private Cursor currenteventsCursor;
 	private String[] columns;
 	private int[] to;
 	//private String genre;
@@ -36,6 +49,11 @@ public class ListPlacesFragment extends ListFragment{
 	private static final String debugTag = "ListPlacesFragment";
 	private String language;
 	private String currentDate;
+	private SimpleDateFormat df;
+	public GregorianCalendar month;
+	Date strDate;
+	private ArrayList<PlacesData> currenteventslist = new ArrayList<PlacesData>();; 
+	private LayoutInflater layoutInflater;
 	
 	//genre is also NameEl
 	public ListPlacesFragment(String genre, String subcategory, double current_latitude, double current_longtitude) {
@@ -45,13 +63,6 @@ public class ListPlacesFragment extends ListFragment{
 		this.current_longtitude = current_longtitude;
 	}
 	
-	public ListPlacesFragment(String genre, String subcategory, double current_latitude, double current_longtitude, String currentDate) {
-		this.genre = genre;
-		this.subcategory = subcategory;
-		this.current_latitude = current_latitude;
-		this.current_longtitude = current_longtitude;
-		this.currentDate = currentDate;
-	}
 	//public static ListPlacesFragment newInstance(String g){
 		
 		//Bundle bundle = new Bundle();
@@ -81,15 +92,19 @@ public class ListPlacesFragment extends ListFragment{
 	public void onActivityCreated(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onActivityCreated(savedInstanceState);
+		month = (GregorianCalendar) GregorianCalendar.getInstance();
+		df = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+		currentDate = df.format(month.getTime());
+		Toast.makeText(getActivity(), currentDate, Toast.LENGTH_SHORT).show();
 		
 		//button_pressed = "church";
 		if (genre.equals("events")){
 			if (language.equals("English")){
-				HelperMethodDependingOnCurrentEvents(genre);
-				inEnglishSetAdapterFromSpecificCursor(genre, listExample, specificPlacecursor, columns, to, current_latitude, current_longtitude);
+				HelperMethodDependingOnCurrentEvents(genre, currentDate);
+				//inEnglishSetAdapterFromSpecificCursor(genre, listExample, specificPlacecursor, columns, to, current_latitude, current_longtitude);
 			}
 			else{
-				HelperMethodDependingOnCurrentEvents(genre);
+				HelperMethodDependingOnCurrentEvents(genre, currentDate);
 				setAdapterFromSpecificCursor(genre, listExample, specificPlacecursor, columns, to, current_latitude, current_longtitude);
 			}
 		}
@@ -162,8 +177,24 @@ public class ListPlacesFragment extends ListFragment{
 		to = new int[] {R.id.locationName, R.id.placeNametv, R.id.locationImage};		
 	}
 	
-	public void HelperMethodDependingOnCurrentEvents(String genre){
-		specificPlacecursor = testDB.getEventsByCurrentDate(currentDate);
+	public static class MyViewHolder{
+    	//public TextView genre, nameEl, latitude, longtitude;
+    	//public RelativeLayout relLay;
+    	//public Button trackButton;
+    	//public Button detailsButton;
+    	//public ImageView icon;
+		public TextView placeNametv;
+    	public PlacesData locations;
+}
+	
+	public void HelperMethodDependingOnCurrentEvents(String genre, String currentDate){
+		//specificPlacecursor = testDB.getAllEvents(genre);
+		
+		currenteventslist = testDB.getAllEvents("events");
+	
+		
+		setListAdapter(new EventsBaseAdapter(this, getActivity(), R.layout.places_basic_layout, currenteventslist));
+		
 		// the desired columns to be bound
 		columns = new String[] {"_id", "name_el", "photo_link", "info", "latitude", "longtitude"};
 		// the XML defined views which the data will be bound to

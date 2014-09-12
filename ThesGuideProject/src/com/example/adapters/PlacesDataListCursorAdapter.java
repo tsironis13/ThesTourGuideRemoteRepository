@@ -61,7 +61,7 @@ public class PlacesDataListCursorAdapter extends SimpleCursorAdapter implements 
 	private ActionBar act;
 	
 	GPSTracker gps;
-	ArrayList<PlacesData> placesDataArray = new ArrayList<PlacesData>();
+	//ArrayList<PlacesData> placesDataArray = new ArrayList<PlacesData>();
 	
 	/*public PLacesDataListCursorAdapter(String button_pressed, ListPlacesFragment activity, Context context, int layout, Cursor cursor, String[] from, int[] to, BitmapTask i, double current_latitude, double current_longtitude) {
 		super(context, layout, cursor, from, to);

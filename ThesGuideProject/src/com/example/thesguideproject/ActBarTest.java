@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.example.adapters.LocationsDataAdapter;
 import com.example.locationData.LocationData;
+import com.example.locationData.PlacesData;
 import com.example.tasks.ImageTask;
 import com.example.tasks.JsonWebAPITask;
 
@@ -48,7 +49,7 @@ public class ActBarTest extends ActionBarActivity{
 		setContentView(R.layout.actbartestlayout);
 		
 		this.locationsList = (ListView) findViewById(R.id.locations_list);
-		this.imgFetcher = new ImageTask(this);
+		//this.imgFetcher = new ImageTask(this);
         this.layoutInflator = LayoutInflater.from(this);
         
         
@@ -131,7 +132,7 @@ public class ActBarTest extends ActionBarActivity{
     	//public Button trackButton;
     	public Button detailsButton;
     	public ImageView icon;
-    	public LocationData locations;
+    	public PlacesData locations;
     } 
     
 /*

@@ -393,7 +393,7 @@ public class MainLayoutActivity extends FragmentActivity implements OnItemSelect
 	public void setTracks(ArrayList<LocationData> locData) {
 		// TODO Auto-generated method stub
 		this.locations = locData;
-		this.locationsList.setAdapter(new LocationsDataAdapter(this, this.imgFetcher, this.layoutInflator, this.locations));
+		//this.locationsList.setAdapter(new LocationsDataAdapter(this, this.imgFetcher, this.layoutInflator, this.locations));
 	}
 	
 	

@@ -3,6 +3,7 @@ package com.example.adapters;
 import java.util.ArrayList;
 
 import com.example.locationData.LocationData;
+import com.example.locationData.PlacesData;
 import com.example.tasks.ImageTask;
 import com.example.thesguideproject.ActBarTest;
 import com.example.thesguideproject.ActBarTest.MyViewHolder;
@@ -30,15 +31,20 @@ public class LocationsDataAdapter extends BaseAdapter implements OnClickListener
 	private MainLayoutActivity activity;
 	private ImageTask imgFetcher;
 	private LayoutInflater layoutInflater;
-	private ArrayList<LocationData> locations;
+	private ArrayList<PlacesData> locations;
 	
-	public LocationsDataAdapter(MainLayoutActivity a, ImageTask i,  LayoutInflater l, ArrayList<LocationData> data){
+	/*public LocationsDataAdapter(MainLayoutActivity a, ImageTask i,  LayoutInflater l, ArrayList<LocationData> data){
 		this.activity = a;
 		this.imgFetcher = i;
 		this.layoutInflater = l;
 		this.locations = data;
-	}
+	}*/
 	
+	public LocationsDataAdapter(MainLayoutActivity a, LayoutInflater l, ArrayList<PlacesData> data){
+		this.activity = a;
+		this.layoutInflater = l;
+		this.locations = data;
+	}
 	
 	@Override
 	public int getCount() {
@@ -80,7 +86,7 @@ public class LocationsDataAdapter extends BaseAdapter implements OnClickListener
 			holder = (MyViewHolder) convertView.getTag();
 		}
    		
-   		LocationData location = locations.get(pos);
+   		PlacesData location = locations.get(pos);
    		holder.locations = location;
    		holder.genre.setText(location.getGenre());
    		holder.nameEl.setText(location.getNameEl());

@@ -65,7 +65,7 @@ public class CalendarFragment extends Fragment{
 		
 		df = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
 		currentDate = df.format(month.getTime());
-		Toast.makeText(getActivity(), currentDate, Toast.LENGTH_SHORT).show();
+		//Toast.makeText(getActivity(), currentDate, Toast.LENGTH_SHORT).show();
 		Log.i("current date", currentDate);
 		try {
 			Date strDate = df.parse(adate);
@@ -170,7 +170,7 @@ public class CalendarFragment extends Fragment{
 		genre = "events";
 		Bundle langBundle = new Bundle();
 		langBundle.putString("language", language);
-		ListPlacesFragment listEventsFragment = new ListPlacesFragment(genre, "", current_latitude, current_longtitude, currentDate);
+		ListPlacesFragment listEventsFragment = new ListPlacesFragment(genre, "", current_latitude, current_longtitude);
 		listEventsFragment.setArguments(langBundle);
 		FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction().replace(R.id.containerdetails, listEventsFragment);
 		fragmentTransaction.commit();

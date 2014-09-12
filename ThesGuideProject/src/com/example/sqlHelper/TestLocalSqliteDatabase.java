@@ -5,7 +5,12 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.Locale;
 
 import com.example.locationData.LocationData;
 import com.example.locationData.PlacesData;
@@ -39,6 +44,10 @@ public class TestLocalSqliteDatabase extends SQLiteOpenHelper {
 	private static final String TEST_SURNNAME = "surname";
 	private static final String TEST_TYPE = "type";
 	
+	private SimpleDateFormat df;
+	private String currentDate;
+	public GregorianCalendar month;
+	 Date strDate;
 	//private static String flag;
 	//private static final String TABLE_RECORD = "TestTable"; 
 	public static TestLocalSqliteDatabase getInstance(Context myContext){
@@ -377,12 +386,91 @@ public class TestLocalSqliteDatabase extends SQLiteOpenHelper {
 		 return cursor;
 	 }
 	 
-	 public Cursor getEventsByCurrentDate(String currentDate) throws SQLException{
+	 public Cursor getCurrentEvents(int id) throws SQLException{
 		 SQLiteDatabase db = this.getReadableDatabase();
 		 
-		 //String searchQuery = "SELECT * FROM PlacesTable WHERE menu_en = '" + currentDate + "'";
-		 Cursor cursor = db.rawQuery("SELECT * FROM PlacesTable WHERE menu_en > ? ", new String[]{currentDate});
+		 String searchQuery = "SELECT * FROM PlacesTable WHERE _id = '" + id + "'";
+		 //Cursor cursor = db.rawQuery("SELECT * FROM PlacesTable WHERE _id = ? ", new Integer[]{id});
+		 Cursor cursor = db.rawQuery(searchQuery, null);
 		 return cursor;
+	 }
+	
+	 public ArrayList<PlacesData> getAllEvents(String genre) throws SQLException{
+		 SQLiteDatabase db = this.getReadableDatabase();
+		 
+		 ArrayList<PlacesData> eventslist = new ArrayList<PlacesData>();
+		 
+		 month = (GregorianCalendar) GregorianCalendar.getInstance();
+		 df = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+		 currentDate = df.format(month.getTime());
+		 //String searchQuery = "SELECT * FROM PlacesTable WHERE menu_en = '" + currentDate + "'";
+		 Cursor cursor = db.rawQuery("SELECT * FROM PlacesTable WHERE genre = ? ", new String[]{genre});
+		 
+		 if (cursor.moveToFirst()){
+			 do{
+				 int id = cursor.getInt(cursor.getColumnIndex("_id"));
+				 String genre1 = cursor.getString(cursor.getColumnIndex("genre"));
+				 String subcategory = cursor.getString(cursor.getColumnIndex("subcategory"));
+				 String fromDate = cursor.getString(cursor.getColumnIndex("exhibition_en"));
+				 String toDate = cursor.getString(cursor.getColumnIndex("menu_en"));
+				 String placeNameEl = cursor.getString(cursor.getColumnIndex("name_el"));
+				 String placeNameEl_lower = cursor.getString(cursor.getColumnIndex("nameel_lower"));
+				 String placeNameEn = cursor.getString(cursor.getColumnIndex("name_en"));
+				 String image_link = cursor.getString(cursor.getColumnIndex("photo_link"));
+				 double place_latitude = cursor.getDouble(cursor.getColumnIndex("latitude"));
+				 String str_placelatitude = Double.toString(place_latitude);
+				 double place_longtitude = cursor.getDouble(cursor.getColumnIndex("longtitude"));
+				 String str_placelongtitude = Double.toString(place_longtitude);
+				 String descInfo = cursor.getString(cursor.getColumnIndex("info"));
+				 String info_en = cursor.getString(cursor.getColumnIndex("info_en"));
+				 String tel = cursor.getString(cursor.getColumnIndex("tel"));
+				 String link = cursor.getString(cursor.getColumnIndex("link"));
+				 String fbLink = cursor.getString(cursor.getColumnIndex("fb_link"));
+				 String email = cursor.getString(cursor.getColumnIndex("email"));
+				 String exhibition = cursor.getString(cursor.getColumnIndex("exhibition"));
+				 String menu = cursor.getString(cursor.getColumnIndex("menu"));
+				 String link1 = cursor.getString(cursor.getColumnIndex("link1"));
+				 String link2 = cursor.getString(cursor.getColumnIndex("link2"));
+				 String link3 = cursor.getString(cursor.getColumnIndex("link3"));
+				 String link4 = cursor.getString(cursor.getColumnIndex("link4"));
+				 String link5 = cursor.getString(cursor.getColumnIndex("link5"));
+				 
+				 String PlaceDays = fromDate.substring(0, 2);
+				 Log.i("day =>", PlaceDays);
+				 String PlaceMonth = fromDate.substring(3, 5);
+				 Log.i("Month =>", PlaceMonth);
+				 String PlaceYear = fromDate.substring(6, 10);
+				 Log.i("Year =>", PlaceYear);
+				
+				 String currentDateDays = currentDate.substring(0, 2);
+				 Log.i("current day =>", currentDateDays);
+				 String currentDateMonth = currentDate.substring(3, 5);
+				 String currentDateYear = currentDate.substring(6, 10);
+				 
+				 df = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+				
+				try {
+					strDate = df.parse(fromDate);
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				 
+				 if (new Date().after(strDate)){ 
+					 String s_id = Integer.toString(id);
+					 Toast.makeText(myContext, s_id, Toast.LENGTH_SHORT).show();
+					 
+					 eventslist.add(new PlacesData(id, placeNameEl, placeNameEl_lower, placeNameEn, link, place_latitude, place_longtitude, 
+							 image_link, genre1, descInfo, exhibition, menu, info_en, fromDate, toDate, link1, link2, link3, link4,
+							 link5, subcategory, tel, email, fbLink));
+					
+				 }
+				 
+				
+			 }while(cursor.moveToNext());
+		 }
+		 
+		 return eventslist;
 	 }
 	 
 	 public Cursor getSpecificPlaceData(String genre) throws SQLException{
