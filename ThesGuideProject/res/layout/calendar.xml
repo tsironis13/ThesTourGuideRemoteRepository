@@ -8,13 +8,13 @@
       <RelativeLayout
         android:id="@+id/header"
         android:layout_width="fill_parent"
-        android:layout_height="35dp"
+        android:layout_height="50dp"
         android:background="@drawable/calendar_top" >
 
         <RelativeLayout
             android:id="@+id/previous"
             android:layout_width="40dp"
-            android:layout_height="20dp"
+            android:layout_height="30dp"
             android:layout_alignParentLeft="true" >
 
             <ImageView
@@ -36,7 +36,7 @@
         <RelativeLayout
             android:id="@+id/next"
             android:layout_width="40dp"
-            android:layout_height="20dp"
+            android:layout_height="30dp"
             android:layout_alignParentRight="true" >
 
             <ImageView
@@ -50,12 +50,20 @@
        <GridView
         android:id="@+id/gridview"
         android:layout_width="fill_parent"
-        android:layout_height="170dp"
+        android:layout_height="150dp"
         android:layout_gravity="center_horizontal"
         android:listSelector="@android:color/transparent"
         android:numColumns="7"
         android:stretchMode="columnWidth" />
   
+       <TextView
+           android:id="@+id/eventslabeltv"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:paddingBottom="5dp"
+           android:paddingTop="5dp"
+           android:layout_gravity="center" >
+       </TextView> 
        
      <FrameLayout 
 	    android:id="@+id/containerdetails"

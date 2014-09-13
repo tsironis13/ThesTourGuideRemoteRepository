@@ -48,12 +48,10 @@ public class ListPlacesFragment extends ListFragment{
 	private String subcategory;
 	private static final String debugTag = "ListPlacesFragment";
 	private String language;
-	private String currentDate;
-	private SimpleDateFormat df;
-	public GregorianCalendar month;
-	Date strDate;
+	private String date;
 	private ArrayList<PlacesData> currenteventslist = new ArrayList<PlacesData>();; 
 	private LayoutInflater layoutInflater;
+	private String flag;
 	
 	//genre is also NameEl
 	public ListPlacesFragment(String genre, String subcategory, double current_latitude, double current_longtitude) {
@@ -61,6 +59,15 @@ public class ListPlacesFragment extends ListFragment{
 		this.subcategory = subcategory;
 		this.current_latitude = current_latitude;
 		this.current_longtitude = current_longtitude;
+	}
+	
+	public ListPlacesFragment(String genre, String subcategory, double current_latitude, double current_longtitude, String date, String flag) {
+		this.genre = genre;
+		this.subcategory = subcategory;
+		this.current_latitude = current_latitude;
+		this.current_longtitude = current_longtitude;
+		this.date = date;
+		this.flag = flag;
 	}
 	
 	//public static ListPlacesFragment newInstance(String g){
@@ -92,19 +99,15 @@ public class ListPlacesFragment extends ListFragment{
 	public void onActivityCreated(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onActivityCreated(savedInstanceState);
-		month = (GregorianCalendar) GregorianCalendar.getInstance();
-		df = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
-		currentDate = df.format(month.getTime());
-		Toast.makeText(getActivity(), currentDate, Toast.LENGTH_SHORT).show();
 		
 		//button_pressed = "church";
 		if (genre.equals("events")){
 			if (language.equals("English")){
-				HelperMethodDependingOnCurrentEvents(genre, currentDate);
+				HelperMethodDependingOnCurrentEvents(genre, date);
 				//inEnglishSetAdapterFromSpecificCursor(genre, listExample, specificPlacecursor, columns, to, current_latitude, current_longtitude);
 			}
 			else{
-				HelperMethodDependingOnCurrentEvents(genre, currentDate);
+				HelperMethodDependingOnCurrentEvents(genre, date);
 				setAdapterFromSpecificCursor(genre, listExample, specificPlacecursor, columns, to, current_latitude, current_longtitude);
 			}
 		}
@@ -187,10 +190,15 @@ public class ListPlacesFragment extends ListFragment{
     	public PlacesData locations;
 }
 	
-	public void HelperMethodDependingOnCurrentEvents(String genre, String currentDate){
+	public void HelperMethodDependingOnCurrentEvents(String genre, String date){
 		//specificPlacecursor = testDB.getAllEvents(genre);
 		
-		currenteventslist = testDB.getAllEvents("events");
+		if (flag.equals("oncreate")){
+			currenteventslist = testDB.getAllEvents("events", date);
+		}
+		else{
+			currenteventslist = testDB.getEventsOnCalendarClick("events", date);
+		}
 	
 		
 		setListAdapter(new EventsBaseAdapter(this, getActivity(), R.layout.places_basic_layout, currenteventslist));

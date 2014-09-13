@@ -39,9 +39,12 @@ public class CalendarFragment extends Fragment{
 	private GPSTracker gps;
 	private String genre;
 	private SimpleDateFormat df;
+	private SimpleDateFormat dfmonth;
+	private SimpleDateFormat dfyear;
 	private String currentDate;
 	private GridView gridview;
 	private TextView title;
+	private TextView eventslabeltv;
 	public GregorianCalendar month, itemmonth;// calendar instances.
 	public CalendarAdapter adapter;// adapter instance
 	public Handler handler;// for grabbing some event values for showing the dot
@@ -50,10 +53,8 @@ public class CalendarFragment extends Fragment{
 									// needs showing the event marker
     private String language;
 	private static final String debugTag = "CalendarFragment";
-	private TestLocalSqliteDatabase testDB;
-	private Cursor currentDateEventscursor;
-	String adate = "11/9/2014";
-	String s;
+	private String flag;
+	private String[] months = {"January", "October"};
 	
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)  {
 		
@@ -62,24 +63,14 @@ public class CalendarFragment extends Fragment{
 		
 		Locale.setDefault(Locale.getDefault());
 		month = (GregorianCalendar) GregorianCalendar.getInstance();
-		
-		df = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+			
+		df = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+		dfmonth = new SimpleDateFormat("MM", Locale.getDefault());
+		dfyear = new SimpleDateFormat("yyyy", Locale.getDefault());
 		currentDate = df.format(month.getTime());
 		//Toast.makeText(getActivity(), currentDate, Toast.LENGTH_SHORT).show();
 		Log.i("current date", currentDate);
-		try {
-			Date strDate = df.parse(adate);
-			 if (new Date().after(strDate)){
-				 //Toast.makeText(getActivity(), "current date after adate", Toast.LENGTH_SHORT).show();
-			 }
-			 else{
-				// Toast.makeText(getActivity(), "current date before adate", Toast.LENGTH_SHORT).show();
-			 }
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
 		
-		Log.i("month =>", month.toString());
 		itemmonth = (GregorianCalendar) month.clone();
 
 		items = new ArrayList<String>();
@@ -91,9 +82,53 @@ public class CalendarFragment extends Fragment{
 		handler = new Handler();
 		handler.post(calendarUpdater);
 
+		eventslabeltv = (TextView) view.findViewById(R.id.eventslabeltv);
 		title = (TextView) view.findViewById(R.id.title);
+		
+	if (!language.equals("English")){	
+		
+		String mo = dfmonth.format(month.getTime());
+		String year = dfyear.format(month.getTime());
+		Toast.makeText(getActivity(), mo, Toast.LENGTH_SHORT).show();
+		if (mo.equals("10")){
+			title.setText("Οκτώβριος " + year);
+		}
+		else if (mo.equals("11")){
+			title.setText("Νοέμβριος " + year);
+		}
+		else if (mo.equals("12")){
+			title.setText("Δεκέμβριος " + year);
+		}
+		else if (mo.equals("01")){
+			title.setText("Ιανουάριος " + year);
+		}
+		else if (mo.equals("02")){
+			title.setText("Φεβρουάριος " + year);
+		}
+		else if (mo.equals("03")){
+			title.setText("Μάρτιος " + year);
+		}
+		else if (mo.equals("04")){
+			title.setText("Απρίλιος " + year);
+		}
+		else if (mo.equals("05")){
+			title.setText("Μάιος " + year);
+		}
+		else if (mo.equals("06")){
+			title.setText("Ιούνιος " + year);
+		}
+		else if (mo.equals("07")){
+			title.setText("Ιούλιος " + year);
+		}
+		else if (mo.equals("08")){
+			title.setText("Αύγουστος " + year);
+		}
+		else if (mo.equals("09")){
+			title.setText("Σεπτέμβριος " + year);
+		}
+	}else{	
 		title.setText(android.text.format.DateFormat.format("MMMM yyyy", month));
-
+	}
 		RelativeLayout previous = (RelativeLayout) view.findViewById(R.id.previous);
 
 		previous.setOnClickListener(new OnClickListener() {
@@ -127,8 +162,7 @@ public class CalendarFragment extends Fragment{
 				((CalendarAdapter) parent.getAdapter()).setSelected(v);
 				String selectedGridDate = CalendarAdapter.dayString.get(position);
 				String[] separatedTime = selectedGridDate.split("-");
-				String gridvalueString = separatedTime[2].replaceFirst("^0*",
-						"");// taking last part of date. ie; 2 from 2012-12-02.
+				String gridvalueString = separatedTime[2].replaceFirst("^0*", "");// taking last part of date. ie; 2 from 2012-12-02.
 				int gridvalue = Integer.parseInt(gridvalueString);
 				// navigate to next or previous month on clicking offdays.
 				if ((gridvalue > 10) && (position < 8)) {
@@ -140,6 +174,15 @@ public class CalendarFragment extends Fragment{
 				}
 				((CalendarAdapter) parent.getAdapter()).setSelected(v);
 
+				flag = "onclick";
+				genre = "events";
+				Bundle langBundle = new Bundle();
+				langBundle.putString("language", language);
+				eventslabeltv.setText("Events: " + selectedGridDate);
+				ListPlacesFragment listEventsFragment = new ListPlacesFragment(genre, "", current_latitude, current_longtitude, selectedGridDate, flag);
+				listEventsFragment.setArguments(langBundle);
+				FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction().replace(R.id.containerdetails, listEventsFragment);
+				fragmentTransaction.commit();
 				showToast(selectedGridDate);
 
 			
@@ -167,10 +210,12 @@ public class CalendarFragment extends Fragment{
             gps.showSettingsAlert();
         }
 		
+		flag = "oncreate";
 		genre = "events";
 		Bundle langBundle = new Bundle();
 		langBundle.putString("language", language);
-		ListPlacesFragment listEventsFragment = new ListPlacesFragment(genre, "", current_latitude, current_longtitude);
+		eventslabeltv.setText("EVENTS TODAY");
+		ListPlacesFragment listEventsFragment = new ListPlacesFragment(genre, "", current_latitude, current_longtitude, currentDate, flag);
 		listEventsFragment.setArguments(langBundle);
 		FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction().replace(R.id.containerdetails, listEventsFragment);
 		fragmentTransaction.commit();
@@ -181,7 +226,6 @@ public class CalendarFragment extends Fragment{
 
 	protected void setNextMonth() {
 		if (month.get(GregorianCalendar.MONTH) == month.getActualMaximum(GregorianCalendar.MONTH)) {
-			
 			month.set((month.get(GregorianCalendar.YEAR) + 1), month.getActualMinimum(GregorianCalendar.MONTH), 1);
 			
 		} else {
@@ -208,7 +252,50 @@ public class CalendarFragment extends Fragment{
 		adapter.notifyDataSetChanged();
 		handler.post(calendarUpdater); // generate some calendar items
 
-		title.setText(android.text.format.DateFormat.format("MMMM yyyy", month));
+			if (!language.equals("English")){	
+				String mo = dfmonth.format(month.getTime());
+				String year = dfyear.format(month.getTime());
+				Toast.makeText(getActivity(), mo, Toast.LENGTH_SHORT).show();
+				if (mo.equals("10")){
+					title.setText("Οκτώβριος " + year);
+				}
+				else if (mo.equals("11")){
+					title.setText("Νοέμβριος " + year);
+				}
+				else if (mo.equals("12")){
+					title.setText("Δεκέμβριος " + year);
+				}
+				else if (mo.equals("01")){
+					title.setText("Ιανουάριος " + year);
+				}
+				else if (mo.equals("02")){
+					title.setText("Φεβρουάριος " + year);
+				}
+				else if (mo.equals("03")){
+					title.setText("Μάρτιος " + year);
+				}
+				else if (mo.equals("04")){
+					title.setText("Απρίλιος " + year);
+				}
+				else if (mo.equals("05")){
+					title.setText("Μάιος " + year);
+				}
+				else if (mo.equals("06")){
+					title.setText("Ιούνιος " + year);
+				}
+				else if (mo.equals("07")){
+					title.setText("Ιούλιος " + year);
+				}
+				else if (mo.equals("08")){
+					title.setText("Αύγουστος " + year);
+				}
+				else if (mo.equals("09")){
+					title.setText("Σεπτέμβριος " + year);
+				}
+				
+			}else{	
+				title.setText(android.text.format.DateFormat.format("MMMM yyyy", month));
+			}
 	}
 
 	public Runnable calendarUpdater = new Runnable() {
