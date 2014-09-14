@@ -161,7 +161,7 @@ public class PlacesDetailsTabs extends ActionBarActivity implements OnGoogleMapF
         exhibitionBundle = new Bundle();
         exhibitionBundle.putString("exhibition", exhibition);
         //tabsPagerAdapter.addTab(actionBar.newTab().setText("Exhibition"), ExhibitionFragment.class, exhibitionBundle);
-        if (!exhibition.equals("null"))
+        if (!exhibition.equals("null") && !(exhibition.length() == 10))
         	if (language.equals("Greek")){
         		tabsPagerAdapter.addTab(mActionBar.newTab().setText("Εκθεσεις"), ExhibitionFragment.class, exhibitionBundle);
         	}else{

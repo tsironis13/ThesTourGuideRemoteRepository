@@ -37,6 +37,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -249,6 +250,13 @@ public class PlacesDataListCursorAdapter extends SimpleCursorAdapter implements 
 			viewHolder.icon.setTag(image_link);
    			//Drawable dr = imgFetcher.loadImage(this, viewHolder.icon);
 			//BitmapTask bit = new BitmapTask(this);
+			RelativeLayout.LayoutParams placenametvparams = (RelativeLayout.LayoutParams) viewHolder.placeNametv.getLayoutParams();
+			placenametvparams.setMargins(5, 3, 0, 0);
+			viewHolder.placeNametv.setLayoutParams(placenametvparams);
+			
+			RelativeLayout.LayoutParams distancetvparams = (RelativeLayout.LayoutParams) viewHolder.distance.getLayoutParams();
+			distancetvparams.setMargins(5, 20, 0, 0);
+			viewHolder.distance.setLayoutParams(distancetvparams);
 			
 			Bitmap bitmap = imgFetcher.loadImage(this, viewHolder.icon, context, name);
    			if(bitmap != null) {
@@ -277,7 +285,7 @@ public class PlacesDataListCursorAdapter extends SimpleCursorAdapter implements 
 		//viewHolder.surnametv.setTag(surname);
 		viewHolder.latitudetv.setText(str_placelatitude);
 		viewHolder.longtitudetv.setText(str_placelongtitude);
-		viewHolder.distance.setText(dx + " km");
+		viewHolder.distance.setText(dx + " ÷ëì");
 		viewHolder.infoButton.setOnClickListener(this);
 		viewHolder.hiddenoncalltv.setText(menu);
 		if (viewHolder.hiddenoncalltv.getText().equals("yes")){

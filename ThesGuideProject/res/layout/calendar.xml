@@ -8,8 +8,7 @@
       <RelativeLayout
         android:id="@+id/header"
         android:layout_width="fill_parent"
-        android:layout_height="50dp"
-        android:background="@drawable/calendar_top" >
+        android:layout_height="30dp" >
 
         <RelativeLayout
             android:id="@+id/previous"
@@ -46,6 +45,70 @@
                 android:background="@drawable/arrow_right" />
         </RelativeLayout>
    </RelativeLayout>
+   
+     <TableLayout 
+         android:id="@+id/tablelayout"
+         android:shrinkColumns="*" 
+         android:stretchColumns="*"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content">
+        
+         <TableRow
+            android:id="@+id/tableRow1"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent">
+         
+         <TextView 
+             android:id="@+id/tvsunday"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:gravity="center_horizontal"
+             android:text="@string/sun"/>
+         
+         <TextView 
+             android:id="@+id/tvmonday"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:gravity="center_horizontal"
+             android:text="@string/mon"/>
+         
+         <TextView 
+             android:id="@+id/tvtuesday"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:gravity="center_horizontal"
+             android:text="@string/tue"/>
+         
+         <TextView 
+             android:id="@+id/tvwednesday"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:gravity="center_horizontal"
+             android:text="@string/wed"/>
+         
+         <TextView 
+             android:id="@+id/tvthursday"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:gravity="center"
+             android:text="@string/thu"/>
+         
+         <TextView 
+             android:id="@+id/tvfriday"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:gravity="center_horizontal"
+             android:text="@string/fri"/>
+         
+         <TextView 
+             android:id="@+id/tvsaturday"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:gravity="center_horizontal"
+             android:text="@string/sat"/>
+         
+         </TableRow>
+     </TableLayout> 
    
        <GridView
         android:id="@+id/gridview"

@@ -233,6 +233,13 @@ public class InEnglishPlacesDataListCursorAdapter extends SimpleCursorAdapter im
 			viewHolder.icon.setTag(image_link);
    			//Drawable dr = imgFetcher.loadImage(this, viewHolder.icon);
 			//BitmapTask bit = new BitmapTask(this);
+			RelativeLayout.LayoutParams placenametvparams = (RelativeLayout.LayoutParams) viewHolder.placeNametv.getLayoutParams();
+			placenametvparams.setMargins(5, 3, 0, 0);
+			viewHolder.placeNametv.setLayoutParams(placenametvparams);
+			
+			RelativeLayout.LayoutParams distancetvparams = (RelativeLayout.LayoutParams) viewHolder.distance.getLayoutParams();
+			distancetvparams.setMargins(5, 20, 0, 0);
+			viewHolder.distance.setLayoutParams(distancetvparams);
 			
 			Bitmap bitmap = imgFetcher.loadImage(this, viewHolder.icon, context, name);
    			if(bitmap != null) {

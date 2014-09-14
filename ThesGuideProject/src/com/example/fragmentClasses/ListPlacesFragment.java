@@ -8,6 +8,7 @@ import java.util.GregorianCalendar;
 import java.util.Locale;
 
 import com.example.adapters.EventsBaseAdapter;
+import com.example.adapters.InEnglishEventsBaseAdapter;
 import com.example.adapters.InEnglishPlacesDataListCursorAdapter;
 import com.example.adapters.PlacesDataListCursorAdapter;
 import com.example.locationData.LocationData;
@@ -102,14 +103,7 @@ public class ListPlacesFragment extends ListFragment{
 		
 		//button_pressed = "church";
 		if (genre.equals("events")){
-			if (language.equals("English")){
 				HelperMethodDependingOnCurrentEvents(genre, date);
-				//inEnglishSetAdapterFromSpecificCursor(genre, listExample, specificPlacecursor, columns, to, current_latitude, current_longtitude);
-			}
-			else{
-				HelperMethodDependingOnCurrentEvents(genre, date);
-				setAdapterFromSpecificCursor(genre, listExample, specificPlacecursor, columns, to, current_latitude, current_longtitude);
-			}
 		}
 		else if (genre.equals("museums")){
 			
@@ -181,12 +175,10 @@ public class ListPlacesFragment extends ListFragment{
 	}
 	
 	public static class MyViewHolder{
-    	//public TextView genre, nameEl, latitude, longtitude;
-    	//public RelativeLayout relLay;
-    	//public Button trackButton;
-    	//public Button detailsButton;
-    	//public ImageView icon;
-		public TextView placeNametv;
+		public TextView placeNametv, latitudetv, longtitudetv, distance,desc_infohiddentv, 
+		telhiddentv, linkhiddentv, fbLinkhiddentv, emailhiddentv, exhibitionhiddentv;
+		public ImageView icon;
+		public Button infoButton;
     	public PlacesData locations;
 }
 	
@@ -200,13 +192,11 @@ public class ListPlacesFragment extends ListFragment{
 			currenteventslist = testDB.getEventsOnCalendarClick("events", date);
 		}
 	
-		
-		setListAdapter(new EventsBaseAdapter(this, getActivity(), R.layout.places_basic_layout, currenteventslist));
-		
-		// the desired columns to be bound
-		columns = new String[] {"_id", "name_el", "photo_link", "info", "latitude", "longtitude"};
-		// the XML defined views which the data will be bound to
-		to = new int[] {R.id.locationName, R.id.placeNametv, R.id.locationImage};	
+		if (language.equals("Greek")){
+			setListAdapter(new EventsBaseAdapter(genre, this, getActivity(), R.layout.places_basic_layout, currenteventslist,  current_latitude, current_longtitude));
+		}else{
+			setListAdapter(new InEnglishEventsBaseAdapter(genre, this, getActivity(), R.layout.places_basic_layout, currenteventslist,  current_latitude, current_longtitude));
+		}
 	}
 	
 	public void HelperMethodDependingOnButtonClick(String genre){

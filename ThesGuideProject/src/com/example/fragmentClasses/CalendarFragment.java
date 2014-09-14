@@ -45,6 +45,13 @@ public class CalendarFragment extends Fragment{
 	private GridView gridview;
 	private TextView title;
 	private TextView eventslabeltv;
+	private TextView mondaytv;
+	private TextView tuesdaytv;
+	private TextView wednesdaytv;
+	private TextView thursdaytv;
+	private TextView fridaytv;
+	private TextView saturdaytv;
+	private TextView sundaytv;
 	public GregorianCalendar month, itemmonth;// calendar instances.
 	public CalendarAdapter adapter;// adapter instance
 	public Handler handler;// for grabbing some event values for showing the dot
@@ -52,9 +59,9 @@ public class CalendarFragment extends Fragment{
 	public ArrayList<String> items; // container to store calendar items which
 									// needs showing the event marker
     private String language;
-	private static final String debugTag = "CalendarFragment";
 	private String flag;
-	private String[] months = {"January", "October"};
+	private String displayedmonth;
+	private String displayedday;
 	
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)  {
 		
@@ -84,50 +91,32 @@ public class CalendarFragment extends Fragment{
 
 		eventslabeltv = (TextView) view.findViewById(R.id.eventslabeltv);
 		title = (TextView) view.findViewById(R.id.title);
+		mondaytv = (TextView) view.findViewById(R.id.tvmonday);
+		tuesdaytv = (TextView) view.findViewById(R.id.tvtuesday);
+		wednesdaytv = (TextView) view.findViewById(R.id.tvwednesday);
+		thursdaytv = (TextView) view.findViewById(R.id.tvthursday);
+		fridaytv = (TextView) view.findViewById(R.id.tvfriday);
+		saturdaytv = (TextView) view.findViewById(R.id.tvsaturday);
+		sundaytv = (TextView) view.findViewById(R.id.tvsunday);
 		
 	if (!language.equals("English")){	
 		
 		String mo = dfmonth.format(month.getTime());
 		String year = dfyear.format(month.getTime());
-		Toast.makeText(getActivity(), mo, Toast.LENGTH_SHORT).show();
-		if (mo.equals("10")){
-			title.setText("Οκτώβριος " + year);
-		}
-		else if (mo.equals("11")){
-			title.setText("Νοέμβριος " + year);
-		}
-		else if (mo.equals("12")){
-			title.setText("Δεκέμβριος " + year);
-		}
-		else if (mo.equals("01")){
-			title.setText("Ιανουάριος " + year);
-		}
-		else if (mo.equals("02")){
-			title.setText("Φεβρουάριος " + year);
-		}
-		else if (mo.equals("03")){
-			title.setText("Μάρτιος " + year);
-		}
-		else if (mo.equals("04")){
-			title.setText("Απρίλιος " + year);
-		}
-		else if (mo.equals("05")){
-			title.setText("Μάιος " + year);
-		}
-		else if (mo.equals("06")){
-			title.setText("Ιούνιος " + year);
-		}
-		else if (mo.equals("07")){
-			title.setText("Ιούλιος " + year);
-		}
-		else if (mo.equals("08")){
-			title.setText("Αύγουστος " + year);
-		}
-		else if (mo.equals("09")){
-			title.setText("Σεπτέμβριος " + year);
-		}
+		String month = getMonth(mo);
+		title.setText(month + " " + year);
+		
+		eventslabeltv.setText("Εκδηλώσεις σήμερα");
+		mondaytv.setText("Δευ");
+		tuesdaytv.setText("Τρι");
+		wednesdaytv.setText("Τετ");
+		thursdaytv.setText("Πεμ");
+		fridaytv.setText("Παρ");
+		saturdaytv.setText("Σαβ");
+		sundaytv.setText("Κυρ");
 	}else{	
 		title.setText(android.text.format.DateFormat.format("MMMM yyyy", month));
+		eventslabeltv.setText("Events today");
 	}
 		RelativeLayout previous = (RelativeLayout) view.findViewById(R.id.previous);
 
@@ -150,17 +139,10 @@ public class CalendarFragment extends Fragment{
 
 		gridview.setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-
-				/*Bundle langbundle = new Bundle();
-				langbundle.putString("language", "English");
-				Fragment fragment = new DisplayImageFragment();
-				fragment.setArguments(langbundle);
-				FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction().replace(R.id.containerdetails, fragment);
-				//fragmentTransaction.addToBackStack("d");
-				fragmentTransaction.commit();*/
-				
+	
 				((CalendarAdapter) parent.getAdapter()).setSelected(v);
 				String selectedGridDate = CalendarAdapter.dayString.get(position);
+				Log.i("selected date =>", selectedGridDate);
 				String[] separatedTime = selectedGridDate.split("-");
 				String gridvalueString = separatedTime[2].replaceFirst("^0*", "");// taking last part of date. ie; 2 from 2012-12-02.
 				int gridvalue = Integer.parseInt(gridvalueString);
@@ -178,7 +160,18 @@ public class CalendarFragment extends Fragment{
 				genre = "events";
 				Bundle langBundle = new Bundle();
 				langBundle.putString("language", language);
-				eventslabeltv.setText("Events: " + selectedGridDate);
+			if (language.equals("English")){	
+				String year = selectedGridDate.substring(0, 4);
+				displayedmonth = selectedGridDate.substring(5, 7);
+	            displayedday = selectedGridDate.substring(8, 10);
+				eventslabeltv.setText("Events: " + displayedday + "-" + displayedmonth + "-" + year);
+			}
+			else{
+				String year = selectedGridDate.substring(0, 4);
+				displayedmonth = selectedGridDate.substring(5, 7);
+	            displayedday = selectedGridDate.substring(8, 10);
+				eventslabeltv.setText("Εκδηλώσεις: " + displayedday + "-" + displayedmonth + "-" + year);
+			}
 				ListPlacesFragment listEventsFragment = new ListPlacesFragment(genre, "", current_latitude, current_longtitude, selectedGridDate, flag);
 				listEventsFragment.setArguments(langBundle);
 				FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction().replace(R.id.containerdetails, listEventsFragment);
@@ -214,7 +207,6 @@ public class CalendarFragment extends Fragment{
 		genre = "events";
 		Bundle langBundle = new Bundle();
 		langBundle.putString("language", language);
-		eventslabeltv.setText("EVENTS TODAY");
 		ListPlacesFragment listEventsFragment = new ListPlacesFragment(genre, "", current_latitude, current_longtitude, currentDate, flag);
 		listEventsFragment.setArguments(langBundle);
 		FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction().replace(R.id.containerdetails, listEventsFragment);
@@ -255,44 +247,8 @@ public class CalendarFragment extends Fragment{
 			if (!language.equals("English")){	
 				String mo = dfmonth.format(month.getTime());
 				String year = dfyear.format(month.getTime());
-				Toast.makeText(getActivity(), mo, Toast.LENGTH_SHORT).show();
-				if (mo.equals("10")){
-					title.setText("Οκτώβριος " + year);
-				}
-				else if (mo.equals("11")){
-					title.setText("Νοέμβριος " + year);
-				}
-				else if (mo.equals("12")){
-					title.setText("Δεκέμβριος " + year);
-				}
-				else if (mo.equals("01")){
-					title.setText("Ιανουάριος " + year);
-				}
-				else if (mo.equals("02")){
-					title.setText("Φεβρουάριος " + year);
-				}
-				else if (mo.equals("03")){
-					title.setText("Μάρτιος " + year);
-				}
-				else if (mo.equals("04")){
-					title.setText("Απρίλιος " + year);
-				}
-				else if (mo.equals("05")){
-					title.setText("Μάιος " + year);
-				}
-				else if (mo.equals("06")){
-					title.setText("Ιούνιος " + year);
-				}
-				else if (mo.equals("07")){
-					title.setText("Ιούλιος " + year);
-				}
-				else if (mo.equals("08")){
-					title.setText("Αύγουστος " + year);
-				}
-				else if (mo.equals("09")){
-					title.setText("Σεπτέμβριος " + year);
-				}
-				
+				String month = getMonth(mo);
+				title.setText(month + " " + year);			
 			}else{	
 				title.setText(android.text.format.DateFormat.format("MMMM yyyy", month));
 			}
@@ -322,10 +278,43 @@ public class CalendarFragment extends Fragment{
 		}
 	};
 
-	@Override
-	public void onDestroy() {
-		// TODO Auto-generated method stub
-		super.onDestroy();
+	public String getMonth(String mo){
+		if (mo.equals("10")){
+			return "Οκτώβριος"; 
+		}
+		else if (mo.equals("11")){
+			return "Νοέμβριος";
+		}
+		else if (mo.equals("12")){
+			return "Δεκέμβριος";
+		}
+		else if (mo.equals("01")){
+			return "Ιανουάριος";
+		}
+		else if (mo.equals("02")){
+			return "Φεβρουάριος";
+		}
+		else if (mo.equals("03")){
+			return "Μάρτιος";
+		}
+		else if (mo.equals("04")){
+			return "Απρίλιος";
+		}
+		else if (mo.equals("05")){
+			return "Μάιος";
+		}
+		else if (mo.equals("06")){
+			return "Ιούνιος";
+		}
+		else if (mo.equals("07")){
+			return "Ιούλιος";
+		}
+		else if (mo.equals("08")){
+			return "Αύγουστος";
+		}
+		else {
+			return "Σεπτέμβριος";
+		}
 	}
 	
 	
