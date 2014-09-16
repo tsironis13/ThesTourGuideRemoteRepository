@@ -2,6 +2,7 @@ package com.example.thesguideproject;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import com.example.adapters.DisarableLocationCursorAdapter;
 import com.example.adapters.InEnglishSearchAdapter;
 import com.example.adapters.SearchAdapter;
@@ -9,6 +10,7 @@ import com.example.fragmentClasses.MenuFragment;
 import com.example.sqlHelper.TestLocalSqliteDatabase;
 import com.example.tasks.BitmapTask;
 import com.example.thesguideproject.R;
+
 import android.annotation.TargetApi;
 import android.app.FragmentManager;
 import android.app.ProgressDialog;
@@ -36,6 +38,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -166,15 +170,29 @@ import android.widget.Toast;
 	}
 	
 	
-	
-	
-	
-	@SuppressWarnings("static-access")
+		
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		
+		Button e = (Button) findViewById(R.id.eventsbutton);
+		Button sig = (Button) findViewById(R.id.sightseeingsbutton);
+		
+		
 	 if (keyCode==KeyEvent.KEYCODE_BACK){	
-		//int y = t.getAuxiliaryVariableI();
+		 
+		 
+		 if (android.os.Build.VERSION.SDK_INT <= 10){
+			 Toast.makeText(getApplicationContext(), "version <= 10 ", Toast.LENGTH_SHORT).show();
+			
+		 }
+		 else{
+			 Toast.makeText(getApplicationContext(), "version > 10 ", Toast.LENGTH_SHORT).show();
+		 }
+		 
+		
+		 e.getBackground().setAlpha(255);
+		 sig.getBackground().setAlpha(255);
+		 //int y = t.getAuxiliaryVariableI();
 	
 		//FragmentTransaction ft2 = getSupportFragmentManager().beginTransaction();
 		int fragments = getSupportFragmentManager().getBackStackEntryCount();

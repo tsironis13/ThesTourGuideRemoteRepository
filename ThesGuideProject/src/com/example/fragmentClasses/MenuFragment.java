@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 
 
 public class MenuFragment extends Fragment {
@@ -36,6 +37,8 @@ public class MenuFragment extends Fragment {
 	private String language;
 	//private TestLocalSqliteDatabase t;
 	//private int i=0;
+	private LinearLayout menulinearlayout;
+	private boolean success;
 	
 	public MenuFragment(){}
 	
@@ -47,6 +50,7 @@ public class MenuFragment extends Fragment {
 		
 		language = getArguments().getString("language");
 		
+		menulinearlayout = (LinearLayout) view.findViewById(R.id.linearlayout1);
 		eventsButton = (Button) view.findViewById(R.id.eventsbutton);
 		sightseeingsButton = (Button) view.findViewById(R.id.sightseeingsbutton);
 		foodButton = (Button) view.findViewById(R.id.foodButton);
@@ -56,9 +60,10 @@ public class MenuFragment extends Fragment {
 		hospitalsButton = (Button) view.findViewById(R.id.hospitalsbutton);
 		
 		if (language.equals("Greek")){
+			eventsButton.setText("Εκδηλώσεις");
 			sightseeingsButton.setText("Αξιοθέατα");
 			foodButton.setText("Φαγητό");
-			nightlifeButton.setText("Νυχτεριρή Ζωή");
+			nightlifeButton.setText("Νυχτερινή Ζωή");
 			churhesButton.setText("Εκκλησίες");
 			museumsButton.setText("Μουσεία");
 			hospitalsButton.setText("Νοσοκομεία");
@@ -112,6 +117,9 @@ public class MenuFragment extends Fragment {
 		eventsButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				eventsButton.getBackground().setAlpha(35);
+				success = formIsValid(menulinearlayout, eventsButton);
+				
 				Bundle langBundle = new Bundle();
 				langBundle.putString("language", language);
 				CalendarFragment calendarFragment = new CalendarFragment();
@@ -134,6 +142,9 @@ public class MenuFragment extends Fragment {
 		foodButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				foodButton.getBackground().setAlpha(35);
+				success = formIsValid(menulinearlayout, foodButton);
+				
 				registerForContextMenu(v); 
 				getActivity().openContextMenu(v);	
 			}
@@ -142,6 +153,9 @@ public class MenuFragment extends Fragment {
 		sightseeingsButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				sightseeingsButton.getBackground().setAlpha(35);
+				success = formIsValid(menulinearlayout, sightseeingsButton);
+				
 				genre = "sightseeings";
 				Bundle langBundle = new Bundle();
 				langBundle.putString("language", language);
@@ -165,6 +179,8 @@ public class MenuFragment extends Fragment {
 		nightlifeButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				nightlifeButton.getBackground().setAlpha(35);
+				success = formIsValid(menulinearlayout, nightlifeButton);
 				//t2 = new TestLocalSqliteDatabase(getActivity());
 				//t2.openDataBase();
 				//i = t2.getAuxiliaryVariableI();
@@ -184,6 +200,9 @@ public class MenuFragment extends Fragment {
 		museumsButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				museumsButton.getBackground().setAlpha(35);
+				success = formIsValid(menulinearlayout, museumsButton);
+				
 				genre = "museums";
 				Bundle langBundle = new Bundle();
 				langBundle.putString("language", language);
@@ -207,6 +226,9 @@ public class MenuFragment extends Fragment {
 		churhesButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				churhesButton.getBackground().setAlpha(35);
+				success = formIsValid(menulinearlayout, churhesButton);
+				
 				registerForContextMenu(v); 
 				getActivity().openContextMenu(v);	
 			}
@@ -215,6 +237,9 @@ public class MenuFragment extends Fragment {
 		hospitalsButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				hospitalsButton.getBackground().setAlpha(35);
+				success = formIsValid(menulinearlayout, hospitalsButton);
+				
 				genre = "hospitals";
 				Bundle langBundle = new Bundle();
 				langBundle.putString("language", language);
@@ -559,6 +584,18 @@ public class MenuFragment extends Fragment {
 		
 	}
 
+	
+	public boolean formIsValid(LinearLayout layout, Button button) {
+		for (int i=0; i<layout.getChildCount(); i++){
+			View v = layout.getChildAt(i);
+				if (v instanceof Button && (v.getId() != button.getId())){
+					v.getBackground().setAlpha(255);
+				}
+		}
+		
+		return true;
+	}
+	
 	@Override
 	public void onPrepareOptionsMenu(Menu menu) {
 		// TODO Auto-generated method stub

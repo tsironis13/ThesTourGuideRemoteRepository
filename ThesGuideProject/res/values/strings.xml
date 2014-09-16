@@ -21,6 +21,7 @@
     <string name="mainButton">Main Layout</string>
     <string name="fragmentTestButton">Fragment Test</string>
     <string name="clearDataDBbutton">Clear Data</string>
+    <string name="eventsbutton">Events</string>
 	<string name="museumsbutton">Museums</string>
 	<string name="foodbutton">Food</string>
 	<string name="nightlifebutton">Nightlife</string>

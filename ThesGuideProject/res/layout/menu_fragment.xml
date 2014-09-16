@@ -28,10 +28,10 @@
         	android:layout_height="45dp"
         	android:clickable="true"
         	android:layout_width="wrap_content"
-        	android:background="#bbb" >
+        	android:background="@drawable/menu_background" >
         
         
-       		   <Button
+       	<!--     <Button
             		android:id="@+id/clearDataDBbutton"
             		android:layout_width="wrap_content"
             		android:layout_height="match_parent"
@@ -43,14 +43,15 @@
        		       android:background="#000"
        		       android:layout_width="1dp"
        		       android:layout_height="match_parent">   
-       		   </View>
+       		   </View>   -->	
         	   
        		   <Button
        		       android:id="@+id/eventsbutton"
        		       android:layout_width="wrap_content"
-       		       android:layout_height="match_parent"
-       		       android:background="#fac"
-            		android:text="events">
+       		       android:layout_height="45dp"
+       		       android:padding="5dp"
+       		       android:textColor="#fff"
+            	   android:text="@string/eventsbutton">
        		   </Button>
        		   
        		   <View 
@@ -63,7 +64,8 @@
             		android:id="@+id/sightseeingsbutton"
             		android:layout_width="wrap_content"
             		android:layout_height="match_parent"
-            		android:background="#fac"
+            		android:padding="5dp"
+            		android:textColor="#fff"
             		android:text="@string/sightseeingsbutton">       
         	   </Button>
        		   
@@ -77,7 +79,8 @@
        		       android:id="@+id/foodButton"
        		       android:layout_width="wrap_content"
        		       android:layout_height="match_parent"
-       		       android:background="#afc"
+       		       android:padding="5dp"
+       		       android:textColor="#fff"
        		       android:text="@string/foodbutton">
        		   </Button>
        		   
@@ -91,7 +94,8 @@
         			android:id="@+id/nightlifebutton"
         			android:layout_width="wrap_content"
         			android:layout_height="match_parent"
-        			android:background="#fac"
+        			android:padding="5dp"
+        			android:textColor="#fff"
         			android:text="@string/nightlifebutton">
     			</Button>
        		   
@@ -104,8 +108,9 @@
         	   <Button
             		android:id="@+id/museumsbutton"
             		android:layout_width="wrap_content"
-              		android:layout_height="match_parent"	
-            		android:background="#fac"
+              		android:layout_height="match_parent"
+              		android:padding="5dp"	
+            		android:textColor="#fff"
             		android:text="@string/museumsbutton">       
         	   </Button>
         		
@@ -115,7 +120,7 @@
        		       android:layout_height="match_parent">   
        		   </View>
        		   
-        	   <Spinner 
+        	 <!--    <Spinner 
             		android:id="@+id/ssnightlifespinner"
             		android:layout_width="wrap_content"
             		android:layout_height="match_parent"
@@ -127,32 +132,34 @@
        		       android:background="#000"
        		       android:layout_width="1dp"
        		       android:layout_height="match_parent">   
-       		   </View>
+       		   </View>  -->
        		   
-        	   <Button 
-        	       android:id="@+id/hospitalsbutton"
-        	       android:layout_width="wrap_content"
-        	       android:layout_height="match_parent"
-        	       android:background="#fac"
-        	       android:text="@string/hospitalsbutton">
+       		    <Button
+            		android:id="@+id/churchesbutton"
+            		android:layout_width="wrap_content"
+            		android:layout_height="match_parent"
+            		android:padding="5dp"
+            		android:textColor="#fff"
+            		android:text="@string/churchesbutton">       
         	   </Button>
-        	   
-        	 
+        	
         	   <View 
        		       android:background="#000"
        		       android:layout_width="1dp"
        		       android:layout_height="match_parent">   
        		   </View>
        		   
-        	   <Button
-            		android:id="@+id/churchesbutton"
-            		android:layout_width="wrap_content"
-            		android:layout_height="match_parent"
-            		android:background="#fac"
-            		android:text="@string/churchesbutton">       
+        	      <Button 
+        	       android:id="@+id/hospitalsbutton"
+        	       android:layout_width="wrap_content"
+        	       android:layout_height="match_parent"
+        	       android:padding="5dp"
+        	       android:textColor="#fff"
+        	       android:text="@string/hospitalsbutton">
         	   </Button>
+        	  
         	   
-        	   <View 
+        	<!--     <View 
        		       android:background="#000"
        		       android:layout_width="1dp"
        		       android:layout_height="match_parent">   
@@ -164,7 +171,7 @@
             		android:layout_height="match_parent"
             		android:background="#fac"
             		android:text="@string/imageInternalStorage">       
-        	   </Button>
+        	   </Button>   -->
         
         </LinearLayout>
     
