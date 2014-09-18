@@ -47,14 +47,6 @@
 	<string name="paleochr">Old Christian</string>
 	<string name="basiliki">Basilica</string>
 	<string name="macedonian">Macedonian</string>
-	<string name="bars">Bars</string>
-	<string name="clubs">Clubs</string>
-	<string name="mpouzoukia">Mpouzoukia</string>
-	<string name="pubs">Pubs</string>
-	<string name="barrestaurants">Bar-Restaurants</string>
-	<string name="restaurants">Restaurants</string>
-	<string name="seafood">Seafood</string>
-	<string name="intercuisine">International Cuisine</string>
 	<string name="rdselectcategory">Select Category</string>
 	<string name="rdcurrentlocation">Current Position</string>
 	<string name="disarableedhint">Pick your Location</string>
@@ -68,8 +60,14 @@
     <string name="fri">Fri</string>
     <string name="sat">Sat</string>
     <string name="sun">Sun</string>
-	
-	
+	<string name="barrestitem">Bar-Restaurant</string>
+	<string name="restitem">Restaurant</string>
+	<string name="intcuisitem">International Cuisine</string>
+	<string name="seafooditem">Seafood</string>
+	<string name="barsitem">Bars</string>
+	<string name="clubsitem">Clubs</string>
+	<string name="pubsitem">Pubs</string>
+	<string name="eventsitem">Events</string>
 	
 	<string name="greek">Ελληνικά</string>
 	

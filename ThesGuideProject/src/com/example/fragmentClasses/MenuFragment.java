@@ -125,15 +125,7 @@ public class MenuFragment extends Fragment {
 				CalendarFragment calendarFragment = new CalendarFragment();
 				calendarFragment.setArguments(langBundle);
 				fragmentTransaction = getFragmentManager().beginTransaction().add(R.id.containerlist, calendarFragment);
-				int fragments = getFragmentManager().getBackStackEntryCount();
-				if (fragments > 1){
-				  String backStackId = getFragmentManager().getBackStackEntryAt(1).getName();
-				  	if (backStackId.equals("events") || backStackId.equals("sig") || backStackId.equals("hos") || backStackId.equals("mus") || backStackId.equals("nig") || backStackId.equals("ch"))
-				  	{
-				  		getFragmentManager().popBackStack(backStackId,0);
-				  	}
-				        getFragmentManager().popBackStack();
-				}
+				deleteFromBackStack();
 				fragmentTransaction.addToBackStack("events");
 				fragmentTransaction.commit();	
 			}
@@ -162,15 +154,7 @@ public class MenuFragment extends Fragment {
 				ListPlacesFragment listMuseumsFragment = new ListPlacesFragment(genre, "", current_latitude, current_longtitude);
 				listMuseumsFragment.setArguments(langBundle);
 				fragmentTransaction = getFragmentManager().beginTransaction().replace(R.id.containerlist, listMuseumsFragment);
-				int fragments = getFragmentManager().getBackStackEntryCount();
-				if (fragments > 1){
-				  String backStackId = getFragmentManager().getBackStackEntryAt(1).getName();
-				  	if (backStackId.equals("events") || backStackId.equals("sig") || backStackId.equals("hos") || backStackId.equals("mus") || backStackId.equals("nig") || backStackId.equals("ch"))
-				  	{
-				  		getFragmentManager().popBackStack(backStackId,0);
-				  	}
-				        getFragmentManager().popBackStack();
-				}
+				deleteFromBackStack();
 				fragmentTransaction.addToBackStack("sig");
 				fragmentTransaction.commit();	
 			}
@@ -209,15 +193,7 @@ public class MenuFragment extends Fragment {
 				ListPlacesFragment listMuseumsFragment = new ListPlacesFragment(genre, "", current_latitude, current_longtitude);
 				listMuseumsFragment.setArguments(langBundle);
 				fragmentTransaction = getFragmentManager().beginTransaction().replace(R.id.containerlist, listMuseumsFragment);
-				int fragments = getFragmentManager().getBackStackEntryCount();
-				if (fragments > 1){
-				  String backStackId = getFragmentManager().getBackStackEntryAt(1).getName();
-				  	if (backStackId.equals("events") || backStackId.equals("sig") || backStackId.equals("hos") || backStackId.equals("mus") || backStackId.equals("nig") || backStackId.equals("ch"))
-				  	{
-				  		getFragmentManager().popBackStack(backStackId,0);
-				  	}
-				        getFragmentManager().popBackStack();
-				}
+				deleteFromBackStack();
 				fragmentTransaction.addToBackStack("mus");
 				fragmentTransaction.commit();	
 			}
@@ -246,16 +222,7 @@ public class MenuFragment extends Fragment {
 				ListPlacesFragment listMuseumsFragment = new ListPlacesFragment(genre, "", current_latitude, current_longtitude);
 				listMuseumsFragment.setArguments(langBundle);
 				fragmentTransaction = getFragmentManager().beginTransaction().replace(R.id.containerlist, listMuseumsFragment);
-				int fragments = getFragmentManager().getBackStackEntryCount();
-				if (fragments > 1){
-				  String backStackId = getFragmentManager().getBackStackEntryAt(1).getName();
-				
-					if (backStackId.equals("events") || backStackId.equals("sig") || backStackId.equals("food") || backStackId.equals("hos") || backStackId.equals("mus") || backStackId.equals("nig") || backStackId.equals("ch"))
-					{
-						getFragmentManager().popBackStack(backStackId,0);
-					}
-						getFragmentManager().popBackStack();
-				}
+				deleteFromBackStack();
 				fragmentTransaction.addToBackStack("hos");		
 				fragmentTransaction.commit();
 			}
@@ -283,15 +250,7 @@ public class MenuFragment extends Fragment {
 			ListPlacesFragment listBarRestFragment = new ListPlacesFragment(genre, subcategory, current_latitude, current_longtitude);
 			listBarRestFragment.setArguments(langBundle);
 			fragmentTransaction = getFragmentManager().beginTransaction().replace(R.id.containerlist, listBarRestFragment);
-			if (fragments > 1){
-				  String backStackId = getFragmentManager().getBackStackEntryAt(1).getName();
-				
-					if (backStackId.equals("events") || backStackId.equals("sig") || backStackId.equals("food") || backStackId.equals("hos") || backStackId.equals("mus") || backStackId.equals("nig") || backStackId.equals("ch"))
-					{
-						getFragmentManager().popBackStack(backStackId,0);
-					}
-						getFragmentManager().popBackStack();
-				}
+			deleteFromBackStack();
 			fragmentTransaction.addToBackStack("food");
 			fragmentTransaction.commit();
 	   		break;
@@ -303,15 +262,7 @@ public class MenuFragment extends Fragment {
 			ListPlacesFragment listRestFragment = new ListPlacesFragment(genre, subcategory, current_latitude, current_longtitude);
 			listRestFragment.setArguments(langrestBundle);
 			fragmentTransaction = getFragmentManager().beginTransaction().replace(R.id.containerlist, listRestFragment);
-			if (fragments > 1){
-				  String backStackId = getFragmentManager().getBackStackEntryAt(1).getName();
-				
-					if (backStackId.equals("events") || backStackId.equals("sig") || backStackId.equals("food") || backStackId.equals("hos") || backStackId.equals("mus") || backStackId.equals("nig") || backStackId.equals("ch"))
-					{
-						getFragmentManager().popBackStack(backStackId,0);
-					}
-						getFragmentManager().popBackStack();
-				}
+			deleteFromBackStack();
 			fragmentTransaction.addToBackStack("food");
 			fragmentTransaction.commit();
 			break;
@@ -323,15 +274,7 @@ public class MenuFragment extends Fragment {
 			ListPlacesFragment listInterCoisFragment = new ListPlacesFragment(genre, subcategory, current_latitude, current_longtitude);
 			listInterCoisFragment.setArguments(langintBundle);
 			fragmentTransaction = getFragmentManager().beginTransaction().replace(R.id.containerlist, listInterCoisFragment);
-			if (fragments > 1){
-				  String backStackId = getFragmentManager().getBackStackEntryAt(1).getName();
-				
-					if (backStackId.equals("events") || backStackId.equals("sig") || backStackId.equals("food") || backStackId.equals("hos") || backStackId.equals("mus") || backStackId.equals("nig") || backStackId.equals("ch"))
-					{
-						getFragmentManager().popBackStack(backStackId,0);
-					}
-						getFragmentManager().popBackStack();
-				}
+			deleteFromBackStack();
 			fragmentTransaction.addToBackStack("food");
 			fragmentTransaction.commit();
 			break;
@@ -343,15 +286,7 @@ public class MenuFragment extends Fragment {
 			ListPlacesFragment listSeafoodFragment = new ListPlacesFragment(genre, subcategory, current_latitude, current_longtitude);
 			listSeafoodFragment.setArguments(langseafBundle);
 			fragmentTransaction = getFragmentManager().beginTransaction().replace(R.id.containerlist, listSeafoodFragment);
-			if (fragments > 1){
-				  String backStackId = getFragmentManager().getBackStackEntryAt(1).getName();
-				
-					if (backStackId.equals("events") || backStackId.equals("sig") || backStackId.equals("food") || backStackId.equals("hos") || backStackId.equals("mus") || backStackId.equals("nig") || backStackId.equals("ch"))
-					{
-						getFragmentManager().popBackStack(backStackId,0);
-					}
-						getFragmentManager().popBackStack();
-				}
+			deleteFromBackStack();
 			fragmentTransaction.addToBackStack("food");
 			fragmentTransaction.commit();
 			break;
@@ -363,15 +298,7 @@ public class MenuFragment extends Fragment {
 			ListPlacesFragment listBarsFragment = new ListPlacesFragment(genre, subcategory, current_latitude, current_longtitude);
 			listBarsFragment.setArguments(langbarsBundle);
 			fragmentTransaction = getFragmentManager().beginTransaction().replace(R.id.containerlist, listBarsFragment);
-			if (fragments > 1){
-				  String backStackId = getFragmentManager().getBackStackEntryAt(1).getName();
-				
-					if (backStackId.equals("events") || backStackId.equals("sig") || backStackId.equals("food") || backStackId.equals("hos") || backStackId.equals("mus") || backStackId.equals("nig") || backStackId.equals("ch"))
-					{
-						getFragmentManager().popBackStack(backStackId,0);
-					}
-						getFragmentManager().popBackStack();
-				}
+			deleteFromBackStack();
 			fragmentTransaction.addToBackStack("nig");
 			fragmentTransaction.commit();
 			break;
@@ -383,15 +310,7 @@ public class MenuFragment extends Fragment {
 			ListPlacesFragment listClubsFragment = new ListPlacesFragment(genre, subcategory, current_latitude, current_longtitude);
 			listClubsFragment.setArguments(langclubsBundle);
 			fragmentTransaction = getFragmentManager().beginTransaction().replace(R.id.containerlist, listClubsFragment);
-			if (fragments > 1){
-				  String backStackId = getFragmentManager().getBackStackEntryAt(1).getName();
-				
-					if (backStackId.equals("events") || backStackId.equals("sig") || backStackId.equals("food") || backStackId.equals("hos") || backStackId.equals("mus") || backStackId.equals("nig") || backStackId.equals("ch"))
-					{
-						getFragmentManager().popBackStack(backStackId,0);
-					}
-						getFragmentManager().popBackStack();
-				}
+			deleteFromBackStack();
 			fragmentTransaction.addToBackStack("nig");
 			fragmentTransaction.commit();
 			break;
@@ -423,15 +342,7 @@ public class MenuFragment extends Fragment {
 			ListPlacesFragment listPubsFragment = new ListPlacesFragment(genre, subcategory, current_latitude, current_longtitude);
 			listPubsFragment.setArguments(langnightBundle);
 			fragmentTransaction = getFragmentManager().beginTransaction().replace(R.id.containerlist, listPubsFragment);
-			if (fragments > 1){
-				  String backStackId = getFragmentManager().getBackStackEntryAt(1).getName();
-				
-					if (backStackId.equals("events") || backStackId.equals("sig") || backStackId.equals("food") || backStackId.equals("hos") || backStackId.equals("mus") || backStackId.equals("nig") || backStackId.equals("ch"))
-					{
-						getFragmentManager().popBackStack(backStackId,0);
-					}
-						getFragmentManager().popBackStack();
-				}
+			deleteFromBackStack();
 			fragmentTransaction.addToBackStack("nig");
 			fragmentTransaction.commit();
 			break;
@@ -443,15 +354,7 @@ public class MenuFragment extends Fragment {
 			 ListPlacesFragment listPchrFragment = new ListPlacesFragment(genre, subcategory, current_latitude, current_longtitude);
 			 listPchrFragment.setArguments(langpaleoBundle);
 			 fragmentTransaction = getFragmentManager().beginTransaction().replace(R.id.containerlist, listPchrFragment);
-			 if (fragments > 1){
-				  String backStackId = getFragmentManager().getBackStackEntryAt(1).getName();
-				
-					if (backStackId.equals("events") || backStackId.equals("sig") || backStackId.equals("food") || backStackId.equals("hos") || backStackId.equals("mus") || backStackId.equals("nig") || backStackId.equals("ch"))
-					{
-						getFragmentManager().popBackStack(backStackId,0);
-					}
-						getFragmentManager().popBackStack();
-				}
+			 deleteFromBackStack();
 			 fragmentTransaction.addToBackStack("ch");
 			 fragmentTransaction.commit();
 			 break;
@@ -463,15 +366,7 @@ public class MenuFragment extends Fragment {
 			 ListPlacesFragment listBizanFragment = new ListPlacesFragment(genre, subcategory, current_latitude, current_longtitude);
 			 listBizanFragment.setArguments(langbizBundle);
 			 fragmentTransaction = getFragmentManager().beginTransaction().replace(R.id.containerlist, listBizanFragment);
-			 if (fragments > 1){
-				  String backStackId = getFragmentManager().getBackStackEntryAt(1).getName();
-				
-					if (backStackId.equals("events") || backStackId.equals("sig") || backStackId.equals("food") || backStackId.equals("hos") || backStackId.equals("mus") || backStackId.equals("nig") || backStackId.equals("ch"))
-					{
-						getFragmentManager().popBackStack(backStackId,0);
-					}
-						getFragmentManager().popBackStack();
-				}
+			 deleteFromBackStack();
 			 fragmentTransaction.addToBackStack("ch");
 			 fragmentTransaction.commit();
 			 break;
@@ -483,15 +378,7 @@ public class MenuFragment extends Fragment {
 			 ListPlacesFragment listBasilFragment = new ListPlacesFragment(genre, subcategory, current_latitude, current_longtitude);
 			 listBasilFragment.setArguments(langbasilBundle);
 			 fragmentTransaction = getFragmentManager().beginTransaction().replace(R.id.containerlist, listBasilFragment);
-			 if (fragments > 1){
-				  String backStackId = getFragmentManager().getBackStackEntryAt(1).getName();
-				
-					if (backStackId.equals("events") || backStackId.equals("sig") || backStackId.equals("food") || backStackId.equals("hos") || backStackId.equals("mus") || backStackId.equals("nig") || backStackId.equals("ch"))
-					{
-						getFragmentManager().popBackStack(backStackId,0);
-					}
-						getFragmentManager().popBackStack();
-				}
+			 deleteFromBackStack();
 			 fragmentTransaction.addToBackStack("ch");
 			 fragmentTransaction.commit();
 			 break;
@@ -503,15 +390,7 @@ public class MenuFragment extends Fragment {
 			 ListPlacesFragment listMacFragment = new ListPlacesFragment(genre, subcategory, current_latitude, current_longtitude);
 			 listMacFragment.setArguments(langmacBundle);
 			 fragmentTransaction = getFragmentManager().beginTransaction().replace(R.id.containerlist, listMacFragment);
-			 if (fragments > 1){
-				  String backStackId = getFragmentManager().getBackStackEntryAt(1).getName();
-				
-					if (backStackId.equals("events") || backStackId.equals("sig") || backStackId.equals("food") || backStackId.equals("hos") || backStackId.equals("mus") || backStackId.equals("nig") || backStackId.equals("ch"))
-					{
-						getFragmentManager().popBackStack(backStackId,0);
-					}
-						getFragmentManager().popBackStack();
-				}
+			 deleteFromBackStack();
 			 fragmentTransaction.addToBackStack("ch");
 			 fragmentTransaction.commit();
 			 break;
@@ -556,9 +435,9 @@ public class MenuFragment extends Fragment {
 				barsitem.setTitle("Μπαρ");
 			}	
 			else{
-				clubsitem.setTitle("Club");
-				pubsitem.setTitle("Pub");
-				barsitem.setTitle("Bar");	
+				clubsitem.setTitle("Clubs");
+				pubsitem.setTitle("Pubs");
+				barsitem.setTitle("Bars");	
 			}
 		}
 		else if (v.getId() == R.id.foodButton){
@@ -575,8 +454,8 @@ public class MenuFragment extends Fragment {
 				intercuiitem.setTitle("Διεθνής Κουζίνα");
 			}	
 			else{
-				barrestitem.setTitle("Bar-Restaurant");
-				restitem.setTitle("Restaurant");
+				barrestitem.setTitle("Bar-Restaurants");
+				restitem.setTitle("Restaurants");
 				seafitem.setTitle("Seafood");
 				intercuiitem.setTitle("International Cuisine");
 			}
@@ -584,6 +463,17 @@ public class MenuFragment extends Fragment {
 		
 	}
 
+	public void deleteFromBackStack(){
+		int fragments = getFragmentManager().getBackStackEntryCount();
+		if (fragments > 1){
+		  String backStackId = getFragmentManager().getBackStackEntryAt(1).getName();
+		  	if (backStackId.equals("events") || backStackId.equals("sig") || backStackId.equals("food") || backStackId.equals("hos") || backStackId.equals("mus") || backStackId.equals("nig") || backStackId.equals("ch"))
+		  	{
+		  		getFragmentManager().popBackStack(backStackId,0);
+		  	}
+		        getFragmentManager().popBackStack();
+		}
+	}
 	
 	public boolean formIsValid(LinearLayout layout, Button button) {
 		for (int i=0; i<layout.getChildCount(); i++){

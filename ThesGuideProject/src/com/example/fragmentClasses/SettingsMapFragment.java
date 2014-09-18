@@ -81,7 +81,12 @@ public class SettingsMapFragment extends ListFragment implements DialogInterface
 	
 	String startpointcontent;
 	String destpointcontent;
-	
+	String startpointtvcontent;
+	String destv;
+	String sls;
+	String sld;
+	int ls;
+	int ld;
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -170,34 +175,35 @@ public class SettingsMapFragment extends ListFragment implements DialogInterface
 
 			@Override
 			public void afterTextChanged(Editable s) {
-				String startpointtvcontent = startingpointtv.getText().toString();
-				int ls = startpointtvcontent.length();
-				String sls = Integer.toString(ls);
+				startpointtvcontent = startingpointtv.getText().toString();
+				ls = startpointtvcontent.length();
+				sls = Integer.toString(ls);
 				Log.i("starting point tv characters =>", sls);
 				
-				String destv = destinationpointtv.getText().toString();
-				int ld = destv.length();
-				String sld = Integer.toString(ld);
-				Log.i("starting point tv characters =>", sld);
+				destv = destinationpointtv.getText().toString();
+				ld = destv.length();
+				sld = Integer.toString(ld);
+				Log.i("destination point tv characters =>", sld);
 			
 				if (ls > 5){
 					startpointcontent = startpointtvcontent.substring(6, ls);
 				}
 				if (ld > 5){
 					destpointcontent = destv.substring(6, ld);
+				}else{
+					destpointcontent = "";
 				}
+				
 			 if (!language.equals("English")){
 				 
 				// Toast.makeText(getActivity(), startpointcontent, Toast.LENGTH_SHORT).show();
 				//	Toast.makeText(getActivity(), destpointcontent, Toast.LENGTH_SHORT).show();
 			 }	
 				
-			 if (!currentpositioncb.isChecked() && !currentpositiondestcb.isChecked()){
-					totv.setText("");
-				}
-			 
+	
 				boolean flag = false;
 				//Log.i("start contents =>", startpointcontent);
+				Log.i("start contents =>", startpointtvcontent);
 				Log.i("dest contents =>", destpointcontent);
 				if (ls > 5 && !startpointcontent.toString().equals(destpointcontent)){
 					flag = true;
@@ -207,7 +213,7 @@ public class SettingsMapFragment extends ListFragment implements DialogInterface
 					
 				}
 		
-				if (startingpointtv.getText().length()> 0 &&  flag == true ){
+				if (startingpointtv.getText().length()> 0 && destinationpointtv.getText().length()> 0 && flag == true ){
 					
 					if (startpointcontent.toString().equals("current location") || startpointcontent.toString().equals("Τρέχουσα θέση")){
 						gps = new GPSTracker(getActivity());
@@ -253,9 +259,6 @@ public class SettingsMapFragment extends ListFragment implements DialogInterface
 						}
 					}
 					
-					if (totv.getText().toString().equals("")){
-						
-					}else{	
 						ToAndFromFragment t = new ToAndFromFragment();
 						Bundle locations_langBundle = new Bundle();
 						locations_langBundle.putString("language", language);
@@ -278,9 +281,8 @@ public class SettingsMapFragment extends ListFragment implements DialogInterface
 						fragmentTransaction = getFragmentManager().beginTransaction().replace(R.id.containersettings, g);
 						fragmentTransaction.addToBackStack(null);
 						fragmentTransaction.commit();
-				  }
 				}	
-				else if (startingpointtv.getText().length() == 0){
+				else if (startingpointtv.getText().length() == 0 || destinationpointtv.getText().length() == 0){
 					
 				}
 				else {
@@ -316,15 +318,14 @@ public class SettingsMapFragment extends ListFragment implements DialogInterface
 				
 				if (ls > 5){
 					startpointcontent = startpointtvcontent.substring(6, ls);
+				}else{
+					startpointcontent = ""; 
 				}
+		
 			    if (ld > 5){
 			    	destpointcontent = destv.substring(6, ld);
 				}
 				
-			    if (!currentpositioncb.isChecked() && !currentpositiondestcb.isChecked()){
-					fromtv.setText("");
-				}	
-			    
 				boolean flag = false;
 				if (ld > 5 && !startpointcontent.toString().equals(destpointcontent)){
 					flag = true;
@@ -336,7 +337,7 @@ public class SettingsMapFragment extends ListFragment implements DialogInterface
 					Toast.makeText(getActivity(), "contents equal", Toast.LENGTH_SHORT).show();	
 				}
 			
-				if (destinationpointtv.getText().length() > 0 && flag == true){
+				if (destinationpointtv.getText().length() > 0 && startingpointtv.getText().length() > 0 && flag == true){
 					
 					
 					if (destpointcontent.toString().equals("current location") || destpointcontent.toString().equals("Τρέχουσα θέση")){
@@ -381,10 +382,7 @@ public class SettingsMapFragment extends ListFragment implements DialogInterface
 								}while(destcursor.moveToNext());
 							}
 					}
-						
-					if (fromtv.getText().toString().equals("")){
-						
-					}else{	
+					
 						ToAndFromFragment t = new ToAndFromFragment();
 						Bundle locations_langBundle = new Bundle();
 						locations_langBundle.putString("language", language);
@@ -407,9 +405,8 @@ public class SettingsMapFragment extends ListFragment implements DialogInterface
 						fragmentTransaction = getFragmentManager().beginTransaction().replace(R.id.containersettings, g);
 						fragmentTransaction.addToBackStack(null);
 						fragmentTransaction.commit();
-					}
 				}
-				else if (destinationpointtv.getText().length() == 0){
+				else if (destinationpointtv.getText().length() == 0 || startingpointtv.getText().length() == 0){
 					
 				}
 				else{
@@ -440,6 +437,10 @@ public class SettingsMapFragment extends ListFragment implements DialogInterface
 
 			@Override
 			public void onTextChanged(CharSequence s, int start, int before, int count) {
+				if (currentpositiondestcb.isChecked() || currentpositioncb.isChecked()){
+					currentpositiondestcb.setChecked(false);
+				}
+				
 				String s1 = s.toString();
 				
 				 listView.setAdapter(dataAdapter);
@@ -478,7 +479,9 @@ public class SettingsMapFragment extends ListFragment implements DialogInterface
 
 			@Override
 			public void onTextChanged(CharSequence s, int start, int before, int count) {
-				
+				if (currentpositiondestcb.isChecked() || currentpositioncb.isChecked()){
+					currentpositioncb.setChecked(false);
+				}
 				
 				
 				String s1 = s.toString();
@@ -579,6 +582,21 @@ public class SettingsMapFragment extends ListFragment implements DialogInterface
 		if (v.getId() == R.id.selectcategoryb){
 			MenuInflater menuInflater = getActivity().getMenuInflater();
 			menuInflater.inflate(R.menu.all_places_menu, menu);
+			MenuItem eventsitem = menu.findItem(R.id.events);
+			MenuItem sightsitem = menu.findItem(R.id.axiotheata);
+			MenuItem barrestitem = menu.findItem(R.id.barrest);
+			MenuItem restitem = menu.findItem(R.id.rest);
+			MenuItem intcuisitem = menu.findItem(R.id.intcuis);
+			MenuItem seafooditem = menu.findItem(R.id.seafood);
+			MenuItem barsitem = menu.findItem(R.id.bars);
+			MenuItem clubsitem = menu.findItem(R.id.clubs);
+			MenuItem pubsitem = menu.findItem(R.id.pubs); 
+			MenuItem mouseiaitem = menu.findItem(R.id.mouseia);
+			MenuItem ekkitem = menu.findItem(R.id.ekklisies);
+			MenuItem nosokomeiaitem = menu.findItem(R.id.nosokomeia);
+			if (language.equals("Greek")){
+				eventsitem.setTitle("Αεκκξησ");
+			}
 		}
 		else{
 			MenuInflater menuInflater = getActivity().getMenuInflater();

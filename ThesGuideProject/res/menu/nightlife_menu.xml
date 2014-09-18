@@ -4,13 +4,11 @@
 	<group
        android:checkableBehavior="single">
     <item 
-        android:id="@+id/bars"
-        android:title="@string/bars" >
+        android:id="@+id/bars" >
     </item>
     
     <item 
-        android:id="@+id/clubs"
-        android:title="@string/clubs" >
+        android:id="@+id/clubs" >
     </item>
     
    <!--  <item 
@@ -19,8 +17,7 @@
     </item>    -->
     
     <item 
-        android:id="@+id/pubs"
-        android:title="@string/pubs" >
+        android:id="@+id/pubs" >
     </item>
     
     </group>
