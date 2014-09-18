@@ -77,7 +77,7 @@ public class DisarableLocationCursorAdapter extends CursorAdapter implements OnC
 				}
 				
 				this.cursor.moveToPosition(position);
-				if (lang.equals("Latin")){
+				if (lang.equals("English")){
 					 placeNameEl = this.cursor.getString(this.cursor.getColumnIndex("name_en"));
 				}
 				else{
@@ -119,11 +119,11 @@ public class DisarableLocationCursorAdapter extends CursorAdapter implements OnC
 		//items.remove(pos);
 		//this.notifyDataSetChanged();
 		if (flag.equals("startingPoint")){
-			settingsMapFragment.setStartingPointTextViewText(s1);
+			//settingsMapFragment.setStartingPointTextViewText(s1);
 		 // findPathActivity.setStartingPointTextViewText(s1);
 		}
 		else{
-			settingsMapFragment.setDestinantionPointTextViewText(s1);
+			//settingsMapFragment.setDestinantionPointTextViewText(s1);
 			//findPathActivity.setDestinantionPointTextViewText(s1);
 		}
 		//FindPathActivity.setStartingPointTextViewText(s1);	

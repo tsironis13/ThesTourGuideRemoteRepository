@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.example.adapters.DisarableLocationCursorAdapter;
 import com.example.fragmentClasses.GoogleMapFragment.OnGoogleMapFragmentListener;
 import com.example.fragmentClasses.SettingsMapFragment;
+import com.example.fragmentClasses.ToAndFromFragment;
 import com.example.sqlHelper.TestLocalSqliteDatabase;
 import com.google.android.gms.maps.GoogleMap;
 
@@ -38,12 +39,15 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
+import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+@TargetApi(Build.VERSION_CODES.ECLAIR) 
 public class FindPathFragmentActivity extends ActionBarActivity implements OnGoogleMapFragmentListener{
 
 	private SettingsMapFragment settingsMapFragment;
@@ -56,7 +60,7 @@ public class FindPathFragmentActivity extends ActionBarActivity implements OnGoo
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.findpathfragmentactivity);	
-		
+
 		Bundle extras = getIntent().getExtras();
 		language = extras.getString("language");
 		
@@ -69,6 +73,29 @@ public class FindPathFragmentActivity extends ActionBarActivity implements OnGoo
 			fragmentTransaction.commit();
 		}
 	}
+
+	
+	
+	@Override
+	public void onBackPressed() {
+		// TODO Auto-generated method stub
+		super.onBackPressed();
+		
+		int id = getSupportFragmentManager().getBackStackEntryCount();
+		String sid = Integer.toString(id);
+		Log.i("back stack entry count =>", sid);
+		//String backStackId = getSupportFragmentManager().getBackStackEntryAt(0).getName();
+		//Log.i("back stack entry at position 0 =>", backStackId);
+		
+		if (id ==1){
+			getSupportFragmentManager().popBackStack();
+		}
+		//ToAndFromFragment t = new ToAndFromFragment();
+		//fragmentTransaction = getSupportFragmentManager().beginTransaction().remove(t);
+		//fragmentTransaction.commit();
+	}
+
+
 
 	@Override
 	public void onMapReady(GoogleMap map) {

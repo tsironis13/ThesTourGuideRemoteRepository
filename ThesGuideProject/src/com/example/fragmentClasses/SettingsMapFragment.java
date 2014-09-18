@@ -1,6 +1,7 @@
 package com.example.fragmentClasses;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 import com.example.adapters.DisarableLocationCursorAdapter;
@@ -27,13 +28,17 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewGroup.LayoutParams;
 import android.view.inputmethod.InputMethodManager;
 import android.view.inputmethod.InputMethodSubtype;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.TextView;
@@ -57,7 +62,7 @@ public class SettingsMapFragment extends ListFragment implements DialogInterface
 	private ArrayList<String> items = new ArrayList<String>();
 	private TestLocalSqliteDatabase testDB;
 	private static final String debugTag = "FindPathActivity";
-	private static int SPLASH_TIME_OUT = 5000;
+	//private static int SPLASH_TIME_OUT = 5000;
 	private ArrayList<String> categoryPlacesList;
 	private String flag;
 	private FragmentTransaction fragmentTransaction;
@@ -71,6 +76,11 @@ public class SettingsMapFragment extends ListFragment implements DialogInterface
 	private double destlongtitude2;
 	private GPSTracker gps;
 	private static String language;
+	ArrayAdapter<String> dataAdapter = null;
+	List<String> locationsList;
+	
+	String startpointcontent;
+	String destpointcontent;
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -104,8 +114,8 @@ public class SettingsMapFragment extends ListFragment implements DialogInterface
 		 currentpositiondestcb.setText("Τρέχουσα θέση");
 		 selectdestinationcategoryb.setText("Κατηγορία");
 		 disarabledestLocationEditText.setHint("Ψάξε τοποθεσία");
-		 fromtv.setText("Από:");
-		 totv.setText("Προς");
+		// fromtv.setText("Από");
+		// totv.setText("Προς");
 	 }
 	 else{
 		 startpointlabeltv.setText("Starting Point");
@@ -116,12 +126,13 @@ public class SettingsMapFragment extends ListFragment implements DialogInterface
 		 currentpositiondestcb.setText("Current location");
 		 selectdestinationcategoryb.setText("Pick category");
 		 disarabledestLocationEditText.setHint("Search location");
-		 fromtv.setText("From");
-		 totv.setText("To");
+		 //fromtv.setText("From");
+		 //totv.setText("To");
 	 }
 		
 		startingpointtv = (TextView) view.findViewById(R.id.startingpointtv);
 		destinationpointtv = (TextView) view.findViewById(R.id.destinationpointtv);
+		
 		//selectdestinationcategoryrd = (RadioButton) view.findViewById(R.id.selectdestinationcategoryrd);
 		InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
 		imm.showSoftInput(disarableLocationEditText, InputMethodManager.SHOW_IMPLICIT);
@@ -138,35 +149,69 @@ public class SettingsMapFragment extends ListFragment implements DialogInterface
 		// TODO Auto-generated method stub
 		super.onActivityCreated(savedInstanceState);
 		listView = getListView();
+		 locationsList = new ArrayList<String>();
+		
+		Cursor allplaces = testDB.getAllPlaces();
+		if (allplaces.moveToFirst()){
+			do{
+				String name = allplaces.getString(allplaces.getColumnIndex("name_el"));
+				locationsList.add(name);
+			}while(allplaces.moveToNext());
+		}
+		
+		
+		  
+		  dataAdapter = new ArrayAdapter<String>(getActivity(), R.layout.countries, locationsList); 
+		  
+		  listView.setAdapter(dataAdapter);
+		  listView.setTextFilterEnabled(true);
 		
 		destinationpointtv.addTextChangedListener(new TextWatcher(){
 
 			@Override
 			public void afterTextChanged(Editable s) {
-				
-				CoverFragment c = new CoverFragment();
-				fragmentTransaction = getFragmentManager().beginTransaction().replace(R.id.containermapview, c);
-				//fragmentTransaction.addToBackStack(null);
-				fragmentTransaction.commit();
-				
 				String startpointtvcontent = startingpointtv.getText().toString();
-				Toast.makeText(getActivity(), startpointtvcontent, Toast.LENGTH_SHORT).show();
-				boolean flag = false;
-				//if (!destinationpointtv.getText().toString().equals(startpointtvcontent)){
-				//	flag = true;
-				//	Log.i("FLAG =>", "TRUE, NOT MATCHING");
-				//}
-				String fromtvcontent = fromtv.getText().toString();
-				if (!totv.getText().toString().equals(fromtvcontent)){
-					flag = true;
-				}
+				int ls = startpointtvcontent.length();
+				String sls = Integer.toString(ls);
+				Log.i("starting point tv characters =>", sls);
 				
-				if (startingpointtv.getText().length()> 0 &&  flag == true){
+				String destv = destinationpointtv.getText().toString();
+				int ld = destv.length();
+				String sld = Integer.toString(ld);
+				Log.i("starting point tv characters =>", sld);
+			
+				if (ls > 5){
+					startpointcontent = startpointtvcontent.substring(6, ls);
+				}
+				if (ld > 5){
+					destpointcontent = destv.substring(6, ld);
+				}
+			 if (!language.equals("English")){
+				 
+				// Toast.makeText(getActivity(), startpointcontent, Toast.LENGTH_SHORT).show();
+				//	Toast.makeText(getActivity(), destpointcontent, Toast.LENGTH_SHORT).show();
+			 }	
+				
+			 if (!currentpositioncb.isChecked() && !currentpositiondestcb.isChecked()){
+					totv.setText("");
+				}
+			 
+				boolean flag = false;
+				//Log.i("start contents =>", startpointcontent);
+				Log.i("dest contents =>", destpointcontent);
+				if (ls > 5 && !startpointcontent.toString().equals(destpointcontent)){
+					flag = true;
+					Toast.makeText(getActivity(), "contents not equal", Toast.LENGTH_SHORT).show();
+				}else{
+					Toast.makeText(getActivity(), "contents equal", Toast.LENGTH_SHORT).show();
 					
-					if (fromtv.getText().toString().equals("current location") || fromtv.getText().toString().equals("Τρέχουσα θέση")){
+				}
+		
+				if (startingpointtv.getText().length()> 0 &&  flag == true ){
+					
+					if (startpointcontent.toString().equals("current location") || startpointcontent.toString().equals("Τρέχουσα θέση")){
 						gps = new GPSTracker(getActivity());
 						
-						Log.i("starting point is =>", fromtv.getText().toString());
 						if (gps.canGetLocation()){
 							startlatitude = gps.getLatitude();
 							startlongtitude = gps.getLongitude();
@@ -177,8 +222,7 @@ public class SettingsMapFragment extends ListFragment implements DialogInterface
 				        }
 					}
 					else{
-						Cursor startcursor = testDB.getPlaceByNameEl(fromtv.getText().toString());
-						Log.i("starting point is =>", fromtv.getText().toString());
+						Cursor startcursor = testDB.getPlaceByNameEl(startpointcontent.toString());
 							if (startcursor.moveToFirst()){
 								do{
 									startlatitude = startcursor.getDouble(startcursor.getColumnIndex("latitude"));
@@ -188,10 +232,9 @@ public class SettingsMapFragment extends ListFragment implements DialogInterface
 					}
 					
 					
-					if (totv.getText().toString().equals("current location") || totv.getText().toString().equals("Τρέχουσα θέση")){
+					if (destpointcontent.toString().equals("current location") || destpointcontent.toString().equals("Τρέχουσα θέση")){
 						gps = new GPSTracker(getActivity());
 						
-						Log.i("starting point is =>", fromtv.getText().toString());
 						if (gps.canGetLocation()){
 							destlatitude = gps.getLatitude();
 							destlongtitude = gps.getLongitude();
@@ -201,8 +244,7 @@ public class SettingsMapFragment extends ListFragment implements DialogInterface
 				            gps.showSettingsAlert();
 				        }
 					}else{
-						Cursor destcursor = testDB.getPlaceByNameEl(totv.getText().toString());
-						Log.i("destination point is =>", totv.getText().toString());
+						Cursor destcursor = testDB.getPlaceByNameEl(destpointcontent.toString());
 						if (destcursor.moveToFirst()){
 							do{
 								destlatitude = destcursor.getDouble(destcursor.getColumnIndex("latitude"));
@@ -211,18 +253,33 @@ public class SettingsMapFragment extends ListFragment implements DialogInterface
 						}
 					}
 					
-					GoogleMapFragment g = new GoogleMapFragment();
-					Bundle onmapBundle = new Bundle();
-					onmapBundle.putString("language", language);
-					onmapBundle.putDouble("doubleCurrentLatitude", startlatitude);
-					onmapBundle.putDouble("doubleCurrentLongtitude", startlongtitude);
-					onmapBundle.putDouble("doublePlaceLatitude", destlatitude);
-					onmapBundle.putDouble("doublePlaceLongtitude", destlongtitude);
-					g.setArguments(onmapBundle);
-					fragmentTransaction = getFragmentManager().beginTransaction().replace(R.id.containermapview, g);
-					//fragmentTransaction.addToBackStack(null);
-					fragmentTransaction.commit();
-				}
+					if (totv.getText().toString().equals("")){
+						
+					}else{	
+						ToAndFromFragment t = new ToAndFromFragment();
+						Bundle locations_langBundle = new Bundle();
+						locations_langBundle.putString("language", language);
+						locations_langBundle.putString("fromlocation", startingpointtv.getText().toString());
+						locations_langBundle.putString("tolocation", destinationpointtv.getText().toString());
+						t.setArguments(locations_langBundle);
+						fragmentTransaction = getFragmentManager().beginTransaction().replace(R.id.containertv, t);
+						fragmentTransaction.addToBackStack("t");
+						fragmentTransaction.commit();
+					
+						GoogleMapFragment g = new GoogleMapFragment();
+						Bundle onmapBundle = new Bundle();
+						onmapBundle.putString("language", language);
+						onmapBundle.putDouble("doubleCurrentLatitude", startlatitude);
+						onmapBundle.putDouble("doubleCurrentLongtitude", startlongtitude);
+						onmapBundle.putDouble("doublePlaceLatitude", destlatitude);
+						onmapBundle.putDouble("doublePlaceLongtitude", destlongtitude);
+						g.setArguments(onmapBundle);
+						testDB.close(debugTag);
+						fragmentTransaction = getFragmentManager().beginTransaction().replace(R.id.containersettings, g);
+						fragmentTransaction.addToBackStack(null);
+						fragmentTransaction.commit();
+				  }
+				}	
 				else if (startingpointtv.getText().length() == 0){
 					
 				}
@@ -247,27 +304,42 @@ public class SettingsMapFragment extends ListFragment implements DialogInterface
 
 			@Override
 			public void afterTextChanged(Editable s) {
+				String destv = destinationpointtv.getText().toString();
+				int ld = destv.length();
+				String sld = Integer.toString(ld);
+				Log.i("starting point tv characters =>", sld);
 				
-				CoverFragment c = new CoverFragment();
-				fragmentTransaction = getFragmentManager().beginTransaction().replace(R.id.containermapview, c);
-				//fragmentTransaction.addToBackStack(null);
-				fragmentTransaction.commit();
+				String startpointtvcontent = startingpointtv.getText().toString();
+				int ls = startpointtvcontent.length();
+				String sls = Integer.toString(ls);
+				Log.i("starting point tv characters =>", sls);
 				
-				String destinpointtvcontent = destinationpointtv.getText().toString();
-				boolean flag = false;
-				//if (!startingpointtv.getText().toString().equals(destinpointtvcontent)){
-				//	flag = true;
-				//}
-				String totvcontent = totv.getText().toString();
-				if (!fromtv.getText().toString().equals(totvcontent)){
-					flag = true;
+				if (ls > 5){
+					startpointcontent = startpointtvcontent.substring(6, ls);
+				}
+			    if (ld > 5){
+			    	destpointcontent = destv.substring(6, ld);
 				}
 				
-				
+			    if (!currentpositioncb.isChecked() && !currentpositiondestcb.isChecked()){
+					fromtv.setText("");
+				}	
+			    
+				boolean flag = false;
+				if (ld > 5 && !startpointcontent.toString().equals(destpointcontent)){
+					flag = true;
+					Toast.makeText(getActivity(), "contents not equal", Toast.LENGTH_SHORT).show();
+				}else if (destinationpointtv.getText().toString().equals("")){
+					flag = false;
+				}
+				else{
+					Toast.makeText(getActivity(), "contents equal", Toast.LENGTH_SHORT).show();	
+				}
+			
 				if (destinationpointtv.getText().length() > 0 && flag == true){
 					
 					
-					if (totv.getText().toString().equals("current location") || totv.getText().toString().equals("Τρέχουσα θέση")){
+					if (destpointcontent.toString().equals("current location") || destpointcontent.toString().equals("Τρέχουσα θέση")){
 						gps = new GPSTracker(getActivity());
 						
 						if (gps.canGetLocation()){
@@ -280,7 +352,7 @@ public class SettingsMapFragment extends ListFragment implements DialogInterface
 				        }
 					}
 					else{
-						Cursor startcursor = testDB.getPlaceByNameEl(totv.getText().toString());
+						Cursor startcursor = testDB.getPlaceByNameEl(destpointcontent.toString());
 						if (startcursor.moveToFirst()){
 							do{
 								destlatitude2 = startcursor.getDouble(startcursor.getColumnIndex("latitude"));
@@ -289,7 +361,7 @@ public class SettingsMapFragment extends ListFragment implements DialogInterface
 						}
 					}
 					
-					if (fromtv.getText().toString().equals("current location") || fromtv.getText().toString().equals("Τρέχουσα θέση")){
+					if (startpointcontent.toString().equals("current location") || startpointcontent.toString().equals("Τρέχουσα θέση")){
 						gps = new GPSTracker(getActivity());
 						
 						if (gps.canGetLocation()){
@@ -301,7 +373,7 @@ public class SettingsMapFragment extends ListFragment implements DialogInterface
 				            gps.showSettingsAlert();
 				        }
 					}else{ 
-						Cursor destcursor = testDB.getPlaceByNameEl(fromtv.getText().toString());
+						Cursor destcursor = testDB.getPlaceByNameEl(startpointcontent.toString());
 							if (destcursor.moveToFirst()){
 								do{
 									startlatitude2 = destcursor.getDouble(destcursor.getColumnIndex("latitude"));
@@ -309,18 +381,33 @@ public class SettingsMapFragment extends ListFragment implements DialogInterface
 								}while(destcursor.moveToNext());
 							}
 					}
-							
-					GoogleMapFragment g = new GoogleMapFragment();
-					Bundle onmapBundle = new Bundle();
-					onmapBundle.putString("language", language);
-					onmapBundle.putDouble("doubleCurrentLatitude", startlatitude2);
-					onmapBundle.putDouble("doubleCurrentLongtitude", startlongtitude2);
-					onmapBundle.putDouble("doublePlaceLatitude", destlatitude2);
-					onmapBundle.putDouble("doublePlaceLongtitude", destlongtitude2);
-					g.setArguments(onmapBundle);
-					fragmentTransaction = getFragmentManager().beginTransaction().replace(R.id.containermapview, g);
-					//fragmentTransaction.addToBackStack(null);
-					fragmentTransaction.commit();
+						
+					if (fromtv.getText().toString().equals("")){
+						
+					}else{	
+						ToAndFromFragment t = new ToAndFromFragment();
+						Bundle locations_langBundle = new Bundle();
+						locations_langBundle.putString("language", language);
+						locations_langBundle.putString("fromlocation", startingpointtv.getText().toString());
+						locations_langBundle.putString("tolocation", destinationpointtv.getText().toString());
+						t.setArguments(locations_langBundle);
+						fragmentTransaction = getFragmentManager().beginTransaction().replace(R.id.containertv, t);
+						fragmentTransaction.addToBackStack("t");
+						fragmentTransaction.commit();
+					
+						GoogleMapFragment g = new GoogleMapFragment();
+						Bundle onmapBundle = new Bundle();
+						onmapBundle.putString("language", language);
+						onmapBundle.putDouble("doubleCurrentLatitude", startlatitude2);
+						onmapBundle.putDouble("doubleCurrentLongtitude", startlongtitude2);
+						onmapBundle.putDouble("doublePlaceLatitude", destlatitude2);
+						onmapBundle.putDouble("doublePlaceLongtitude", destlongtitude2);
+						g.setArguments(onmapBundle);
+						testDB.close(debugTag);
+						fragmentTransaction = getFragmentManager().beginTransaction().replace(R.id.containersettings, g);
+						fragmentTransaction.addToBackStack(null);
+						fragmentTransaction.commit();
+					}
 				}
 				else if (destinationpointtv.getText().length() == 0){
 					
@@ -353,15 +440,35 @@ public class SettingsMapFragment extends ListFragment implements DialogInterface
 
 			@Override
 			public void onTextChanged(CharSequence s, int start, int before, int count) {
-				currentpositiondestcb.setChecked(false);
-				flag = "destinationPoint";
-			    Editable getEditableText = disarabledestLocationEditText.getText();
-			    String getStringText = getEditableText.toString();
-				Log.i("GET TEXT FROM EDIT TEXT =>",  getStringText);
-				loadData(getStringText, flag);
+				String s1 = s.toString();
+				
+				 listView.setAdapter(dataAdapter);
+				Log.i("char sequence =>", s1);
+				if (s.length() <1){
+					listView.setAdapter(null);
+				}else{	
+					dataAdapter.getFilter().filter(s.toString());
+					listView.setVisibility(View.VISIBLE);
+				}
+				
+				
+				listView.setOnItemClickListener(new OnItemClickListener() {
+					public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+							    // When clicked, show a toast with the TextView text
+						if (language.equals("English")){
+							destinationpointtv.setText("To: " + ((TextView) view).getText());
+							listView.setAdapter(null);
+							disarabledestLocationEditText.setText("");
+						}
+						else{
+							destinationpointtv.setText("Προς: " + ((TextView) view).getText());
+							listView.setAdapter(null);
+							disarabledestLocationEditText.setText("");
+						}
+					}
+				});
 			}	
 		});
-		
 		
 		disarableLocationEditText.addTextChangedListener(new TextWatcher(){
 			@Override
@@ -371,27 +478,55 @@ public class SettingsMapFragment extends ListFragment implements DialogInterface
 
 			@Override
 			public void onTextChanged(CharSequence s, int start, int before, int count) {
-				currentpositioncb.setChecked(false);
-				flag = "startingPoint";
-			    Editable getEditableText = disarableLocationEditText.getText();
-			    String getStringText = getEditableText.toString();
-				Log.i("GET TEXT FROM EDIT TEXT =>",  getStringText);
-				loadData(getStringText, flag);
+				
+				
+				
+				String s1 = s.toString();
+				
+				 listView.setAdapter(dataAdapter);
+		
+				Log.i("char sequence =>", s1);
+				if (s.length() <1){
+					listView.setAdapter(null);
+				}else{	
+					dataAdapter.getFilter().filter(s.toString());
+					listView.setVisibility(View.VISIBLE);
+				}
+				
+				listView.setOnItemClickListener(new OnItemClickListener() {
+					public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+							    // When clicked, show a toast with the TextView text
+						if (language.equals("English")){
+							startingpointtv.setText("From: " + ((TextView) view).getText());
+							listView.setAdapter(null);
+							disarableLocationEditText.setText("");
+						}
+						else{
+							startingpointtv.setText("Από:  " + ((TextView) view).getText());
+							listView.setAdapter(null);
+							disarableLocationEditText.setText("");
+						}
+					}
+				});
 			}
 		});
-		
 		
 		currentpositiondestcb.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 			@Override
 			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 				if (isChecked == true){
+					destinationpointtv.setVisibility(View.VISIBLE);
 					if (language.equals("English")){
 						totv.setText("current location");
 						destinationpointtv.setText("To: current location");
 					}else{
-						totv.setText("Τρέχουσα θέση");
+						//totv.setText("Τρέχουσα θέση");
 						destinationpointtv.setText("Προς: Τρέχουσα θέση");
 					}
+				}else{
+					destinationpointtv.setText("");
+					//destinationpointtv.setVisibility(View.INVISIBLE);
+					totv.setText("");
 				}
 			}
 		});
@@ -400,17 +535,23 @@ public class SettingsMapFragment extends ListFragment implements DialogInterface
 			@Override
 			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 				if (isChecked == true){
+					startingpointtv.setVisibility(View.VISIBLE);
 					if (language.equals("English")){
 						fromtv.setText("current location");
 						startingpointtv.setText("From: current location");
 					}else{
-					    fromtv.setText("Τρέχουσα θέση");
-						startingpointtv.setText("Από: Τρέχουσα θέση");
+					    //fromtv.setText("Τρέχουσα θέση");
+						startingpointtv.setText("Από:  Τρέχουσα θέση");
 					}
+				}else{
+					startingpointtv.setText("");
+					//startingpointtv.setVisibility(View.INVISIBLE);
+					fromtv.setText("");
 				}
-			}
+			  }
 		});
-		
+		 
+		 	
 		selectdestinationcategoryb.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -431,112 +572,6 @@ public class SettingsMapFragment extends ListFragment implements DialogInterface
 		
 	}
 
-	private void loadData(String getStringText, String flag) {
-		items.clear();
-		
-		//char ch = getStringText.charAt(0);
-		
-		String pattern = "^[A-Za-z0-9. ]+$";
-		if (getStringText.matches(pattern)){
-			if (getStringText.length()>1){	
-				
-				String columns[] = new String[] {"_id", "name_en"};
-				Object[] temp = new Object[] { 0, "default" };
-	
-				MatrixCursor cursor = new MatrixCursor(columns);
-	
-	
-				Cursor c = testDB.searchByPlaceNameEn(getStringText);
-	
-				try{
-					if (c == null){
-					Log.i("Message Matched =>", "false");
-				}
-				else{
-					if (c.moveToFirst()){
-						do{
-							String s = c.getString(c.getColumnIndex("name_el"));
-							Log.i("Cursor contents =>", s);
-							items.add(s);
-						   }
-						while(c.moveToNext());
-					}
-				}
-		
-				}
-				finally
-				{
-					c.close();
-				}
-	
-				for (int i=0; i<items.size(); i++){
-					temp[0] = i;
-					temp[1] = items.get(i);
-		
-					cursor.addRow(temp);
-				}
-	
-				String lang = "Latin";
-				listView.setAdapter(new DisarableLocationCursorAdapter(getActivity(), cursor, items, flag, lang));
-
-			}
-		else{
-				listView.setAdapter(null);
-			}
-		}
-		else{
-			Toast.makeText(getActivity(), "Greek input", Toast.LENGTH_SHORT).show();
-		
-	
-		
-			if (getStringText.length()>1){	
-		
-					String columns[] = new String[] {"_id", "nameel_lower"};
-					Object[] temp = new Object[] { 0, "default" };
-		
-					MatrixCursor cursor = new MatrixCursor(columns);
-		
-		
-					Cursor c = testDB.searchByPlaceName(getStringText);
-		
-					try{
-						if (c == null){
-						Log.i("Message Matched =>", "false");
-					}
-					else{
-						if (c.moveToFirst()){
-							do{
-								String s = c.getString(c.getColumnIndex("name_el"));
-								Log.i("Cursor contents =>", s);
-								items.add(s);
-							   }
-							while(c.moveToNext());
-						}
-					}
-			
-					}
-					finally
-					{
-						c.close();
-					}
-		
-					for (int i=0; i<items.size(); i++){
-						temp[0] = i;
-						temp[1] = items.get(i);
-			
-						cursor.addRow(temp);
-					}
-					String lang= "Greek";
-					listView.setAdapter(new DisarableLocationCursorAdapter(getActivity(), cursor, items, flag, lang));
-	
-				}
-			else{
-					listView.setAdapter(null);
-				}
-   
-		}
-	}
-	
 	@Override
 	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
 		// TODO Auto-generated method stub
@@ -558,24 +593,82 @@ public class SettingsMapFragment extends ListFragment implements DialogInterface
 		// TODO Auto-generated method stub
 		switch(item.getItemId()){
 		case R.id.mouseiadest:
-			Bundle selectPlaceListdestFragmentBundle = new Bundle();
-			selectPlaceListdestFragmentBundle.putString("genre", "museums");
-			selectPlaceListdestFragmentBundle.putString("flag", "destination");
-			SelectByCategoryPlacesListFragment selectByCategoryPlaceListdestFragment = new SelectByCategoryPlacesListFragment();
-			selectByCategoryPlaceListdestFragment.setArguments(selectPlaceListdestFragmentBundle);
-			fragmentTransaction = getFragmentManager().beginTransaction().replace(R.id.containermapview, selectByCategoryPlaceListdestFragment);
-			//fragmentTransaction.addToBackStack(null);
-			fragmentTransaction.commit();
+	    List<String> list = new ArrayList<String>();
+			
+			Cursor specificPlacecursor = testDB.getSpecificPlaceData("museums");
+			if (specificPlacecursor.moveToFirst()){
+				do{
+					String name = specificPlacecursor.getString(specificPlacecursor.getColumnIndex("name_el"));
+					list.add(name);
+				}while(specificPlacecursor.moveToNext());
+			}
+			  
+			  ArrayAdapter<String> dataAdapter1 = new ArrayAdapter<String>(getActivity(), R.layout.countries, list); 
+			  listView.setVisibility(View.VISIBLE);
+			  listView.setAdapter(dataAdapter1);
+			
+			  listView.setOnItemClickListener(new OnItemClickListener() {
+					public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+							    // When clicked, show a toast with the TextView text
+						String text = ((TextView) view).getText().toString();
+						if (language.equals("English")){
+							destinationpointtv.setText("To: " + text);
+							totv.setText(text);
+							//listView.setAdapter(null);
+							disarabledestLocationEditText.setText("");
+						}
+						else{
+							destinationpointtv.setText("Προς: " + text);
+							totv.setText(text);
+							//listView.setAdapter(null);
+							disarabledestLocationEditText.setText("");
+						}
+					}
+			});
 		break;
 		case R.id.mouseia:
-			Bundle selectPlaceListFragmentBundle = new Bundle();
-			selectPlaceListFragmentBundle.putString("genre", "museums");
-			selectPlaceListFragmentBundle.putString("flag", "startingpoint");
-			SelectByCategoryPlacesListFragment selectByCategoryPlaceListFragment = new SelectByCategoryPlacesListFragment();
-			selectByCategoryPlaceListFragment.setArguments(selectPlaceListFragmentBundle);
-			fragmentTransaction = getFragmentManager().beginTransaction().replace(R.id.containermapview, selectByCategoryPlaceListFragment);
+			
+			List<String> list1 = new ArrayList<String>();
+			
+			Cursor specificPlacecursor1 = testDB.getSpecificPlaceData("museums");
+			if (specificPlacecursor1.moveToFirst()){
+				do{
+					String name = specificPlacecursor1.getString(specificPlacecursor1.getColumnIndex("name_el"));
+					list1.add(name);
+				}while(specificPlacecursor1.moveToNext());
+			}
+			  
+			 ArrayAdapter<String> dataAdapter2 = new ArrayAdapter<String>(getActivity(), R.layout.countries, list1); 
+			  listView.setVisibility(View.VISIBLE);
+			  listView.setAdapter(dataAdapter2);
+			
+			  listView.setOnItemClickListener(new OnItemClickListener() {
+					public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+							    // When clicked, show a toast with the TextView text
+						String text1 = ((TextView) view).getText().toString();
+						if (language.equals("English")){
+							startingpointtv.setText("From: " + text1);
+							fromtv.setText(text1);
+							//listView.setAdapter(null);
+							disarableLocationEditText.setText("");
+						}
+						else{
+							startingpointtv.setText("Από:  " + text1);
+							fromtv.setText(text1);
+							//listView.setAdapter(null);
+							disarableLocationEditText.setText("");
+						}
+					}
+			});
+			  
+			//Bundle selectPlaceListFragmentBundle = new Bundle();
+			//selectPlaceListFragmentBundle.putString("genre", "museums");
+			//selectPlaceListFragmentBundle.putString("flag", "startingpoint");
+			//SelectByCategoryPlacesListFragment selectByCategoryPlaceListFragment = new SelectByCategoryPlacesListFragment();
+			//selectByCategoryPlaceListFragment.setArguments(selectPlaceListFragmentBundle);
+			//fragmentTransaction = getFragmentManager().beginTransaction().replace(R.id.containermapview, selectByCategoryPlaceListFragment);
 			//fragmentTransaction.addToBackStack(null);
-			fragmentTransaction.commit();
+			//fragmentTransaction.commit();
 			/*Cursor mc = testDB.getSpecificPlaceData("museums");
 			if (mc.moveToFirst()){
 				do{
@@ -611,7 +704,7 @@ public class SettingsMapFragment extends ListFragment implements DialogInterface
 		testDB.close(debugTag);
 	}
 	
-	
+	/*
 	public static void s(String text, String flag){
 		if (flag.equals("startingpoint")){
 			if (language.equals("English")){
@@ -674,7 +767,7 @@ public class SettingsMapFragment extends ListFragment implements DialogInterface
 	    	 disarabledestLocationEditText.setText("");
 	     }
 	 	   
-	 }
+	 }*/
 
 	@Override
 	public void onClick(DialogInterface arg0, int arg1) {

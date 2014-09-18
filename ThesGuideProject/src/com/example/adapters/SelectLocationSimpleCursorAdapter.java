@@ -74,9 +74,8 @@ public class SelectLocationSimpleCursorAdapter extends SimpleCursorAdapter imple
 		ViewHolder vH = (ViewHolder) view.getTag();
 		CharSequence s = vH.placeNametv.getText();
 		String s1 = s.toString();
-		SettingsMapFragment settingsMapFragment = new SettingsMapFragment();
-		settingsMapFragment.s(s1,flag);
-		Toast.makeText(context, s1, Toast.LENGTH_SHORT).show();
+		//SettingsMapFragment.s(s1,flag);
+		//Toast.makeText(context, s1, Toast.LENGTH_SHORT).show();
 		//settingsMapFragment.setStartingPointTextViewText(s1);
 		
 	}

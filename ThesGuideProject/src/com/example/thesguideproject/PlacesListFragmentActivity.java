@@ -59,7 +59,6 @@ import android.widget.Toast;
 	private String url;
 	private String language;
 	
-	
 	public PlacesListFragmentActivity(){}
 	
 	private MenuItem searchItem;
@@ -174,24 +173,13 @@ import android.widget.Toast;
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		
-		Button e = (Button) findViewById(R.id.eventsbutton);
-		Button sig = (Button) findViewById(R.id.sightseeingsbutton);
-		
 		
 	 if (keyCode==KeyEvent.KEYCODE_BACK){	
-		 
-		 
-		 if (android.os.Build.VERSION.SDK_INT <= 10){
-			 Toast.makeText(getApplicationContext(), "version <= 10 ", Toast.LENGTH_SHORT).show();
-			
-		 }
-		 else{
-			 Toast.makeText(getApplicationContext(), "version > 10 ", Toast.LENGTH_SHORT).show();
-		 }
+		
+		 LinearLayout menulinearlayout = (LinearLayout) findViewById(R.id.linearlayout1);
+		 boolean success = formIsValid(menulinearlayout);
 		 
 		
-		 e.getBackground().setAlpha(255);
-		 sig.getBackground().setAlpha(255);
 		 //int y = t.getAuxiliaryVariableI();
 	
 		//FragmentTransaction ft2 = getSupportFragmentManager().beginTransaction();
@@ -511,6 +499,15 @@ import android.widget.Toast;
 		return false;
 	}
 
+	public boolean formIsValid(LinearLayout layout) {
+		for (int i=0; i<layout.getChildCount(); i++){
+			View v = layout.getChildAt(i);
+				if (v instanceof Button){
+					v.getBackground().setAlpha(255);
+				}
+		}	
+		return true;
+	}
 	
  /*public static class TestListFragment extends Fragment{
 	 
