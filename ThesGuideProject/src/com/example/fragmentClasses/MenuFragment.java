@@ -430,9 +430,9 @@ public class MenuFragment extends Fragment {
 			MenuItem pubsitem = menu.findItem(R.id.pubs);
 			MenuItem barsitem = menu.findItem(R.id.bars);
 			if (language.equals("Greek")){
-				clubsitem.setTitle("Κλαμπ");
+				clubsitem.setTitle("Κλάμπ");
 				pubsitem.setTitle("Μπυραρίες");
-				barsitem.setTitle("Μπαρ");
+				barsitem.setTitle("Μπάρ");
 			}	
 			else{
 				clubsitem.setTitle("Clubs");
@@ -448,7 +448,7 @@ public class MenuFragment extends Fragment {
 			MenuItem seafitem = menu.findItem(R.id.seafood);
 			MenuItem intercuiitem = menu.findItem(R.id.intercuisine);
 			if (language.equals("Greek")){
-				barrestitem.setTitle("Μπαρ-Ρεστοράν");
+				barrestitem.setTitle("Μπάρ-Ρεστοράν");
 				restitem.setTitle("Ρεστοράν");
 				seafitem.setTitle("Ψαροταβέρνες");
 				intercuiitem.setTitle("Διεθνής Κουζίνα");

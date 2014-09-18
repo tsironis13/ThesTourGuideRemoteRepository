@@ -3,23 +3,21 @@ package com.example.adapters;
 import java.util.List;
 
 import com.example.thesguideproject.R;
-import com.example.thesguideproject.SearchPlaceResutlActivity;
 
 import android.content.Context;
-import android.content.Intent;
 import android.database.Cursor;
-import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.CursorAdapter;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 
-public class InEnglishSearchAdapter extends CursorAdapter implements OnClickListener{
+public class SettingsListAdapter extends CursorAdapter implements OnClickListener{
 
 	private List items;
 	private Context context; 
@@ -28,15 +26,26 @@ public class InEnglishSearchAdapter extends CursorAdapter implements OnClickList
 	private Cursor cursor;	
 	private String placeNameEl;
 	private MenuItem searchItem;
-	//private FragmentTransaction fragmentTransaction;
-	//private MenuFragment menuFragment;
+	private TextView startpointtv;
+	private TextView destpointtv;
+	private ListView listview;
+	private EditText disarabledestLocationEditText;
+	private EditText disarableLocationEditText;
+	private String start;
+	private String dest;
 	
-	public InEnglishSearchAdapter(Context context, Cursor cursor, List items, MenuItem searchItem) {
+	public SettingsListAdapter(String start, String dest, Context context, Cursor cursor, List items, TextView destpointtv, TextView startpointtv, ListView listview, EditText disarabledestLocationEditText, EditText disarableLocationEditText) {
 		super(context, cursor, false);
+		this.start = start;
+		this.dest = dest;
 		this.items = items;
 		this.context = context;
 		this.cursor = cursor;
-		this.searchItem = searchItem;
+		this.startpointtv = startpointtv;
+		this.destpointtv = destpointtv;
+		this.listview = listview;
+		this.disarabledestLocationEditText = disarabledestLocationEditText;
+		this.disarableLocationEditText = disarableLocationEditText;
 		// TODO Auto-generated constructor stub
 	}
 	
@@ -46,7 +55,7 @@ public class InEnglishSearchAdapter extends CursorAdapter implements OnClickList
 		
 		ViewHolder(View v){
 			//item = (Button) v.findViewById(R.id.text);
-			t = (TextView) v.findViewById(R.id.t);
+			t = (TextView) v.findViewById(R.id.tttt);
 		}
 	}
 	
@@ -65,10 +74,10 @@ public class InEnglishSearchAdapter extends CursorAdapter implements OnClickList
 		if (v == null){
 			LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			 
-	        v = inflater.inflate(R.layout.item, parent, false);
+	        v = inflater.inflate(R.layout.countries, parent, false);
 	        viewHolder = new ViewHolder(v);
 	        //viewHolder.item = (Button) v.findViewById(R.id.text);
-	        viewHolder.t = (TextView) v.findViewById(R.id.t);
+	        viewHolder.t = (TextView) v.findViewById(R.id.tttt);
 	        viewHolder.t.setTag(viewHolder);
 	        v.setTag(viewHolder); 
 		}
@@ -77,8 +86,9 @@ public class InEnglishSearchAdapter extends CursorAdapter implements OnClickList
 		}
 		
 		this.cursor.moveToPosition(position);
-	    placeNameEl = this.cursor.getString(this.cursor.getColumnIndex("name_en"));
-	
+		
+		placeNameEl = this.cursor.getString(this.cursor.getColumnIndex("nameel_lower"));
+		
 		viewHolder.t.setText(placeNameEl);
 		viewHolder.t.setOnClickListener(this);
 		
@@ -92,12 +102,17 @@ public class InEnglishSearchAdapter extends CursorAdapter implements OnClickList
 		
 		CharSequence s = vH.t.getText();
 		String s1 = s.toString();
-		Log.i("TextView Clicked =>", s1);
-		Intent intent = new Intent(context, SearchPlaceResutlActivity.class);
-		intent.putExtra("PlaceName", s1);
-		intent.putExtra("language", "English");
-		context.startActivity(intent);
-		MenuItemCompat.collapseActionView(searchItem);
+	if (start.equals("start") && dest.equals("null")){	
+		startpointtv.setText("Από:  "+s1);
+		this.disarableLocationEditText.setText("");
+		this.listview.setAdapter(null);
+	}
+	else if (start.equals("null") && dest.equals("dest")){
+		destpointtv.setText("Προς: "+s1);
+		this.disarabledestLocationEditText.setText("");
+		this.listview.setAdapter(null);
+	}
+	
 		//MenuFragment m = new MenuFragment(s1);
 		//PlacesListFragmentActivity p = new PlacesListFragmentActivity();
 		//p.setPlaceSearchFragment();

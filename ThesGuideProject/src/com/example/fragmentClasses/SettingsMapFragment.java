@@ -5,6 +5,10 @@ import java.util.List;
 import java.util.Locale;
 
 import com.example.adapters.DisarableLocationCursorAdapter;
+import com.example.adapters.InEnglishSearchAdapter;
+import com.example.adapters.SearchAdapter;
+import com.example.adapters.SettingsListAdapter;
+import com.example.adapters.SettingsListAdapterEnglish;
 import com.example.myLocation.GPSTracker;
 import com.example.sqlHelper.TestLocalSqliteDatabase;
 import com.example.thesguideproject.R;
@@ -77,16 +81,19 @@ public class SettingsMapFragment extends ListFragment implements DialogInterface
 	private GPSTracker gps;
 	private static String language;
 	ArrayAdapter<String> dataAdapter = null;
-	List<String> locationsList;
+	private List<String> locationsList;
 	
-	String startpointcontent;
-	String destpointcontent;
-	String startpointtvcontent;
-	String destv;
-	String sls;
-	String sld;
-	int ls;
-	int ld;
+	private String startpointcontent;
+	private String destpointcontent;
+	private String startpointtvcontent;
+	private String destv;
+	private String sls;
+	private String sld;
+	private int ls;
+	private int ld;
+	private List<String> list;
+	private ArrayAdapter<String> dataCategoryAdapter = null;
+	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -154,22 +161,25 @@ public class SettingsMapFragment extends ListFragment implements DialogInterface
 		// TODO Auto-generated method stub
 		super.onActivityCreated(savedInstanceState);
 		listView = getListView();
-		 locationsList = new ArrayList<String>();
+		locationsList = new ArrayList<String>();
 		
+		String name;
 		Cursor allplaces = testDB.getAllPlaces();
 		if (allplaces.moveToFirst()){
 			do{
-				String name = allplaces.getString(allplaces.getColumnIndex("name_el"));
-				locationsList.add(name);
+			  if (!language.equals("English")){	
+				  //name = allplaces.getString(allplaces.getColumnIndex("name_el"));
+				 // locationsList.add(name);
+			  }else{
+				//  name = allplaces.getString(allplaces.getColumnIndex("name_en"));
+				//  locationsList.add(name);
+			  }	
 			}while(allplaces.moveToNext());
 		}
 		
-		
-		  
-		  dataAdapter = new ArrayAdapter<String>(getActivity(), R.layout.countries, locationsList); 
-		  
-		  listView.setAdapter(dataAdapter);
-		  listView.setTextFilterEnabled(true);
+		 // dataAdapter = new ArrayAdapter<String>(getActivity(), R.layout.countries, locationsList);   
+		 // listView.setAdapter(dataAdapter);
+		 // listView.setTextFilterEnabled(true);
 		
 		destinationpointtv.addTextChangedListener(new TextWatcher(){
 
@@ -215,7 +225,7 @@ public class SettingsMapFragment extends ListFragment implements DialogInterface
 		
 				if (startingpointtv.getText().length()> 0 && destinationpointtv.getText().length()> 0 && flag == true ){
 					
-					if (startpointcontent.toString().equals("current location") || startpointcontent.toString().equals("Τρέχουσα θέση")){
+					if (startpointcontent.toString().equals("Current location") || startpointcontent.toString().equals("Τρέχουσα θέση")){
 						gps = new GPSTracker(getActivity());
 						
 						if (gps.canGetLocation()){
@@ -238,7 +248,7 @@ public class SettingsMapFragment extends ListFragment implements DialogInterface
 					}
 					
 					
-					if (destpointcontent.toString().equals("current location") || destpointcontent.toString().equals("Τρέχουσα θέση")){
+					if (destpointcontent.toString().equals("Current location") || destpointcontent.toString().equals("Τρέχουσα θέση")){
 						gps = new GPSTracker(getActivity());
 						
 						if (gps.canGetLocation()){
@@ -340,7 +350,7 @@ public class SettingsMapFragment extends ListFragment implements DialogInterface
 				if (destinationpointtv.getText().length() > 0 && startingpointtv.getText().length() > 0 && flag == true){
 					
 					
-					if (destpointcontent.toString().equals("current location") || destpointcontent.toString().equals("Τρέχουσα θέση")){
+					if (destpointcontent.toString().equals("Current location") || destpointcontent.toString().equals("Τρέχουσα θέση")){
 						gps = new GPSTracker(getActivity());
 						
 						if (gps.canGetLocation()){
@@ -362,7 +372,7 @@ public class SettingsMapFragment extends ListFragment implements DialogInterface
 						}
 					}
 					
-					if (startpointcontent.toString().equals("current location") || startpointcontent.toString().equals("Τρέχουσα θέση")){
+					if (startpointcontent.toString().equals("Current location") || startpointcontent.toString().equals("Τρέχουσα θέση")){
 						gps = new GPSTracker(getActivity());
 						
 						if (gps.canGetLocation()){
@@ -441,16 +451,22 @@ public class SettingsMapFragment extends ListFragment implements DialogInterface
 					currentpositiondestcb.setChecked(false);
 				}
 				
-				String s1 = s.toString();
+				if (s.length() < 1){
+					listView.setAdapter(null);
+				}else{
+					loadData(s.toString(), "null", "dest");
+			   }
 				
-				 listView.setAdapter(dataAdapter);
+				/*String s1 = s.toString();
+				listView.setAdapter(dataAdapter);
 				Log.i("char sequence =>", s1);
+				
 				if (s.length() <1){
 					listView.setAdapter(null);
 				}else{	
 					dataAdapter.getFilter().filter(s.toString());
 					listView.setVisibility(View.VISIBLE);
-				}
+				}*/
 				
 				
 				listView.setOnItemClickListener(new OnItemClickListener() {
@@ -483,18 +499,22 @@ public class SettingsMapFragment extends ListFragment implements DialogInterface
 					currentpositioncb.setChecked(false);
 				}
 				
+				if (s.length() < 1){
+					listView.setAdapter(null);
+				}else{
+					loadData(s.toString(), "start", "null");
+			   }
 				
-				String s1 = s.toString();
-				
-				 listView.setAdapter(dataAdapter);
-		
+				/*String s1 = s.toString();
+				listView.setAdapter(dataAdapter);
 				Log.i("char sequence =>", s1);
+				
 				if (s.length() <1){
 					listView.setAdapter(null);
 				}else{	
 					dataAdapter.getFilter().filter(s.toString());
 					listView.setVisibility(View.VISIBLE);
-				}
+				}*/	
 				
 				listView.setOnItemClickListener(new OnItemClickListener() {
 					public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -514,6 +534,10 @@ public class SettingsMapFragment extends ListFragment implements DialogInterface
 			}
 		});
 		
+		
+
+		
+		
 		currentpositiondestcb.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 			@Override
 			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -521,7 +545,7 @@ public class SettingsMapFragment extends ListFragment implements DialogInterface
 					destinationpointtv.setVisibility(View.VISIBLE);
 					if (language.equals("English")){
 						totv.setText("current location");
-						destinationpointtv.setText("To: current location");
+						destinationpointtv.setText("To:   Current location");
 					}else{
 						//totv.setText("Τρέχουσα θέση");
 						destinationpointtv.setText("Προς: Τρέχουσα θέση");
@@ -541,7 +565,7 @@ public class SettingsMapFragment extends ListFragment implements DialogInterface
 					startingpointtv.setVisibility(View.VISIBLE);
 					if (language.equals("English")){
 						fromtv.setText("current location");
-						startingpointtv.setText("From: current location");
+						startingpointtv.setText("From: Current location");
 					}else{
 					    //fromtv.setText("Τρέχουσα θέση");
 						startingpointtv.setText("Από:  Τρέχουσα θέση");
@@ -595,12 +619,49 @@ public class SettingsMapFragment extends ListFragment implements DialogInterface
 			MenuItem ekkitem = menu.findItem(R.id.ekklisies);
 			MenuItem nosokomeiaitem = menu.findItem(R.id.nosokomeia);
 			if (language.equals("Greek")){
-				eventsitem.setTitle("Αεκκξησ");
+				eventsitem.setTitle("Εκδηλώσεις");
+				sightsitem.setTitle("Αξιοθέατα");
+				barrestitem.setTitle("Μπάρ-Ρεστοράν");
+				restitem.setTitle("Ρεστοράν");
+				intcuisitem.setTitle("Διεθνής Κουζίνα");
+				seafooditem.setTitle("Ψαροταβέρνες");
+				barsitem.setTitle("Μπάρ");
+				clubsitem.setTitle("Κλάμπ");
+				pubsitem.setTitle("Μπυραρίες");
+				mouseiaitem.setTitle("Μουσεία");
+				ekkitem.setTitle("Εκκλησίες");
+				nosokomeiaitem.setTitle("Νοσοκομεία");
 			}
 		}
 		else{
 			MenuInflater menuInflater = getActivity().getMenuInflater();
 			menuInflater.inflate(R.menu.destination_menu, menu);
+			MenuItem eventsitem = menu.findItem(R.id.eventsd);
+			MenuItem sightsitem = menu.findItem(R.id.axiotheatad);
+			MenuItem barrestitem = menu.findItem(R.id.barrestd);
+			MenuItem restitem = menu.findItem(R.id.restd);
+			MenuItem intcuisitem = menu.findItem(R.id.intcuisd);
+			MenuItem seafooditem = menu.findItem(R.id.seafoodd);
+			MenuItem barsitem = menu.findItem(R.id.barsd);
+			MenuItem clubsitem = menu.findItem(R.id.clubsd);
+			MenuItem pubsitem = menu.findItem(R.id.pubsd); 
+			MenuItem mouseiaitem = menu.findItem(R.id.mouseiad);
+			MenuItem ekkitem = menu.findItem(R.id.ekklisiesd);
+			MenuItem nosokomeiaitem = menu.findItem(R.id.nosokomeiad);
+			if (language.equals("Greek")){
+				eventsitem.setTitle("Εκδηλώσεις");
+				sightsitem.setTitle("Αξιοθέατα");
+				barrestitem.setTitle("Μπάρ-Ρεστοράν");
+				restitem.setTitle("Ρεστοράν");
+				intcuisitem.setTitle("Διεθνής Κουζίνα");
+				seafooditem.setTitle("Ψαροταβέρνες");
+				barsitem.setTitle("Μπάρ");
+				clubsitem.setTitle("Κλάμπ");
+				pubsitem.setTitle("Μπυραρίες");
+				mouseiaitem.setTitle("Μουσεία");
+				ekkitem.setTitle("Εκκλησίες");
+				nosokomeiaitem.setTitle("Νοσοκομεία");
+			}
 		}
 	}
 
@@ -610,27 +671,20 @@ public class SettingsMapFragment extends ListFragment implements DialogInterface
 	public boolean onContextItemSelected(MenuItem item) {
 		// TODO Auto-generated method stub
 		switch(item.getItemId()){
-		case R.id.mouseiadest:
-	    List<String> list = new ArrayList<String>();
-			
-			Cursor specificPlacecursor = testDB.getSpecificPlaceData("museums");
-			if (specificPlacecursor.moveToFirst()){
-				do{
-					String name = specificPlacecursor.getString(specificPlacecursor.getColumnIndex("name_el"));
-					list.add(name);
-				}while(specificPlacecursor.moveToNext());
-			}
+		case R.id.mouseiad:
+			list = new ArrayList<String>();
+			returnCategoryCursor("museums", list);
 			  
-			  ArrayAdapter<String> dataAdapter1 = new ArrayAdapter<String>(getActivity(), R.layout.countries, list); 
+			  dataCategoryAdapter = new ArrayAdapter<String>(getActivity(), R.layout.countries, list); 
 			  listView.setVisibility(View.VISIBLE);
-			  listView.setAdapter(dataAdapter1);
+			  listView.setAdapter(dataCategoryAdapter);
 			
 			  listView.setOnItemClickListener(new OnItemClickListener() {
 					public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 							    // When clicked, show a toast with the TextView text
 						String text = ((TextView) view).getText().toString();
 						if (language.equals("English")){
-							destinationpointtv.setText("To: " + text);
+							destinationpointtv.setText("To:   " + text);
 							totv.setText(text);
 							//listView.setAdapter(null);
 							disarabledestLocationEditText.setText("");
@@ -644,23 +698,312 @@ public class SettingsMapFragment extends ListFragment implements DialogInterface
 					}
 			});
 		break;
+		case R.id.restd:
+			list = new ArrayList<String>();
+			returnSubCategory("restaurants", list);
+				  
+				  dataCategoryAdapter = new ArrayAdapter<String>(getActivity(), R.layout.countries, list); 
+				  listView.setVisibility(View.VISIBLE);
+				  listView.setAdapter(dataCategoryAdapter);
+				
+				  listView.setOnItemClickListener(new OnItemClickListener() {
+						public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+								    // When clicked, show a toast with the TextView text
+							String text = ((TextView) view).getText().toString();
+							if (language.equals("English")){
+								destinationpointtv.setText("To:   " + text);
+								totv.setText(text);
+								//listView.setAdapter(null);
+								disarabledestLocationEditText.setText("");
+							}
+							else{
+								destinationpointtv.setText("Προς: " + text);
+								totv.setText(text);
+								//listView.setAdapter(null);
+								disarabledestLocationEditText.setText("");
+							}
+						}
+				});
+			break;
+		case R.id.barrestd:
+			list = new ArrayList<String>();
+			returnSubCategory("bar-restaurant", list);
+				  
+				  dataCategoryAdapter = new ArrayAdapter<String>(getActivity(), R.layout.countries, list); 
+				  listView.setVisibility(View.VISIBLE);
+				  listView.setAdapter(dataCategoryAdapter);
+				
+				  listView.setOnItemClickListener(new OnItemClickListener() {
+						public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+								    // When clicked, show a toast with the TextView text
+							String text = ((TextView) view).getText().toString();
+							if (language.equals("English")){
+								destinationpointtv.setText("To:   " + text);
+								totv.setText(text);
+								//listView.setAdapter(null);
+								disarabledestLocationEditText.setText("");
+							}
+							else{
+								destinationpointtv.setText("Προς: " + text);
+								totv.setText(text);
+								//listView.setAdapter(null);
+								disarabledestLocationEditText.setText("");
+							}
+						}
+				});
+			break;
+		case R.id.seafoodd:
+			list = new ArrayList<String>();
+			returnSubCategory("seafood", list);
+				  
+				  dataCategoryAdapter = new ArrayAdapter<String>(getActivity(), R.layout.countries, list); 
+				  listView.setVisibility(View.VISIBLE);
+				  listView.setAdapter(dataCategoryAdapter);
+				
+				  listView.setOnItemClickListener(new OnItemClickListener() {
+						public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+								    // When clicked, show a toast with the TextView text
+							String text = ((TextView) view).getText().toString();
+							if (language.equals("English")){
+								destinationpointtv.setText("To:   " + text);
+								totv.setText(text);
+								//listView.setAdapter(null);
+								disarabledestLocationEditText.setText("");
+							}
+							else{
+								destinationpointtv.setText("Προς: " + text);
+								totv.setText(text);
+								//listView.setAdapter(null);
+								disarabledestLocationEditText.setText("");
+							}
+						}
+				});
+			break;
+		case R.id.intcuisd:
+			list = new ArrayList<String>();
+			returnSubCategory("intcuisine", list);
+				  
+				  dataCategoryAdapter = new ArrayAdapter<String>(getActivity(), R.layout.countries, list); 
+				  listView.setVisibility(View.VISIBLE);
+				  listView.setAdapter(dataCategoryAdapter);
+				
+				  listView.setOnItemClickListener(new OnItemClickListener() {
+						public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+								    // When clicked, show a toast with the TextView text
+							String text = ((TextView) view).getText().toString();
+							if (language.equals("English")){
+								destinationpointtv.setText("To:   " + text);
+								totv.setText(text);
+								//listView.setAdapter(null);
+								disarabledestLocationEditText.setText("");
+							}
+							else{
+								destinationpointtv.setText("Προς: " + text);
+								totv.setText(text);
+								//listView.setAdapter(null);
+								disarabledestLocationEditText.setText("");
+							}
+						}
+				});
+			break;
+		case R.id.barsd:
+			list = new ArrayList<String>();
+			returnSubCategory("bars", list);
+				  
+				  dataCategoryAdapter = new ArrayAdapter<String>(getActivity(), R.layout.countries, list); 
+				  listView.setVisibility(View.VISIBLE);
+				  listView.setAdapter(dataCategoryAdapter);
+				
+				  listView.setOnItemClickListener(new OnItemClickListener() {
+						public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+								    // When clicked, show a toast with the TextView text
+							String text = ((TextView) view).getText().toString();
+							if (language.equals("English")){
+								destinationpointtv.setText("To:   " + text);
+								totv.setText(text);
+								//listView.setAdapter(null);
+								disarabledestLocationEditText.setText("");
+							}
+							else{
+								destinationpointtv.setText("Προς: " + text);
+								totv.setText(text);
+								//listView.setAdapter(null);
+								disarabledestLocationEditText.setText("");
+							}
+						}
+				});
+			break;
+		case R.id.clubsd:
+			list = new ArrayList<String>();
+			returnSubCategory("clubs", list);
+				  
+				  dataCategoryAdapter = new ArrayAdapter<String>(getActivity(), R.layout.countries, list); 
+				  listView.setVisibility(View.VISIBLE);
+				  listView.setAdapter(dataCategoryAdapter);
+				
+				  listView.setOnItemClickListener(new OnItemClickListener() {
+						public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+								    // When clicked, show a toast with the TextView text
+							String text = ((TextView) view).getText().toString();
+							if (language.equals("English")){
+								destinationpointtv.setText("To:   " + text);
+								totv.setText(text);
+								//listView.setAdapter(null);
+								disarabledestLocationEditText.setText("");
+							}
+							else{
+								destinationpointtv.setText("Προς: " + text);
+								totv.setText(text);
+								//listView.setAdapter(null);
+								disarabledestLocationEditText.setText("");
+							}
+						}
+				});
+			break;
+		case R.id.pubsd:
+			list = new ArrayList<String>();
+			returnSubCategory("pubs", list);
+				  
+				  dataCategoryAdapter = new ArrayAdapter<String>(getActivity(), R.layout.countries, list); 
+				  listView.setVisibility(View.VISIBLE);
+				  listView.setAdapter(dataCategoryAdapter);
+				
+				  listView.setOnItemClickListener(new OnItemClickListener() {
+						public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+								    // When clicked, show a toast with the TextView text
+							String text = ((TextView) view).getText().toString();
+							if (language.equals("English")){
+								destinationpointtv.setText("To:   " + text);
+								totv.setText(text);
+								//listView.setAdapter(null);
+								disarabledestLocationEditText.setText("");
+							}
+							else{
+								destinationpointtv.setText("Προς: " + text);
+								totv.setText(text);
+								//listView.setAdapter(null);
+								disarabledestLocationEditText.setText("");
+							}
+						}
+				});
+			break;
+		case R.id.eventsd:
+			list = new ArrayList<String>();
+			returnCategoryCursor("events", list);
+				  
+				  dataCategoryAdapter = new ArrayAdapter<String>(getActivity(), R.layout.countries, list); 
+				  listView.setVisibility(View.VISIBLE);
+				  listView.setAdapter(dataCategoryAdapter);
+				
+				  listView.setOnItemClickListener(new OnItemClickListener() {
+						public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+								    // When clicked, show a toast with the TextView text
+							String text = ((TextView) view).getText().toString();
+							if (language.equals("English")){
+								destinationpointtv.setText("To:   " + text);
+								totv.setText(text);
+								//listView.setAdapter(null);
+								disarabledestLocationEditText.setText("");
+							}
+							else{
+								destinationpointtv.setText("Προς: " + text);
+								totv.setText(text);
+								//listView.setAdapter(null);
+								disarabledestLocationEditText.setText("");
+							}
+						}
+				});
+			break;
+		case R.id.axiotheatad:
+			list = new ArrayList<String>();
+			returnCategoryCursor("sightseeings", list);
+				  
+				  dataCategoryAdapter = new ArrayAdapter<String>(getActivity(), R.layout.countries, list); 
+				  listView.setVisibility(View.VISIBLE);
+				  listView.setAdapter(dataCategoryAdapter);
+				
+				  listView.setOnItemClickListener(new OnItemClickListener() {
+						public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+								    // When clicked, show a toast with the TextView text
+							String text = ((TextView) view).getText().toString();
+							if (language.equals("English")){
+								destinationpointtv.setText("To:   " + text);
+								totv.setText(text);
+								//listView.setAdapter(null);
+								disarabledestLocationEditText.setText("");
+							}
+							else{
+								destinationpointtv.setText("Προς: " + text);
+								totv.setText(text);
+								//listView.setAdapter(null);
+								disarabledestLocationEditText.setText("");
+							}
+						}
+				});
+			break;
+		case R.id.ekklisiesd:
+			list = new ArrayList<String>();
+			returnCategoryCursor("church", list);
+				  
+				  dataCategoryAdapter = new ArrayAdapter<String>(getActivity(), R.layout.countries, list); 
+				  listView.setVisibility(View.VISIBLE);
+				  listView.setAdapter(dataCategoryAdapter);
+				
+				  listView.setOnItemClickListener(new OnItemClickListener() {
+						public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+								    // When clicked, show a toast with the TextView text
+							String text = ((TextView) view).getText().toString();
+							if (language.equals("English")){
+								destinationpointtv.setText("To:   " + text);
+								totv.setText(text);
+								//listView.setAdapter(null);
+								disarabledestLocationEditText.setText("");
+							}
+							else{
+								destinationpointtv.setText("Προς: " + text);
+								totv.setText(text);
+								//listView.setAdapter(null);
+								disarabledestLocationEditText.setText("");
+							}
+						}
+				});
+			break;
+		case R.id.nosokomeiad:
+			list = new ArrayList<String>();
+			returnCategoryCursor("hospitals", list);
+				  
+				  dataCategoryAdapter = new ArrayAdapter<String>(getActivity(), R.layout.countries, list); 
+				  listView.setVisibility(View.VISIBLE);
+				  listView.setAdapter(dataCategoryAdapter);
+				
+				  listView.setOnItemClickListener(new OnItemClickListener() {
+						public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+								    // When clicked, show a toast with the TextView text
+							String text = ((TextView) view).getText().toString();
+							if (language.equals("English")){
+								destinationpointtv.setText("To:   " + text);
+								totv.setText(text);
+								//listView.setAdapter(null);
+								disarabledestLocationEditText.setText("");
+							}
+							else{
+								destinationpointtv.setText("Προς: " + text);
+								totv.setText(text);
+								//listView.setAdapter(null);
+								disarabledestLocationEditText.setText("");
+							}
+						}
+				});
+			break;
 		case R.id.mouseia:
-			
-			List<String> list1 = new ArrayList<String>();
-			
-			Cursor specificPlacecursor1 = testDB.getSpecificPlaceData("museums");
-			if (specificPlacecursor1.moveToFirst()){
-				do{
-					String name = specificPlacecursor1.getString(specificPlacecursor1.getColumnIndex("name_el"));
-					list1.add(name);
-				}while(specificPlacecursor1.moveToNext());
-			}
+			list = new ArrayList<String>();
+			returnCategoryCursor("museums", list);
 			  
-			 ArrayAdapter<String> dataAdapter2 = new ArrayAdapter<String>(getActivity(), R.layout.countries, list1); 
-			  listView.setVisibility(View.VISIBLE);
-			  listView.setAdapter(dataAdapter2);
+			dataCategoryAdapter = new ArrayAdapter<String>(getActivity(), R.layout.countries, list); 
+			listView.setVisibility(View.VISIBLE);
+			listView.setAdapter(dataCategoryAdapter);
 			
-			  listView.setOnItemClickListener(new OnItemClickListener() {
+			listView.setOnItemClickListener(new OnItemClickListener() {
 					public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 							    // When clicked, show a toast with the TextView text
 						String text1 = ((TextView) view).getText().toString();
@@ -678,43 +1021,343 @@ public class SettingsMapFragment extends ListFragment implements DialogInterface
 						}
 					}
 			});
-			  
-			//Bundle selectPlaceListFragmentBundle = new Bundle();
-			//selectPlaceListFragmentBundle.putString("genre", "museums");
-			//selectPlaceListFragmentBundle.putString("flag", "startingpoint");
-			//SelectByCategoryPlacesListFragment selectByCategoryPlaceListFragment = new SelectByCategoryPlacesListFragment();
-			//selectByCategoryPlaceListFragment.setArguments(selectPlaceListFragmentBundle);
-			//fragmentTransaction = getFragmentManager().beginTransaction().replace(R.id.containermapview, selectByCategoryPlaceListFragment);
-			//fragmentTransaction.addToBackStack(null);
-			//fragmentTransaction.commit();
-			/*Cursor mc = testDB.getSpecificPlaceData("museums");
-			if (mc.moveToFirst()){
-				do{
-					String s = mc.getString(mc.getColumnIndex("name_el"));
-					categoryPlacesList.add(s);
-				}while(mc.moveToNext());
-			}*/
-			
-			//ArrayAdapter<String> mAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, categoryPlacesList);
-			//setListAdapter(mAdapter);
-			
-			
 		break;
 		case R.id.nosokomeia:
-			Cursor nc = testDB.getSpecificPlaceData("hospitals");
-			if (nc.moveToFirst()){
-				do{
-					String s = nc.getString(nc.getColumnIndex("name_el"));
-					categoryPlacesList.add(s);
-				}while(nc.moveToNext());
-			}
-			//ArrayAdapter<String> nAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, categoryPlacesList);
-			//setListAdapter(nAdapter);
+			list = new ArrayList<String>();
+			returnCategoryCursor("hospitals", list);
+			  
+			dataCategoryAdapter = new ArrayAdapter<String>(getActivity(), R.layout.countries, list); 
+			listView.setVisibility(View.VISIBLE);
+			listView.setAdapter(dataCategoryAdapter);
+			
+			listView.setOnItemClickListener(new OnItemClickListener() {
+					public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+							    // When clicked, show a toast with the TextView text
+						String text1 = ((TextView) view).getText().toString();
+						if (language.equals("English")){
+							startingpointtv.setText("From: " + text1);
+							fromtv.setText(text1);
+							//listView.setAdapter(null);
+							disarableLocationEditText.setText("");
+						}
+						else{
+							startingpointtv.setText("Από:  " + text1);
+							fromtv.setText(text1);
+							//listView.setAdapter(null);
+							disarableLocationEditText.setText("");
+						}
+					}
+			});
 		break;
+		case R.id.events:
+			list = new ArrayList<String>();
+			returnCategoryCursor("events", list);
+			  
+			dataCategoryAdapter = new ArrayAdapter<String>(getActivity(), R.layout.countries, list); 
+			listView.setVisibility(View.VISIBLE);
+			listView.setAdapter(dataCategoryAdapter);
+			
+			listView.setOnItemClickListener(new OnItemClickListener() {
+					public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+							    // When clicked, show a toast with the TextView text
+						String text1 = ((TextView) view).getText().toString();
+						if (language.equals("English")){
+							startingpointtv.setText("From: " + text1);
+							fromtv.setText(text1);
+							//listView.setAdapter(null);
+							disarableLocationEditText.setText("");
+						}
+						else{
+							startingpointtv.setText("Από:  " + text1);
+							fromtv.setText(text1);
+							//listView.setAdapter(null);
+							disarableLocationEditText.setText("");
+						}
+					}
+			});
+		break;
+		case R.id.axiotheata:
+			list = new ArrayList<String>();
+			returnCategoryCursor("sightseeings", list);
+			  
+			dataCategoryAdapter = new ArrayAdapter<String>(getActivity(), R.layout.countries, list); 
+			listView.setVisibility(View.VISIBLE);
+			listView.setAdapter(dataCategoryAdapter);
+			
+			listView.setOnItemClickListener(new OnItemClickListener() {
+					public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+							    // When clicked, show a toast with the TextView text
+						String text1 = ((TextView) view).getText().toString();
+						if (language.equals("English")){
+							startingpointtv.setText("From: " + text1);
+							fromtv.setText(text1);
+							//listView.setAdapter(null);
+							disarableLocationEditText.setText("");
+						}
+						else{
+							startingpointtv.setText("Από:  " + text1);
+							fromtv.setText(text1);
+							//listView.setAdapter(null);
+							disarableLocationEditText.setText("");
+						}
+					}
+			});
+		break;
+		case R.id.ekklisies:
+			list = new ArrayList<String>();
+			returnCategoryCursor("church", list);
+			  
+			dataCategoryAdapter = new ArrayAdapter<String>(getActivity(), R.layout.countries, list); 
+			listView.setVisibility(View.VISIBLE);
+			listView.setAdapter(dataCategoryAdapter);
+			
+			listView.setOnItemClickListener(new OnItemClickListener() {
+					public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+							    // When clicked, show a toast with the TextView text
+						String text1 = ((TextView) view).getText().toString();
+						if (language.equals("English")){
+							startingpointtv.setText("From: " + text1);
+							fromtv.setText(text1);
+							//listView.setAdapter(null);
+							disarableLocationEditText.setText("");
+						}
+						else{
+							startingpointtv.setText("Από:  " + text1);
+							fromtv.setText(text1);
+							//listView.setAdapter(null);
+							disarableLocationEditText.setText("");
+						}
+					}
+			});
+		break;
+		case R.id.barrest:
+			list = new ArrayList<String>();
+			returnSubCategory("bar-restaurant", list);
+			  
+			dataCategoryAdapter = new ArrayAdapter<String>(getActivity(), R.layout.countries, list); 
+			listView.setVisibility(View.VISIBLE);
+			listView.setAdapter(dataCategoryAdapter);
+			
+			listView.setOnItemClickListener(new OnItemClickListener() {
+					public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+							    // When clicked, show a toast with the TextView text
+						String text1 = ((TextView) view).getText().toString();
+						if (language.equals("English")){
+							startingpointtv.setText("From: " + text1);
+							fromtv.setText(text1);
+							//listView.setAdapter(null);
+							disarableLocationEditText.setText("");
+						}
+						else{
+							startingpointtv.setText("Από:  " + text1);
+							fromtv.setText(text1);
+							//listView.setAdapter(null);
+							disarableLocationEditText.setText("");
+						}
+					}
+			});
+		break;
+		case R.id.rest:
+			list = new ArrayList<String>();
+			returnSubCategory("restaurants", list);
+			  
+			dataCategoryAdapter = new ArrayAdapter<String>(getActivity(), R.layout.countries, list); 
+			listView.setVisibility(View.VISIBLE);
+			listView.setAdapter(dataCategoryAdapter);
+			
+			listView.setOnItemClickListener(new OnItemClickListener() {
+					public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+							    // When clicked, show a toast with the TextView text
+						String text1 = ((TextView) view).getText().toString();
+						if (language.equals("English")){
+							startingpointtv.setText("From: " + text1);
+							fromtv.setText(text1);
+							//listView.setAdapter(null);
+							disarableLocationEditText.setText("");
+						}
+						else{
+							startingpointtv.setText("Από:  " + text1);
+							fromtv.setText(text1);
+							//listView.setAdapter(null);
+							disarableLocationEditText.setText("");
+						}
+					}
+			});
+		break;
+		case R.id.intcuis:
+			list = new ArrayList<String>();
+			returnSubCategory("intcuisine", list);
+			  
+			dataCategoryAdapter = new ArrayAdapter<String>(getActivity(), R.layout.countries, list); 
+			listView.setVisibility(View.VISIBLE);
+			listView.setAdapter(dataCategoryAdapter);
+			
+			listView.setOnItemClickListener(new OnItemClickListener() {
+					public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+							    // When clicked, show a toast with the TextView text
+						String text1 = ((TextView) view).getText().toString();
+						if (language.equals("English")){
+							startingpointtv.setText("From: " + text1);
+							fromtv.setText(text1);
+							//listView.setAdapter(null);
+							disarableLocationEditText.setText("");
+						}
+						else{
+							startingpointtv.setText("Από:  " + text1);
+							fromtv.setText(text1);
+							//listView.setAdapter(null);
+							disarableLocationEditText.setText("");
+						}
+					}
+			});
+		break;
+		case R.id.seafood:
+			list = new ArrayList<String>();
+			returnSubCategory("seafood", list);
+			  
+			dataCategoryAdapter = new ArrayAdapter<String>(getActivity(), R.layout.countries, list); 
+			listView.setVisibility(View.VISIBLE);
+			listView.setAdapter(dataCategoryAdapter);
+			
+			listView.setOnItemClickListener(new OnItemClickListener() {
+					public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+							    // When clicked, show a toast with the TextView text
+						String text1 = ((TextView) view).getText().toString();
+						if (language.equals("English")){
+							startingpointtv.setText("From: " + text1);
+							fromtv.setText(text1);
+							//listView.setAdapter(null);
+							disarableLocationEditText.setText("");
+						}
+						else{
+							startingpointtv.setText("Από:  " + text1);
+							fromtv.setText(text1);
+							//listView.setAdapter(null);
+							disarableLocationEditText.setText("");
+						}
+					}
+			});
+		break;
+		case R.id.bars:
+			list = new ArrayList<String>();
+			returnSubCategory("bars", list);
+			  
+			dataCategoryAdapter = new ArrayAdapter<String>(getActivity(), R.layout.countries, list); 
+			listView.setVisibility(View.VISIBLE);
+			listView.setAdapter(dataCategoryAdapter);
+			
+			listView.setOnItemClickListener(new OnItemClickListener() {
+					public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+							    // When clicked, show a toast with the TextView text
+						String text1 = ((TextView) view).getText().toString();
+						if (language.equals("English")){
+							startingpointtv.setText("From: " + text1);
+							fromtv.setText(text1);
+							//listView.setAdapter(null);
+							disarableLocationEditText.setText("");
+						}
+						else{
+							startingpointtv.setText("Από:  " + text1);
+							fromtv.setText(text1);
+							//listView.setAdapter(null);
+							disarableLocationEditText.setText("");
+						}
+					}
+			});
+		break;
+		case R.id.clubs:
+			list = new ArrayList<String>();
+			returnSubCategory("clubs", list);
+			  
+			dataCategoryAdapter = new ArrayAdapter<String>(getActivity(), R.layout.countries, list); 
+			listView.setVisibility(View.VISIBLE);
+			listView.setAdapter(dataCategoryAdapter);
+			
+			listView.setOnItemClickListener(new OnItemClickListener() {
+					public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+							    // When clicked, show a toast with the TextView text
+						String text1 = ((TextView) view).getText().toString();
+						if (language.equals("English")){
+							startingpointtv.setText("From: " + text1);
+							fromtv.setText(text1);
+							//listView.setAdapter(null);
+							disarableLocationEditText.setText("");
+						}
+						else{
+							startingpointtv.setText("Από:  " + text1);
+							fromtv.setText(text1);
+							//listView.setAdapter(null);
+							disarableLocationEditText.setText("");
+						}
+					}
+			});
+		break;
+		case R.id.pubs:
+			list = new ArrayList<String>();
+			returnSubCategory("pubs", list);
+			  
+			dataCategoryAdapter = new ArrayAdapter<String>(getActivity(), R.layout.countries, list); 
+			listView.setVisibility(View.VISIBLE);
+			listView.setAdapter(dataCategoryAdapter);
+			
+			listView.setOnItemClickListener(new OnItemClickListener() {
+					public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+							    // When clicked, show a toast with the TextView text
+						String text1 = ((TextView) view).getText().toString();
+						if (language.equals("English")){
+							startingpointtv.setText("From: " + text1);
+							fromtv.setText(text1);
+							//listView.setAdapter(null);
+							disarableLocationEditText.setText("");
+						}
+						else{
+							startingpointtv.setText("Από:  " + text1);
+							fromtv.setText(text1);
+							//listView.setAdapter(null);
+							disarableLocationEditText.setText("");
+						}
+					}
+			});
+		break;	
 		}
 		return super.onContextItemSelected(item);
 	}
 
+	public Cursor returnCategoryCursor(String category, List<String> list){
+		Cursor cursor = testDB.getSpecificPlaceData(category);
+		String name;
+		if (cursor.moveToFirst()){
+			do{
+			   if (!language.equals("English")){	
+				   name = cursor.getString(cursor.getColumnIndex("name_el"));
+			   }
+			   else{
+				   name = cursor.getString(cursor.getColumnIndex("name_en"));
+			   }
+				list.add(name);
+			}while(cursor.moveToNext());
+		}
+		return cursor;
+	}
+	
+	public Cursor returnSubCategory(String subcategory, List<String> list){
+		Cursor cursor = testDB.getSpecificChurchData(subcategory);
+		String name;
+		if (cursor.moveToFirst()){
+			do{
+			   if (!language.equals("English")){	
+				   name = cursor.getString(cursor.getColumnIndex("name_el"));
+			   }
+			   else{
+				   name = cursor.getString(cursor.getColumnIndex("name_en"));
+			   }
+				list.add(name);
+			}while(cursor.moveToNext());
+		}
+		return cursor;
+	}
+	
+	
 	@Override
 	public void onDestroy() {
 		// TODO Auto-generated method stub
@@ -722,78 +1365,171 @@ public class SettingsMapFragment extends ListFragment implements DialogInterface
 		testDB.close(debugTag);
 	}
 	
-	/*
-	public static void s(String text, String flag){
-		if (flag.equals("startingpoint")){
-			if (language.equals("English")){
-				startingpointtv.setVisibility(View.VISIBLE);
-				fromtv.setText(text);
-				startingpointtv.setText("From: " + text);
-			}else{
-				startingpointtv.setVisibility(View.VISIBLE);
-				fromtv.setText(text);
-				startingpointtv.setText("Από: " + text);
-			}
-		}
-		else{
-			if (language.equals("English")){
-				destinationpointtv.setVisibility(View.VISIBLE);
-				totv.setText(text);
-				destinationpointtv.setText("To: " + text);
-			}else{
-				destinationpointtv.setVisibility(View.VISIBLE);
-				totv.setText(text);
-				destinationpointtv.setText("Προς: " + text);
-			}
-			
-		}
-	} 
 	
-	
-	
-	
-	 public static void setStartingPointTextViewText(String text){
-	       listView.setAdapter(null);
-	       //disarableLocationEditText.setInputType(0);
-	       //getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-		  if (language.equals("English")){
-			  startingpointtv.setVisibility(View.VISIBLE);
-			  fromtv.setText(text);
-			  startingpointtv.setText("From: " + text);
-			  disarableLocationEditText.setText("");
-		  }else{ 
-			  startingpointtv.setVisibility(View.VISIBLE);
-			  fromtv.setText(text);
-			  startingpointtv.setText("Από: " + text);
-			  disarableLocationEditText.setText("");
-		  }
-	    }
-	 
-	 public static void setDestinantionPointTextViewText(String text){
-	        listView.setAdapter(null);
-	        //disarableLocationEditText.setInputType(0);
-	        //getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-	     if (language.equals("English")){
-	    	 destinationpointtv.setVisibility(View.VISIBLE);
-	    	 totv.setText(text);
-		     destinationpointtv.setText("To: " + text);
-		 	 disarabledestLocationEditText.setText("");
-	     }else{  
-	    	 destinationpointtv.setVisibility(View.VISIBLE);
-	    	 totv.setText(text);
-	    	 destinationpointtv.setText("Προς: " + text);
-	    	 disarabledestLocationEditText.setText("");
-	     }
-	 	   
-	 }*/
-
 	@Override
 	public void onClick(DialogInterface arg0, int arg1) {
 		// TODO Auto-generated method stub
 		
 	}
 
-	
-	
+	private void loadData(String charsequence, String start, String dest){
+		listView.setVisibility(View.VISIBLE);
+		items.clear();
+		
+		 if(language.equals("English")){
+			 String pattern = "^[A-Za-z0-9. ]+$";
+				if (charsequence.matches(pattern)){
+							String columns[] = new String[] {"_id", "name_en"};
+							Object[] temp = new Object[] { 0, "default" };
 
+							MatrixCursor cursor = new MatrixCursor(columns);
+							Cursor c = testDB.searchByPlaceNameEn(charsequence);
+
+							try{
+								if (c == null){
+									Log.i("Message Matched =>", "false");
+								}
+								else{
+									if (c.moveToFirst()){
+										do{
+											String s = c.getString(c.getColumnIndex("name_en"));
+											//Log.i("Cursor contents =>", s);
+											items.add(s);
+										}
+										while(c.moveToNext());
+									}
+								}
+							}
+							finally
+							{
+								c.close();
+							}
+
+							for (int i=0; i<items.size(); i++){
+								temp[0] = i;
+								temp[1] = items.get(i);
+								cursor.addRow(temp);
+							}
+
+							//String lang = "Latin";
+							listView.setAdapter(new SettingsListAdapterEnglish(start, dest, getActivity(), cursor, items, destinationpointtv, startingpointtv, listView, disarabledestLocationEditText, disarableLocationEditText));
+							
+					}
+					else{
+							Log.i("Query =>", charsequence);
+							String columns[] = new String[] {"_id", "name_en"};
+							Object[] temp = new Object[] { 0, "default" };
+				
+							MatrixCursor cursor = new MatrixCursor(columns);
+							Cursor c = testDB.searchByPlaceName(charsequence);
+				
+							try{
+								if (c == null){
+									Log.i("Message Matched =>", "false");
+								}
+								else{
+									//Log.i("Message Matched =>", "true");
+									if (c.moveToFirst()){
+										do{
+											String s = c.getString(c.getColumnIndex("name_en"));
+											//Log.i("Cursor contents =>", s);
+											items.add(s);
+										}
+										while(c.moveToNext());
+									}
+								}
+							}
+							finally
+							{
+								c.close();
+							}
+				
+							for (int i=0; i<items.size(); i++){
+								temp[0] = i;
+								temp[1] = items.get(i);
+								cursor.addRow(temp);
+							}
+							//t.setSuggestionPressedField("true");
+							//String lang = "Greek";	
+							listView.setAdapter(new SettingsListAdapterEnglish(start, dest, getActivity(), cursor, items, destinationpointtv, startingpointtv, listView, disarabledestLocationEditText, disarableLocationEditText));
+					 }
+				   } else{	
+						String pattern = "^[A-Za-z0-9. ]+$";
+						if (charsequence.matches(pattern)){
+									String columns[] = new String[] {"_id", "nameel_lower"};
+									Object[] temp = new Object[] { 0, "default" };
+
+									MatrixCursor cursor = new MatrixCursor(columns);
+									Cursor c = testDB.searchByPlaceNameEn(charsequence);
+
+									try{
+										if (c == null){
+											Log.i("Message Matched =>", "false");
+										}
+										else{
+											if (c.moveToFirst()){
+												do{
+													String s = c.getString(c.getColumnIndex("name_el"));
+													//Log.i("Cursor contents =>", s);
+													items.add(s);
+												}
+												while(c.moveToNext());
+											}
+										}
+									}
+									finally
+									{
+										c.close();
+									}
+
+									for (int i=0; i<items.size(); i++){
+										temp[0] = i;
+										temp[1] = items.get(i);
+										cursor.addRow(temp);
+									}
+
+									String lang = "Latin";
+									listView.setAdapter(new SettingsListAdapter(start, dest, getActivity(), cursor, items, destinationpointtv, startingpointtv, listView, disarabledestLocationEditText, disarableLocationEditText));
+							}
+							else{
+									Log.i("Query =>", charsequence);
+									String columns[] = new String[] {"_id", "nameel_lower"};
+									Object[] temp = new Object[] { 0, "default" };
+						
+									MatrixCursor cursor = new MatrixCursor(columns);
+									Cursor c = testDB.searchByPlaceName(charsequence);
+						
+									try{
+										if (c == null){
+											Log.i("Message Matched =>", "false");
+										}
+										else{
+											//Log.i("Message Matched =>", "true");
+											if (c.moveToFirst()){
+												do{
+													String s = c.getString(c.getColumnIndex("name_el"));
+													//Log.i("Cursor contents =>", s);
+													items.add(s);
+												}
+												while(c.moveToNext());
+											}
+										}
+									}
+									finally
+									{
+										c.close();
+									}
+						
+									for (int i=0; i<items.size(); i++){
+										temp[0] = i;
+										temp[1] = items.get(i);
+										cursor.addRow(temp);
+									}
+									//t.setSuggestionPressedField("true");
+									String lang = "Greek";	
+									listView.setAdapter(new SettingsListAdapter(start, dest, getActivity(), cursor, items, destinationpointtv, startingpointtv, listView, disarabledestLocationEditText, disarableLocationEditText));
+							}
+					 }
+		 }	
+	
 }

@@ -3,25 +3,66 @@
     
 	<group
        android:checkableBehavior="single">
-    <item 
-        android:id="@+id/mouseiadest"
-        android:title="@string/museumsbutton" >
-    </item>
     
-    <item 
-        android:id="@+id/axiotheatadest"
+   <item
+        android:id="@+id/eventsd"
+        android:title="@string/eventsitem">
+   </item>
+    
+   <item 
+        android:id="@+id/axiotheatad"
         android:title="@string/sightseeingsbutton" >
-    </item>
+   </item>
     
-    <item 
-        android:id="@+id/nosokomeiadest"
-        android:title="@string/hospitalsbutton">
-    </item>
+   <item 
+        android:id="@+id/barrestd"
+        android:title="@string/barrestitem" >
+   </item>
     
-    <item 
-        android:id="@+id/ekklisiesdest"
+   <item 
+        android:id="@+id/restd"
+        android:title="@string/restitem" >
+   </item>
+    
+   <item 
+        android:id="@+id/intcuisd"
+        android:title="@string/intcuisitem" >
+   </item>
+    
+   <item 
+        android:id="@+id/seafoodd"
+        android:title="@string/seafooditem" >
+   </item>
+    
+   <item 
+        android:id="@+id/barsd"
+        android:title="@string/barsitem" >
+   </item>
+    
+   <item 
+        android:id="@+id/clubsd"
+        android:title="@string/clubsitem" >
+   </item>
+    
+   <item 
+        android:id="@+id/pubsd"
+        android:title="@string/pubsitem" >
+    </item>
+   
+   <item 
+        android:id="@+id/mouseiad"
+        android:title="@string/museumsbutton" >
+   </item>
+    
+   <item 
+        android:id="@+id/ekklisiesd"
         android:title="@string/churchesbutton" >
-    </item>
+   </item>
+     
+   <item 
+        android:id="@+id/nosokomeiad"
+        android:title="@string/hospitalsbutton">
+   </item>
     
     </group>
     
