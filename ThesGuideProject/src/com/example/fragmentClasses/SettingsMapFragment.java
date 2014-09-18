@@ -238,13 +238,24 @@ public class SettingsMapFragment extends ListFragment implements DialogInterface
 				        }
 					}
 					else{
-						Cursor startcursor = testDB.getPlaceByNameEl(startpointcontent.toString());
+					
+						if (!language.equals("English")){	
+							Cursor startcursor = testDB.getPlaceByNameEl(startpointcontent.toString());
+								if (startcursor.moveToFirst()){
+									do{
+										startlatitude = startcursor.getDouble(startcursor.getColumnIndex("latitude"));
+										startlongtitude = startcursor.getDouble(startcursor.getColumnIndex("longtitude"));
+									}while(startcursor.moveToNext());
+								}
+						}else{
+							Cursor startcursor = testDB.getPlaceByNameEn(startpointcontent.toString());
 							if (startcursor.moveToFirst()){
 								do{
 									startlatitude = startcursor.getDouble(startcursor.getColumnIndex("latitude"));
 									startlongtitude = startcursor.getDouble(startcursor.getColumnIndex("longtitude"));
 								}while(startcursor.moveToNext());
 							}
+						}
 					}
 					
 					
@@ -260,12 +271,23 @@ public class SettingsMapFragment extends ListFragment implements DialogInterface
 				            gps.showSettingsAlert();
 				        }
 					}else{
-						Cursor destcursor = testDB.getPlaceByNameEl(destpointcontent.toString());
-						if (destcursor.moveToFirst()){
-							do{
-								destlatitude = destcursor.getDouble(destcursor.getColumnIndex("latitude"));
-					       		destlongtitude = destcursor.getDouble(destcursor.getColumnIndex("longtitude"));
-							}while(destcursor.moveToNext());
+						
+						if (!language.equals("English")){	
+							Cursor destcursor = testDB.getPlaceByNameEl(destpointcontent.toString());
+							if (destcursor.moveToFirst()){
+								do{
+									destlatitude = destcursor.getDouble(destcursor.getColumnIndex("latitude"));
+					       			destlongtitude = destcursor.getDouble(destcursor.getColumnIndex("longtitude"));
+								}while(destcursor.moveToNext());
+							}
+						}else{
+							Cursor destcursor = testDB.getPlaceByNameEn(destpointcontent.toString());
+							if (destcursor.moveToFirst()){
+								do{
+									destlatitude = destcursor.getDouble(destcursor.getColumnIndex("latitude"));
+					       			destlongtitude = destcursor.getDouble(destcursor.getColumnIndex("longtitude"));
+								}while(destcursor.moveToNext());
+							}
 						}
 					}
 					
@@ -363,12 +385,22 @@ public class SettingsMapFragment extends ListFragment implements DialogInterface
 				        }
 					}
 					else{
-						Cursor startcursor = testDB.getPlaceByNameEl(destpointcontent.toString());
-						if (startcursor.moveToFirst()){
-							do{
-								destlatitude2 = startcursor.getDouble(startcursor.getColumnIndex("latitude"));
-						   		destlongtitude2 = startcursor.getDouble(startcursor.getColumnIndex("longtitude"));	
-							}while(startcursor.moveToNext());
+						if (!language.equals("English")){
+							Cursor startcursor = testDB.getPlaceByNameEl(destpointcontent.toString());
+								if (startcursor.moveToFirst()){
+									do{
+										destlatitude2 = startcursor.getDouble(startcursor.getColumnIndex("latitude"));
+										destlongtitude2 = startcursor.getDouble(startcursor.getColumnIndex("longtitude"));	
+									}while(startcursor.moveToNext());
+								}
+						}else{
+							Cursor startcursor = testDB.getPlaceByNameEn(destpointcontent.toString());
+							if (startcursor.moveToFirst()){
+								do{
+									destlatitude2 = startcursor.getDouble(startcursor.getColumnIndex("latitude"));
+									destlongtitude2 = startcursor.getDouble(startcursor.getColumnIndex("longtitude"));	
+								}while(startcursor.moveToNext());
+							}
 						}
 					}
 					
@@ -383,7 +415,9 @@ public class SettingsMapFragment extends ListFragment implements DialogInterface
 						{
 				            gps.showSettingsAlert();
 				        }
-					}else{ 
+					}else{
+					
+					 if (!language.equals("English")){	
 						Cursor destcursor = testDB.getPlaceByNameEl(startpointcontent.toString());
 							if (destcursor.moveToFirst()){
 								do{
@@ -391,7 +425,16 @@ public class SettingsMapFragment extends ListFragment implements DialogInterface
 									startlongtitude2 = destcursor.getDouble(destcursor.getColumnIndex("longtitude"));	
 								}while(destcursor.moveToNext());
 							}
+					}else{
+						Cursor startcursor = testDB.getPlaceByNameEn(startpointcontent.toString());
+						if (startcursor.moveToFirst()){
+							do{
+								startlatitude2 = startcursor.getDouble(startcursor.getColumnIndex("latitude"));
+								startlongtitude2 = startcursor.getDouble(startcursor.getColumnIndex("longtitude"));	
+							}while(startcursor.moveToNext());
+						}
 					}
+				}
 					
 						ToAndFromFragment t = new ToAndFromFragment();
 						Bundle locations_langBundle = new Bundle();
@@ -469,7 +512,7 @@ public class SettingsMapFragment extends ListFragment implements DialogInterface
 				}*/
 				
 				
-				listView.setOnItemClickListener(new OnItemClickListener() {
+				/*listView.setOnItemClickListener(new OnItemClickListener() {
 					public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 							    // When clicked, show a toast with the TextView text
 						if (language.equals("English")){
@@ -483,7 +526,7 @@ public class SettingsMapFragment extends ListFragment implements DialogInterface
 							disarabledestLocationEditText.setText("");
 						}
 					}
-				});
+				});*/
 			}	
 		});
 		
@@ -516,7 +559,7 @@ public class SettingsMapFragment extends ListFragment implements DialogInterface
 					listView.setVisibility(View.VISIBLE);
 				}*/	
 				
-				listView.setOnItemClickListener(new OnItemClickListener() {
+				/*listView.setOnItemClickListener(new OnItemClickListener() {
 					public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 							    // When clicked, show a toast with the TextView text
 						if (language.equals("English")){
@@ -530,7 +573,7 @@ public class SettingsMapFragment extends ListFragment implements DialogInterface
 							disarableLocationEditText.setText("");
 						}
 					}
-				});
+				});*/
 			}
 		});
 		
@@ -544,7 +587,7 @@ public class SettingsMapFragment extends ListFragment implements DialogInterface
 				if (isChecked == true){
 					destinationpointtv.setVisibility(View.VISIBLE);
 					if (language.equals("English")){
-						totv.setText("current location");
+						//totv.setText("current location");
 						destinationpointtv.setText("To:   Current location");
 					}else{
 						//totv.setText("Τρέχουσα θέση");
@@ -564,7 +607,7 @@ public class SettingsMapFragment extends ListFragment implements DialogInterface
 				if (isChecked == true){
 					startingpointtv.setVisibility(View.VISIBLE);
 					if (language.equals("English")){
-						fromtv.setText("current location");
+						//fromtv.setText("current location");
 						startingpointtv.setText("From: Current location");
 					}else{
 					    //fromtv.setText("Τρέχουσα θέση");
