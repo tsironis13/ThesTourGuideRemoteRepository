@@ -5,21 +5,11 @@ import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
-
-
-
-
-
-
-
-
-
-
+import java.util.Locale;
 import com.example.sqlHelper.TestLocalSqliteDatabase;
 import com.example.storage.InternalStorage;
 import com.example.tasks.BitmapTask;
 import com.example.tasks.PlacesJsonWebApiTask;
-
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -52,24 +42,13 @@ import android.widget.ViewFlipper;
 
 public class SplashScreen extends Activity{
 
-	private static final int SWIPE_MIN_DISTANCE = 120;
-    private static final int SWIPE_THRESHOLD_VELOCITY = 200;
-    private ViewFlipper mViewFlipper;  
-    private Button playButton;
-    private Button pauseButton;
-   
-    private Context mContext;
     //A ProgressDialog object  
     private ProgressDialog progressDialog;  
-    private BitmapTask imgFetcher;
     private TestLocalSqliteDatabase testDB;
-    private TestLocalSqliteDatabase testDB1;
-    private Cursor allDisplayImageLinkcursor;
     private static int SPLASH_TIME_OUT = 4000;
     private static int SPLASH_TIME_OUT2 = 2000;
     //TestLocalSqliteDatabase t;
     private static final String debugTag = "SplashScreen";
-    private final GestureDetector detector = new GestureDetector(new SwipeGestureDetector());
 	
     ProgressDialog barProgressDialog;
 	Handler updateBarHandler;
@@ -80,43 +59,25 @@ public class SplashScreen extends Activity{
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.viewflipper);
+		
+		String languagePhone = Locale.getDefault().getLanguage();
+		Log.i("Language phone =>", languagePhone);
+		
 		testDB = new TestLocalSqliteDatabase(this);
 		
 		final Button englishButton = (Button) findViewById(R.id.englishButton);
 		final Button greekButton = (Button) findViewById(R.id.greekButton);
 		
 		final Button text = (Button) findViewById(R.id.textButton);
-		
-		//testDB1 = new TestLocalSqliteDatabase(this);
-		//imgFetcher = new BitmapTask(this);
-		//Initialize a LoadViewTask object and call the execute() method  
-		//text = (Button) findViewById(R.id.textButton);
-		/*text = (Button) findViewById(R.id.textButton);
-		text.setOnClickListener(new View.OnClickListener() {
 			
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				//Toast.makeText(getApplicationContext(), "Click event works.", Toast.LENGTH_SHORT).show();
-				Intent myIntent = new Intent(SplashScreen.this, MainActivity.class);
-				startActivity(myIntent);
-			}
-		});*/
-		
 		try {
 			testDB.createDataBase();
 			testDB.openDataBase(debugTag);
-			
-			//testDB1.openDataBase();
-			//t.openDataBase();
-			
-			
 		} catch (IOException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		
-		if (isNetworkConnected()) {
+		/*if (isNetworkConnected()) {
 			testDB.clearPlacesTableIfExists();
 			PlacesJsonWebApiTask testwebtask = new PlacesJsonWebApiTask(SplashScreen.this);
 			testwebtask.execute();
@@ -128,7 +89,7 @@ public class SplashScreen extends Activity{
 				 * want to show case your app logo / company
 				 */
 
-				@Override
+			/*	@Override
 				public void run() {
 					// This method will be executed once the timer is over
 					// Start your app main activity
@@ -142,7 +103,6 @@ public class SplashScreen extends Activity{
 							// TODO Auto-generated method stub
 							Intent i = new Intent(SplashScreen.this, PlacesListFragmentActivity.class);
 							i.putExtra("language", "Greek");
-							Toast.makeText(getApplicationContext(), "Greek", Toast.LENGTH_SHORT).show();
 							startActivity(i);
 
 							// close this activity
@@ -169,16 +129,39 @@ public class SplashScreen extends Activity{
 					//finish();
 				}
 			}, SPLASH_TIME_OUT);
+		}*/
+		if (isNetworkConnected()){
+			testDB.clearPlacesTableIfExists();
+			PlacesJsonWebApiTask testwebtask = new PlacesJsonWebApiTask(SplashScreen.this);
+			testwebtask.execute();
+			
+			greekButton.setVisibility(View.VISIBLE);
+			englishButton.setVisibility(View.VISIBLE);
+			
+			greekButton.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					Intent i = new Intent(SplashScreen.this, PlacesListFragmentActivity.class);
+					i.putExtra("language", "Greek");
+					startActivity(i);
+				}
+			});
+			
+			englishButton.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					Intent i = new Intent(SplashScreen.this, PlacesListFragmentActivity.class);
+					i.putExtra("language", "English");
+					Toast.makeText(getApplicationContext(), "English", Toast.LENGTH_SHORT).show();
+					startActivity(i);
+				}
+			});
 		}
 		else{
 			boolean flag = testDB.checkPlacesDataTable();
 			if (flag == false){
 				Toast.makeText(getApplicationContext(), "Please enable wifi widget to download app data!", Toast.LENGTH_SHORT).show();
-				
-			
-				
-				//Button text = new Button(SplashScreen.this);
-				
+					
 				text.setVisibility(0);
 				text.setText("Reopen App");
 				text.setOnClickListener(new View.OnClickListener() {
@@ -208,22 +191,7 @@ public class SplashScreen extends Activity{
 					// Start your app main activity
 					greekButton.setVisibility(View.VISIBLE);
 					englishButton.setVisibility(View.VISIBLE);
-					
-					/*LinearLayout r = (LinearLayout) findViewById(R.id.splashscreenrelativelayout);
-					r.setOrientation(LinearLayout.VERTICAL);
-					
-					ViewGroup.LayoutParams greekButtonparams = greekButton.getLayoutParams();
-					greekButtonparams.width = 100;
-					greekButton.setLayoutParams(greekButtonparams);
-					
-					ViewGroup.LayoutParams englishButtonparams = englishButton.getLayoutParams();
-					englishButtonparams.width = 100;
-					englishButton.setLayoutParams(englishButtonparams);
-					//LayoutParams lp = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-					
-					r.addView(greekButton, greekButtonparams);
-					r.addView(englishButton, englishButtonparams);*/
-					
+							
 					greekButton.setOnClickListener(new View.OnClickListener() {
 						
 						@Override
@@ -257,48 +225,8 @@ public class SplashScreen extends Activity{
 		  }
 		}
 		
-		
-	
-		
-		
-	
-	int size = s.size();
-	String si = Integer.toString(size);
-	
-		/*mViewFlipper = (ViewFlipper) this.findViewById(R.id.view_flipper);
-        mViewFlipper.setOnTouchListener(new View.OnTouchListener() {
-			
-			@Override
-			public boolean onTouch(View view, MotionEvent event) {
-				// TODO Auto-generated method stub
-				//detector.onTouchEvent(event);
-                return true;
-			}
-		});
-        
-        playButton = (Button) this.findViewById(R.id.play);
-        playButton.setOnClickListener(new View.OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				//sets auto flipping
-                //mViewFlipper.setAutoStart(true);
-                //mViewFlipper.setFlipInterval(2000);
-                //mViewFlipper.startFlipping();
-			}
-		}); 
-        
-        pauseButton = (Button) this.findViewById(R.id.stop);
-        pauseButton.setOnClickListener(new View.OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				mViewFlipper.stopFlipping();
-			}
-		});     
-*/
+			int size = s.size();
+			String si = Integer.toString(size);
     }
 	
 	private boolean isNetworkConnected() {
@@ -311,14 +239,6 @@ public class SplashScreen extends Activity{
 			return true;
 	}
     
-    @Override
-	protected void onStart() {
-		// TODO Auto-generated method stub
-		super.onStart();
-	}
-
-
-
 	@Override
    	protected void onDestroy() {
    		// TODO Auto-generated method stub
@@ -326,34 +246,75 @@ public class SplashScreen extends Activity{
    		testDB.close(debugTag);
    	}
     
-    
-    
-	class SwipeGestureDetector extends SimpleOnGestureListener {
-        @Override
-        public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
-            try {
-                // right to left swipe
-                if (e1.getX() - e2.getX() > SWIPE_MIN_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {
-                    mViewFlipper.setInAnimation(AnimationUtils.loadAnimation(mContext, R.anim.left_in));
-                    mViewFlipper.setOutAnimation(AnimationUtils.loadAnimation(mContext, R.anim.left_out));                 
-                    mViewFlipper.showNext();
-                    return true;
-                } else if (e2.getX() - e1.getX() > SWIPE_MIN_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {
-                    mViewFlipper.setInAnimation(AnimationUtils.loadAnimation(mContext, R.anim.right_in));
-                    mViewFlipper.setOutAnimation(AnimationUtils.loadAnimation(mContext,R.anim.right_out));
-                    mViewFlipper.showPrevious();
-                    return true;
-                }
- 
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
- 
-            return false;
-        }
-    }
+	private class LoadViewTask extends AsyncTask<Void, Integer, Void>{
 
-	
+		@Override
+		protected void onPreExecute() {
+			  //Create a new progress dialog  
+            progressDialog = new ProgressDialog(SplashScreen.this);  
+            //Set the progress dialog to display a horizontal progress bar  
+            progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);  
+           
+         
+        	//Set the dialog title to 'Loading...'  
+        	progressDialog.setTitle("Loading...");  
+        	//Set the dialog message to 'Loading application View, please wait...'  
+        	progressDialog.setMessage("Loading application View, please wait...");
+       
+            //This dialog can't be canceled by pressing the back key  
+            progressDialog.setCancelable(false);  
+            //This dialog isn't indeterminate  
+            progressDialog.setIndeterminate(false);  
+            //The maximum number of items is 100  
+            progressDialog.setMax(100);  
+            //Set the current progress to zero  
+            progressDialog.setProgress(0);  
+            //Display the progress dialog  
+            progressDialog.show();  
+		}
+
+		@Override
+		protected Void doInBackground(Void... params) {
+			  try  
+	            {  
+	                //Get the current thread's token  
+	                synchronized (this)  
+	                {  
+	                    //Initialize an integer (that will act as a counter) to zero  
+	                    int counter = 0;  
+	                    //While the counter is smaller than four  
+	                    while(counter <= 4)  
+	                    {  
+	                        //Wait 850 milliseconds  
+	                        this.wait(350);  
+	                        //Increment the counter  
+	                        counter++;  
+	                        //Set the current progress.  
+	                        //This value is going to be passed to the onProgressUpdate() method.  
+	                        publishProgress(counter*25);  
+	                    }  
+	                }  
+	            }  
+	            catch (InterruptedException e)  
+	            {  
+	                e.printStackTrace();  
+	            }  
+	            return null;  
+		}
+
+		@Override
+		protected void onProgressUpdate(Integer... values) {
+			 //set the current progress of the progress dialog  
+            progressDialog.setProgress(values[0]);  		
+        }
+		
+		@Override  
+        protected void onPostExecute(Void result)  
+        {  
+            //close the progress dialog  
+            progressDialog.dismiss();  
+        }
+	}
 	
 	
 }

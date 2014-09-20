@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -19,13 +20,10 @@ import android.widget.TextView;
 
 public class SettingsListAdapterEnglish extends CursorAdapter implements OnClickListener{
 
-	private List items;
+	private List<String> items;
 	private Context context; 
-    private TextView t;
-    private Button text;
 	private Cursor cursor;	
 	private String placeNameEl;
-	private MenuItem searchItem;
 	private TextView startpointtv;
 	private TextView destpointtv;
 	private ListView listview;
@@ -34,7 +32,7 @@ public class SettingsListAdapterEnglish extends CursorAdapter implements OnClick
 	private String start;
 	private String dest;
 	
-	public SettingsListAdapterEnglish(String start, String dest, Context context, Cursor cursor, List items, TextView destpointtv, TextView startpointtv, ListView listview, EditText disarabledestLocationEditText, EditText disarableLocationEditText) {
+	public SettingsListAdapterEnglish(String start, String dest, Context context, Cursor cursor, List<String> items, TextView destpointtv, TextView startpointtv, ListView listview, EditText disarabledestLocationEditText, EditText disarableLocationEditText) {
 		super(context, cursor, false);
 		this.start = start;
 		this.dest = dest;
@@ -50,7 +48,6 @@ public class SettingsListAdapterEnglish extends CursorAdapter implements OnClick
 	}
 	
 	private static class ViewHolder{
-		Button item;
 		TextView t;
 		
 		ViewHolder(View v){
@@ -98,13 +95,17 @@ public class SettingsListAdapterEnglish extends CursorAdapter implements OnClick
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
 		ViewHolder vH = (ViewHolder) v.getTag();
-		
+		InputMethodManager imm = (InputMethodManager) this.context.getSystemService(Context.INPUT_METHOD_SERVICE);
+		imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
 		CharSequence s = vH.t.getText();
 		String s1 = s.toString();
+		
 	if (start.equals("start") && dest.equals("null")){	
 		startpointtv.setText("From: "+s1);
 		this.disarableLocationEditText.setText("");
 		this.listview.setAdapter(null);
+	
+		
 	}
 	else if (start.equals("null") && dest.equals("dest")){
 		destpointtv.setText("To:   "+s1);

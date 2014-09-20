@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -21,11 +22,8 @@ public class SettingsListAdapter extends CursorAdapter implements OnClickListene
 
 	private List items;
 	private Context context; 
-    private TextView t;
-    private Button text;
 	private Cursor cursor;	
 	private String placeNameEl;
-	private MenuItem searchItem;
 	private TextView startpointtv;
 	private TextView destpointtv;
 	private ListView listview;
@@ -99,6 +97,8 @@ public class SettingsListAdapter extends CursorAdapter implements OnClickListene
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
 		ViewHolder vH = (ViewHolder) v.getTag();
+		InputMethodManager imm = (InputMethodManager) this.context.getSystemService(Context.INPUT_METHOD_SERVICE);
+		imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
 		
 		CharSequence s = vH.t.getText();
 		String s1 = s.toString();

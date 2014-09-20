@@ -59,11 +59,15 @@
         
     </RadioGroup>   -->
     
-    
+    <LinearLayout android:focusable="true"
+                android:focusableInTouchMode="true" android:layout_width="0px"
+                android:layout_height="0px" />
     <EditText 
         android:id="@+id/pickyourdisarablelocationet"
         android:layout_below="@+id/selectcategoryb"
         android:inputType="textMultiLine"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true" 
@@ -127,6 +131,8 @@
         android:id="@+id/pickyourdisarabledestlocationet"
         android:layout_below="@+id/selectdestcategoryb"
         android:inputType="textMultiLine"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true" >

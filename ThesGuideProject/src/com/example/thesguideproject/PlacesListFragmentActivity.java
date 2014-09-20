@@ -1,32 +1,23 @@
 package com.example.thesguideproject;
 
 import java.util.ArrayList;
-import java.util.List;
-
-import com.example.adapters.DisarableLocationCursorAdapter;
 import com.example.adapters.InEnglishSearchAdapter;
 import com.example.adapters.SearchAdapter;
 import com.example.fragmentClasses.MenuFragment;
 import com.example.sqlHelper.TestLocalSqliteDatabase;
 import com.example.tasks.BitmapTask;
 import com.example.thesguideproject.R;
-
-import android.annotation.TargetApi;
-import android.app.FragmentManager;
 import android.app.ProgressDialog;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.MatrixCursor;
-import android.graphics.Bitmap;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBar;
@@ -37,10 +28,8 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
  public class PlacesListFragmentActivity extends ActionBarActivity implements SearchView.OnQueryTextListener, SearchView.OnCloseListener{
@@ -48,9 +37,7 @@ import android.widget.Toast;
 	private ActionBar mActionBar;
 	private SearchView searchView;
 	private MenuFragment menuFragment;
-	private Fragment fragment;
 	private FragmentTransaction fragmentTransaction;
-	private TextView hiddentv;
 	private Cursor allDisplayImageLinkcursor;
 	private BitmapTask imgFetcher;
 	private ProgressDialog progressDialog; 
@@ -101,18 +88,8 @@ import android.widget.Toast;
 						 //testDB.close(); 
 						 //s.add(url);
 					 }
-					 else{
-						 
-						Bitmap b = imgFetcher.loadImage(this, url, getApplicationContext(), name);	 
-						//if (b != null){
-							//break;
-					//	} 
-					//	else{
-							imgFetcher.loadImage(this, url, getApplicationContext(), name);
-				//		}
-					   
-						
-					     //testDB.close();		     
+					 else{	
+						imgFetcher.loadImage(this, url, getApplicationContext(), name);     
 					 } 
 				}while(allDisplayImageLinkcursor.moveToNext());
 			}
@@ -122,8 +99,7 @@ import android.widget.Toast;
 		}
 		
 		if (isNetworkConnected()){
-		
-		new LoadViewTask().execute();  
+			new LoadViewTask().execute();  
 		}
 		
 		
@@ -142,8 +118,6 @@ import android.widget.Toast;
 		menuFragment.setArguments(langbundle);
 		
 		//getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-		hiddentv = (TextView) findViewById(R.id.hiddentv);
-		
 		
 		if (savedInstanceState == null){
 			fragmentTransaction = getSupportFragmentManager().beginTransaction().add(R.id.containermenu, menuFragment);
@@ -177,7 +151,7 @@ import android.widget.Toast;
 	 if (keyCode==KeyEvent.KEYCODE_BACK){	
 		
 		 LinearLayout menulinearlayout = (LinearLayout) findViewById(R.id.linearlayout1);
-		 boolean success = formIsValid(menulinearlayout);
+		 formIsValid(menulinearlayout);
 		 
 		
 		 //int y = t.getAuxiliaryVariableI();
@@ -209,35 +183,7 @@ import android.widget.Toast;
 			//}
 			//Toast.makeText(getApplicationContext(), "Fragments in back stack are =>" + fragments, Toast.LENGTH_SHORT).show();
 			//Toast.makeText(getApplicationContext(), "Fragments in back stack position 1 =>" + backStackId, Toast.LENGTH_SHORT).show();
-		}
-		//else if(fragments > 1){
-		//	int backStackId = getSupportFragmentManager().getBackStackEntryAt(1).getId();
-		//	getSupportFragmentManager().popBackStack(backStackId, FragmentManager.POP_BACK_STACK_INCLUSIVE);
-		//}
-		
-		// TODO Auto-generated method stub
-		/*if (keyCode == event.KEYCODE_BACK && y != 0){
-			
-			t.insertValueForIAuxiliaryVariable(0);
-			//t.close(); 
-			String s = Integer.toString(i);
-			Toast.makeText(getApplication(), s+ "pressed!", Toast.LENGTH_SHORT).show();
-			Log.d(this.getClass().getName(), "back button pressed");
-			hiddentv.setText("you are in!");
-			//t.close();
-			fragment = new MenuFragment();
-			FragmentTransaction ft2 = getSupportFragmentManager().beginTransaction().replace(R.id.containermenu, fragment);
-			ft2.addToBackStack(null);
-			ft2.commit();
-		}
-		else {
-			fragment = new MenuFragment();
-			FragmentTransaction ft2 = getSupportFragmentManager().beginTransaction().replace(R.id.containermenu, fragment);
-			ft2.commit();
-			//t.close();
-			Log.d(this.getClass().getName(), "NO back button pressed");
-		}*/
-		
+		}	
 	 }
 		return super.onKeyDown(keyCode, event);
 		
@@ -509,26 +455,8 @@ import android.widget.Toast;
 		return true;
 	}
 	
- /*public static class TestListFragment extends Fragment{
-	 
-	 public TestListFragment(){}
-
-	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
-		View rootView = inflater.inflate(R.layout.splash_screen_fragment, container, false);
-		//Button b = (Button) rootView.findViewById(R.id.testbut);
-		return rootView;
-	}
-	 
-
-	 
- }*/
-	
 	 private class LoadViewTask extends AsyncTask<Void, Integer, Void>  
 	    { 
-		 
-		 
 		  @Override  
 	        protected void onPreExecute()  
 	        {  
@@ -536,10 +464,16 @@ import android.widget.Toast;
 	            progressDialog = new ProgressDialog(PlacesListFragmentActivity.this);  
 	            //Set the progress dialog to display a horizontal progress bar  
 	            progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);  
-	            //Set the dialog title to 'Loading...'  
-	            progressDialog.setTitle("Loading...");  
-	            //Set the dialog message to 'Loading application View, please wait...'  
-	            progressDialog.setMessage("Loading application View, please wait...");  
+	           
+	           if (language.equals("English")){ 
+	        	   //Set the dialog title to 'Loading...'  
+	        	   progressDialog.setTitle("Loading...");  
+	        	   //Set the dialog message to 'Loading application View, please wait...'  
+	        	   progressDialog.setMessage("Loading application View, please wait...");
+	           }else{
+	        	   progressDialog.setTitle("Φορτώνει...");
+	        	   progressDialog.setMessage("Φόρτωση περιβάλλοντος εφαρμογής, παρακαλώ περιμένετε...");
+	           }
 	            //This dialog can't be canceled by pressing the back key  
 	            progressDialog.setCancelable(false);  
 	            //This dialog isn't indeterminate  
@@ -603,7 +537,7 @@ import android.widget.Toast;
 	        {  
 	            //close the progress dialog  
 	            progressDialog.dismiss();  
-	            }
+	        }
 		 
 		 
 	    }

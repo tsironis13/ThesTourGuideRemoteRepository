@@ -153,7 +153,7 @@ public class MenuFragment extends Fragment {
 				langBundle.putString("language", language);
 				ListPlacesFragment listMuseumsFragment = new ListPlacesFragment(genre, "", current_latitude, current_longtitude);
 				listMuseumsFragment.setArguments(langBundle);
-				fragmentTransaction = getFragmentManager().beginTransaction().replace(R.id.containerlist, listMuseumsFragment);
+				replaceFragmentFunction(listMuseumsFragment);
 				deleteFromBackStack();
 				fragmentTransaction.addToBackStack("sig");
 				fragmentTransaction.commit();	
@@ -192,7 +192,7 @@ public class MenuFragment extends Fragment {
 				langBundle.putString("language", language);
 				ListPlacesFragment listMuseumsFragment = new ListPlacesFragment(genre, "", current_latitude, current_longtitude);
 				listMuseumsFragment.setArguments(langBundle);
-				fragmentTransaction = getFragmentManager().beginTransaction().replace(R.id.containerlist, listMuseumsFragment);
+				replaceFragmentFunction(listMuseumsFragment);
 				deleteFromBackStack();
 				fragmentTransaction.addToBackStack("mus");
 				fragmentTransaction.commit();	
@@ -221,7 +221,7 @@ public class MenuFragment extends Fragment {
 				langBundle.putString("language", language);
 				ListPlacesFragment listMuseumsFragment = new ListPlacesFragment(genre, "", current_latitude, current_longtitude);
 				listMuseumsFragment.setArguments(langBundle);
-				fragmentTransaction = getFragmentManager().beginTransaction().replace(R.id.containerlist, listMuseumsFragment);
+				replaceFragmentFunction(listMuseumsFragment);
 				deleteFromBackStack();
 				fragmentTransaction.addToBackStack("hos");		
 				fragmentTransaction.commit();
@@ -249,7 +249,7 @@ public class MenuFragment extends Fragment {
 			subcategory = "bar-restaurant";
 			ListPlacesFragment listBarRestFragment = new ListPlacesFragment(genre, subcategory, current_latitude, current_longtitude);
 			listBarRestFragment.setArguments(langBundle);
-			fragmentTransaction = getFragmentManager().beginTransaction().replace(R.id.containerlist, listBarRestFragment);
+			replaceFragmentFunction(listBarRestFragment);
 			deleteFromBackStack();
 			fragmentTransaction.addToBackStack("food");
 			fragmentTransaction.commit();
@@ -261,7 +261,7 @@ public class MenuFragment extends Fragment {
 			subcategory = "restaurants";
 			ListPlacesFragment listRestFragment = new ListPlacesFragment(genre, subcategory, current_latitude, current_longtitude);
 			listRestFragment.setArguments(langrestBundle);
-			fragmentTransaction = getFragmentManager().beginTransaction().replace(R.id.containerlist, listRestFragment);
+			replaceFragmentFunction(listRestFragment);
 			deleteFromBackStack();
 			fragmentTransaction.addToBackStack("food");
 			fragmentTransaction.commit();
@@ -273,7 +273,7 @@ public class MenuFragment extends Fragment {
 			subcategory = "intcuisine";
 			ListPlacesFragment listInterCoisFragment = new ListPlacesFragment(genre, subcategory, current_latitude, current_longtitude);
 			listInterCoisFragment.setArguments(langintBundle);
-			fragmentTransaction = getFragmentManager().beginTransaction().replace(R.id.containerlist, listInterCoisFragment);
+			replaceFragmentFunction(listInterCoisFragment);
 			deleteFromBackStack();
 			fragmentTransaction.addToBackStack("food");
 			fragmentTransaction.commit();
@@ -285,7 +285,7 @@ public class MenuFragment extends Fragment {
 			subcategory = "seafood";
 			ListPlacesFragment listSeafoodFragment = new ListPlacesFragment(genre, subcategory, current_latitude, current_longtitude);
 			listSeafoodFragment.setArguments(langseafBundle);
-			fragmentTransaction = getFragmentManager().beginTransaction().replace(R.id.containerlist, listSeafoodFragment);
+			replaceFragmentFunction(listSeafoodFragment);
 			deleteFromBackStack();
 			fragmentTransaction.addToBackStack("food");
 			fragmentTransaction.commit();
@@ -297,7 +297,7 @@ public class MenuFragment extends Fragment {
 			subcategory = "bars";
 			ListPlacesFragment listBarsFragment = new ListPlacesFragment(genre, subcategory, current_latitude, current_longtitude);
 			listBarsFragment.setArguments(langbarsBundle);
-			fragmentTransaction = getFragmentManager().beginTransaction().replace(R.id.containerlist, listBarsFragment);
+			replaceFragmentFunction(listBarsFragment);
 			deleteFromBackStack();
 			fragmentTransaction.addToBackStack("nig");
 			fragmentTransaction.commit();
@@ -309,31 +309,11 @@ public class MenuFragment extends Fragment {
 			subcategory = "clubs";
 			ListPlacesFragment listClubsFragment = new ListPlacesFragment(genre, subcategory, current_latitude, current_longtitude);
 			listClubsFragment.setArguments(langclubsBundle);
-			fragmentTransaction = getFragmentManager().beginTransaction().replace(R.id.containerlist, listClubsFragment);
+			replaceFragmentFunction(listClubsFragment);
 			deleteFromBackStack();
 			fragmentTransaction.addToBackStack("nig");
 			fragmentTransaction.commit();
 			break;
-		/*case R.id.mpouzoukia:
-			genre = "nightlife";
-			Bundle langmpouzBundle = new Bundle();
-			langmpouzBundle.putString("language", language);
-			subcategory = "mpouzoukia";
-			ListPlacesFragment listMpouzoukiaFragment = new ListPlacesFragment(genre, subcategory, current_latitude, current_longtitude);
-			listMpouzoukiaFragment.setArguments(langmpouzBundle);
-			fragmentTransaction = getFragmentManager().beginTransaction().replace(R.id.containerlist, listMpouzoukiaFragment);
-			if (fragments > 1){
-				  String backStackId = getFragmentManager().getBackStackEntryAt(1).getName();
-				
-					if (backStackId.equals("food") || backStackId.equals("hos") || backStackId.equals("mus") || backStackId.equals("nig") || backStackId.equals("ch"))
-					{
-						getFragmentManager().popBackStack(backStackId,0);
-					}
-						getFragmentManager().popBackStack();
-				}
-			fragmentTransaction.addToBackStack("nig");
-			fragmentTransaction.commit();
-			break;*/
 		case R.id.pubs:
 			genre = "nightlife";
 			Bundle langnightBundle = new Bundle();
@@ -341,7 +321,7 @@ public class MenuFragment extends Fragment {
 			subcategory = "pubs";
 			ListPlacesFragment listPubsFragment = new ListPlacesFragment(genre, subcategory, current_latitude, current_longtitude);
 			listPubsFragment.setArguments(langnightBundle);
-			fragmentTransaction = getFragmentManager().beginTransaction().replace(R.id.containerlist, listPubsFragment);
+			replaceFragmentFunction(listPubsFragment);
 			deleteFromBackStack();
 			fragmentTransaction.addToBackStack("nig");
 			fragmentTransaction.commit();
@@ -353,7 +333,7 @@ public class MenuFragment extends Fragment {
 			 subcategory = "PaleoChristian";
 			 ListPlacesFragment listPchrFragment = new ListPlacesFragment(genre, subcategory, current_latitude, current_longtitude);
 			 listPchrFragment.setArguments(langpaleoBundle);
-			 fragmentTransaction = getFragmentManager().beginTransaction().replace(R.id.containerlist, listPchrFragment);
+			 replaceFragmentFunction(listPchrFragment);
 			 deleteFromBackStack();
 			 fragmentTransaction.addToBackStack("ch");
 			 fragmentTransaction.commit();
@@ -365,7 +345,7 @@ public class MenuFragment extends Fragment {
 			 subcategory = "Byzantine";
 			 ListPlacesFragment listBizanFragment = new ListPlacesFragment(genre, subcategory, current_latitude, current_longtitude);
 			 listBizanFragment.setArguments(langbizBundle);
-			 fragmentTransaction = getFragmentManager().beginTransaction().replace(R.id.containerlist, listBizanFragment);
+			 replaceFragmentFunction(listBizanFragment);
 			 deleteFromBackStack();
 			 fragmentTransaction.addToBackStack("ch");
 			 fragmentTransaction.commit();
@@ -377,7 +357,7 @@ public class MenuFragment extends Fragment {
 			 subcategory = "Basiliki";
 			 ListPlacesFragment listBasilFragment = new ListPlacesFragment(genre, subcategory, current_latitude, current_longtitude);
 			 listBasilFragment.setArguments(langbasilBundle);
-			 fragmentTransaction = getFragmentManager().beginTransaction().replace(R.id.containerlist, listBasilFragment);
+			 replaceFragmentFunction(listBasilFragment);
 			 deleteFromBackStack();
 			 fragmentTransaction.addToBackStack("ch");
 			 fragmentTransaction.commit();
@@ -389,7 +369,7 @@ public class MenuFragment extends Fragment {
 			 subcategory = "Macedonian";
 			 ListPlacesFragment listMacFragment = new ListPlacesFragment(genre, subcategory, current_latitude, current_longtitude);
 			 listMacFragment.setArguments(langmacBundle);
-			 fragmentTransaction = getFragmentManager().beginTransaction().replace(R.id.containerlist, listMacFragment);
+			 replaceFragmentFunction(listMacFragment);
 			 deleteFromBackStack();
 			 fragmentTransaction.addToBackStack("ch");
 			 fragmentTransaction.commit();
@@ -463,6 +443,10 @@ public class MenuFragment extends Fragment {
 		
 	}
 
+	public void replaceFragmentFunction(ListPlacesFragment listplacesFragment){
+		 fragmentTransaction = getFragmentManager().beginTransaction().replace(R.id.containerlist, listplacesFragment);
+	}
+	
 	public void deleteFromBackStack(){
 		int fragments = getFragmentManager().getBackStackEntryCount();
 		if (fragments > 1){

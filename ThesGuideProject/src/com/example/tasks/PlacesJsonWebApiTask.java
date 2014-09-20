@@ -76,8 +76,13 @@ public class PlacesJsonWebApiTask extends AsyncTask<Void, Integer, String> {
 	            super.onPreExecute();
 	            // Showing progress dialog
 	            pDialog = new ProgressDialog(this.s);
-	            pDialog.setMessage("Please wait...");
+	            pDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+	            pDialog.setTitle("Please wait...");
+	            pDialog.setMessage("Downloading application data...");
 	            pDialog.setCancelable(false);
+	            pDialog.setIndeterminate(false);  
+	            pDialog.setMax(100);  
+	            pDialog.setProgress(0);  
 	            pDialog.show();
 	    }
 	 
@@ -88,6 +93,23 @@ public class PlacesJsonWebApiTask extends AsyncTask<Void, Integer, String> {
           try{
           	Log.d(debugTag, "Background: " + Thread.currentThread().getName());
           	String result = sh.makeServiceCall(url, ServiceHandler.GET);
+            //Get the current thread's token  
+            synchronized (this)  
+            {  
+                //Initialize an integer (that will act as a counter) to zero  
+                int counter = 0;  
+                //While the counter is smaller than four  
+                while(counter <= 4)  
+                {  
+                    //Wait 850 milliseconds  
+                    this.wait(550);  
+                    //Increment the counter  
+                    counter++;  
+                    //Set the current progress.  
+                    //This value is going to be passed to the onProgressUpdate() method.  
+                    publishProgress(counter*25);  
+                }
+            }  
           	return result;
           	
           }catch(Exception e){
@@ -95,6 +117,12 @@ public class PlacesJsonWebApiTask extends AsyncTask<Void, Integer, String> {
           }
       	
       }	
+	  
+	  @Override
+	  protected void onProgressUpdate(Integer... values) {
+		  //set the current progress of the progress dialog  
+          pDialog.setProgress(values[0]);  		
+      }
 	  
 	  
 	  public ArrayList<PlacesData> tD;

@@ -84,12 +84,15 @@ public class FindPathFragmentActivity extends ActionBarActivity implements OnGoo
 		int id = getSupportFragmentManager().getBackStackEntryCount();
 		String sid = Integer.toString(id);
 		Log.i("back stack entry count =>", sid);
-		//String backStackId = getSupportFragmentManager().getBackStackEntryAt(0).getName();
-		//Log.i("back stack entry at position 0 =>", backStackId);
 		
-		if (id ==1){
-			getSupportFragmentManager().popBackStack();
+		//Log.i("back stack entry at position 0 =>", backStackId);
+		for (int i=0; i<id; i++){
+				String backStackId = getSupportFragmentManager().getBackStackEntryAt(i).getName();
+		   if (backStackId.equals("toandfrom") || backStackId.equals("popup")){
+			   getSupportFragmentManager().popBackStack();
+		   }
 		}
+		
 		//ToAndFromFragment t = new ToAndFromFragment();
 		//fragmentTransaction = getSupportFragmentManager().beginTransaction().remove(t);
 		//fragmentTransaction.commit();
