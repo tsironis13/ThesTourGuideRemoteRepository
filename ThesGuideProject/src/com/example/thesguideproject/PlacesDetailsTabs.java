@@ -44,6 +44,7 @@ public class PlacesDetailsTabs extends ActionBarActivity implements OnGoogleMapF
     private ProgressDialog simpleWaitDialog;
     private String button_pressed;
     private String placenameEl;
+    private String nameLower;
     private String description_info;
     private String telephone;
     private String link;
@@ -104,6 +105,7 @@ public class PlacesDetailsTabs extends ActionBarActivity implements OnGoogleMapF
 		language = i.getStringExtra("language");
 		button_pressed = i.getStringExtra("button_pressed_text");
 		placenameEl = i.getStringExtra("placeNameEl");
+		nameLower = i.getStringExtra("placenameEllower");
 		description_info = i.getStringExtra("desc_info");
 		telephone = i.getStringExtra("telephone");
 		link = i.getStringExtra("link");
@@ -145,7 +147,9 @@ public class PlacesDetailsTabs extends ActionBarActivity implements OnGoogleMapF
         
         
         Bundle infoBundle = new Bundle();
+        infoBundle.putString("language", language);
         infoBundle.putString("place_nameEl_info", placenameEl);
+        infoBundle.putString("Headername", nameLower);
         infoBundle.putString("desc_info", description_info);
         infoBundle.putString("telephone", telephone);
         infoBundle.putString("link", link);

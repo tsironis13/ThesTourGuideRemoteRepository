@@ -43,7 +43,7 @@
         android:layout_marginEnd="5dp"
         android:textSize="18sp"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" >
+        android:layout_height="40dp" >
     </TextView>
     
     <Button 
@@ -51,9 +51,10 @@
         android:layout_below="@+id/infoFragmentTextView"
         android:layout_height="35dp"
         android:layout_width="45dp"
+        android:layout_marginBottom="10dp"
 		android:gravity="center_vertical"
         android:layout_toRightOf="@+id/telFragmentTextView"
-        android:background="@drawable/button_phone" >
+        android:background="@drawable/b_phone" >
     </Button>
     
     <TextView 

@@ -41,6 +41,13 @@
 			android:layout_below="@+id/locationName">    
         </TextView>
         
+        <TextView
+            android:id="@+id/nameellower"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:visibility="invisible" >
+        </TextView>
+        
         <TextView 
             android:id="@+id/descinfohiddentv"
             android:layout_width="0dp"

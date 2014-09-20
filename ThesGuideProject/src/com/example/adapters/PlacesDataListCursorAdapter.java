@@ -118,7 +118,7 @@ public class PlacesDataListCursorAdapter extends SimpleCursorAdapter implements 
 	}*/
 	
 	private static class ViewHolder{
-		TextView nametv, placeNametv, distance, latitudetv, longtitudetv, desc_infohiddentv, 
+		TextView nametv, placeNametv, nameEllower,  distance, latitudetv, longtitudetv, desc_infohiddentv, 
 		telhiddentv, linkhiddentv, fbLinkhiddentv, emailhiddentv, exhibitionhiddentv,
 		photoLink1hiddentv, photoLink2hiddentv, photoLink3hiddentv, photoLink4hiddentv, hiddenoncalltv;
 		ImageView icon;
@@ -138,6 +138,7 @@ public class PlacesDataListCursorAdapter extends SimpleCursorAdapter implements 
 			photoLink4hiddentv = (TextView) v.findViewById(R.id.photoLink4hiddentv);
 			nametv = (TextView) v.findViewById(R.id.locationName);
 			placeNametv = (TextView) v.findViewById(R.id.placeNametv);
+			nameEllower = (TextView) v.findViewById(R.id.nameellower);
 			latitudetv = (TextView) v.findViewById(R.id.latitudetv);
 			longtitudetv = (TextView) v.findViewById(R.id.longtitudetv);
 			distance = (TextView) v.findViewById(R.id.distance);
@@ -200,6 +201,7 @@ public class PlacesDataListCursorAdapter extends SimpleCursorAdapter implements 
             viewHolder.photoLink4hiddentv = (TextView) v.findViewById(R.id.photoLink4hiddentv);
             viewHolder.nametv = (TextView) v.findViewById(R.id.locationName);
             viewHolder.placeNametv = (TextView) v.findViewById(R.id.placeNametv);
+            viewHolder.nameEllower = (TextView) v.findViewById(R.id.nameellower);
             viewHolder.latitudetv = (TextView) v.findViewById(R.id.latitudetv);
             viewHolder.longtitudetv = (TextView) v.findViewById(R.id.longtitudetv);
             viewHolder.distance = (TextView) v.findViewById(R.id.distance);
@@ -218,6 +220,7 @@ public class PlacesDataListCursorAdapter extends SimpleCursorAdapter implements 
 		String name = this.cursor.getString(this.cursor.getColumnIndex("_id"));
 		int integer_id = Integer.parseInt(name);
 		String placeNameEl = this.cursor.getString(this.cursor.getColumnIndex("name_el"));
+		String nameElLower = this.cursor.getString(this.cursor.getColumnIndex("nameel_lower"));
 		String image_link = this.cursor.getString(this.cursor.getColumnIndex("photo_link"));
 		double place_latitude = this.cursor.getDouble(this.cursor.getColumnIndex("latitude"));
 		String str_placelatitude = Double.toString(place_latitude);
@@ -282,6 +285,7 @@ public class PlacesDataListCursorAdapter extends SimpleCursorAdapter implements 
 		viewHolder.photoLink3hiddentv.setText(link3);
 		viewHolder.photoLink4hiddentv.setText(link4);
 		viewHolder.placeNametv.setText(placeNameEl);
+		viewHolder.nameEllower.setText(nameElLower);
 		//viewHolder.surnametv.setTag(surname);
 		viewHolder.latitudetv.setText(str_placelatitude);
 		viewHolder.longtitudetv.setText(str_placelongtitude);
@@ -450,6 +454,7 @@ public class PlacesDataListCursorAdapter extends SimpleCursorAdapter implements 
 		intent.putExtra("language", "Greek");
 		intent.putExtra("current latitude" , str_current_latitude);
 		intent.putExtra("current longtitude", str_current_longtitude);
+		intent.putExtra("placenameEllower", vH.nameEllower.getText());
 		intent.putExtra("placeNameEl", vH.placeNametv.getText());
 		intent.putExtra("desc_info", vH.desc_infohiddentv.getText());
 		intent.putExtra("telephone", vH.telhiddentv.getText());

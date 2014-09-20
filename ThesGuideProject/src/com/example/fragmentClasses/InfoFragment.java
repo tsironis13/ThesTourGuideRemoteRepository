@@ -4,6 +4,8 @@ import com.example.thesguideproject.PlacesDetailsTabs;
 import com.example.thesguideproject.R;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -31,6 +33,7 @@ public class InfoFragment extends Fragment{
 	private Button telFragmentButton;
 	private Button emailFragmentButton;
 	private String name;
+	private String language;
 	PlacesDetailsTabs pdt = new PlacesDetailsTabs();
 	public InfoFragment(){}
 	
@@ -62,52 +65,151 @@ public class InfoFragment extends Fragment{
 		super.onActivityCreated(savedInstanceState);
 		
 		//String s = getArguments().getString("info"); 
+		final String language = getArguments().getString("language");
 		String place_nameEl = getArguments().getString("place_nameEl_info");
+		String headerName = getArguments().getString("Headername");
 		String desc_info = getArguments().getString("desc_info");
 		String tel = getArguments().getString("telephone");
 		String link = getArguments().getString("link");	
 		String fbLink = getArguments().getString("fbLink");
 		String email = getArguments().getString("email");
 		
-		placenameElFragmenttv.setText(place_nameEl.toUpperCase());
+		//placenameElFragmenttv.setText(place_nameEl.toUpperCase());
+		placenameElFragmenttv.setText(headerName.toUpperCase());
 		infoFragmenttv.setText(desc_info);
-		telFragmenttv.setText(" Tel: " + tel);
+		if (language.equals("English")){
+			telFragmenttv.setText(" Tel: " + tel);
+		}
+		else{
+			telFragmenttv.setText(" Τηλ: " + tel);
+		}
 		//linkFragmenttv.setText(" Link: " + link);
-		linkFragmenttv.setText(Html.fromHtml("Link: <a href=\"" + link + "\">"+link+"</a>"));
-		linkFragmenttv.setMovementMethod(LinkMovementMethod.getInstance());
-		fbLinkFragmenttv.setText(Html.fromHtml("Facebook: <a href=\"" + fbLink + "\">"+fbLink+"</a"));
-		fbLinkFragmenttv.setMovementMethod(LinkMovementMethod.getInstance());
+		if (!link.equals("null")){
+			linkFragmenttv.setText(Html.fromHtml("Link: <a href=\"" + link + "\">"+link+"</a>"));
+			linkFragmenttv.setMovementMethod(LinkMovementMethod.getInstance());
+		}
+		else{
+			linkFragmenttv.setVisibility(View.GONE);
+		}
+		if (!fbLink.equals("null")){
+			fbLinkFragmenttv.setText(Html.fromHtml("Facebook: <a href=\"" + fbLink + "\">"+fbLink+"</a"));
+			fbLinkFragmenttv.setMovementMethod(LinkMovementMethod.getInstance());
+		}
+		else{
+			fbLinkFragmenttv.setVisibility(View.GONE);
+		}
 		//fbLinkFragmenttv.setText(" Facebook: " + fbLink);
-		emailFragmenttv.setText(" Email: " + email);
+		if (!email.equals("null")){
+			emailFragmenttv.setText(" Email: " + email);
+		}
+		else{
+			emailFragmenttv.setVisibility(View.GONE);
+			emailFragmentButton.setVisibility(View.GONE);
+		}
 		final String  phone_number = tel;
 		final String  emailToSend = email;
 		telFragmentButton.setOnClickListener(new View.OnClickListener() {
 			
-			@Override
-			public void onClick(View v) {
+		@Override
+		public void onClick(View v) {
 				// TODO Auto-generated method stub
-				String uri = phone_number.trim(); 
-				Intent intent = new Intent(Intent.ACTION_CALL);
-				intent.setData(Uri.parse("tel:" + uri));
-				startActivity(intent);
-			}
+				AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
+			 if (language.equals("English")){	
+				alertDialogBuilder.setTitle("Making a call");
+				alertDialogBuilder.setMessage("Are you sure you want to call this number?");
+				alertDialogBuilder.setPositiveButton("No",new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog,int id) {
+						dialog.cancel();
+					}
+			    });
+				alertDialogBuilder.setNegativeButton("Yes",new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog,int id) {
+						String uri = phone_number.trim(); 
+						Intent intent = new Intent(Intent.ACTION_CALL);
+						intent.setData(Uri.parse("tel:" + uri));
+						startActivity(intent);   
+				 	}
+	           });
+			 }	
+			 else{
+				alertDialogBuilder.setTitle("Κλήση");
+			    alertDialogBuilder.setMessage("Είσαι σίγουρος οτι θές να καλέσεις αυτόν τον αριθμό;");
+			    alertDialogBuilder.setPositiveButton("Όχι",new DialogInterface.OnClickListener() {
+			    	public void onClick(DialogInterface dialog,int id) {
+			    		dialog.cancel();
+					}
+			    });
+			    alertDialogBuilder.setNegativeButton("Ναι",new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog,int id) {
+						String uri = phone_number.trim(); 
+						Intent intent = new Intent(Intent.ACTION_CALL);
+						intent.setData(Uri.parse("tel:" + uri));
+						startActivity(intent);   
+				 	}
+			    });	
+			 }
+			 AlertDialog alertDialog = alertDialogBuilder.create();
+			 alertDialog.show();
+		}
+				
+				
+			
 		});
 		
         emailFragmentButton.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				Intent i = new Intent(Intent.ACTION_SEND);
-				i.setType("message/rfc822");
-				i.putExtra(Intent.EXTRA_EMAIL  , new String[]{emailToSend});
-				i.putExtra(Intent.EXTRA_SUBJECT, "subject of email");
-				i.putExtra(Intent.EXTRA_TEXT   , "body of email");
-				try {
-				    startActivity(Intent.createChooser(i, "Send mail..."));
-				} catch (android.content.ActivityNotFoundException ex) {
-				    Log.i("Log message =>", "There are no email clients installed.");
-				}
+				AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
+				 if (language.equals("English")){	
+					alertDialogBuilder.setTitle("Sending email");
+					alertDialogBuilder.setMessage("Are you sure you want to send email?");
+					alertDialogBuilder.setPositiveButton("No",new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog,int id) {
+				    		dialog.cancel();
+						}
+				    });
+					alertDialogBuilder.setNegativeButton("Yes",new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog,int id) {
+							Intent i = new Intent(Intent.ACTION_SEND);
+							i.setType("message/rfc822");
+							i.putExtra(Intent.EXTRA_EMAIL  , new String[]{emailToSend});
+							i.putExtra(Intent.EXTRA_SUBJECT, "subject of email");
+							i.putExtra(Intent.EXTRA_TEXT   , "body of email");
+							try {
+							    startActivity(Intent.createChooser(i, "Send mail..."));
+							} catch (android.content.ActivityNotFoundException ex) {
+							    Log.i("Log message =>", "There are no email clients installed.");
+							}
+					 	}
+		           });
+				 }	
+				 else{
+					alertDialogBuilder.setTitle("Κλήση");
+				    alertDialogBuilder.setMessage("Είσαι σίγουρος οτι θές να στείλεις email;");
+				    alertDialogBuilder.setPositiveButton("Όχι",new DialogInterface.OnClickListener() {
+				    	public void onClick(DialogInterface dialog,int id) {
+				    		dialog.cancel();
+						}
+				    });
+				    alertDialogBuilder.setNegativeButton("Ναι",new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog,int id) {
+							Intent i = new Intent(Intent.ACTION_SEND);
+							i.setType("message/rfc822");
+							i.putExtra(Intent.EXTRA_EMAIL  , new String[]{emailToSend});
+							i.putExtra(Intent.EXTRA_SUBJECT, "θέμα του μηνύματος");
+							i.putExtra(Intent.EXTRA_TEXT   , "σώμα του μηνύματος");
+							try {
+							    startActivity(Intent.createChooser(i, "Send mail..."));
+							} catch (android.content.ActivityNotFoundException ex) {
+							    Log.i("Log message =>", "There are no email clients installed.");
+							}
+					 	}
+				    });	
+				 }
+				 AlertDialog alertDialog = alertDialogBuilder.create();
+				 alertDialog.show();
+				
 			}
 		});
 	}
