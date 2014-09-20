@@ -21,6 +21,7 @@ import android.widget.TextView;
 
 public class PopUpFragment extends Fragment{
 
+	private TextView helpingtv;
 	private static TextView startingpointtv;
 	private static TextView destinationpointtv;
 	private static EditText disarableLocationEditText;
@@ -39,6 +40,7 @@ public class PopUpFragment extends Fragment{
 		
 		testDB = new TestLocalSqliteDatabase(getActivity());
 		testDB.openDataBase(debugTag);
+		helpingtv = (TextView) view.findViewById(R.id.helpingtv);
 		startingpointtv = (TextView) getActivity().findViewById(R.id.startingpointtv);
 		destinationpointtv = (TextView) getActivity().findViewById(R.id.destinationpointtv);
 		disarableLocationEditText = (EditText) getActivity().findViewById(R.id.pickyourdisarablelocationet);
@@ -48,6 +50,11 @@ public class PopUpFragment extends Fragment{
 		charSequence = getArguments().getString("key");
 		language = getArguments().getString("language");
 		androidlist = (ListView) view.findViewById(R.id.androilist);
+		
+		if (charSequence.length() > 1){
+			//helpingtv.setVisibility(View.VISIBLE);
+			helpingtv.setText(charSequence);
+		}	
 		
 		if (edittextfocued.equals("destinationlocation")){
 			loadData(charSequence.toString(), "null", "dest");
@@ -98,7 +105,8 @@ public class PopUpFragment extends Fragment{
 							}
 
 							//String lang = "Latin";
-							androidlist.setAdapter(new SettingsListAdapterEnglish(start, dest, getActivity(), cursor, items, destinationpointtv, startingpointtv, androidlist, disarabledestLocationEditText, disarableLocationEditText));
+							testDB.close(debugTag);
+							androidlist.setAdapter(new SettingsListAdapterEnglish(start, dest, getActivity(), cursor, items, destinationpointtv, startingpointtv, androidlist, disarabledestLocationEditText, disarableLocationEditText, helpingtv));
 							
 					}
 					else{
@@ -137,7 +145,8 @@ public class PopUpFragment extends Fragment{
 							}
 							//t.setSuggestionPressedField("true");
 							//String lang = "Greek";	
-							androidlist.setAdapter(new SettingsListAdapterEnglish(start, dest, getActivity(), cursor, items, destinationpointtv, startingpointtv, androidlist, disarabledestLocationEditText, disarableLocationEditText));
+							testDB.close(debugTag);
+							androidlist.setAdapter(new SettingsListAdapterEnglish(start, dest, getActivity(), cursor, items, destinationpointtv, startingpointtv, androidlist, disarabledestLocationEditText, disarableLocationEditText, helpingtv));
 					 }
 				} else{	
 						String pattern = "^[A-Za-z0-9. ]+$";
@@ -174,8 +183,8 @@ public class PopUpFragment extends Fragment{
 										cursor.addRow(temp);
 									}
 
-									String lang = "Latin";
-									androidlist.setAdapter(new SettingsListAdapter(start, dest, getActivity(), cursor, items, destinationpointtv, startingpointtv, androidlist, disarabledestLocationEditText, disarableLocationEditText));
+									testDB.close(debugTag);
+									androidlist.setAdapter(new SettingsListAdapter(start, dest, getActivity(), cursor, items, destinationpointtv, startingpointtv, androidlist, disarabledestLocationEditText, disarableLocationEditText, helpingtv));
 							}
 							else{
 									Log.i("Query =>", charsequence);
@@ -211,9 +220,8 @@ public class PopUpFragment extends Fragment{
 										temp[1] = items.get(i);
 										cursor.addRow(temp);
 									}
-									//t.setSuggestionPressedField("true");
-									String lang = "Greek";	
-									androidlist.setAdapter(new SettingsListAdapter(start, dest, getActivity(), cursor, items, destinationpointtv, startingpointtv, androidlist, disarabledestLocationEditText, disarableLocationEditText));
+									testDB.close(debugTag);
+									androidlist.setAdapter(new SettingsListAdapter(start, dest, getActivity(), cursor, items, destinationpointtv, startingpointtv, androidlist, disarabledestLocationEditText, disarableLocationEditText, helpingtv));
 							}
 					 }
 		 }

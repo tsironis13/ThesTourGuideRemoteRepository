@@ -470,7 +470,7 @@ public class SettingsMapFragment extends ListFragment implements DialogInterface
 							 	getFragmentManager().popBackStack();
 						 }
 					}
-				}else if (s.length() > 2){
+				}else if (s.length() > 1){
 					String edittextfocued = "destinationlocation";
 					
 					PopUpFragment popup = new PopUpFragment();
@@ -510,7 +510,7 @@ public class SettingsMapFragment extends ListFragment implements DialogInterface
 								getFragmentManager().popBackStack();
 						 }
 					}
-				}else if (s.length() > 2){
+				}else if (s.length() > 1){
 					String edittextfocued = "startinglocation";
 					
 					PopUpFragment popup = new PopUpFragment();
@@ -672,18 +672,7 @@ public class SettingsMapFragment extends ListFragment implements DialogInterface
 					public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 							    // When clicked, show a toast with the TextView text
 						String text = ((TextView) view).getText().toString();
-						if (language.equals("English")){
-							destinationpointtv.setText("To:   " + text);
-							totv.setText(text);
-							//listView.setAdapter(null);
-							disarabledestLocationEditText.setText("");
-						}
-						else{
-							destinationpointtv.setText("Προς: " + text);
-							totv.setText(text);
-							//listView.setAdapter(null);
-							disarabledestLocationEditText.setText("");
-						}
+						onListItemClickDestination(text);
 					}
 			});
 		break;
@@ -699,18 +688,7 @@ public class SettingsMapFragment extends ListFragment implements DialogInterface
 						public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 								    // When clicked, show a toast with the TextView text
 							String text = ((TextView) view).getText().toString();
-							if (language.equals("English")){
-								destinationpointtv.setText("To:   " + text);
-								totv.setText(text);
-								//listView.setAdapter(null);
-								disarabledestLocationEditText.setText("");
-							}
-							else{
-								destinationpointtv.setText("Προς: " + text);
-								totv.setText(text);
-								//listView.setAdapter(null);
-								disarabledestLocationEditText.setText("");
-							}
+							onListItemClickDestination(text);
 						}
 				});
 			break;
@@ -726,18 +704,7 @@ public class SettingsMapFragment extends ListFragment implements DialogInterface
 						public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 								    // When clicked, show a toast with the TextView text
 							String text = ((TextView) view).getText().toString();
-							if (language.equals("English")){
-								destinationpointtv.setText("To:   " + text);
-								totv.setText(text);
-								//listView.setAdapter(null);
-								disarabledestLocationEditText.setText("");
-							}
-							else{
-								destinationpointtv.setText("Προς: " + text);
-								totv.setText(text);
-								//listView.setAdapter(null);
-								disarabledestLocationEditText.setText("");
-							}
+							onListItemClickDestination(text);
 						}
 				});
 			break;
@@ -753,18 +720,7 @@ public class SettingsMapFragment extends ListFragment implements DialogInterface
 						public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 								    // When clicked, show a toast with the TextView text
 							String text = ((TextView) view).getText().toString();
-							if (language.equals("English")){
-								destinationpointtv.setText("To:   " + text);
-								totv.setText(text);
-								//listView.setAdapter(null);
-								disarabledestLocationEditText.setText("");
-							}
-							else{
-								destinationpointtv.setText("Προς: " + text);
-								totv.setText(text);
-								//listView.setAdapter(null);
-								disarabledestLocationEditText.setText("");
-							}
+							onListItemClickDestination(text);
 						}
 				});
 			break;
@@ -780,18 +736,7 @@ public class SettingsMapFragment extends ListFragment implements DialogInterface
 						public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 								    // When clicked, show a toast with the TextView text
 							String text = ((TextView) view).getText().toString();
-							if (language.equals("English")){
-								destinationpointtv.setText("To:   " + text);
-								totv.setText(text);
-								//listView.setAdapter(null);
-								disarabledestLocationEditText.setText("");
-							}
-							else{
-								destinationpointtv.setText("Προς: " + text);
-								totv.setText(text);
-								//listView.setAdapter(null);
-								disarabledestLocationEditText.setText("");
-							}
+							onListItemClickDestination(text);
 						}
 				});
 			break;
@@ -807,18 +752,7 @@ public class SettingsMapFragment extends ListFragment implements DialogInterface
 						public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 								    // When clicked, show a toast with the TextView text
 							String text = ((TextView) view).getText().toString();
-							if (language.equals("English")){
-								destinationpointtv.setText("To:   " + text);
-								totv.setText(text);
-								//listView.setAdapter(null);
-								disarabledestLocationEditText.setText("");
-							}
-							else{
-								destinationpointtv.setText("Προς: " + text);
-								totv.setText(text);
-								//listView.setAdapter(null);
-								disarabledestLocationEditText.setText("");
-							}
+							onListItemClickDestination(text);
 						}
 				});
 			break;
@@ -834,18 +768,7 @@ public class SettingsMapFragment extends ListFragment implements DialogInterface
 						public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 								    // When clicked, show a toast with the TextView text
 							String text = ((TextView) view).getText().toString();
-							if (language.equals("English")){
-								destinationpointtv.setText("To:   " + text);
-								totv.setText(text);
-								//listView.setAdapter(null);
-								disarabledestLocationEditText.setText("");
-							}
-							else{
-								destinationpointtv.setText("Προς: " + text);
-								totv.setText(text);
-								//listView.setAdapter(null);
-								disarabledestLocationEditText.setText("");
-							}
+							onListItemClickDestination(text);
 						}
 				});
 			break;
@@ -861,18 +784,7 @@ public class SettingsMapFragment extends ListFragment implements DialogInterface
 						public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 								    // When clicked, show a toast with the TextView text
 							String text = ((TextView) view).getText().toString();
-							if (language.equals("English")){
-								destinationpointtv.setText("To:   " + text);
-								totv.setText(text);
-								//listView.setAdapter(null);
-								disarabledestLocationEditText.setText("");
-							}
-							else{
-								destinationpointtv.setText("Προς: " + text);
-								totv.setText(text);
-								//listView.setAdapter(null);
-								disarabledestLocationEditText.setText("");
-							}
+							onListItemClickDestination(text);
 						}
 				});
 			break;
@@ -888,18 +800,7 @@ public class SettingsMapFragment extends ListFragment implements DialogInterface
 						public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 								    // When clicked, show a toast with the TextView text
 							String text = ((TextView) view).getText().toString();
-							if (language.equals("English")){
-								destinationpointtv.setText("To:   " + text);
-								totv.setText(text);
-								//listView.setAdapter(null);
-								disarabledestLocationEditText.setText("");
-							}
-							else{
-								destinationpointtv.setText("Προς: " + text);
-								totv.setText(text);
-								//listView.setAdapter(null);
-								disarabledestLocationEditText.setText("");
-							}
+							onListItemClickDestination(text);
 						}
 				});
 			break;
@@ -915,18 +816,7 @@ public class SettingsMapFragment extends ListFragment implements DialogInterface
 						public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 								    // When clicked, show a toast with the TextView text
 							String text = ((TextView) view).getText().toString();
-							if (language.equals("English")){
-								destinationpointtv.setText("To:   " + text);
-								totv.setText(text);
-								//listView.setAdapter(null);
-								disarabledestLocationEditText.setText("");
-							}
-							else{
-								destinationpointtv.setText("Προς: " + text);
-								totv.setText(text);
-								//listView.setAdapter(null);
-								disarabledestLocationEditText.setText("");
-							}
+							onListItemClickDestination(text);
 						}
 				});
 			break;
@@ -942,18 +832,7 @@ public class SettingsMapFragment extends ListFragment implements DialogInterface
 						public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 								    // When clicked, show a toast with the TextView text
 							String text = ((TextView) view).getText().toString();
-							if (language.equals("English")){
-								destinationpointtv.setText("To:   " + text);
-								totv.setText(text);
-								//listView.setAdapter(null);
-								disarabledestLocationEditText.setText("");
-							}
-							else{
-								destinationpointtv.setText("Προς: " + text);
-								totv.setText(text);
-								//listView.setAdapter(null);
-								disarabledestLocationEditText.setText("");
-							}
+							onListItemClickDestination(text);
 						}
 				});
 			break;
@@ -969,18 +848,7 @@ public class SettingsMapFragment extends ListFragment implements DialogInterface
 						public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 								    // When clicked, show a toast with the TextView text
 							String text = ((TextView) view).getText().toString();
-							if (language.equals("English")){
-								destinationpointtv.setText("To:   " + text);
-								totv.setText(text);
-								//listView.setAdapter(null);
-								disarabledestLocationEditText.setText("");
-							}
-							else{
-								destinationpointtv.setText("Προς: " + text);
-								totv.setText(text);
-								//listView.setAdapter(null);
-								disarabledestLocationEditText.setText("");
-							}
+							onListItemClickDestination(text);
 						}
 				});
 			break;
@@ -996,18 +864,7 @@ public class SettingsMapFragment extends ListFragment implements DialogInterface
 					public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 							    // When clicked, show a toast with the TextView text
 						String text1 = ((TextView) view).getText().toString();
-						if (language.equals("English")){
-							startingpointtv.setText("From: " + text1);
-							fromtv.setText(text1);
-							//listView.setAdapter(null);
-							disarableLocationEditText.setText("");
-						}
-						else{
-							startingpointtv.setText("Από:  " + text1);
-							fromtv.setText(text1);
-							//listView.setAdapter(null);
-							disarableLocationEditText.setText("");
-						}
+						onListItemClickStarting(text1);
 					}
 			});
 		break;
@@ -1023,18 +880,7 @@ public class SettingsMapFragment extends ListFragment implements DialogInterface
 					public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 							    // When clicked, show a toast with the TextView text
 						String text1 = ((TextView) view).getText().toString();
-						if (language.equals("English")){
-							startingpointtv.setText("From: " + text1);
-							fromtv.setText(text1);
-							//listView.setAdapter(null);
-							disarableLocationEditText.setText("");
-						}
-						else{
-							startingpointtv.setText("Από:  " + text1);
-							fromtv.setText(text1);
-							//listView.setAdapter(null);
-							disarableLocationEditText.setText("");
-						}
+						onListItemClickStarting(text1);
 					}
 			});
 		break;
@@ -1050,18 +896,7 @@ public class SettingsMapFragment extends ListFragment implements DialogInterface
 					public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 							    // When clicked, show a toast with the TextView text
 						String text1 = ((TextView) view).getText().toString();
-						if (language.equals("English")){
-							startingpointtv.setText("From: " + text1);
-							fromtv.setText(text1);
-							//listView.setAdapter(null);
-							disarableLocationEditText.setText("");
-						}
-						else{
-							startingpointtv.setText("Από:  " + text1);
-							fromtv.setText(text1);
-							//listView.setAdapter(null);
-							disarableLocationEditText.setText("");
-						}
+						onListItemClickStarting(text1);
 					}
 			});
 		break;
@@ -1077,18 +912,7 @@ public class SettingsMapFragment extends ListFragment implements DialogInterface
 					public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 							    // When clicked, show a toast with the TextView text
 						String text1 = ((TextView) view).getText().toString();
-						if (language.equals("English")){
-							startingpointtv.setText("From: " + text1);
-							fromtv.setText(text1);
-							//listView.setAdapter(null);
-							disarableLocationEditText.setText("");
-						}
-						else{
-							startingpointtv.setText("Από:  " + text1);
-							fromtv.setText(text1);
-							//listView.setAdapter(null);
-							disarableLocationEditText.setText("");
-						}
+						onListItemClickStarting(text1);
 					}
 			});
 		break;
@@ -1104,18 +928,7 @@ public class SettingsMapFragment extends ListFragment implements DialogInterface
 					public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 							    // When clicked, show a toast with the TextView text
 						String text1 = ((TextView) view).getText().toString();
-						if (language.equals("English")){
-							startingpointtv.setText("From: " + text1);
-							fromtv.setText(text1);
-							//listView.setAdapter(null);
-							disarableLocationEditText.setText("");
-						}
-						else{
-							startingpointtv.setText("Από:  " + text1);
-							fromtv.setText(text1);
-							//listView.setAdapter(null);
-							disarableLocationEditText.setText("");
-						}
+						onListItemClickStarting(text1);
 					}
 			});
 		break;
@@ -1131,18 +944,7 @@ public class SettingsMapFragment extends ListFragment implements DialogInterface
 					public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 							    // When clicked, show a toast with the TextView text
 						String text1 = ((TextView) view).getText().toString();
-						if (language.equals("English")){
-							startingpointtv.setText("From: " + text1);
-							fromtv.setText(text1);
-							//listView.setAdapter(null);
-							disarableLocationEditText.setText("");
-						}
-						else{
-							startingpointtv.setText("Από:  " + text1);
-							fromtv.setText(text1);
-							//listView.setAdapter(null);
-							disarableLocationEditText.setText("");
-						}
+						onListItemClickStarting(text1);
 					}
 			});
 		break;
@@ -1158,18 +960,7 @@ public class SettingsMapFragment extends ListFragment implements DialogInterface
 					public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 							    // When clicked, show a toast with the TextView text
 						String text1 = ((TextView) view).getText().toString();
-						if (language.equals("English")){
-							startingpointtv.setText("From: " + text1);
-							fromtv.setText(text1);
-							//listView.setAdapter(null);
-							disarableLocationEditText.setText("");
-						}
-						else{
-							startingpointtv.setText("Από:  " + text1);
-							fromtv.setText(text1);
-							//listView.setAdapter(null);
-							disarableLocationEditText.setText("");
-						}
+						onListItemClickStarting(text1);
 					}
 			});
 		break;
@@ -1185,18 +976,7 @@ public class SettingsMapFragment extends ListFragment implements DialogInterface
 					public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 							    // When clicked, show a toast with the TextView text
 						String text1 = ((TextView) view).getText().toString();
-						if (language.equals("English")){
-							startingpointtv.setText("From: " + text1);
-							fromtv.setText(text1);
-							//listView.setAdapter(null);
-							disarableLocationEditText.setText("");
-						}
-						else{
-							startingpointtv.setText("Από:  " + text1);
-							fromtv.setText(text1);
-							//listView.setAdapter(null);
-							disarableLocationEditText.setText("");
-						}
+						onListItemClickStarting(text1);
 					}
 			});
 		break;
@@ -1212,18 +992,7 @@ public class SettingsMapFragment extends ListFragment implements DialogInterface
 					public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 							    // When clicked, show a toast with the TextView text
 						String text1 = ((TextView) view).getText().toString();
-						if (language.equals("English")){
-							startingpointtv.setText("From: " + text1);
-							fromtv.setText(text1);
-							//listView.setAdapter(null);
-							disarableLocationEditText.setText("");
-						}
-						else{
-							startingpointtv.setText("Από:  " + text1);
-							fromtv.setText(text1);
-							//listView.setAdapter(null);
-							disarableLocationEditText.setText("");
-						}
+						onListItemClickStarting(text1);
 					}
 			});
 		break;
@@ -1239,18 +1008,7 @@ public class SettingsMapFragment extends ListFragment implements DialogInterface
 					public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 							    // When clicked, show a toast with the TextView text
 						String text1 = ((TextView) view).getText().toString();
-						if (language.equals("English")){
-							startingpointtv.setText("From: " + text1);
-							fromtv.setText(text1);
-							//listView.setAdapter(null);
-							disarableLocationEditText.setText("");
-						}
-						else{
-							startingpointtv.setText("Από:  " + text1);
-							fromtv.setText(text1);
-							//listView.setAdapter(null);
-							disarableLocationEditText.setText("");
-						}
+						onListItemClickStarting(text1);
 					}
 			});
 		break;
@@ -1266,18 +1024,7 @@ public class SettingsMapFragment extends ListFragment implements DialogInterface
 					public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 							    // When clicked, show a toast with the TextView text
 						String text1 = ((TextView) view).getText().toString();
-						if (language.equals("English")){
-							startingpointtv.setText("From: " + text1);
-							fromtv.setText(text1);
-							//listView.setAdapter(null);
-							disarableLocationEditText.setText("");
-						}
-						else{
-							startingpointtv.setText("Από:  " + text1);
-							fromtv.setText(text1);
-							//listView.setAdapter(null);
-							disarableLocationEditText.setText("");
-						}
+						onListItemClickStarting(text1);
 					}
 			});
 		break;
@@ -1293,18 +1040,7 @@ public class SettingsMapFragment extends ListFragment implements DialogInterface
 					public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 							    // When clicked, show a toast with the TextView text
 						String text1 = ((TextView) view).getText().toString();
-						if (language.equals("English")){
-							startingpointtv.setText("From: " + text1);
-							fromtv.setText(text1);
-							//listView.setAdapter(null);
-							disarableLocationEditText.setText("");
-						}
-						else{
-							startingpointtv.setText("Από:  " + text1);
-							fromtv.setText(text1);
-							//listView.setAdapter(null);
-							disarableLocationEditText.setText("");
-						}
+						onListItemClickStarting(text1);
 					}
 			});
 		break;	
@@ -1312,6 +1048,36 @@ public class SettingsMapFragment extends ListFragment implements DialogInterface
 		return super.onContextItemSelected(item);
 	}
 
+	public void onListItemClickStarting(String text1){
+		if (language.equals("English")){
+			startingpointtv.setText("From: " + text1);
+			fromtv.setText(text1);
+			listView.setAdapter(null);
+			disarableLocationEditText.setText("");
+		}
+		else{
+			startingpointtv.setText("Από:  " + text1);
+			fromtv.setText(text1);
+			listView.setAdapter(null);
+			disarableLocationEditText.setText("");
+		}
+	}
+	
+	public void onListItemClickDestination(String text){
+		if (language.equals("English")){
+			destinationpointtv.setText("To:   " + text);
+			totv.setText(text);
+			listView.setAdapter(null);
+			disarabledestLocationEditText.setText("");
+		}
+		else{
+			destinationpointtv.setText("Προς: " + text);
+			totv.setText(text);
+			listView.setAdapter(null);
+			disarabledestLocationEditText.setText("");
+		}
+	}
+	
 	public Cursor returnCategoryCursor(String category, List<String> list){
 		Cursor cursor = testDB.getSpecificPlaceData(category);
 		String name;

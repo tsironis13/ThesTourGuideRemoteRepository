@@ -24,6 +24,7 @@ public class SettingsListAdapter extends CursorAdapter implements OnClickListene
 	private Context context; 
 	private Cursor cursor;	
 	private String placeNameEl;
+	private TextView helpingtv;
 	private TextView startpointtv;
 	private TextView destpointtv;
 	private ListView listview;
@@ -32,7 +33,7 @@ public class SettingsListAdapter extends CursorAdapter implements OnClickListene
 	private String start;
 	private String dest;
 	
-	public SettingsListAdapter(String start, String dest, Context context, Cursor cursor, List items, TextView destpointtv, TextView startpointtv, ListView listview, EditText disarabledestLocationEditText, EditText disarableLocationEditText) {
+	public SettingsListAdapter(String start, String dest, Context context, Cursor cursor, List items, TextView destpointtv, TextView startpointtv, ListView listview, EditText disarabledestLocationEditText, EditText disarableLocationEditText, TextView helpingtv) {
 		super(context, cursor, false);
 		this.start = start;
 		this.dest = dest;
@@ -44,6 +45,7 @@ public class SettingsListAdapter extends CursorAdapter implements OnClickListene
 		this.listview = listview;
 		this.disarabledestLocationEditText = disarabledestLocationEditText;
 		this.disarableLocationEditText = disarableLocationEditText;
+		this.helpingtv = helpingtv;
 		// TODO Auto-generated constructor stub
 	}
 	
@@ -106,11 +108,13 @@ public class SettingsListAdapter extends CursorAdapter implements OnClickListene
 		startpointtv.setText("Από:  "+s1);
 		this.disarableLocationEditText.setText("");
 		this.listview.setAdapter(null);
+		this.helpingtv.setVisibility(View.GONE);
 	}
 	else if (start.equals("null") && dest.equals("dest")){
 		destpointtv.setText("Προς: "+s1);
 		this.disarabledestLocationEditText.setText("");
 		this.listview.setAdapter(null);
+		this.helpingtv.setVisibility(View.GONE);
 	}
 	
 		//MenuFragment m = new MenuFragment(s1);

@@ -5,9 +5,15 @@
     android:background="#ccc"
     android:orientation="vertical" >
     
+    <TextView
+        android:id="@+id/helpingtv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+    </TextView>
+    
      <ListView 
         android:id="@+id/androilist"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:clickable="true"
         android:visibility="invisible" >
