@@ -103,7 +103,7 @@ public class InEnglishPlacesDataListCursorAdapter extends SimpleCursorAdapter im
 	}*/
 	
 	private static class ViewHolder{
-		TextView nametv, placeNametv, distance, latitudetv, longtitudetv, desc_infohiddentv, 
+		TextView nametv, placeNametv, distance, latitudetv, longtitudetv, desc_infohiddentv, menuhiddentv,
 		telhiddentv, linkhiddentv, fbLinkhiddentv, emailhiddentv, exhibitionhiddentv,
 		photoLink1hiddentv, photoLink2hiddentv, photoLink3hiddentv, photoLink4hiddentv, hiddenoncalltv;
 		ImageView icon;
@@ -111,6 +111,7 @@ public class InEnglishPlacesDataListCursorAdapter extends SimpleCursorAdapter im
 		
 		ViewHolder(View v){
 			desc_infohiddentv = (TextView) v.findViewById(R.id.descinfohiddentv);
+			menuhiddentv = (TextView) v.findViewById(R.id.menuhiddentv);
 			telhiddentv = (TextView) v.findViewById(R.id.telhiddentv);
 			linkhiddentv = (TextView) v.findViewById(R.id.linkhiddentv);
 			fbLinkhiddentv = (TextView) v.findViewById(R.id.fbLinkhiddentv);
@@ -173,6 +174,7 @@ public class InEnglishPlacesDataListCursorAdapter extends SimpleCursorAdapter im
             v = inflater.inflate(layout, parent, false);
             viewHolder = new ViewHolder(v);
             viewHolder.desc_infohiddentv = (TextView) v.findViewById(R.id.descinfohiddentv);
+            viewHolder.menuhiddentv = (TextView) v.findViewById(R.id.menuhiddentv);
             viewHolder.telhiddentv = (TextView) v.findViewById(R.id.telhiddentv);
             viewHolder.linkhiddentv = (TextView) v.findViewById(R.id.linkhiddentv);
             viewHolder.fbLinkhiddentv = (TextView) v.findViewById(R.id.fbLinkhiddentv);
@@ -255,6 +257,7 @@ public class InEnglishPlacesDataListCursorAdapter extends SimpleCursorAdapter im
 		
 		viewHolder.nametv.setText(name);
 		viewHolder.desc_infohiddentv.setText(descInfo);
+		viewHolder.menuhiddentv.setText(menu);
 		viewHolder.telhiddentv.setText(tel);
 		viewHolder.linkhiddentv.setText(link);
 		viewHolder.fbLinkhiddentv.setText(fbLink);
@@ -435,6 +438,7 @@ public class InEnglishPlacesDataListCursorAdapter extends SimpleCursorAdapter im
 		intent.putExtra("current longtitude", str_current_longtitude);
 		intent.putExtra("placeNameEl", vH.placeNametv.getText());
 		intent.putExtra("desc_info", vH.desc_infohiddentv.getText());
+		intent.putExtra("menu", vH.menuhiddentv.getText());
 		intent.putExtra("telephone", vH.telhiddentv.getText());
 		intent.putExtra("link", vH.linkhiddentv.getText());
 		intent.putExtra("fbLink", vH.fbLinkhiddentv.getText());

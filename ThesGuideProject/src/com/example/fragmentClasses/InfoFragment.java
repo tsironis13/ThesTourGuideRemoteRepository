@@ -75,7 +75,12 @@ public class InfoFragment extends Fragment{
 		String email = getArguments().getString("email");
 		
 		//placenameElFragmenttv.setText(place_nameEl.toUpperCase());
-		placenameElFragmenttv.setText(headerName.toUpperCase());
+		String pattern = "^[A-Za-z0-9. ]+$";
+		if (place_nameEl.matches(pattern)){
+			placenameElFragmenttv.setText(place_nameEl.toUpperCase());
+		}else{
+			placenameElFragmenttv.setText(headerName.toUpperCase());
+		}	
 		infoFragmenttv.setText(desc_info);
 		if (language.equals("English")){
 			telFragmenttv.setText(" Tel: " + tel);

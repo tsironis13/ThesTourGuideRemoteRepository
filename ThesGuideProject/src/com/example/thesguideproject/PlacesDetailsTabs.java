@@ -7,6 +7,7 @@ import com.example.adapters.SearchAdapter;
 import com.example.adapters.TabsPagerAdapter;
 import com.example.fragmentClasses.GoogleMapFragment;
 import com.example.fragmentClasses.GoogleMapFragment.OnGoogleMapFragmentListener;
+import com.example.fragmentClasses.KatalogFragment;
 import com.example.fragmentClasses.PhotoGridViewFragment;
 import com.example.fragmentClasses.InfoFragment;
 import com.example.fragmentClasses.ExhibitionFragment;
@@ -51,6 +52,7 @@ public class PlacesDetailsTabs extends ActionBarActivity implements OnGoogleMapF
     private String fbLink;
     private String email;
     private String exhibition;
+    private String menu;
     private String photoLink1;
     private String photoLink2;
     private String photoLink3;
@@ -112,6 +114,7 @@ public class PlacesDetailsTabs extends ActionBarActivity implements OnGoogleMapF
 		fbLink = i.getStringExtra("fbLink");
 		email = i.getStringExtra("email");
 		exhibition = i.getStringExtra("exhibition");
+		menu = i.getStringExtra("menu");
 		photoLink1 = i.getStringExtra("photoLink1");
 		photoLink2 = i.getStringExtra("photoLink2");
 		photoLink3 = i.getStringExtra("photoLink3");
@@ -162,16 +165,26 @@ public class PlacesDetailsTabs extends ActionBarActivity implements OnGoogleMapF
     	   tabsPagerAdapter.addTab(mActionBar.newTab().setText("Info"), InfoFragment.class, infoBundle);
        }
        
+       Bundle menuBundle = new Bundle();
+       menuBundle.putString("menu", menu);
+       if (!menu.equals("null") && !(menu.length() == 3)){ 
+       		if (language.equals("Greek")){
+       				tabsPagerAdapter.addTab(mActionBar.newTab().setText("Καταλογος"), KatalogFragment.class, menuBundle);
+       		}else{
+       			    tabsPagerAdapter.addTab(mActionBar.newTab().setText("Menu"), KatalogFragment.class, menuBundle);
+       		}
+       }	
+       
         exhibitionBundle = new Bundle();
         exhibitionBundle.putString("exhibition", exhibition);
         //tabsPagerAdapter.addTab(actionBar.newTab().setText("Exhibition"), ExhibitionFragment.class, exhibitionBundle);
-        if (!exhibition.equals("null") && !(exhibition.length() == 10))
+        if (!exhibition.equals("null") && !(exhibition.length() == 10)){
         	if (language.equals("Greek")){
         		tabsPagerAdapter.addTab(mActionBar.newTab().setText("Εκθεσεις"), ExhibitionFragment.class, exhibitionBundle);
         	}else{
         		tabsPagerAdapter.addTab(mActionBar.newTab().setText("Exhibition"), ExhibitionFragment.class, exhibitionBundle);
         	}
-        
+        }
         
         testDB = new TestLocalSqliteDatabase(this);
         testDB.openDataBase(debugTag);
