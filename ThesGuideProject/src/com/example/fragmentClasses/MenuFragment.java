@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 
 public class MenuFragment extends Fragment {
@@ -134,8 +135,7 @@ public class MenuFragment extends Fragment {
 		foodButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				foodButton.getBackground().setAlpha(35);
-				success = formIsValid(menulinearlayout, foodButton);
+				
 				
 				registerForContextMenu(v); 
 				getActivity().openContextMenu(v);	
@@ -163,8 +163,6 @@ public class MenuFragment extends Fragment {
 		nightlifeButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				nightlifeButton.getBackground().setAlpha(35);
-				success = formIsValid(menulinearlayout, nightlifeButton);
 				//t2 = new TestLocalSqliteDatabase(getActivity());
 				//t2.openDataBase();
 				//i = t2.getAuxiliaryVariableI();
@@ -202,9 +200,6 @@ public class MenuFragment extends Fragment {
 		churhesButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				churhesButton.getBackground().setAlpha(35);
-				success = formIsValid(menulinearlayout, churhesButton);
-				
 				registerForContextMenu(v); 
 				getActivity().openContextMenu(v);	
 			}
@@ -239,10 +234,12 @@ public class MenuFragment extends Fragment {
 	@Override
 	public boolean onContextItemSelected(MenuItem item) {
 		String genre;
-		int fragments = getFragmentManager().getBackStackEntryCount();
 		// TODO Auto-generated method stub
 		switch(item.getItemId()){
 		case R.id.barrestaurants:
+			foodButton.getBackground().setAlpha(35);
+			success = formIsValid(menulinearlayout, foodButton);
+			
 			genre ="food";
 			Bundle langBundle = new Bundle();
 			langBundle.putString("language", language);
@@ -255,6 +252,9 @@ public class MenuFragment extends Fragment {
 			fragmentTransaction.commit();
 	   		break;
 		case R.id.restaurants:
+			foodButton.getBackground().setAlpha(35);
+			success = formIsValid(menulinearlayout, foodButton);
+			
 			genre ="food";
 			Bundle langrestBundle = new Bundle();
 			langrestBundle.putString("language", language);
@@ -267,6 +267,9 @@ public class MenuFragment extends Fragment {
 			fragmentTransaction.commit();
 			break;
 		case R.id.intercuisine:
+			foodButton.getBackground().setAlpha(35);
+			success = formIsValid(menulinearlayout, foodButton);
+			
 			genre ="food";
 			Bundle langintBundle = new Bundle();
 			langintBundle.putString("language", language);
@@ -279,6 +282,9 @@ public class MenuFragment extends Fragment {
 			fragmentTransaction.commit();
 			break;
 		case R.id.seafood:
+			foodButton.getBackground().setAlpha(35);
+			success = formIsValid(menulinearlayout, foodButton);
+			
 			genre ="food";
 			Bundle langseafBundle = new Bundle();
 			langseafBundle.putString("language", language);
@@ -291,7 +297,10 @@ public class MenuFragment extends Fragment {
 			fragmentTransaction.commit();
 			break;
 		case R.id.bars:
-			genre = "nightlife";
+			nightlifeButton.getBackground().setAlpha(35);
+		    success = formIsValid(menulinearlayout, nightlifeButton);
+		
+		    genre = "nightlife";
 			Bundle langbarsBundle = new Bundle();
 			langbarsBundle.putString("language", language);
 			subcategory = "bars";
@@ -303,6 +312,9 @@ public class MenuFragment extends Fragment {
 			fragmentTransaction.commit();
 			break;
 		case R.id.clubs:
+			nightlifeButton.getBackground().setAlpha(35);
+			success = formIsValid(menulinearlayout, nightlifeButton);
+			
 			genre = "nightlife";
 			Bundle langclubsBundle = new Bundle();
 			langclubsBundle.putString("language", language);
@@ -315,6 +327,9 @@ public class MenuFragment extends Fragment {
 			fragmentTransaction.commit();
 			break;
 		case R.id.pubs:
+			nightlifeButton.getBackground().setAlpha(35);
+			success = formIsValid(menulinearlayout, nightlifeButton);
+			
 			genre = "nightlife";
 			Bundle langnightBundle = new Bundle();
 			langnightBundle.putString("language", language);
@@ -327,6 +342,9 @@ public class MenuFragment extends Fragment {
 			fragmentTransaction.commit();
 			break;
 		 case R.id.paleochristianikes:
+			 churhesButton.getBackground().setAlpha(35);
+			 success = formIsValid(menulinearlayout, churhesButton);
+				
 			 genre = "church";
 			 Bundle langpaleoBundle = new Bundle();
 			 langpaleoBundle.putString("language", language);
@@ -339,6 +357,9 @@ public class MenuFragment extends Fragment {
 			 fragmentTransaction.commit();
 			 break;
 		 case R.id.bizantines:
+			 churhesButton.getBackground().setAlpha(35);
+			 success = formIsValid(menulinearlayout, churhesButton);
+				
 			 genre = "church";
 			 Bundle langbizBundle = new Bundle();
 			 langbizBundle.putString("language", language);
@@ -351,6 +372,9 @@ public class MenuFragment extends Fragment {
 			 fragmentTransaction.commit();
 			 break;
 		 case R.id.basiliki:
+			 churhesButton.getBackground().setAlpha(35);
+			 success = formIsValid(menulinearlayout, churhesButton);
+				
 			 genre = "church";
 			 Bundle langbasilBundle = new Bundle();
 			 langbasilBundle.putString("language", language);
@@ -363,6 +387,9 @@ public class MenuFragment extends Fragment {
 			 fragmentTransaction.commit();
 			 break;
 		 case R.id.macedonian:
+			 churhesButton.getBackground().setAlpha(35);
+			 success = formIsValid(menulinearlayout, churhesButton);
+				
 			 genre = "church";
 			 Bundle langmacBundle = new Bundle();
 			 langmacBundle.putString("language", language);
@@ -442,6 +469,7 @@ public class MenuFragment extends Fragment {
 		}
 		
 	}
+
 
 	public void replaceFragmentFunction(ListPlacesFragment listplacesFragment){
 		 fragmentTransaction = getFragmentManager().beginTransaction().replace(R.id.containerlist, listplacesFragment);

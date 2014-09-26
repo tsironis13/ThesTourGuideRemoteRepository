@@ -69,11 +69,13 @@ public class EventsBaseAdapter extends BaseAdapter implements OnClickListener{
 			convertView = inflater.inflate(layout, parent, false);
 			holder = new MyViewHolder();
 			holder.placeNametv = (TextView) convertView.findViewById(R.id.placeNametv);
+			holder.nameEllower = (TextView) convertView.findViewById(R.id.nameellower);
 			holder.latitudetv = (TextView) convertView.findViewById(R.id.latitudetv);
 			holder.longtitudetv = (TextView) convertView.findViewById(R.id.longtitudetv);
 			holder.distance = (TextView) convertView.findViewById(R.id.distance);
 			holder.icon = (ImageView) convertView.findViewById(R.id.locationImage);
 			holder.desc_infohiddentv = (TextView) convertView.findViewById(R.id.descinfohiddentv);
+			holder.menuhiddentv = (TextView) convertView.findViewById(R.id.menuhiddentv);
 			holder.telhiddentv = (TextView) convertView.findViewById(R.id.telhiddentv);
 			holder.linkhiddentv = (TextView) convertView.findViewById(R.id.linkhiddentv);
 			holder.fbLinkhiddentv = (TextView) convertView.findViewById(R.id.fbLinkhiddentv);
@@ -102,8 +104,10 @@ public class EventsBaseAdapter extends BaseAdapter implements OnClickListener{
 		}
 		
 		holder.placeNametv.setText(location.getNameEl());
+		holder.nameEllower.setText(location.getNameElLower());
 		holder.distance.setText(dx + " ÷ëì");
 		holder.desc_infohiddentv.setText(location.getInfo());
+		holder.menuhiddentv.setText(location.getMenu());
 		holder.telhiddentv.setText(location.getTel());
 		holder.linkhiddentv.setText(location.getLink());
 		holder.fbLinkhiddentv.setText(location.getFbLink());
@@ -129,7 +133,9 @@ public class EventsBaseAdapter extends BaseAdapter implements OnClickListener{
 		intent.putExtra("current latitude" , str_current_latitude);
 		intent.putExtra("current longtitude", str_current_longtitude);
 		intent.putExtra("placeNameEl", vH.placeNametv.getText());
+		intent.putExtra("placenameEllower", vH.nameEllower.getText());
 		intent.putExtra("desc_info", vH.desc_infohiddentv.getText());
+		intent.putExtra("menu", vH.menuhiddentv.getText());
 		intent.putExtra("telephone", vH.telhiddentv.getText());
 		intent.putExtra("link", vH.linkhiddentv.getText());
 		intent.putExtra("fbLink", vH.fbLinkhiddentv.getText());

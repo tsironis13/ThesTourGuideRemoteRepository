@@ -429,7 +429,6 @@ public class TestLocalSqliteDatabase extends SQLiteOpenHelper {
 				 String link2 = cursor.getString(cursor.getColumnIndex("link2"));
 				 String link3 = cursor.getString(cursor.getColumnIndex("link3"));
 				 String link4 = cursor.getString(cursor.getColumnIndex("link4"));
-				 String link5 = cursor.getString(cursor.getColumnIndex("link5"));
 				 
 				 df = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
 				
@@ -446,13 +445,13 @@ public class TestLocalSqliteDatabase extends SQLiteOpenHelper {
 					
 					eventslist.add(new PlacesData(id, placeNameEl, placeNameEl_lower, placeNameEn, link, place_latitude, place_longtitude, 
 							 image_link, genre1, descInfo, exhibition, menu, info_en, fromDate, toDate, link1, link2, link3, link4,
-							 link5, subcategory, tel, email, fbLink));
+							  subcategory, tel, email, fbLink));
 				}
 				else if ((strDate.after(strfromDate) && strDate.before(strtoDate)) || (strDate.after(strfromDate) && date.equals(toDate)) || (date.equals(fromDate) && strDate.before(strtoDate))){ 
 					 
 					 eventslist.add(new PlacesData(id, placeNameEl, placeNameEl_lower, placeNameEn, link, place_latitude, place_longtitude, 
 							 image_link, genre1, descInfo, exhibition, menu, info_en, fromDate, toDate, link1, link2, link3, link4,
-							 link5, subcategory, tel, email, fbLink));
+							  subcategory, tel, email, fbLink));
 					
 				 }
 				 
@@ -497,7 +496,6 @@ public class TestLocalSqliteDatabase extends SQLiteOpenHelper {
 				 String link2 = cursor.getString(cursor.getColumnIndex("link2"));
 				 String link3 = cursor.getString(cursor.getColumnIndex("link3"));
 				 String link4 = cursor.getString(cursor.getColumnIndex("link4"));
-				 String link5 = cursor.getString(cursor.getColumnIndex("link5"));
 				 
 				 df = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
 				
@@ -514,13 +512,13 @@ public class TestLocalSqliteDatabase extends SQLiteOpenHelper {
 					
 					eventslist.add(new PlacesData(id, placeNameEl, placeNameEl_lower, placeNameEn, link, place_latitude, place_longtitude, 
 							 image_link, genre1, descInfo, exhibition, menu, info_en, fromDate, toDate, link1, link2, link3, link4,
-							 link5, subcategory, tel, email, fbLink));
+							 subcategory, tel, email, fbLink));
 				}
 				else if ((new Date().after(strfromDate) && new Date().before(strtoDate)) || (new Date().after(strfromDate) && date.equals(toDate)) || (date.equals(fromDate) && new Date().before(strtoDate))){ 
 					 
 					 eventslist.add(new PlacesData(id, placeNameEl, placeNameEl_lower, placeNameEn, link, place_latitude, place_longtitude, 
 							 image_link, genre1, descInfo, exhibition, menu, info_en, fromDate, toDate, link1, link2, link3, link4,
-							 link5, subcategory, tel, email, fbLink));
+							subcategory, tel, email, fbLink));
 					
 				 }
 				 
@@ -759,7 +757,6 @@ public class TestLocalSqliteDatabase extends SQLiteOpenHelper {
 					 String link2 = placesData.getLink2();
 					 String link3 = placesData.getLink3();
 					 String link4 = placesData.getLink4();
-					 String link5 = placesData.getLink5();
 					 String subcategory = placesData.getSubcategory();
 					 String tel = placesData.getTel();
 					 String email = placesData.getEmail();
@@ -770,9 +767,9 @@ public class TestLocalSqliteDatabase extends SQLiteOpenHelper {
 					 //db.execSQL("INSERT INTO TestTable(_id, name, surname, type) VALUES(1, 'giannis ' , 'tsironis ' , 'male ')");
 					 //db.execSQL("INSERT INTO TestTable(_id, name, surname, type) VALUES(2, 'nikos ' , 'tsironis ' , 'male ')");
 					 //db.execSQL("INSERT INTO TestTable(_id, name, surname, type) VALUES(3, 'aggelos ' , 'tsironis ' , 'male ')");
-db.execSQL("INSERT INTO PlacesTable(_id, name_el, nameel_lower, name_en, link, latitude, longtitude, info, exhibition, menu, info_en, exhibition_en, menu_en, photo_link, genre, subcategory, tel, email, fb_link, link1, link2, link3, link4, link5) VALUES('" + id + 
+db.execSQL("INSERT INTO PlacesTable(_id, name_el, nameel_lower, name_en, link, latitude, longtitude, info, exhibition, menu, info_en, exhibition_en, menu_en, photo_link, genre, subcategory, tel, email, fb_link, link1, link2, link3, link4) VALUES('" + id + 
 		"','" + name_el + "','" + nameel_lower + "','" + name_en + "','" + link + "','" + latitude + "','" + longtitude + "','" + info + "','" + exhibition + "','" + menu + "','" + info_en + "','" + exhibition_en + "','" + menu_en + "','" + photo_link + "','" + genre + "','" + subcategory + "','" + tel + "','" + 
-		email + "','" + fb_link + "','"  + link1 + "','" + link2 + "','" + link3 + "','" + link4 + "','" + link5 + "')");
+		email + "','" + fb_link + "','"  + link1 + "','" + link2 + "','" + link3 + "','" + link4 + "')");
 				  }
 			  
 			  

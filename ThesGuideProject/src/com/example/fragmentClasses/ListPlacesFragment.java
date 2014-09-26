@@ -175,7 +175,7 @@ public class ListPlacesFragment extends ListFragment{
 	}
 	
 	public static class MyViewHolder{
-		public TextView placeNametv, latitudetv, longtitudetv, distance,desc_infohiddentv, 
+		public TextView placeNametv, nameEllower, latitudetv, longtitudetv, distance,desc_infohiddentv, menuhiddentv, 
 		telhiddentv, linkhiddentv, fbLinkhiddentv, emailhiddentv, exhibitionhiddentv;
 		public ImageView icon;
 		public Button infoButton;

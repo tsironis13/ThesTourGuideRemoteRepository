@@ -187,7 +187,6 @@ public class PlacesJsonWebApiTask extends AsyncTask<Void, Integer, String> {
         		String link2 = null;
         		String link3 = null;
         		String link4 = null;
-        		String link5 = null;
         		JSONArray desc_array = c.getJSONArray("desc");
         			for (int j=0; j<desc_array.length(); j++){
         				JSONObject descObject = desc_array.getJSONObject(j);
@@ -201,7 +200,6 @@ public class PlacesJsonWebApiTask extends AsyncTask<Void, Integer, String> {
         				link2 = descObject.getString("photo_link2");
         				link3 = descObject.getString("photo_link3");
         				link4 = descObject.getString("photo_link4");
-        				link5 = descObject.getString("photo_link5");
         			}
         		
         		try {
@@ -212,7 +210,7 @@ public class PlacesJsonWebApiTask extends AsyncTask<Void, Integer, String> {
 				}
         		
         		placesDataArray.add(new PlacesData(integer_id, name_el, nameel_lower, name_en, link, double_latitude, double_longtitude, 
-        				photo_link, genre, info, exhibition, menu, info_en, exhibition_en, menu_en, link1, link2, link3, link4, link5, subcategory, tel, email, fb_link));
+        				photo_link, genre, info, exhibition, menu, info_en, exhibition_en, menu_en, link1, link2, link3, link4, subcategory, tel, email, fb_link));
         	}
         	
         	

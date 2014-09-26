@@ -1,12 +1,14 @@
 package com.example.thesguideproject;
 
 import java.util.ArrayList;
+
 import com.example.adapters.InEnglishSearchAdapter;
 import com.example.adapters.SearchAdapter;
 import com.example.fragmentClasses.MenuFragment;
 import com.example.sqlHelper.TestLocalSqliteDatabase;
 import com.example.tasks.BitmapTask;
 import com.example.thesguideproject.R;
+
 import android.app.ProgressDialog;
 import android.app.SearchManager;
 import android.content.Context;
@@ -24,6 +26,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.SearchView;
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -189,8 +192,6 @@ import android.widget.Toast;
 		
 	}
 	
-	
-
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		//Inflate the menu
