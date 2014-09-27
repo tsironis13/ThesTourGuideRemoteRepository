@@ -1,5 +1,6 @@
 package com.example.thesguideproject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import com.example.adapters.InEnglishSearchAdapter;
@@ -8,9 +9,11 @@ import com.example.adapters.TabsPagerAdapter;
 import com.example.fragmentClasses.GoogleMapFragment;
 import com.example.fragmentClasses.GoogleMapFragment.OnGoogleMapFragmentListener;
 import com.example.fragmentClasses.KatalogFragment;
+import com.example.fragmentClasses.NoInternetConnectionFragment;
 import com.example.fragmentClasses.PhotoGridViewFragment;
 import com.example.fragmentClasses.InfoFragment;
 import com.example.fragmentClasses.ExhibitionFragment;
+import com.example.myLocation.GPSTracker;
 import com.example.sqlHelper.TestLocalSqliteDatabase;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.LatLng;
@@ -19,6 +22,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.MatrixCursor;
+import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.ViewPager;
@@ -31,6 +35,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,7 +45,7 @@ public class PlacesDetailsTabs extends ActionBarActivity implements OnGoogleMapF
     private GoogleMap googleMap;
     
     LatLng myPosition;
-    
+    private GPSTracker gps;
     private GoogleMap mUIGoogleMap;
     private ProgressDialog simpleWaitDialog;
     private String button_pressed;
@@ -147,8 +152,6 @@ public class PlacesDetailsTabs extends ActionBarActivity implements OnGoogleMapF
         this.tabsPagerAdapter = new TabsPagerAdapter(this, viewPager, mActionBar);
         tabsPagerAdapter.createHistory();
         
-        
-        
         Bundle infoBundle = new Bundle();
         infoBundle.putString("language", language);
         infoBundle.putString("place_nameEl_info", placenameEl);
@@ -215,6 +218,7 @@ public class PlacesDetailsTabs extends ActionBarActivity implements OnGoogleMapF
      						photoBundle.putSerializable("linksList", photoLinkStringArray1);
      						photoBundle.putInt("Screen Height", scr_height);
      						photoBundle.putInt("Screen Width", scr_width);
+     						photoBundle.putString("language", language);
      						//tabsPagerAdapter.addTab(actionBar.newTab().setText("Photo tab"), PhotoGridViewFragment.class, photoBundle);
      						tabsPagerAdapter.addTab(mActionBar.newTab().setText("Photo tab"), PhotoGridViewFragment.class, photoBundle);
      		        }
@@ -232,26 +236,41 @@ public class PlacesDetailsTabs extends ActionBarActivity implements OnGoogleMapF
         					photoBundle.putSerializable("linksList", photoLinkStringArray);
         					photoBundle.putInt("Screen Height", scr_height);
         					photoBundle.putInt("Screen Width", scr_width);
+        					photoBundle.putString("language", language);
         					//tabsPagerAdapter.addTab(actionBar.newTab().setText("Photo tab"), PhotoGridViewFragment.class, photoBundle);
         					tabsPagerAdapter.addTab(mActionBar.newTab().setText("Φωτογραφιες"), PhotoGridViewFragment.class, photoBundle);
         			}	
      	 }
         
-        
+     	  Bundle onmapBundle = new Bundle();
+          onmapBundle.putString("language", language);
+          onmapBundle.putDouble("doubleCurrentLatitude", doubleCurrentLatitude);
+          onmapBundle.putDouble("doubleCurrentLongtitude", doubleCurrentLongtitude);
+          onmapBundle.putDouble("doublePlaceLatitude", doublelatitude);
+          onmapBundle.putDouble("doublePlaceLongtitude", doublelongtitude); 
+     	 
+          WifiManager wifi = (WifiManager) this.getSystemService(Context.WIFI_SERVICE);
+          	if (wifi.isWifiEnabled()){
+			
+          		 if (language.equals("Greek")){
+                 	tabsPagerAdapter.addTab(mActionBar.newTab().setText("Στο χαρτη"), GoogleMapFragment.class, onmapBundle);
+                 }else{
+                 	tabsPagerAdapter.addTab(mActionBar.newTab().setText("OnMap"), GoogleMapFragment.class, onmapBundle);
+                 }
+		    
+          	}else{
+          		 if (language.equals("Greek")){
+          			tabsPagerAdapter.addTab(mActionBar.newTab().setText("Στο χαρτη"), NoInternetConnectionFragment.class, onmapBundle);
+          		 }
+          		 else{
+          			tabsPagerAdapter.addTab(mActionBar.newTab().setText("OnMap"), NoInternetConnectionFragment.class, onmapBundle); 
+          		 }
+          	}
      
-        Bundle onmapBundle = new Bundle();
-        onmapBundle.putString("language", language);
-        onmapBundle.putDouble("doubleCurrentLatitude", doubleCurrentLatitude);
-        onmapBundle.putDouble("doubleCurrentLongtitude", doubleCurrentLongtitude);
-        onmapBundle.putDouble("doublePlaceLatitude", doublelatitude);
-        onmapBundle.putDouble("doublePlaceLongtitude", doublelongtitude);
+      
         //tabsPagerAdapter.addTab(actionBar.newTab().setText("OnMap"), OnMapFragment.class, onmapBundle);
         //tabsPagerAdapter.addTab(actionBar.newTab().setText("OnMap"), GoogleMapFragment.class, onmapBundle);
-        if (language.equals("Greek")){
-        	tabsPagerAdapter.addTab(mActionBar.newTab().setText("Στο χάρτη"), GoogleMapFragment.class, onmapBundle);
-        }else{
-        	tabsPagerAdapter.addTab(mActionBar.newTab().setText("OnMap"), GoogleMapFragment.class, onmapBundle);
-        }
+       
         	
       //  tabsPagerAdapter.replace(2, ExhibitionFragment.class, exhibitionBundle);
         
@@ -295,9 +314,6 @@ public class PlacesDetailsTabs extends ActionBarActivity implements OnGoogleMapF
 
 	}
 
-	
-	
-	
 	@Override
 	protected void onDestroy() {
 		// TODO Auto-generated method stub

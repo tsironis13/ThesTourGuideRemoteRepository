@@ -3,6 +3,7 @@ package com.example.fragmentClasses;
 import com.example.myLocation.GPSTracker;
 import com.example.thesguideproject.R;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -43,8 +44,6 @@ public class MenuFragment extends Fragment {
 	
 	public MenuFragment(){}
 	
-	
-   
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.menu_fragment, container, false);
@@ -79,6 +78,14 @@ public class MenuFragment extends Fragment {
 	public void onActivityCreated(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onActivityCreated(savedInstanceState);
+		
+		if (android.os.Build.VERSION.SDK_INT>=11){
+			menulinearlayout.setBackgroundResource(R.drawable.menu_background);
+		}else{
+			//menulinearlayout.setBackgroundColor(Color.GRAY);
+			menulinearlayout.setBackgroundResource(R.drawable.menu_background);
+			supportingOlderDevices(menulinearlayout);
+		}
 		
 		gps = new GPSTracker(getActivity());
 		
@@ -485,6 +492,17 @@ public class MenuFragment extends Fragment {
 		  	}
 		        getFragmentManager().popBackStack();
 		}
+	}
+	
+	public boolean supportingOlderDevices(LinearLayout layout){
+		for (int i=0; i<layout.getChildCount(); i++){
+			View v = layout.getChildAt(i);
+				if (v instanceof Button){
+					v.setBackgroundColor(Color.TRANSPARENT);
+				}
+		}
+		
+		return true;
 	}
 	
 	public boolean formIsValid(LinearLayout layout, Button button) {

@@ -68,6 +68,8 @@
 	<string name="clubsitem">Clubs</string>
 	<string name="pubsitem">Pubs</string>
 	<string name="eventsitem">Events</string>
+	<string name="retrybuttoninenglish">Please Retry</string>
+	<string name="nonetconnectioninenglishtv">No Internet Connection</string>
 	
 	<string name="greek">Ελληνικά</string>
 	

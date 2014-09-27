@@ -12,12 +12,14 @@
     	android:layout_marginTop="1dp"
     	android:layout_marginBottom="1dp"
     	android:clickable="true"
+    	
     	android:layout_width="match_parent"
     	android:layout_height="45dp" >
     </FrameLayout>
     
 	<FrameLayout 
     	android:id="@+id/containerlist"
+    	android:background="@drawable/base_back"
     	android:layout_width="match_parent"
     	android:layout_height="match_parent" >
     </FrameLayout>

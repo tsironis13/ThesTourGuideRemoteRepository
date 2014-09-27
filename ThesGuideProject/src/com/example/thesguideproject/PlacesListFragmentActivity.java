@@ -15,6 +15,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.MatrixCursor;
+import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
@@ -107,6 +108,7 @@ import android.widget.Toast;
 		
 		
 		mActionBar= getSupportActionBar();
+		mActionBar.setBackgroundDrawable(null);
 		mActionBar.setHomeButtonEnabled(false);
 		mActionBar.setDisplayHomeAsUpEnabled(false);
 		mActionBar.setDisplayShowHomeEnabled(true);

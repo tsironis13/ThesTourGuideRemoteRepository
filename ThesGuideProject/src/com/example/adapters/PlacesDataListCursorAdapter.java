@@ -292,6 +292,7 @@ public class PlacesDataListCursorAdapter extends SimpleCursorAdapter implements 
 		//viewHolder.surnametv.setTag(surname);
 		viewHolder.latitudetv.setText(str_placelatitude);
 		viewHolder.longtitudetv.setText(str_placelongtitude);
+		
 		viewHolder.distance.setText(dx + " ÷ëì");
 		viewHolder.infoButton.setOnClickListener(this);
 		viewHolder.hiddenoncalltv.setText(menu);

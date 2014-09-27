@@ -9,9 +9,12 @@ import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingProgressListener;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
+
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.graphics.Bitmap;
+import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -24,6 +27,7 @@ import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 
 @SuppressLint("ValidFragment") 
@@ -33,6 +37,7 @@ public class PhotoGridViewFragment extends Fragment{
 	//ImagesSlidesFragmentAdapter mAdapter;
 	private static final String STATE_POSITION = "STATE_POSITION";
 	private GridView photoFragmentGridView;
+	private Button refreshGridViewbutton;
 	//private String[] imageUrls = new String[4];
 	//private ArrayList<String> imageUrls = new ArrayList<String>(4);
 	//private Context context;
@@ -44,6 +49,7 @@ public class PhotoGridViewFragment extends Fragment{
 	private String[] photoList;
 	private int screen_height;
 	private int screen_width;
+	private String language;
 	ViewPager pager;
 	PlacesDetailsTabs pdt = new PlacesDetailsTabs();
 	/*String[] web = {
@@ -77,6 +83,7 @@ public class PhotoGridViewFragment extends Fragment{
 		
 		screen_height = getArguments().getInt("Screen Height");
 		screen_width = getArguments().getInt("Screen Width");
+		language = getArguments().getString("language");
 		int photoList_array = photoList.length;
 		for (int i=0; i<photoList.length; i++){
 			//Log.i("PhotoList", photoList[i]);
@@ -101,13 +108,9 @@ public class PhotoGridViewFragment extends Fragment{
 		View view = inflater.inflate(R.layout.photo_fragment, container, false);
 		//view.setMinimumHeight(screen_height/8);
 		this.photoFragmentGridView = (GridView) view.findViewById(R.id.photofragmentGridView);
-		
-		
-		
+		this.refreshGridViewbutton = (Button) view.findViewById(R.id.refreshgridviewbutton);
 		
 		photoFragmentGridView.setAdapter(new ImageAdapter());
-		
-		
 		
 	    return view;
 	}
@@ -177,14 +180,20 @@ public class PhotoGridViewFragment extends Fragment{
 				 }
 
 				 @Override
-				 public void onLoadingFailed(String imageUri, View view,
-						 FailReason failReason) {
+				 public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
 					 	 holder.progressBar.setVisibility(View.GONE);
+					 	 if (language.equals("English")){
+					 		 refreshGridViewbutton.setVisibility(View.VISIBLE);
+					 	 }else{		
+					 		refreshGridViewbutton.setVisibility(View.VISIBLE);
+					 		refreshGridViewbutton.setText("Ανανέωσε");
+					 	 }
 				 }
 
 				 @Override
 				 public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
 					 holder.progressBar.setVisibility(View.GONE);
+					 refreshGridViewbutton.setVisibility(View.GONE);
 				 }
 			 }, new ImageLoadingProgressListener() {
 				 @Override
@@ -213,7 +222,22 @@ public class PhotoGridViewFragment extends Fragment{
 		// TODO Auto-generated method stub
 		super.onActivityCreated(savedInstanceState);
 		
-		
+		refreshGridViewbutton.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				// TODO Auto-generated method stub
+				WifiManager wifi = (WifiManager) getActivity().getSystemService(Context.WIFI_SERVICE);
+				if (wifi.isWifiEnabled()){
+						photoFragmentGridView.setAdapter(new ImageAdapter());
+				}else{
+					if (language.equals("English")){
+						Toast.makeText(getActivity(), "Please enable WI-FI widget to view museum images", Toast.LENGTH_SHORT).show();
+					}else{
+						Toast.makeText(getActivity(), "Παρακαλώ ενεργοποίησε το WI-FI για να δεις τις εικόνες του μουσείου", Toast.LENGTH_SHORT).show();
+					}
+				}
+			}
+		});
 		
 		photoFragmentGridView.setOnItemClickListener(new OnItemClickListener() {
 			@Override

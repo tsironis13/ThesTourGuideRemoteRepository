@@ -6,10 +6,12 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Locale;
+
 import com.example.sqlHelper.TestLocalSqliteDatabase;
 import com.example.storage.InternalStorage;
 import com.example.tasks.BitmapTask;
 import com.example.tasks.PlacesJsonWebApiTask;
+
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -18,6 +20,8 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -26,6 +30,8 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.GestureDetector.SimpleOnGestureListener;
@@ -33,6 +39,8 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
+import android.view.Window;
+import android.view.WindowManager;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -40,9 +48,10 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
 
-public class SplashScreen extends Activity{
+public class SplashScreen extends ActionBarActivity{
 
     //A ProgressDialog object  
+	private ActionBar mActionBar;
     private ProgressDialog progressDialog;  
     private TestLocalSqliteDatabase testDB;
     private static int SPLASH_TIME_OUT = 4000;
@@ -60,6 +69,9 @@ public class SplashScreen extends Activity{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.viewflipper);
 		
+		mActionBar= getSupportActionBar();
+		mActionBar.setBackgroundDrawable(null);
+		
 		String languagePhone = Locale.getDefault().getLanguage();
 		Log.i("Language phone =>", languagePhone);
 		
@@ -67,6 +79,9 @@ public class SplashScreen extends Activity{
 		
 		final Button englishButton = (Button) findViewById(R.id.englishButton);
 		final Button greekButton = (Button) findViewById(R.id.greekButton);
+		englishButton.setBackgroundColor(Color.TRANSPARENT);
+		greekButton.setBackgroundColor(Color.TRANSPARENT);
+		
 		
 		final Button text = (Button) findViewById(R.id.textButton);
 			

@@ -35,6 +35,9 @@
             android:id="@+id/placeNametv"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content" 
+			android:textColor="#ffffff"
+			android:textSize="15sp"
+			android:paddingTop="10dp"
 			android:layout_marginLeft="4dip"
 			android:layout_toRightOf="@+id/locationImage" 
 			android:paddingBottom="5dp"
@@ -129,8 +132,10 @@
             android:id="@+id/distance"
             android:layout_width="wrap_content"
 			android:layout_height="wrap_content" 
+			android:textColor="#fff"
+			android:textSize="14sp"
+			android:paddingBottom="10dp"
 			android:layout_marginLeft="4dip"
-			android:paddingBottom="2dp"
 			android:layout_toRightOf="@+id/locationImage" 
 			android:layout_below="@+id/placeNametv">
         </TextView>  
@@ -166,18 +171,32 @@
                android:visibility="invisible"
                android:background="@drawable/redcross">    
           </Button>
+          
+      <!--  <Button
+              android:id="@+id/info_button"
+              android:layout_below="@+id/placeNametv"
+              android:layout_toRightOf="@+id/distance"
+              android:layout_height="30dp"
+               android:layout_width="20dp"
+             
+               android:layout_alignParentRight="true" 
+               android:layout_marginRight="5dp"
+                android:background="@drawable/button_next">
+              
+          </Button>  -->  
         
     </RelativeLayout>
     
-    <Button 
+       <Button 
         android:id="@+id/info_button"
-        android:layout_height="25dp"
-        android:layout_width="30dp"
+        android:layout_height="40dp"
+        android:layout_width="40dp"
         android:layout_marginRight="5dp"
         android:background="@drawable/button_next"
+        android:layout_alignParentBottom="true"
 		android:layout_alignParentRight="true" 
-		android:layout_centerVertical="true">    
-    </Button>
+		>    
+    </Button>   
     
 
 </RelativeLayout>

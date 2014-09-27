@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.Stack;
 
 import com.example.thesguideproject.PlacesDetailsTabs;
+import com.example.thesguideproject.R;
 
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBar.Tab;

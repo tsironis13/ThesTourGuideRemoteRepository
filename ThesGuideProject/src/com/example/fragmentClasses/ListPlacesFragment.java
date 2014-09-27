@@ -19,6 +19,7 @@ import com.example.thesguideproject.R;
 
 import android.annotation.SuppressLint;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.util.Log;
@@ -86,7 +87,6 @@ public class ListPlacesFragment extends ListFragment{
 		// TODO Auto-generated method stub
 		View view = inflater.inflate(R.layout.list_fragment, container, false);	
 		language = getArguments().getString("language");
-		
 		testDB = new TestLocalSqliteDatabase(getActivity());
 		testDB.openDataBase(debugTag);
 		//String s = getArguments().getString("genre");

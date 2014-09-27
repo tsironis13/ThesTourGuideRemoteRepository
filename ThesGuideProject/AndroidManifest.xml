@@ -55,7 +55,7 @@
         <activity
             android:name="com.example.thesguideproject.SplashScreen"
             android:label="@string/app_name"
-            android:configChanges="screenSize|orientation|keyboardHidden" >
+            android:configChanges="orientation|keyboardHidden|screenLayout|uiMode|screenSize|smallestScreenSize" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

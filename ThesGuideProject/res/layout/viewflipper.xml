@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
+    android:background="@drawable/thess_icon"
     android:id="@+id/splashscreenrelativelayout"
     android:orientation="vertical" >
 
@@ -12,6 +13,7 @@
         android:id="@+id/greekButton"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
+        android:textColor="#ffffffff"
         android:visibility="invisible"
         android:text="@string/greek">
     </Button>
@@ -19,6 +21,7 @@
     <Button 
         android:id="@+id/englishButton"
         android:layout_width="100dp"
+         android:textColor="#ffffffff"
         android:layout_height="wrap_content"
         android:visibility="invisible"
         android:text="@string/english" >
