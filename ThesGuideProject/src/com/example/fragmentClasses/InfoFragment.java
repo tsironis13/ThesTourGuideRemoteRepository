@@ -87,10 +87,20 @@ public class InfoFragment extends Fragment{
 			infoFragmenttv.setText(desc_info);
 			//infoFragmenttv.setTypeface(null, Typeface.BOLD);
 		if (language.equals("English")){
+		  if(tel.equals("null")){
+			telFragmentButton.setVisibility(View.GONE);
+		  }
+		  else{
 			telFragmenttv.setText(" Tel: " + tel);
+		  }	
 		}
 		else{
+		  if(tel.equals("null")){
+			telFragmentButton.setVisibility(View.GONE);  
+		  }	
+		  else{
 			telFragmenttv.setText(" Ôçë: " + tel);
+		  }	
 		}
 		//linkFragmenttv.setText(" Link: " + link);
 		if (!link.equals("null")){

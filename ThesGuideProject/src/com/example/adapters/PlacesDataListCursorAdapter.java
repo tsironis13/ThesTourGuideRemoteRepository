@@ -502,6 +502,7 @@ public class PlacesDataListCursorAdapter extends SimpleCursorAdapter implements 
 		intent.putExtra("longtitude", vH.longtitudetv.getText());
 		intent.putExtra("button_pressed_text", button_pressed);
 		intent.putExtra("imagessavedFlag", imagessavedFlag);
+		intent.putExtra("displaycurrentPoint", "yes");
 		//Toast.makeText(this.context, vH.photoLink1hiddentv.getText(), Toast.LENGTH_SHORT).show();
 		//intent.putExtra("latitude", this.c.getDouble(this.c.getColumnIndex("latitude")));
 		//intent.putExtra("longtitude", this.c.getDouble(this.c.getColumnIndex("longtitude")));

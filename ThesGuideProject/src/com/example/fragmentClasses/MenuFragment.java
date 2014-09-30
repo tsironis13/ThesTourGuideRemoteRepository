@@ -359,6 +359,7 @@ public class MenuFragment extends Fragment {
 			 genre = "church";
 			 Bundle langpaleoBundle = new Bundle();
 			 langpaleoBundle.putString("language", language);
+			 langpaleoBundle.putString("language", language);
 			 subcategory = "PaleoChristian";
 			 ListPlacesFragment listPchrFragment = new ListPlacesFragment(genre, subcategory, current_latitude, current_longtitude);
 			 listPchrFragment.setArguments(langpaleoBundle);
@@ -373,6 +374,7 @@ public class MenuFragment extends Fragment {
 				
 			 genre = "church";
 			 Bundle langbizBundle = new Bundle();
+			 langbizBundle.putBoolean("imagessavedFlag", imagessavedFlag);
 			 langbizBundle.putString("language", language);
 			 subcategory = "Byzantine";
 			 ListPlacesFragment listBizanFragment = new ListPlacesFragment(genre, subcategory, current_latitude, current_longtitude);
@@ -388,6 +390,7 @@ public class MenuFragment extends Fragment {
 				
 			 genre = "church";
 			 Bundle langbasilBundle = new Bundle();
+			 langbasilBundle.putBoolean("imagessavedFlag", imagessavedFlag);
 			 langbasilBundle.putString("language", language);
 			 subcategory = "Basiliki";
 			 ListPlacesFragment listBasilFragment = new ListPlacesFragment(genre, subcategory, current_latitude, current_longtitude);
@@ -403,6 +406,7 @@ public class MenuFragment extends Fragment {
 				
 			 genre = "church";
 			 Bundle langmacBundle = new Bundle();
+			 langmacBundle.putBoolean("imagessavedFlag", imagessavedFlag);
 			 langmacBundle.putString("language", language);
 			 subcategory = "Macedonian";
 			 ListPlacesFragment listMacFragment = new ListPlacesFragment(genre, subcategory, current_latitude, current_longtitude);

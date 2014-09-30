@@ -244,11 +244,13 @@ import android.widget.Toast;
         switch (item.getItemId()) {
         case R.id.action_path:
         	Intent i = new Intent(PlacesListFragmentActivity.this, FindPathFragmentActivity.class);
+        	i.putExtra("imagessavedFlag", imagessavedFlag);
         	i.putExtra("language", language);
         	startActivity(i);
         	return true;
         case R.id.close:
         	Intent closeIntent = new Intent(PlacesListFragmentActivity.this, CloseExpandableListFragmentActivity.class);
+        	closeIntent.putExtra("imagessavedFlag", imagessavedFlag);
         	closeIntent.putExtra("language", language);
         	startActivity(closeIntent);
         	return true;

@@ -1,11 +1,13 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?> 
+ <RelativeLayout 
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    android:layout_height="match_parent"
     android:background="@drawable/background"
     android:orientation="vertical" >
 
-      <RelativeLayout
+  
+     <RelativeLayout
         android:id="@+id/header"
         android:layout_width="fill_parent"
         android:layout_height="30dp" >
@@ -46,7 +48,13 @@
         </RelativeLayout>
    </RelativeLayout>
    
-     <TableLayout 
+    <RelativeLayout  
+        android:id="@+id/innerrelative1"
+        android:layout_below="@+id/header"
+        android:layout_width="wrap_content"
+	    android:layout_height="wrap_content">
+        
+       <TableLayout 
          android:id="@+id/tablelayout"
          android:shrinkColumns="*" 
          android:stretchColumns="*"
@@ -109,32 +117,49 @@
          
          </TableRow>
      </TableLayout> 
-   
-       <GridView
+    </RelativeLayout>
+    
+    
+   <RelativeLayout
+        android:id="@+id/innerrelative2"
+        android:layout_below="@+id/innerrelative1"
+        android:layout_width="wrap_content"
+	    android:layout_height="wrap_content">
+                  
+     <GridView
         android:id="@+id/gridview"
-        android:layout_width="fill_parent"
-        android:layout_height="150dp"
+        android:layout_width="match_parent"
+        android:layout_height="69dp"
         android:layout_gravity="center_horizontal"
         android:listSelector="@android:color/transparent"
         android:numColumns="7"
         android:stretchMode="columnWidth" />
   
        <TextView
+           android:layout_below="@+id/gridview"
            android:id="@+id/eventslabeltv"
+           android:textSize="18sp"
            android:layout_width="wrap_content"
            android:layout_height="wrap_content"
            android:paddingBottom="5dp"
            android:paddingTop="5dp"
-           android:layout_gravity="center" >
-       </TextView> 
-       
-     <FrameLayout 
-	    android:id="@+id/containerdetails"
-	    android:layout_width="match_parent"
-	    android:layout_height="match_parent"
-	    android:background="#ccc">
-	</FrameLayout>
-	
+           android:layout_centerHorizontal="true">
+        </TextView> 
+   
+    </RelativeLayout>   
     
-
-</LinearLayout>
+    <RelativeLayout
+        android:id="@+id/innerrelative3"
+        android:layout_below="@+id/innerrelative2"
+        android:layout_width="wrap_content"
+	    android:layout_height="wrap_content">
+     	<FrameLayout 
+	   	 	android:id="@+id/containerdetails"
+	   		 android:background="@drawable/base_back"
+	    	android:layout_width="wrap_content"
+	    	android:layout_height="match_parent">
+     	</FrameLayout>
+	 </RelativeLayout> 
+  
+ </RelativeLayout>
+  

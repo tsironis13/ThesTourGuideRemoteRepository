@@ -88,6 +88,7 @@ public class PlacesDetailsTabs extends ActionBarActivity implements OnGoogleMapF
     private ActionBar mActionBar;
     private MenuItem searchItem;
     private boolean imagessavedFlag;
+    private String displaycurrentPoint;
     
 	@Override
 	public void onMapReady(GoogleMap map) {
@@ -110,6 +111,7 @@ public class PlacesDetailsTabs extends ActionBarActivity implements OnGoogleMapF
 		
 		Intent i = getIntent();
 		
+		displaycurrentPoint = i.getStringExtra("displaycurrentPoint");
 		imagessavedFlag = i.getExtras().getBoolean("imagessavedFlag");
 		language = i.getStringExtra("language");
 		button_pressed = i.getStringExtra("button_pressed_text");
@@ -249,7 +251,9 @@ public class PlacesDetailsTabs extends ActionBarActivity implements OnGoogleMapF
           onmapBundle.putDouble("doubleCurrentLatitude", doubleCurrentLatitude);
           onmapBundle.putDouble("doubleCurrentLongtitude", doubleCurrentLongtitude);
           onmapBundle.putDouble("doublePlaceLatitude", doublelatitude);
-          onmapBundle.putDouble("doublePlaceLongtitude", doublelongtitude); 
+          onmapBundle.putDouble("doublePlaceLongtitude", doublelongtitude);
+          onmapBundle.putString("displaycurrentPoint", displaycurrentPoint);
+          onmapBundle.putString("place_nameEl_info", placenameEl);
      	 
           WifiManager wifi = (WifiManager) this.getSystemService(Context.WIFI_SERVICE);
           	if (wifi.isWifiEnabled()){

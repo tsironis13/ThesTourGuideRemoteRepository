@@ -33,6 +33,8 @@ public class GoogleMapFragment extends SupportMapFragment {
 	private String language;
 	private LatLng placePosition;
 	private LatLng secondPlacePosition;
+	private String displaycurrentPoint;
+	private String placeName;
 	
     public static interface OnGoogleMapFragmentListener {
         void onMapReady(GoogleMap map);
@@ -69,6 +71,8 @@ public class GoogleMapFragment extends SupportMapFragment {
 		View view = super.onCreateView(inflater, container, savedInstanceState);
 		
 		language = getArguments().getString("language");
+		placeName = getArguments().getString("place_nameEl_info");
+		displaycurrentPoint = getArguments().getString("displaycurrentPoint");
 		currentLong = getArguments().getDouble("doubleCurrentLongtitude");
 		currentLat = getArguments().getDouble("doubleCurrentLatitude");
 			
@@ -129,15 +133,21 @@ public class GoogleMapFragment extends SupportMapFragment {
             
             secondPlacePosition = new LatLng(currentLat, currentLong);
             
-            googleMap.addMarker(new MarkerOptions().position(secondPlacePosition).title("Start"));
-           
-            googleMap.addMarker(new MarkerOptions().position(placePosition).title("Finish"));
+           if (displaycurrentPoint.equals("no") && placeName.equals("null")){
+        	   googleMap.addMarker(new MarkerOptions().position(secondPlacePosition).title("Start"));
+        	   googleMap.addMarker(new MarkerOptions().position(placePosition).title("Finish"));
+           } 
+           else{
+        	   //googleMap.addMarker(new MarkerOptions().position(secondPlacePosition).title(placeName));
+        	   googleMap.addMarker(new MarkerOptions().position(placePosition).title(placeName));
+           }
+            	
                        
-            CameraUpdate center= CameraUpdateFactory.newLatLng(placePosition);
-            CameraUpdate zoom= CameraUpdateFactory.zoomTo(12);
+            	CameraUpdate center= CameraUpdateFactory.newLatLng(placePosition);
+            	CameraUpdate zoom= CameraUpdateFactory.zoomTo(12);
 
-            googleMap.moveCamera(center);
-            googleMap.animateCamera(zoom);
+            	googleMap.moveCamera(center);
+            	googleMap.animateCamera(zoom);
         }
         return view;
 	}

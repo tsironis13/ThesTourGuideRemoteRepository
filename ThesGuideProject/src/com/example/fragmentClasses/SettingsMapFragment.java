@@ -18,6 +18,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.database.Cursor;
 import android.database.MatrixCursor;
+import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -273,6 +274,8 @@ public class SettingsMapFragment extends ListFragment implements DialogInterface
 						onmapBundle.putDouble("doubleCurrentLongtitude", startlongtitude);
 						onmapBundle.putDouble("doublePlaceLatitude", destlatitude);
 						onmapBundle.putDouble("doublePlaceLongtitude", destlongtitude);
+						onmapBundle.putString("displaycurrentPoint", "no");
+				        onmapBundle.putString("place_nameEl_info", "null");
 						g.setArguments(onmapBundle);
 						testDB.close(debugTag);
 						fragmentTransaction = getFragmentManager().beginTransaction().replace(R.id.containersettings, g);
@@ -399,8 +402,7 @@ public class SettingsMapFragment extends ListFragment implements DialogInterface
 							}while(startcursor.moveToNext());
 						}
 					}
-				}
-					
+				}	
 						ToAndFromFragment toandfrom = new ToAndFromFragment();
 						Bundle locations_langBundle = new Bundle();
 						locations_langBundle.putString("language", language);
@@ -411,6 +413,7 @@ public class SettingsMapFragment extends ListFragment implements DialogInterface
 						fragmentTransaction.addToBackStack("toandfrom");
 						fragmentTransaction.commit();
 					
+					
 						GoogleMapFragment g = new GoogleMapFragment();
 						Bundle onmapBundle = new Bundle();
 						onmapBundle.putString("language", language);
@@ -418,11 +421,14 @@ public class SettingsMapFragment extends ListFragment implements DialogInterface
 						onmapBundle.putDouble("doubleCurrentLongtitude", startlongtitude2);
 						onmapBundle.putDouble("doublePlaceLatitude", destlatitude2);
 						onmapBundle.putDouble("doublePlaceLongtitude", destlongtitude2);
+						onmapBundle.putString("displaycurrentPoint", "no");
+				        onmapBundle.putString("place_nameEl_info", "null");
 						g.setArguments(onmapBundle);
 						testDB.close(debugTag);
 						fragmentTransaction = getFragmentManager().beginTransaction().replace(R.id.containersettings, g);
 						fragmentTransaction.addToBackStack(null);
 						fragmentTransaction.commit();
+
 				}
 				else if (destinationpointtv.getText().length() == 0 || startingpointtv.getText().length() == 0){
 					

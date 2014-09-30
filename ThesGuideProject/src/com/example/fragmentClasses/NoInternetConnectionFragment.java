@@ -24,6 +24,8 @@ public class NoInternetConnectionFragment extends Fragment{
     private double doubleCurrentLatitude;
     private double doubleCurrentLongtitude;
 	private FragmentTransaction fragmentTransaction;
+	private String placenameEl;
+	private String displaycurrentPoint;
     
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -32,6 +34,8 @@ public class NoInternetConnectionFragment extends Fragment{
 		
 		retrybutton = (Button) view.findViewById(R.id.retrybuttton);
 		nonetcontv = (TextView) view.findViewById(R.id.nonetconnectiontv);
+		placenameEl = getArguments().getString("place_nameEl_info");
+		displaycurrentPoint = getArguments().getString("displaycurrentPoint");
 		language = getArguments().getString("language");
 			if (!language.equals("English")){
 				retrybutton.setText("Παρακαλώ Ξαναπροσπάθησε");
@@ -66,6 +70,8 @@ public class NoInternetConnectionFragment extends Fragment{
 				        onmapBundle.putDouble("doubleCurrentLongtitude", doubleCurrentLongtitude);
 				        onmapBundle.putDouble("doublePlaceLatitude", doublelatitude);
 				        onmapBundle.putDouble("doublePlaceLongtitude", doublelongtitude);
+				        onmapBundle.putString("displaycurrentPoint", displaycurrentPoint);
+				        onmapBundle.putString("place_nameEl_info", placenameEl);
 				        googleMapFragment.setArguments(onmapBundle);
 						fragmentTransaction = getFragmentManager().beginTransaction().replace(R.id.framemap, googleMapFragment);
 						
