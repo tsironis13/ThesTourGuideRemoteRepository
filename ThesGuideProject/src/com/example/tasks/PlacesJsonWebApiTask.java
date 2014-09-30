@@ -3,6 +3,8 @@ package com.example.tasks;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Locale;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -11,34 +13,32 @@ import org.json.JSONObject;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.example.locationData.LocationData;
 import com.example.locationData.PlacesData;
-import com.example.sqlHelper.DatabaseHolder;
 import com.example.sqlHelper.TestLocalSqliteDatabase;
-import com.example.thesguideproject.MainActivity;
-import com.example.thesguideproject.MainLayoutActivity;
+import com.example.storage.InternalStorage;
 import com.example.thesguideproject.SplashScreen;
 
 public class PlacesJsonWebApiTask extends AsyncTask<Void, Integer, String> {
 
 	 private static String url = "http://aetos.it.teithe.gr/~tsironis/places_file.php";
 	 private ProgressDialog pDialog;
-	 //private MainLayoutActivity activity;
-	 private MainActivity activity;
 	 private SplashScreen s;
 	 private Context context;
 	 private static final String debugTag = "PlacesJsonWebApiTask";
 	 public String encodedUrl;
+	 private String languagePhone = Locale.getDefault().getLanguage();
 	 
 	 ServiceHandler sh = new ServiceHandler();
 	 
 	 ArrayList<PlacesData> placesDataArray = new ArrayList<PlacesData>(); 
-	 
-	 
+	 HashMap<String, Bitmap> listbit = new HashMap<String, Bitmap>();
+	 InternalStorage internal = new InternalStorage();
+		
 	 private static final String TAG_PLACES = "places";
 	 private static final String TAG_ID = "id";
 	 private static final String TAG_NAME_EL = "name_el";
@@ -56,12 +56,6 @@ public class PlacesJsonWebApiTask extends AsyncTask<Void, Integer, String> {
 	 
 	 public PlacesJsonWebApiTask(){}
      
-	 public PlacesJsonWebApiTask(MainActivity activity){
-	    	super();
-	    	this.activity = activity;
-	    	this.context = this.activity.getApplicationContext();
-	 }
-	 
 	 public PlacesJsonWebApiTask(SplashScreen activity){
 	    	super();
 	    	this.s = activity;
@@ -75,10 +69,17 @@ public class PlacesJsonWebApiTask extends AsyncTask<Void, Integer, String> {
 	    protected void onPreExecute() {
 	            super.onPreExecute();
 	            // Showing progress dialog
+	            languagePhone = Locale.getDefault().getLanguage();
 	            pDialog = new ProgressDialog(this.s);
 	            pDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-	            pDialog.setTitle("Please wait...");
-	            pDialog.setMessage("Downloading application data...");
+	         if (languagePhone.equals("el")){   
+	            pDialog.setTitle("Παρακαλώ περιμένετε...");
+	            pDialog.setMessage("Φόρτωση δεδομένων εφαρμογής...");
+	         }
+	         else{
+	        	 pDialog.setTitle("Please wait...");
+		         pDialog.setMessage("Downloading application data..."); 
+	         }
 	            pDialog.setCancelable(false);
 	            pDialog.setIndeterminate(false);  
 	            pDialog.setMax(100);  
@@ -126,7 +127,6 @@ public class PlacesJsonWebApiTask extends AsyncTask<Void, Integer, String> {
 	  
 	  
 	  public ArrayList<PlacesData> tD;
-	  
 	  
 	  @Override
       protected void onPostExecute(String result) {
@@ -213,9 +213,7 @@ public class PlacesJsonWebApiTask extends AsyncTask<Void, Integer, String> {
         				photo_link, genre, info, exhibition, menu, info_en, exhibition_en, menu_en, link1, link2, link3, link4, subcategory, tel, email, fb_link));
         	}
         	
-        	
-        
-        	
+      	
         	TestLocalSqliteDatabase dbtest = new TestLocalSqliteDatabase(context);
 			dbtest.openDataBase(debugTag);
 			//Log.d("Insert: ", "Inserting .."); 
@@ -230,8 +228,7 @@ public class PlacesJsonWebApiTask extends AsyncTask<Void, Integer, String> {
 		            " ,Latitude: " + td.getLatitude() + " ,Longtitude: " + td.getLongtitude() + " ,PhotoLink: " + td.getPhotoLink() + " ,Genre: " + td.getGenre();
 		                // Writing Contacts to log
 		        Log.d("Name: ", log);
-		        }*/
-			  
+		        }*/ 
 			dbtest.getArrayListwithPlacesJsonData(placesDataArray);
 			dbtest.close(debugTag);
 			 // Reading all contacts

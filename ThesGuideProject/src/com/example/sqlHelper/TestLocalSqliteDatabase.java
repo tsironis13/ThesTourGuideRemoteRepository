@@ -14,8 +14,6 @@ import java.util.Locale;
 
 import com.example.locationData.LocationData;
 import com.example.locationData.PlacesData;
-import com.example.thesguideproject.MainLayoutActivity;
-
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;

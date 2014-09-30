@@ -64,17 +64,7 @@
         </activity>
           
         <activity 
-            android:name="com.example.thesguideproject.MainLayoutActivity"
-            android:label="@string/app_name">
-        </activity>
-        
-        <activity 
             android:name="com.example.thesguideproject.CalendarTest"
-            android:label="@string/app_name">
-        </activity>
-        
-        <activity 
-            android:name="com.example.thesguideproject.FragmentActivityTest"
             android:label="@string/app_name">
         </activity>
         
@@ -105,7 +95,9 @@
         <activity 
             android:name="com.example.thesguideproject.PlacesDetailsTabs"
             android:label="@string/app_name"
-            android:configChanges="screenSize|orientation|keyboardHidden" >     
+            android:hardwareAccelerated="true"
+            android:windowSoftInputMode="adjustPan"
+            android:configChanges="orientation|keyboardHidden|screenLayout|uiMode|screenSize|smallestScreenSize" >     
         </activity>
         
         <activity 
@@ -120,7 +112,8 @@
         
         <activity 
             android:name="com.example.thesguideproject.SearchPlaceResutlActivity"
-            android:label="@string/app_name" >     
+            android:label="@string/app_name"
+            android:configChanges="orientation|keyboardHidden|screenLayout|uiMode|screenSize|smallestScreenSize" >     
         </activity>
        
         <activity 
@@ -145,7 +138,7 @@
             android:label="@string/app_name" >     
         </activity>
         
-        <activity 
+      <!--   <activity 
             android:name="com.example.thesguideproject.ActBarTest"
             android:label="@string/app_name" >   
             
@@ -161,9 +154,8 @@
           	<meta-data
         	    android:name="android.support.PARENT_ACTIVITY"
         	    android:value="com.example.thesguideproject.MainActivity" />
-               	
             
-        </activity>
+        </activity>  --> 
         
         <!-- Search results activity -->
         <activity android:name="com.example.searchResults.SearchResultsActivity"
@@ -179,23 +171,8 @@
             
             
         </activity>
-         
-         <activity 
-            android:name="com.example.thesguideproject.MainActivity"
-            android:label="@string/app_name" >   
-            
-            <intent-filter>
-                <action android:name="android.intent.action.MainActivity" />
-                <category android:name="android.intent.category.DEFAULT" /> 
-            </intent-filter>
-            
-         </activity>  
-         
-         
-       
-         
-         <service android:name="com.example.myLocation.LocationServiceLoader" />
         
+        <service android:name="com.example.myLocation.LocationServiceLoader" />
         
         <!-- Goolge Maps API Key -->
 		<meta-data

@@ -28,15 +28,17 @@ public class InEnglishSearchAdapter extends CursorAdapter implements OnClickList
 	private Cursor cursor;	
 	private String placeNameEl;
 	private MenuItem searchItem;
+	private boolean imagessavedFlag;
 	//private FragmentTransaction fragmentTransaction;
 	//private MenuFragment menuFragment;
 	
-	public InEnglishSearchAdapter(Context context, Cursor cursor, List items, MenuItem searchItem) {
+	public InEnglishSearchAdapter(Context context, Cursor cursor, List items, MenuItem searchItem, boolean imagessavedFlag) {
 		super(context, cursor, false);
 		this.items = items;
 		this.context = context;
 		this.cursor = cursor;
 		this.searchItem = searchItem;
+		this.imagessavedFlag = imagessavedFlag;
 		// TODO Auto-generated constructor stub
 	}
 	
@@ -96,6 +98,7 @@ public class InEnglishSearchAdapter extends CursorAdapter implements OnClickList
 		Intent intent = new Intent(context, SearchPlaceResutlActivity.class);
 		intent.putExtra("PlaceName", s1);
 		intent.putExtra("language", "English");
+		intent.putExtra("imagessavedFlag", imagessavedFlag);
 		context.startActivity(intent);
 		MenuItemCompat.collapseActionView(searchItem);
 		//MenuFragment m = new MenuFragment(s1);

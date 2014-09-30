@@ -41,6 +41,7 @@ public class MenuFragment extends Fragment {
 	//private int i=0;
 	private LinearLayout menulinearlayout;
 	private boolean success;
+	private boolean imagessavedFlag;
 	
 	public MenuFragment(){}
 	
@@ -48,6 +49,7 @@ public class MenuFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.menu_fragment, container, false);
 		
+		imagessavedFlag = getArguments().getBoolean("imagessavedFlag");
 		language = getArguments().getString("language");
 		
 		menulinearlayout = (LinearLayout) view.findViewById(R.id.linearlayout1);
@@ -158,6 +160,7 @@ public class MenuFragment extends Fragment {
 				genre = "sightseeings";
 				Bundle langBundle = new Bundle();
 				langBundle.putString("language", language);
+				langBundle.putBoolean("imagessavedFlag", imagessavedFlag);
 				ListPlacesFragment listMuseumsFragment = new ListPlacesFragment(genre, "", current_latitude, current_longtitude);
 				listMuseumsFragment.setArguments(langBundle);
 				replaceFragmentFunction(listMuseumsFragment);
@@ -195,6 +198,7 @@ public class MenuFragment extends Fragment {
 				genre = "museums";
 				Bundle langBundle = new Bundle();
 				langBundle.putString("language", language);
+				langBundle.putBoolean("imagessavedFlag", imagessavedFlag);
 				ListPlacesFragment listMuseumsFragment = new ListPlacesFragment(genre, "", current_latitude, current_longtitude);
 				listMuseumsFragment.setArguments(langBundle);
 				replaceFragmentFunction(listMuseumsFragment);

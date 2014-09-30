@@ -1,11 +1,15 @@
 package com.example.thesguideproject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map.Entry;
 
 import com.example.adapters.InEnglishSearchAdapter;
 import com.example.adapters.SearchAdapter;
 import com.example.fragmentClasses.MenuFragment;
+import com.example.fragmentClasses.NoInternetConnectionFragment;
 import com.example.sqlHelper.TestLocalSqliteDatabase;
+import com.example.storage.InternalStorage;
 import com.example.tasks.BitmapTask;
 import com.example.thesguideproject.R;
 
@@ -15,6 +19,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.MatrixCursor;
+import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -33,6 +38,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -43,12 +49,12 @@ import android.widget.Toast;
 	private MenuFragment menuFragment;
 	private FragmentTransaction fragmentTransaction;
 	private Cursor allDisplayImageLinkcursor;
-	private BitmapTask imgFetcher;
 	private ProgressDialog progressDialog; 
 	private static final String debugTag = "PlacesListFragmentActivity";
 	private String name;
 	private String url;
 	private String language;
+	private BitmapTask imgFetcher = new BitmapTask(this);
 	
 	public PlacesListFragmentActivity(){}
 	
@@ -57,30 +63,38 @@ import android.widget.Toast;
 	//TestLocalSqliteDatabase t1 = new TestLocalSqliteDatabase(this);
 	
 	private ArrayList<String> items = new ArrayList<String>();
-	
+	private boolean imagessavedFlag;
 	MenuFragment m = new MenuFragment();
+	
 	int i;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.placeslistfragmentactivityfragment);
+		
 		Bundle extras = getIntent().getExtras();
 		language = extras.getString("language");
-		
 		t.openDataBase(debugTag);
 		
-		
-		
-		imgFetcher = new BitmapTask(this);
+		//imgFetcher = new BitmapTask(this);
 		
 		//testDB.createDataBase();
+		mActionBar= getSupportActionBar();
+		mActionBar.setBackgroundDrawable(null);
+		mActionBar.setHomeButtonEnabled(false);
+		mActionBar.setDisplayHomeAsUpEnabled(false);
+		mActionBar.setDisplayShowHomeEnabled(true);
+		mActionBar.setIcon(R.drawable.ic_launcher);
+		mActionBar.setDisplayShowTitleEnabled(false);
+		
+		
+		//searchView = (SearchView) findViewById(R.id.action_search);	
+	
 		WifiManager wifi = (WifiManager) getSystemService(Context.WIFI_SERVICE);
 		if (wifi.isWifiEnabled()){
 			//t.openDataBase();
-			allDisplayImageLinkcursor = t.getAllPhotoDisplayImageLink(); 	
-			
-			
+		    allDisplayImageLinkcursor = t.getAllPhotoDisplayImageLink();
 			
 			if (allDisplayImageLinkcursor.moveToFirst()){
 				do{
@@ -97,45 +111,30 @@ import android.widget.Toast;
 					 } 
 				}while(allDisplayImageLinkcursor.moveToNext());
 			}
+			imagessavedFlag = true;
+		}else{
+			imagessavedFlag = false;
 		}
-		else{
-			
-		}
-		
-		if (isNetworkConnected()){
-			new LoadViewTask().execute();  
-		}
-		
-		
-		mActionBar= getSupportActionBar();
-		mActionBar.setBackgroundDrawable(null);
-		mActionBar.setHomeButtonEnabled(false);
-		mActionBar.setDisplayHomeAsUpEnabled(false);
-		mActionBar.setDisplayShowHomeEnabled(true);
-		mActionBar.setIcon(R.drawable.ic_launcher);
-		mActionBar.setDisplayShowTitleEnabled(false);
-		
-		
-		//searchView = (SearchView) findViewById(R.id.action_search);	
-		Bundle langbundle = new Bundle();
-		langbundle.putString("language", language);
-		menuFragment = new MenuFragment();
-		menuFragment.setArguments(langbundle);
-		
-		//getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		
 		if (savedInstanceState == null){
+			Bundle langbundle = new Bundle();
+			langbundle.putBoolean("imagessavedFlag", imagessavedFlag);
+			langbundle.putString("language", language);
+			menuFragment = new MenuFragment();
+			menuFragment.setArguments(langbundle);
 			fragmentTransaction = getSupportFragmentManager().beginTransaction().add(R.id.containermenu, menuFragment);
 			t.close(debugTag);
 			//fragmentTransaction.addToBackStack("menu");
 			fragmentTransaction.commit();
 		}
-	
+		
+				if (isNetworkConnected()){
+					new LoadViewTask().execute();  
+				}
+		
 	}
-
 	
 	int y;
-	 
 	
 	private boolean isNetworkConnected() {
 		ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -151,10 +150,10 @@ import android.widget.Toast;
 		
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		
+	  
 		
 	 if (keyCode==KeyEvent.KEYCODE_BACK){	
-		
+	
 		 LinearLayout menulinearlayout = (LinearLayout) findViewById(R.id.linearlayout1);
 		 formIsValid(menulinearlayout);
 		 
@@ -189,7 +188,8 @@ import android.widget.Toast;
 			//Toast.makeText(getApplicationContext(), "Fragments in back stack are =>" + fragments, Toast.LENGTH_SHORT).show();
 			//Toast.makeText(getApplicationContext(), "Fragments in back stack position 1 =>" + backStackId, Toast.LENGTH_SHORT).show();
 		}	
-	 }
+	  
+	 }   
 		return super.onKeyDown(keyCode, event);
 		
 	}
@@ -297,7 +297,7 @@ import android.widget.Toast;
 						}
 
 						//String lang = "Latin";
-						searchView.setSuggestionsAdapter(new InEnglishSearchAdapter(this, cursor, items, searchItem));
+						searchView.setSuggestionsAdapter(new InEnglishSearchAdapter(this, cursor, items, searchItem, imagessavedFlag));
 						
 				}
 				else{
@@ -336,7 +336,7 @@ import android.widget.Toast;
 						}
 						//t.setSuggestionPressedField("true");
 						//String lang = "Greek";	
-						searchView.setSuggestionsAdapter(new InEnglishSearchAdapter(this, cursor, items, searchItem));
+						searchView.setSuggestionsAdapter(new InEnglishSearchAdapter(this, cursor, items, searchItem, imagessavedFlag));
 				}
 	 }	
 	 else{	
@@ -375,7 +375,7 @@ import android.widget.Toast;
 					}
 
 					String lang = "Latin";
-					searchView.setSuggestionsAdapter(new SearchAdapter(this, cursor, items, lang, searchItem));
+					searchView.setSuggestionsAdapter(new SearchAdapter(this, cursor, items, lang, searchItem, imagessavedFlag));
 			}
 			else{
 					Log.i("Query =>", query);
@@ -413,7 +413,7 @@ import android.widget.Toast;
 					}
 					//t.setSuggestionPressedField("true");
 					String lang = "Greek";	
-					searchView.setSuggestionsAdapter(new SearchAdapter(this, cursor, items, lang, searchItem));
+					searchView.setSuggestionsAdapter(new SearchAdapter(this, cursor, items, lang, searchItem, imagessavedFlag));
 			}
 	 }
 	}

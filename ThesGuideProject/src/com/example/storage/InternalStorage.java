@@ -45,7 +45,6 @@ public class InternalStorage {
 	    }
 	}
 	
-	
 	public String saveToInternalSorage(Bitmap bitmapImage, Context context, String name){
         ContextWrapper cw = new ContextWrapper(context);
          // path to /data/data/yourapp/app_data/imageDir

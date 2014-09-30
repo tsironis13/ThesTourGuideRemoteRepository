@@ -6,13 +6,12 @@
     android:clickable="true"
     android:id="@+id/lin"
     android:orientation="vertical" >
-	
+	    
 	<FrameLayout 
     	android:id="@+id/containermenu"
     	android:layout_marginTop="1dp"
     	android:layout_marginBottom="1dp"
     	android:clickable="true"
-    	
     	android:layout_width="match_parent"
     	android:layout_height="45dp" >
     </FrameLayout>

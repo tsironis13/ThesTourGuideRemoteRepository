@@ -31,6 +31,7 @@ public class SearchPlaceResultListFragment extends ListFragment{
 	private int[] to;
 	private ListView listExample;
 	private static final String debugTag = "SearchPlaceResultListFragment";
+	private boolean imagessavedFlag;
 	
 	public SearchPlaceResultListFragment(String nameEl){
 		this.nameEl = nameEl;
@@ -48,6 +49,7 @@ public class SearchPlaceResultListFragment extends ListFragment{
 		// TODO Auto-generated method stub
 		super.onActivityCreated(savedInstanceState);
 		String language = getArguments().getString("language");
+		imagessavedFlag = getArguments().getBoolean("imagessavedFlag");
 		
 		gps = new GPSTracker(getActivity());
 		
@@ -127,11 +129,11 @@ public class SearchPlaceResultListFragment extends ListFragment{
 	}
 	
 	private void inEnglishSetAdapterFromSpecificCursor(String button_pressed, ListView listExample, Cursor cursor, String[] columns, int[] to, BitmapTask imgFetcher, double current_latitude, double current_longtitude){
-		setListAdapter(new InEnglishPlacesDataListCursorAdapter(button_pressed, this, getActivity(),  R.layout.places_basic_layout, cursor, columns, to, current_latitude, current_longtitude) );
+		setListAdapter(new InEnglishPlacesDataListCursorAdapter(button_pressed, this, getActivity(),  R.layout.places_basic_layout, cursor, columns, to, current_latitude, current_longtitude, imagessavedFlag) );
 	}
 	
 	private void setAdapterFromSpecificCursor(String button_pressed, ListView listExample, Cursor cursor, String[] columns, int[] to, BitmapTask imgFetcher, double current_latitude, double current_longtitude){
-		setListAdapter(new PlacesDataListCursorAdapter(button_pressed, this, getActivity(),  R.layout.places_basic_layout, cursor, columns, to, current_latitude, current_longtitude) );
+		setListAdapter(new PlacesDataListCursorAdapter(button_pressed, this, getActivity(),  R.layout.places_basic_layout, cursor, columns, to, current_latitude, current_longtitude, imagessavedFlag) );
 	}
 	
 	

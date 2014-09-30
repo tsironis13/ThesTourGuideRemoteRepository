@@ -8,6 +8,7 @@ import com.example.fragmentClasses.ListPlacesFragment;
 import com.example.fragmentClasses.SearchPlaceResultListFragment;
 import com.example.locationData.PlacesData;
 import com.example.myLocation.GPSTracker;
+import com.example.sqlHelper.TestLocalSqliteDatabase;
 import com.example.storage.InternalStorage;
 import com.example.tasks.BitmapTask;
 import com.example.tasks.ImageTask;
@@ -23,6 +24,8 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -60,6 +63,8 @@ public class PlacesDataListCursorAdapter extends SimpleCursorAdapter implements 
 	private double current_longtitude;
 	private String button_pressed;
 	private ActionBar act;
+	private Bitmap bitmap;
+	private Boolean imagessavedFlag;
 	
 	GPSTracker gps;
 	//ArrayList<PlacesData> placesDataArray = new ArrayList<PlacesData>();
@@ -77,7 +82,7 @@ public class PlacesDataListCursorAdapter extends SimpleCursorAdapter implements 
 		// TODO Auto-generated constructor stub
 	}*/
 	
-	public PlacesDataListCursorAdapter(String button_pressed, SearchPlaceResultListFragment searchPlaceResultListFragment, Context context, int layout, Cursor cursor, String[] from, int[] to, double current_latitude, double current_longtitude) {
+	public PlacesDataListCursorAdapter(String button_pressed, SearchPlaceResultListFragment searchPlaceResultListFragment, Context context, int layout, Cursor cursor, String[] from, int[] to, double current_latitude, double current_longtitude, boolean imagessavedFlag) {
 		super(context, layout, cursor, from, to);
 		this.button_pressed = button_pressed;
 		this.searchPlaceResultListFragment = searchPlaceResultListFragment;
@@ -87,10 +92,11 @@ public class PlacesDataListCursorAdapter extends SimpleCursorAdapter implements 
 		//this.imgFetcher = i;
 		this.current_latitude = current_latitude;
 		this.current_longtitude = current_longtitude;
+		this.imagessavedFlag = imagessavedFlag;
 		// TODO Auto-generated constructor stub
 	}
 	
-	public PlacesDataListCursorAdapter(String button_pressed, ListPlacesFragment activity, Context context, int layout, Cursor cursor, String[] from, int[] to, double current_latitude, double current_longtitude) {
+	public PlacesDataListCursorAdapter(String button_pressed, ListPlacesFragment activity, Context context, int layout, Cursor cursor, String[] from, int[] to, double current_latitude, double current_longtitude, boolean imagessavedFlag) {
 		super(context, layout, cursor, from, to);
 		this.button_pressed = button_pressed;
 		this.activity = activity;
@@ -100,6 +106,7 @@ public class PlacesDataListCursorAdapter extends SimpleCursorAdapter implements 
 		//this.imgFetcher = i;
 		this.current_latitude = current_latitude;
 		this.current_longtitude = current_longtitude;
+		this.imagessavedFlag = imagessavedFlag;
 		// TODO Auto-generated constructor stub
 	}
 	/*
@@ -183,6 +190,8 @@ public class PlacesDataListCursorAdapter extends SimpleCursorAdapter implements 
 	
 	
 	public View getView(int pos, View inView, ViewGroup parent){
+		ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+		NetworkInfo ni = cm.getActiveNetworkInfo();
 		imgFetcher = new BitmapTask(this);
 		View v = inView;
 		ViewHolder viewHolder;
@@ -249,8 +258,10 @@ public class PlacesDataListCursorAdapter extends SimpleCursorAdapter implements 
 		//String str_distanceInKm = Double.toString(distanceInKm);
 		
 		bindView(v, context, cursor);
-		
-		
+		InternalStorage i = new InternalStorage();
+		String path = "/data/data/com.example.thesguideproject/app_imageDir";
+		Bitmap bit = i.loadImageFromStorage(path, name);
+
 		if(!image_link .equals("")) {
 			viewHolder.icon.setTag(image_link);
    			//Drawable dr = imgFetcher.loadImage(this, viewHolder.icon);
@@ -263,16 +274,32 @@ public class PlacesDataListCursorAdapter extends SimpleCursorAdapter implements 
 			distancetvparams.setMargins(5, 20, 0, 0);
 			viewHolder.distance.setLayoutParams(distancetvparams);
 			
-			Bitmap bitmap = imgFetcher.loadImage(this, viewHolder.icon, context, name);
-   			if(bitmap != null) {
+			
+   			if(imagessavedFlag == true) {
    				//viewHolder.icon.setImageDrawable(dr);
+   				bitmap = imgFetcher.loadImage(this, viewHolder.icon, context, name);
    				viewHolder.icon.setImageBitmap(bitmap);
+   			}
+   			else if (ni == null && bit == null){
+   				viewHolder.icon.setBackgroundResource(R.drawable.thess_icon);
+   			}
+   			else if (ni == null && bit != null){
+   				//viewHolder.icon.setImageBitmap(bit);
+   				//bitmap = imgFetcher.loadImage(this, viewHolder.icon, context, name);
+   				viewHolder.icon.setImageBitmap(bit);
+   			}
+   			else if (ni != null && imagessavedFlag == false){
+   				//imgFetcher.loadImage(image_link, context, name);
+   				Bitmap bitm = imgFetcher.loadImage(this, viewHolder.icon, context, name);
+   				viewHolder.icon.setImageBitmap(bitm);
+   				viewHolder.icon.invalidate();
    			}
    		} else {
    			//viewHolder.icon.setImageResource(R.drawable.filler_icon);
    			RelativeLayout imgHolder = (RelativeLayout) v.findViewById(R.id.relativeLayout);
    			RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(0, 0);
    			viewHolder.icon.setLayoutParams(params);
+   			
    		}
 		
 		//viewHolder.nametv.setText(name);
@@ -474,6 +501,7 @@ public class PlacesDataListCursorAdapter extends SimpleCursorAdapter implements 
 		intent.putExtra("latitude", vH.latitudetv.getText());
 		intent.putExtra("longtitude", vH.longtitudetv.getText());
 		intent.putExtra("button_pressed_text", button_pressed);
+		intent.putExtra("imagessavedFlag", imagessavedFlag);
 		//Toast.makeText(this.context, vH.photoLink1hiddentv.getText(), Toast.LENGTH_SHORT).show();
 		//intent.putExtra("latitude", this.c.getDouble(this.c.getColumnIndex("latitude")));
 		//intent.putExtra("longtitude", this.c.getDouble(this.c.getColumnIndex("longtitude")));

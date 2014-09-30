@@ -7,6 +7,7 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -78,10 +79,13 @@ public class InfoFragment extends Fragment{
 		String pattern = "^[A-Za-z0-9.& ]+$";
 		if (place_nameEl.matches(pattern)){
 			placenameElFragmenttv.setText(place_nameEl.toUpperCase());
+			//placenameElFragmenttv.setTypeface(null, Typeface.BOLD);
 		}else{
 			placenameElFragmenttv.setText(headerName.toUpperCase());
+			//placenameElFragmenttv.setTypeface(null, Typeface.BOLD);
 		}	
-		infoFragmenttv.setText(desc_info);
+			infoFragmenttv.setText(desc_info);
+			//infoFragmenttv.setTypeface(null, Typeface.BOLD);
 		if (language.equals("English")){
 			telFragmenttv.setText(" Tel: " + tel);
 		}

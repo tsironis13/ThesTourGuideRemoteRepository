@@ -87,7 +87,8 @@ public class PlacesDetailsTabs extends ActionBarActivity implements OnGoogleMapF
     
     private ActionBar mActionBar;
     private MenuItem searchItem;
-
+    private boolean imagessavedFlag;
+    
 	@Override
 	public void onMapReady(GoogleMap map) {
 		// TODO Auto-generated method stub
@@ -109,6 +110,7 @@ public class PlacesDetailsTabs extends ActionBarActivity implements OnGoogleMapF
 		
 		Intent i = getIntent();
 		
+		imagessavedFlag = i.getExtras().getBoolean("imagessavedFlag");
 		language = i.getStringExtra("language");
 		button_pressed = i.getStringExtra("button_pressed_text");
 		placenameEl = i.getStringExtra("placeNameEl");
@@ -428,7 +430,7 @@ private void loadData(String query){
 
 
 						//String lang = "Latin";
-						searchView.setSuggestionsAdapter(new InEnglishSearchAdapter(this, cursor, items, searchItem));
+						searchView.setSuggestionsAdapter(new InEnglishSearchAdapter(this, cursor, items, searchItem, imagessavedFlag));
 				}
 				else{
 						Log.i("Query =>", query);
@@ -467,7 +469,7 @@ private void loadData(String query){
 						
 						//t.setSuggestionPressedField("true");
 						//String lang = "Greek";	
-						searchView.setSuggestionsAdapter(new InEnglishSearchAdapter(this, cursor, items, searchItem));
+						searchView.setSuggestionsAdapter(new InEnglishSearchAdapter(this, cursor, items, searchItem, imagessavedFlag));
 				}
 	 }	
 	 else{	
@@ -506,7 +508,7 @@ private void loadData(String query){
 					}
 
 					String lang = "Latin";
-					searchView.setSuggestionsAdapter(new SearchAdapter(this, cursor, items, lang, searchItem));
+					searchView.setSuggestionsAdapter(new SearchAdapter(this, cursor, items, lang, searchItem, imagessavedFlag));
 			}
 			else{
 					Log.i("Query =>", query);
@@ -544,7 +546,7 @@ private void loadData(String query){
 					}
 					//t.setSuggestionPressedField("true");
 					String lang = "Greek";	
-					searchView.setSuggestionsAdapter(new SearchAdapter(this, cursor, items, lang, searchItem));
+					searchView.setSuggestionsAdapter(new SearchAdapter(this, cursor, items, lang, searchItem, imagessavedFlag));
 			}
 	 }
 	}

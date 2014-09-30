@@ -21,10 +21,12 @@ public class SearchPlaceResutlActivity extends FragmentActivity{
 		Intent intent = getIntent();
 		String nameEl = intent.getStringExtra("PlaceName");
 		String language = intent.getStringExtra("language");
+		boolean imagessavedFlag = intent.getExtras().getBoolean("imagessavedFlag");
 		
 		if (savedInstanceState == null) { 
 			Bundle langbundle = new Bundle();
 			langbundle.putString("language", language);
+			langbundle.putBoolean("imagessavedFlag", imagessavedFlag);
 			searchPlaceResultListFragment = new SearchPlaceResultListFragment(nameEl);
 			searchPlaceResultListFragment.setArguments(langbundle);
 			getSupportFragmentManager().beginTransaction() .add(R.id.searchresultlist, searchPlaceResultListFragment).commit(); 

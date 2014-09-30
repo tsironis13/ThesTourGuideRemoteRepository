@@ -54,6 +54,9 @@ public class ListPlacesFragment extends ListFragment{
 	private ArrayList<PlacesData> currenteventslist = new ArrayList<PlacesData>();; 
 	private LayoutInflater layoutInflater;
 	private String flag;
+	private boolean imagessavedFlag;
+	
+	public ListPlacesFragment(){}
 	
 	//genre is also NameEl
 	public ListPlacesFragment(String genre, String subcategory, double current_latitude, double current_longtitude) {
@@ -87,6 +90,7 @@ public class ListPlacesFragment extends ListFragment{
 		// TODO Auto-generated method stub
 		View view = inflater.inflate(R.layout.list_fragment, container, false);	
 		language = getArguments().getString("language");
+		imagessavedFlag = getArguments().getBoolean("imagessavedFlag");
 		testDB = new TestLocalSqliteDatabase(getActivity());
 		testDB.openDataBase(debugTag);
 		//String s = getArguments().getString("genre");
@@ -165,7 +169,6 @@ public class ListPlacesFragment extends ListFragment{
 		testDB.close(debugTag);
 	}
 
-	
 	public void HelperMethodDependingOnSearchQuery(String nameEl){
 		specificPlacecursor = testDB.getPlaceByNameEl(nameEl);
 		// the desired columns to be bound
@@ -216,12 +219,12 @@ public class ListPlacesFragment extends ListFragment{
 	} 
 
 	private void setAdapterFromSpecificCursor(String button_pressed, ListView listExample, Cursor cursor, String[] columns, int[] to, double current_latitude, double current_longtitude){
-		setListAdapter(new PlacesDataListCursorAdapter(button_pressed, this, getActivity(),  R.layout.places_basic_layout, cursor, columns, to, current_latitude, current_longtitude) );
+		setListAdapter(new PlacesDataListCursorAdapter(button_pressed, this, getActivity(),  R.layout.places_basic_layout, cursor, columns, to, current_latitude, current_longtitude, imagessavedFlag) );
 	}
 
 	
 	private void inEnglishSetAdapterFromSpecificCursor(String button_pressed, ListView listExample, Cursor cursor, String[] columns, int[] to, double current_latitude, double current_longtitude){
-		setListAdapter(new InEnglishPlacesDataListCursorAdapter(button_pressed, this, getActivity(),  R.layout.places_basic_layout, cursor, columns, to, current_latitude, current_longtitude) );
+		setListAdapter(new InEnglishPlacesDataListCursorAdapter(button_pressed, this, getActivity(),  R.layout.places_basic_layout, cursor, columns, to, current_latitude, current_longtitude, imagessavedFlag) );
 	}
 	//private void setAdapterFromSpecificCursor(String button_pressed, ListView listExample, Cursor cursor, String[] columns, int[] to, double current_latitude, double current_longtitude){
 	//	setListAdapter(new PLacesDataListCursorAdapter(button_pressed, this, getActivity(),  R.layout.places_basic_layout, cursor, columns, to, current_latitude, current_longtitude) );

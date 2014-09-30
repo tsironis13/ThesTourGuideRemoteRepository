@@ -7,6 +7,7 @@ import com.example.fragmentClasses.ListPlacesFragment;
 import com.example.fragmentClasses.SearchPlaceResultListFragment;
 import com.example.locationData.PlacesData;
 import com.example.myLocation.GPSTracker;
+import com.example.storage.InternalStorage;
 import com.example.tasks.BitmapTask;
 import com.example.thesguideproject.PlacesDetailsTabs;
 import com.example.thesguideproject.R;
@@ -15,6 +16,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.support.v4.widget.SimpleCursorAdapter.ViewBinder;
 import android.support.v7.app.ActionBar;
@@ -45,6 +48,8 @@ public class InEnglishPlacesDataListCursorAdapter extends SimpleCursorAdapter im
 	private double current_longtitude;
 	private String button_pressed;
 	private ActionBar act;
+	private Boolean imagessavedFlag;
+	private Bitmap bitmap;
 	
 	GPSTracker gps;
 	ArrayList<PlacesData> placesDataArray = new ArrayList<PlacesData>();
@@ -62,7 +67,7 @@ public class InEnglishPlacesDataListCursorAdapter extends SimpleCursorAdapter im
 		// TODO Auto-generated constructor stub
 	}*/
 	
-	public InEnglishPlacesDataListCursorAdapter(String button_pressed, SearchPlaceResultListFragment searchPlaceResultListFragment, Context context, int layout, Cursor cursor, String[] from, int[] to, double current_latitude, double current_longtitude) {
+	public InEnglishPlacesDataListCursorAdapter(String button_pressed, SearchPlaceResultListFragment searchPlaceResultListFragment, Context context, int layout, Cursor cursor, String[] from, int[] to, double current_latitude, double current_longtitude, boolean imagessavedFlag) {
 		super(context, layout, cursor, from, to);
 		this.button_pressed = button_pressed;
 		this.searchPlaceResultListFragment = searchPlaceResultListFragment;
@@ -72,10 +77,11 @@ public class InEnglishPlacesDataListCursorAdapter extends SimpleCursorAdapter im
 		//this.imgFetcher = i;
 		this.current_latitude = current_latitude;
 		this.current_longtitude = current_longtitude;
+		this.imagessavedFlag = imagessavedFlag;
 		// TODO Auto-generated constructor stub
 	}
 	
-	public InEnglishPlacesDataListCursorAdapter(String button_pressed, ListPlacesFragment activity, Context context, int layout, Cursor cursor, String[] from, int[] to, double current_latitude, double current_longtitude) {
+	public InEnglishPlacesDataListCursorAdapter(String button_pressed, ListPlacesFragment activity, Context context, int layout, Cursor cursor, String[] from, int[] to, double current_latitude, double current_longtitude, boolean imagessavedFlag) {
 		super(context, layout, cursor, from, to);
 		this.button_pressed = button_pressed;
 		this.activity = activity;
@@ -85,6 +91,7 @@ public class InEnglishPlacesDataListCursorAdapter extends SimpleCursorAdapter im
 		//this.imgFetcher = i;
 		this.current_latitude = current_latitude;
 		this.current_longtitude = current_longtitude;
+		this.imagessavedFlag = imagessavedFlag;
 		// TODO Auto-generated constructor stub
 	}
 	/*
@@ -166,6 +173,8 @@ public class InEnglishPlacesDataListCursorAdapter extends SimpleCursorAdapter im
 	
 	
 	public View getView(int pos, View inView, ViewGroup parent){
+		ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+		NetworkInfo ni = cm.getActiveNetworkInfo();
 		imgFetcher = new BitmapTask(this);
 		View v = inView;
 		ViewHolder viewHolder;
@@ -229,7 +238,9 @@ public class InEnglishPlacesDataListCursorAdapter extends SimpleCursorAdapter im
 		//String str_distanceInKm = Double.toString(distanceInKm);
 		
 		bindView(v, context, cursor);
-		
+		InternalStorage i = new InternalStorage();
+		String path = "/data/data/com.example.thesguideproject/app_imageDir";
+		Bitmap bit = i.loadImageFromStorage(path, name);
 		
 		if(!image_link .equals("")) {
 			viewHolder.icon.setTag(image_link);
@@ -243,10 +254,24 @@ public class InEnglishPlacesDataListCursorAdapter extends SimpleCursorAdapter im
 			distancetvparams.setMargins(5, 20, 0, 0);
 			viewHolder.distance.setLayoutParams(distancetvparams);
 			
-			Bitmap bitmap = imgFetcher.loadImage(this, viewHolder.icon, context, name);
-   			if(bitmap != null) {
+			if(imagessavedFlag == true) {
    				//viewHolder.icon.setImageDrawable(dr);
+   				bitmap = imgFetcher.loadImage(this, viewHolder.icon, context, name);
    				viewHolder.icon.setImageBitmap(bitmap);
+   			}
+   			else if (ni == null && bit == null){
+   				viewHolder.icon.setBackgroundResource(R.drawable.thess_icon);
+   			}
+   			else if (ni == null && bit != null){
+   				//viewHolder.icon.setImageBitmap(bit);
+   				//bitmap = imgFetcher.loadImage(this, viewHolder.icon, context, name);
+   				viewHolder.icon.setImageBitmap(bit);
+   			}
+   			else if (ni != null && imagessavedFlag == false){
+   				//imgFetcher.loadImage(image_link, context, name);
+   				Bitmap bitm = imgFetcher.loadImage(this, viewHolder.icon, context, name);
+   				viewHolder.icon.setImageBitmap(bitm);
+   				viewHolder.icon.invalidate();
    			}
    		} else {
    			//viewHolder.icon.setImageResource(R.drawable.filler_icon);

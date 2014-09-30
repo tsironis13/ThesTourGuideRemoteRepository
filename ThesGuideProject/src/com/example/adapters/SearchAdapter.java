@@ -54,16 +54,18 @@ public class SearchAdapter extends CursorAdapter implements OnClickListener{
 	private String lang;
 	private String placeNameEl;
 	private MenuItem searchItem;
+	private boolean imagessavedFlag;
 	//private FragmentTransaction fragmentTransaction;
 	//private MenuFragment menuFragment;
 	
-	public SearchAdapter(Context context, Cursor cursor, List items, String lang, MenuItem searchItem) {
+	public SearchAdapter(Context context, Cursor cursor, List items, String lang, MenuItem searchItem, boolean imagessavedFlag) {
 		super(context, cursor, false);
 		this.items = items;
 		this.context = context;
 		this.cursor = cursor;
 		this.lang = lang;
 		this.searchItem = searchItem;
+		this.imagessavedFlag = imagessavedFlag;
 		// TODO Auto-generated constructor stub
 	}
     
@@ -141,6 +143,7 @@ public class SearchAdapter extends CursorAdapter implements OnClickListener{
 		Intent intent = new Intent(context, SearchPlaceResutlActivity.class);
 		intent.putExtra("language", "Greek");
 		intent.putExtra("PlaceName", s1);
+		intent.putExtra("imagessavedFlag", imagessavedFlag);
 		context.startActivity(intent);
 		MenuItemCompat.collapseActionView(searchItem);
 		//MenuFragment m = new MenuFragment(s1);
