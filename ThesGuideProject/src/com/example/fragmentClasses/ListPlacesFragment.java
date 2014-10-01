@@ -51,7 +51,7 @@ public class ListPlacesFragment extends ListFragment{
 	private static final String debugTag = "ListPlacesFragment";
 	private String language;
 	private String date;
-	private ArrayList<PlacesData> currenteventslist = new ArrayList<PlacesData>();; 
+	private ArrayList<PlacesData> currenteventslist = new ArrayList<PlacesData>();
 	private LayoutInflater layoutInflater;
 	private String flag;
 	private boolean imagessavedFlag;
@@ -107,7 +107,7 @@ public class ListPlacesFragment extends ListFragment{
 		
 		//button_pressed = "church";
 		if (genre.equals("events")){
-				HelperMethodDependingOnCurrentEvents(genre, date);
+				//HelperMethodDependingOnCurrentEvents(genre, date);
 		}
 		else if (genre.equals("museums")){
 			
@@ -185,7 +185,7 @@ public class ListPlacesFragment extends ListFragment{
     	public PlacesData locations;
 }
 	
-	public void HelperMethodDependingOnCurrentEvents(String genre, String date){
+	/*public void HelperMethodDependingOnCurrentEvents(String genre, String date){
 		//specificPlacecursor = testDB.getAllEvents(genre);
 		
 		if (flag.equals("oncreate")){
@@ -196,11 +196,11 @@ public class ListPlacesFragment extends ListFragment{
 		}
 	
 		if (language.equals("Greek")){
-			setListAdapter(new EventsBaseAdapter(genre, this, getActivity(), R.layout.places_basic_layout, currenteventslist,  current_latitude, current_longtitude));
+			//setListAdapter(new EventsBaseAdapter(genre, this, getActivity(), R.layout.places_basic_layout, currenteventslist,  current_latitude, current_longtitude));
 		}else{
 			setListAdapter(new InEnglishEventsBaseAdapter(genre, this, getActivity(), R.layout.places_basic_layout, currenteventslist,  current_latitude, current_longtitude));
 		}
-	}
+	}*/
 	
 	public void HelperMethodDependingOnButtonClick(String genre){
 		specificPlacecursor = testDB.getSpecificPlaceData(genre);

@@ -4,14 +4,13 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
-
 import com.example.myLocation.GPSTracker;
 import com.example.sqlHelper.TestLocalSqliteDatabase;
 import com.example.thesguideproject.CloseExpandableListFragmentActivity;
 import com.example.thesguideproject.R;
 import com.example.thesguideproject.SearchPlaceResutlActivity;
-
 import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -21,6 +20,7 @@ import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.net.wifi.WifiManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v4.app.Fragment;
@@ -41,7 +41,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-@SuppressLint("InlinedApi") public class CloseExpandableListFragment extends Fragment implements OnClickListener{
+@TargetApi(Build.VERSION_CODES.ECLAIR) @SuppressLint("InlinedApi") 
+public class CloseExpandableListFragment extends Fragment implements OnClickListener{
 
 	private static final String debugTag = "CloseExpandableListFragment";
 	private TextView messagetv;
@@ -121,7 +122,14 @@ import android.widget.Toast;
 				.setPositiveButton("OK",new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         // Activity transfer to wifi settings
-                        startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS));
+                        //startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS));
+                    	Intent intent = getActivity().getIntent();
+                    	getActivity().overridePendingTransition(0, 0);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                        getActivity().finish();
+
+                        getActivity().overridePendingTransition(0, 0);
+                        startActivity(intent);
                     }
                 })
 				.create();
@@ -134,7 +142,14 @@ import android.widget.Toast;
 				.setPositiveButton("OK",new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         // Activity transfer to wifi settings
-                        startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS));
+                       // startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS));
+                    	Intent intent = getActivity().getIntent();
+                    	getActivity().overridePendingTransition(0, 0);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                        getActivity().finish();
+
+                        getActivity().overridePendingTransition(0, 0);
+                        startActivity(intent);
                     }
                 })
 				.create();

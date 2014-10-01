@@ -15,12 +15,18 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
+import android.support.v4.app.FragmentActivity;
 import android.util.Log;
+import android.widget.ListView;
 import android.widget.Toast;
 
+import com.example.adapters.EventsBaseAdapter;
+import com.example.adapters.InEnglishEventsBaseAdapter;
+import com.example.fragmentClasses.CalendarFragment;
 import com.example.locationData.PlacesData;
 import com.example.sqlHelper.TestLocalSqliteDatabase;
 import com.example.storage.InternalStorage;
+import com.example.thesguideproject.R;
 import com.example.thesguideproject.SplashScreen;
 
 public class PlacesJsonWebApiTask extends AsyncTask<Void, Integer, String> {
@@ -28,6 +34,7 @@ public class PlacesJsonWebApiTask extends AsyncTask<Void, Integer, String> {
 	 private static String url = "http://aetos.it.teithe.gr/~tsironis/places_file.php";
 	 private ProgressDialog pDialog;
 	 private SplashScreen s;
+	 private FragmentActivity cf;
 	 private Context context;
 	 private static final String debugTag = "PlacesJsonWebApiTask";
 	 public String encodedUrl;
@@ -53,13 +60,34 @@ public class PlacesJsonWebApiTask extends AsyncTask<Void, Integer, String> {
 	 private static final String TAG_PHOTO_LINK = "photo_link";
 	 private static final String TAG_GENRE = "genre";
 	 private static final String TAG_SUBCATEGORY = "subcategory";
+	 private String flag;
+	 
+	 private ListView eventslistview;
+	 private String currentDate;
+	 private double current_latitude;
+     private double current_longtitude;
+     private String language;
 	 
 	 public PlacesJsonWebApiTask(){}
      
-	 public PlacesJsonWebApiTask(SplashScreen activity){
+	 public PlacesJsonWebApiTask(FragmentActivity activity, String flag, ListView eventslistview, String currentDate, double current_latitude, double current_longtitude, String language){
+	    	super();
+	    	this.cf = activity;
+	    	this.context = this.cf.getApplicationContext();
+	    	this.flag = flag;
+	    	this.eventslistview = eventslistview;
+	    	this.currentDate = currentDate;
+	    	this.current_latitude = current_latitude;
+	    	this.current_longtitude = current_longtitude;
+	    	this.language = language;
+	 } 
+	 
+	 public PlacesJsonWebApiTask(SplashScreen activity, String flag, String language){
 	    	super();
 	    	this.s = activity;
 	    	this.context = this.s.getApplicationContext();
+	    	this.flag = flag;
+	    	this.language = language;
 	 } 
 	
 	 // contacts JSONArray
@@ -69,17 +97,26 @@ public class PlacesJsonWebApiTask extends AsyncTask<Void, Integer, String> {
 	    protected void onPreExecute() {
 	            super.onPreExecute();
 	            // Showing progress dialog
-	            languagePhone = Locale.getDefault().getLanguage();
-	            pDialog = new ProgressDialog(this.s);
-	            pDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-	         if (languagePhone.equals("el")){   
-	            pDialog.setTitle("Παρακαλώ περιμένετε...");
-	            pDialog.setMessage("Φόρτωση δεδομένων εφαρμογής...");
-	         }
-	         else{
-	        	 pDialog.setTitle("Please wait...");
-		         pDialog.setMessage("Downloading application data..."); 
-	         }
+	            //languagePhone = Locale.getDefault().getLanguage();
+	          if (language.equals("Greek")){  
+	              pDialog = new ProgressDialog(this.cf);
+	              pDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+	              pDialog.setTitle("Παρακαλώ περιμένετε...");
+			      pDialog.setMessage("Φόρτωση τρέχων εκδηλώσεων...");   
+	          }
+	          else if (language.equals("null")){
+	        	  pDialog = new ProgressDialog(this.s);
+	        	  pDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+		          pDialog.setTitle("Please wait...");
+			      pDialog.setMessage("Downloading application data...");   
+	          }
+	          else{
+	        	  pDialog = new ProgressDialog(this.cf);
+	        	  pDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+	        	  pDialog.setTitle("Please wait...");
+			      pDialog.setMessage("Loading current events...");   
+	          }
+	   
 	            pDialog.setCancelable(false);
 	            pDialog.setIndeterminate(false);  
 	            pDialog.setMax(100);  
@@ -147,7 +184,10 @@ public class PlacesJsonWebApiTask extends AsyncTask<Void, Integer, String> {
               return;
   		}
   		else {
+  		  if (this.flag.equals("splash")){	
   			Toast.makeText(this.s.getApplicationContext(), "result is full", Toast.LENGTH_SHORT).show();
+  		  }
+  		  
   		}
           
           
@@ -232,8 +272,19 @@ public class PlacesJsonWebApiTask extends AsyncTask<Void, Integer, String> {
 			dbtest.getArrayListwithPlacesJsonData(placesDataArray);
 			dbtest.close(debugTag);
 			 // Reading all contacts
-	        
-        	
+			if (flag.equals("events")){
+				//CalendarFragment c = new CalendarFragment();
+				//c.SS();
+				 ArrayList<PlacesData> currenteventslist = new ArrayList<PlacesData>();
+				 currenteventslist = dbtest.getAllEvents("events", currentDate);
+				 dbtest.close(debugTag);
+			if (!language.equals("English")){ 
+				 eventslistview.setAdapter(new EventsBaseAdapter("events", this, context, R.layout.places_basic_layout, currenteventslist,  current_latitude, current_longtitude, "task", true) );
+			}
+			else{
+				eventslistview.setAdapter(new InEnglishEventsBaseAdapter("events", this, context, R.layout.places_basic_layout, currenteventslist,  current_latitude, current_longtitude, "task", true) );
+			}
+			}
         } 
         catch(JSONException e){
            e.printStackTrace();	

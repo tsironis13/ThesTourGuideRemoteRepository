@@ -132,6 +132,7 @@ public class MenuFragment extends Fragment {
 				
 				Bundle langBundle = new Bundle();
 				langBundle.putString("language", language);
+				langBundle.putBoolean("imagessavedFlag", imagessavedFlag);
 				CalendarFragment calendarFragment = new CalendarFragment();
 				calendarFragment.setArguments(langBundle);
 				fragmentTransaction = getFragmentManager().beginTransaction().add(R.id.containerlist, calendarFragment);

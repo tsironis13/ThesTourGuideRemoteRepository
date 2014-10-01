@@ -96,7 +96,7 @@ public class SplashScreen extends ActionBarActivity{
 	
 		if (isNetworkConnected()){
 			testDB.clearPlacesTableIfExists();
-			PlacesJsonWebApiTask testwebtask = new PlacesJsonWebApiTask(SplashScreen.this);
+			PlacesJsonWebApiTask testwebtask = new PlacesJsonWebApiTask(SplashScreen.this, "splash", "null");
 			testwebtask.execute();
 			
 			greekButton.setVisibility(View.VISIBLE);

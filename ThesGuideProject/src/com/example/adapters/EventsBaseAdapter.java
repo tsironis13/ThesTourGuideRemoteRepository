@@ -3,18 +3,23 @@ package com.example.adapters;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
+import com.example.fragmentClasses.CalendarFragment;
 import com.example.fragmentClasses.ListPlacesFragment;
 import com.example.fragmentClasses.ListPlacesFragment.MyViewHolder;
 import com.example.locationData.PlacesData;
 import com.example.myLocation.GPSTracker;
+import com.example.tasks.PlacesJsonWebApiTask;
 import com.example.thesguideproject.PlacesDetailsTabs;
 import com.example.thesguideproject.R;
+
 import android.content.Context;
 import android.content.Intent;
+import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -26,13 +31,54 @@ public class EventsBaseAdapter extends BaseAdapter implements OnClickListener{
 	private ArrayList<PlacesData> locations;
 	private LayoutInflater layoutInflater;
 	private ListPlacesFragment activity;
+	private CalendarFragment a;
+	private PlacesJsonWebApiTask c;
+	private OnItemClickListener onclick;
 	private Context context;
 	private int layout;
 	private String button_pressed;
 	private double current_latitude;
 	private double current_longtitude;
+	private String flag;
+	private boolean imagessavedFlag;
 	
-	public EventsBaseAdapter(String button_pressed, ListPlacesFragment activity, Context context, int layout, ArrayList<PlacesData> locations, double current_latitude, double current_longtitude){
+	public EventsBaseAdapter(String button_pressed, OnItemClickListener onItemClickListener, Context context, int layout, ArrayList<PlacesData> locations, double current_latitude, double current_longtitude, String flag, boolean imagessavedFlag){
+		this.button_pressed = button_pressed;
+		this.onclick = onItemClickListener;
+		this.context = context;
+		this.layout = layout;
+		this.locations = locations;
+		this.current_latitude = current_latitude;
+		this.current_longtitude = current_longtitude;
+		this.flag = flag;
+		this.imagessavedFlag = imagessavedFlag;
+	}
+	
+	public EventsBaseAdapter(String button_pressed, CalendarFragment activity, Context context, int layout, ArrayList<PlacesData> locations, double current_latitude, double current_longtitude, String flag, boolean imagessavedFlag){
+		this.button_pressed = button_pressed;
+		this.a = activity;
+		this.context = context;
+		this.layout = layout;
+		this.locations = locations;
+		this.current_latitude = current_latitude;
+		this.current_longtitude = current_longtitude;
+		this.flag = flag;
+		this.imagessavedFlag = imagessavedFlag;
+	}
+	
+	public EventsBaseAdapter(String button_pressed, PlacesJsonWebApiTask activity, Context context, int layout, ArrayList<PlacesData> locations, double current_latitude, double current_longtitude, String flag, boolean imagessavedFlag){
+		this.button_pressed = button_pressed;
+		this.c = activity;
+		this.context = context;
+		this.layout = layout;
+		this.locations = locations;
+		this.current_latitude = current_latitude;
+		this.current_longtitude = current_longtitude;
+		this.flag = flag;
+		this.imagessavedFlag = imagessavedFlag;
+	}
+	
+	/*public EventsBaseAdapter(String button_pressed, ListPlacesFragment activity, Context context, int layout, ArrayList<PlacesData> locations, double current_latitude, double current_longtitude){
 		this.button_pressed = button_pressed;
 		this.activity = activity;
 		this.context = context;
@@ -40,7 +86,7 @@ public class EventsBaseAdapter extends BaseAdapter implements OnClickListener{
 		this.locations = locations;
 		this.current_latitude = current_latitude;
 		this.current_longtitude = current_longtitude;
-	}
+	}*/
 	
 	@Override
 	public int getCount() {
@@ -118,7 +164,6 @@ public class EventsBaseAdapter extends BaseAdapter implements OnClickListener{
 		String longtitude = Double.toString(location.getLongtitude());
 		holder.longtitudetv.setText(longtitude);
 		holder.infoButton.setOnClickListener(this);
-		
 		return convertView;
 	}
 
@@ -126,26 +171,36 @@ public class EventsBaseAdapter extends BaseAdapter implements OnClickListener{
 	public void onClick(View view) {
 		MyViewHolder vH = (MyViewHolder) view.getTag();
 		
-		Intent intent = new Intent(context, PlacesDetailsTabs.class);
-		String str_current_latitude = Double.toString(current_latitude);
-		String str_current_longtitude = Double.toString(current_longtitude);
-		intent.putExtra("language", "Greek");
-		intent.putExtra("current latitude" , str_current_latitude);
-		intent.putExtra("current longtitude", str_current_longtitude);
-		intent.putExtra("placeNameEl", vH.placeNametv.getText());
-		intent.putExtra("placenameEllower", vH.nameEllower.getText());
-		intent.putExtra("desc_info", vH.desc_infohiddentv.getText());
-		intent.putExtra("menu", vH.menuhiddentv.getText());
-		intent.putExtra("telephone", vH.telhiddentv.getText());
-		intent.putExtra("link", vH.linkhiddentv.getText());
-		intent.putExtra("fbLink", vH.fbLinkhiddentv.getText());
-		intent.putExtra("email", vH.emailhiddentv.getText());
-		intent.putExtra("exhibition", vH.exhibitionhiddentv.getText());
-		intent.putExtra("latitude", vH.latitudetv.getText());
-		intent.putExtra("longtitude", vH.longtitudetv.getText());
-		intent.putExtra("button_pressed_text", button_pressed);
 		
-		this.activity.startActivity(intent);
+		   Intent intent = new Intent(context, PlacesDetailsTabs.class);
+		   String str_current_latitude = Double.toString(current_latitude);
+		   String str_current_longtitude = Double.toString(current_longtitude);
+		   intent.putExtra("language", "Greek");
+		   intent.putExtra("current latitude" , str_current_latitude);
+		   intent.putExtra("current longtitude", str_current_longtitude);
+		   intent.putExtra("placeNameEl", vH.placeNametv.getText());
+		   intent.putExtra("placenameEllower", vH.nameEllower.getText());
+		   intent.putExtra("desc_info", vH.desc_infohiddentv.getText());
+		   intent.putExtra("menu", vH.menuhiddentv.getText());
+		   intent.putExtra("telephone", vH.telhiddentv.getText());
+		   intent.putExtra("link", vH.linkhiddentv.getText());
+		   intent.putExtra("fbLink", vH.fbLinkhiddentv.getText());
+		   intent.putExtra("email", vH.emailhiddentv.getText());
+		   intent.putExtra("exhibition", vH.exhibitionhiddentv.getText());
+		   intent.putExtra("latitude", vH.latitudetv.getText());
+		   intent.putExtra("longtitude", vH.longtitudetv.getText());
+		   intent.putExtra("button_pressed_text", button_pressed);
+		   intent.putExtra("imagessavedFlag", imagessavedFlag);
+		   intent.putExtra("displaycurrentPoint", "yes");
+		   
+	   if (flag.equals("task")){	
+		   intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+		   this.context.startActivity(intent);
+	    }
+	   else{
+		   this.context.startActivity(intent);
+	   }
+		//this.activity.startActivity(intent);
 		/*if (this.activity == null){
 			this.searchPlaceResultListFragment.startActivity(intent);
 		}else{

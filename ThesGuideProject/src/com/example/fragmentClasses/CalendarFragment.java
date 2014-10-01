@@ -9,12 +9,21 @@ import java.util.GregorianCalendar;
 import java.util.Locale;
 
 import com.example.adapters.CalendarAdapter;
+import com.example.adapters.EventsBaseAdapter;
+import com.example.adapters.InEnglishEventsBaseAdapter;
+import com.example.locationData.PlacesData;
 import com.example.myLocation.GPSTracker;
 import com.example.sqlHelper.TestLocalSqliteDatabase;
+import com.example.tasks.PlacesJsonWebApiTask;
 import com.example.thesguideproject.R;
+import com.example.thesguideproject.SplashScreen;
 
 import android.app.Activity;
+import android.content.Context;
 import android.database.Cursor;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -27,7 +36,9 @@ import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Button;
 import android.widget.GridView;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -52,6 +63,7 @@ public class CalendarFragment extends Fragment{
 	private TextView fridaytv;
 	private TextView saturdaytv;
 	private TextView sundaytv;
+	private static final String debugTag = "CalendarFragment";
 	public GregorianCalendar month, itemmonth;// calendar instances.
 	public CalendarAdapter adapter;// adapter instance
 	public Handler handler;// for grabbing some event values for showing the dot
@@ -62,11 +74,21 @@ public class CalendarFragment extends Fragment{
 	private String flag;
 	private String displayedmonth;
 	private String displayedday;
+	private Button refresheventsButton;
+	private ListView eventslistview;
+	private boolean imagessavedFlag;
+	private TestLocalSqliteDatabase testDB;
 	
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)  {
 		
 		View view = inflater.inflate(R.layout.calendar, container, false);	
 		language = getArguments().getString("language");
+		imagessavedFlag = getArguments().getBoolean("imagessavedFlag");
+		refresheventsButton = (Button) view.findViewById(R.id.refresheventsbutton);
+		eventslistview = (ListView) view.findViewById(R.id.eventslistview);
+		testDB = new TestLocalSqliteDatabase(getActivity());
+		testDB.openDataBase(debugTag);
+		
 		
 		Locale.setDefault(Locale.getDefault());
 		month = (GregorianCalendar) GregorianCalendar.getInstance();
@@ -172,14 +194,20 @@ public class CalendarFragment extends Fragment{
 	            displayedday = selectedGridDate.substring(8, 10);
 				eventslabeltv.setText("Εκδηλώσεις: " + displayedday + "-" + displayedmonth + "-" + year);
 			}
-				ListPlacesFragment listEventsFragment = new ListPlacesFragment(genre, "", current_latitude, current_longtitude, selectedGridDate, flag);
-				listEventsFragment.setArguments(langBundle);
-				FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction().replace(R.id.containerdetails, listEventsFragment);
-				fragmentTransaction.commit();
-				showToast(selectedGridDate);
-
 			
-				
+			ArrayList<PlacesData> currenteventslist = new ArrayList<PlacesData>();
+			currenteventslist = testDB.getEventsOnCalendarClick("events", selectedGridDate);
+			testDB.close(debugTag);
+			if (!language.equals("English")){ 
+				eventslistview.setAdapter(new EventsBaseAdapter(genre, this, getActivity(), R.layout.places_basic_layout, currenteventslist,  current_latitude, current_longtitude, "butrefresh", true) );
+			}
+			else{
+				eventslistview.setAdapter(new InEnglishEventsBaseAdapter(genre, this, getActivity(), R.layout.places_basic_layout, currenteventslist,  current_latitude, current_longtitude, "butrefresh", true) );
+			}
+			//eventslistview.setAdapter(new EventsBaseAdapter(genre, this, getActivity(), R.layout.places_basic_layout, currenteventslist,  current_latitude, current_longtitude, "notcurrent", imagessavedFlag) );	
+			
+			//	showToast(selectedGridDate);
+
 			}
 		});
 		return view;
@@ -203,18 +231,61 @@ public class CalendarFragment extends Fragment{
             gps.showSettingsAlert();
         }
 		
-		flag = "oncreate";
-		genre = "events";
-		Bundle langBundle = new Bundle();
-		langBundle.putString("language", language);
-		ListPlacesFragment listEventsFragment = new ListPlacesFragment(genre, "", current_latitude, current_longtitude, currentDate, flag);
-		listEventsFragment.setArguments(langBundle);
-		FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction().replace(R.id.containerdetails, listEventsFragment);
-		fragmentTransaction.commit();
+		refresheventsButton.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				if (isNetworkConnected()){	
+					testDB.clearPlacesTableIfExists();
+					PlacesJsonWebApiTask testwebtask = new PlacesJsonWebApiTask(getActivity(), "events", eventslistview, currentDate, current_latitude, current_longtitude, language);
+					testDB.close(debugTag);
+					testwebtask.execute();
+				}	
+				else{
+				   if (language.equals("English")){	
+					   Toast.makeText(getActivity(), "Enable WIFI to refresh current events!", Toast.LENGTH_SHORT).show();
+				   }
+				   else{
+					   Toast.makeText(getActivity(), "Ενεργοποίησε το WIFI για να δεις τα τρέχων εκδηλώσεις!", Toast.LENGTH_SHORT).show();
+				   }
+				}
+			}
+		});
+		
+		 ArrayList<PlacesData> currenteventslist = new ArrayList<PlacesData>();
+		 currenteventslist = testDB.getAllEvents("events", currentDate);
+		 testDB.close(debugTag);
+		if (!language.equals("English")){ 
+			eventslistview.setAdapter(new EventsBaseAdapter(genre, this, getActivity(), R.layout.places_basic_layout, currenteventslist,  current_latitude, current_longtitude, "butrefresh", true) );
+		}
+		else{
+			eventslistview.setAdapter(new InEnglishEventsBaseAdapter(genre, this, getActivity(), R.layout.places_basic_layout, currenteventslist,  current_latitude, current_longtitude, "butrefresh", true) );
+		}
+	}
+	
+	@Override
+	public void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
 	}
 
+  
+	@Override
+	public void onDestroy() {
+		// TODO Auto-generated method stub
+		super.onDestroy();
+		testDB.close(debugTag);
+	}
 
-
+	private boolean isNetworkConnected() {
+		ConnectivityManager cm = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+		NetworkInfo ni = cm.getActiveNetworkInfo();
+		if (ni == null) {
+			// There are no active networks.
+			return false;
+		} else
+			return true;
+	}
 
 	protected void setNextMonth() {
 		if (month.get(GregorianCalendar.MONTH) == month.getActualMaximum(GregorianCalendar.MONTH)) {
