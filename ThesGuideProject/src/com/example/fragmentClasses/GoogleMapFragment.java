@@ -134,8 +134,13 @@ public class GoogleMapFragment extends SupportMapFragment {
             secondPlacePosition = new LatLng(currentLat, currentLong);
             
            if (displaycurrentPoint.equals("no") && placeName.equals("null")){
-        	   googleMap.addMarker(new MarkerOptions().position(secondPlacePosition).title("Start"));
-        	   googleMap.addMarker(new MarkerOptions().position(placePosition).title("Finish"));
+        	  if (language.equals("Greek")){
+        		  googleMap.addMarker(new MarkerOptions().position(secondPlacePosition).title("Αφετηρία"));
+        		  googleMap.addMarker(new MarkerOptions().position(placePosition).title("Προορισμός"));
+        	  }else{ 
+        		  googleMap.addMarker(new MarkerOptions().position(secondPlacePosition).title("Start"));
+        		  googleMap.addMarker(new MarkerOptions().position(placePosition).title("Finish"));
+        	  }
            } 
            else{
         	   //googleMap.addMarker(new MarkerOptions().position(secondPlacePosition).title(placeName));

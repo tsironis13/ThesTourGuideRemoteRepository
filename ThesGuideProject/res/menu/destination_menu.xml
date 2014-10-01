@@ -3,12 +3,7 @@
     
 	<group
        android:checkableBehavior="single">
-    
-   <item
-        android:id="@+id/eventsd"
-        android:title="@string/eventsitem">
-   </item>
-    
+       
    <item 
         android:id="@+id/axiotheatad"
         android:title="@string/sightseeingsbutton" >

@@ -1,13 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/back_pattern"
     android:orientation="vertical" >
     
     <FrameLayout
         android:id="@+id/close"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent">"
     </FrameLayout>
-
-</LinearLayout>
+    
+    <TextView
+        android:id="@+id/hiddenresfreshtv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="invisible"
+        android:text="@string/nonetconnectioninenglishtv">
+    </TextView>
+    
+    <Button
+        android:id="@+id/hiddenrefreshbutton"
+        android:layout_below="@+id/hiddenresfreshtv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        android:layout_centerInParent="true"
+        android:text="@string/retrybuttoninenglish">
+    </Button>
+    
+</RelativeLayout>

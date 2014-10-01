@@ -23,6 +23,8 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -65,6 +67,7 @@ public class PlacesDataListCursorAdapter extends SimpleCursorAdapter implements 
 	private ActionBar act;
 	private Bitmap bitmap;
 	private Boolean imagessavedFlag;
+	private String fontcolor="";
 	
 	GPSTracker gps;
 	//ArrayList<PlacesData> placesDataArray = new ArrayList<PlacesData>();
@@ -82,7 +85,7 @@ public class PlacesDataListCursorAdapter extends SimpleCursorAdapter implements 
 		// TODO Auto-generated constructor stub
 	}*/
 	
-	public PlacesDataListCursorAdapter(String button_pressed, SearchPlaceResultListFragment searchPlaceResultListFragment, Context context, int layout, Cursor cursor, String[] from, int[] to, double current_latitude, double current_longtitude, boolean imagessavedFlag) {
+	public PlacesDataListCursorAdapter(String button_pressed, SearchPlaceResultListFragment searchPlaceResultListFragment, Context context, int layout, Cursor cursor, String[] from, int[] to, double current_latitude, double current_longtitude, boolean imagessavedFlag, String fontcolor) {
 		super(context, layout, cursor, from, to);
 		this.button_pressed = button_pressed;
 		this.searchPlaceResultListFragment = searchPlaceResultListFragment;
@@ -93,6 +96,7 @@ public class PlacesDataListCursorAdapter extends SimpleCursorAdapter implements 
 		this.current_latitude = current_latitude;
 		this.current_longtitude = current_longtitude;
 		this.imagessavedFlag = imagessavedFlag;
+		this.fontcolor = fontcolor;
 		// TODO Auto-generated constructor stub
 	}
 	
@@ -314,13 +318,24 @@ public class PlacesDataListCursorAdapter extends SimpleCursorAdapter implements 
 		viewHolder.photoLink2hiddentv.setText(link2);
 		viewHolder.photoLink3hiddentv.setText(link3);
 		viewHolder.photoLink4hiddentv.setText(link4);
+	if (fontcolor.equals("black")){	
 		viewHolder.placeNametv.setText(placeNameEl);
+		viewHolder.distance.setText(dx + " ÷ëì");
+		viewHolder.distance.setTextColor(Color.BLACK);
+		viewHolder.distance.setTypeface(null, Typeface.BOLD);
+		viewHolder.placeNametv.setTextColor(Color.BLACK);
+		viewHolder.placeNametv.setTypeface(null, Typeface.BOLD);
+	}
+	else{
+		viewHolder.placeNametv.setText(placeNameEl);
+		viewHolder.distance.setText(dx + " ÷ëì");
+	}
 		viewHolder.nameEllower.setText(nameElLower);
 		//viewHolder.surnametv.setTag(surname);
 		viewHolder.latitudetv.setText(str_placelatitude);
 		viewHolder.longtitudetv.setText(str_placelongtitude);
 		
-		viewHolder.distance.setText(dx + " ÷ëì");
+		
 		viewHolder.infoButton.setOnClickListener(this);
 		viewHolder.hiddenoncalltv.setText(menu);
 		if (viewHolder.hiddenoncalltv.getText().equals("yes")){

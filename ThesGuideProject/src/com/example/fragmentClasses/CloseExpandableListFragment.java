@@ -4,11 +4,13 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+
 import com.example.myLocation.GPSTracker;
 import com.example.sqlHelper.TestLocalSqliteDatabase;
 import com.example.thesguideproject.CloseExpandableListFragmentActivity;
 import com.example.thesguideproject.R;
 import com.example.thesguideproject.SearchPlaceResutlActivity;
+
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.AlertDialog;
@@ -19,6 +21,8 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -50,13 +54,13 @@ public class CloseExpandableListFragment extends Fragment implements OnClickList
 	private ExpandableListView explvlist;
 	private ArrayList<String> listDataHeader;
 	private HashMap<String, ArrayList<String>> listDataChild;
-	private Double curlatitude = 40.639431;
-	private Double curlongtitude = 22.937125;
+	private Double curlatitude;
+	private Double curlongtitude; 
 	private final double min_distance = 2;
 	private TestLocalSqliteDatabase testDB;
 	//private Cursor cursor;
 	private Cursor cursor;
-	private String name;
+	private String name; 
 	private HashMap<String, Double> museumsDistances;
 	private HashMap<String, Double> hospitalsDistances;
 	private HashMap<String, Double> sightsDistances;
@@ -138,7 +142,14 @@ public class CloseExpandableListFragment extends Fragment implements OnClickList
 				AlertDialog ald = new AlertDialog.Builder(getActivity())
 				.setTitle("Το WI-FI δεν είναι ενεργοποιημένο")
 				.setMessage("Ενεργοποίησε το WI-FI για ακριβή αποτελέσματα")
-				.setNeutralButton("Ακύρωση", this)
+				.setNeutralButton("Ακύρωση", new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						// TODO Auto-generated method stub
+						//Intent intent = getActivity().getIntent();
+						getActivity().finish();
+					}
+				})
 				.setPositiveButton("OK",new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         // Activity transfer to wifi settings
@@ -172,7 +183,8 @@ public class CloseExpandableListFragment extends Fragment implements OnClickList
 			  }
 				Double latitude = this.cursor.getDouble(this.cursor.getColumnIndex("latitude"));
 				Double longtitude = this.cursor.getDouble(this.cursor.getColumnIndex("longtitude"));
-				
+			
+			if(isNetworkConnected()){	
 				double apostasi = GPSTracker.getDistance(this.curlatitude, this.curlongtitude, latitude, longtitude);
 				double distanceInKm = apostasi/1000;
 				
@@ -180,7 +192,7 @@ public class CloseExpandableListFragment extends Fragment implements OnClickList
 					museumsDistances.put(name, distanceInKm);
 					//Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT).show();
 				}
-				
+			}
 			}while(cursor.moveToNext());
 		}
 		
@@ -201,7 +213,7 @@ public class CloseExpandableListFragment extends Fragment implements OnClickList
 					if (oncall.equals("yes")){
 						oncalllist.add(name);
 					}
-				
+			if(isNetworkConnected()){
 				double apostasi = GPSTracker.getDistance(this.curlatitude, this.curlongtitude, latitude, longtitude);
 				double distanceInKm = apostasi/1000;
 			
@@ -209,8 +221,8 @@ public class CloseExpandableListFragment extends Fragment implements OnClickList
 					hospitalsDistances.put(name, distanceInKm);
 					//Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT).show();
 				}
-				
-			}while(cursor.moveToNext());
+			}
+		  }while(cursor.moveToNext());
 		}
 		
 		sightsDistances = new HashMap<String, Double>();
@@ -224,7 +236,7 @@ public class CloseExpandableListFragment extends Fragment implements OnClickList
 			  }
 				Double latitude = this.cursor.getDouble(this.cursor.getColumnIndex("latitude"));
 				Double longtitude = this.cursor.getDouble(this.cursor.getColumnIndex("longtitude"));
-				
+				if(isNetworkConnected()){
 				double apostasi = GPSTracker.getDistance(this.curlatitude, this.curlongtitude, latitude, longtitude);
 				double distanceInKm = apostasi/1000;
 			
@@ -232,7 +244,7 @@ public class CloseExpandableListFragment extends Fragment implements OnClickList
 					sightsDistances.put(name, distanceInKm);
 					//Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT).show();
 				}
-				
+			   }
 			}while(cursor.moveToNext());
 		}
 		
@@ -247,7 +259,7 @@ public class CloseExpandableListFragment extends Fragment implements OnClickList
 			  }
 				Double latitude = this.cursor.getDouble(this.cursor.getColumnIndex("latitude"));
 				Double longtitude = this.cursor.getDouble(this.cursor.getColumnIndex("longtitude"));
-				
+				if(isNetworkConnected()){	
 				double apostasi = GPSTracker.getDistance(this.curlatitude, this.curlongtitude, latitude, longtitude);
 				double distanceInKm = apostasi/1000;
 			
@@ -255,7 +267,7 @@ public class CloseExpandableListFragment extends Fragment implements OnClickList
 					foodDistances.put(name, distanceInKm);
 					//Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT).show();
 				}
-				
+				}
 			}while(cursor.moveToNext());
 		}
 		
@@ -270,7 +282,7 @@ public class CloseExpandableListFragment extends Fragment implements OnClickList
 			  }
 				Double latitude = this.cursor.getDouble(this.cursor.getColumnIndex("latitude"));
 				Double longtitude = this.cursor.getDouble(this.cursor.getColumnIndex("longtitude"));
-				
+				if(isNetworkConnected()){
 				double apostasi = GPSTracker.getDistance(this.curlatitude, this.curlongtitude, latitude, longtitude);
 				double distanceInKm = apostasi/1000;
 				
@@ -278,7 +290,7 @@ public class CloseExpandableListFragment extends Fragment implements OnClickList
 					churchDistances.put(name, distanceInKm);
 					//Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT).show();
 				}
-				
+				}
 			}while(cursor.moveToNext());
 		}
 		
@@ -293,7 +305,7 @@ public class CloseExpandableListFragment extends Fragment implements OnClickList
 			  }
 				Double latitude = this.cursor.getDouble(this.cursor.getColumnIndex("latitude"));
 				Double longtitude = this.cursor.getDouble(this.cursor.getColumnIndex("longtitude"));
-				
+				if(isNetworkConnected()){
 				double apostasi = GPSTracker.getDistance(this.curlatitude, this.curlongtitude, latitude, longtitude);
 				double distanceInKm = apostasi/1000;
 				
@@ -301,7 +313,7 @@ public class CloseExpandableListFragment extends Fragment implements OnClickList
 					nightlifeDistances.put(name, distanceInKm);
 					//Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT).show();
 				}
-				
+				}
 			}while(cursor.moveToNext());
 		}
 		
@@ -316,7 +328,7 @@ public class CloseExpandableListFragment extends Fragment implements OnClickList
 			  }
 				Double latitude = this.cursor.getDouble(this.cursor.getColumnIndex("latitude"));
 				Double longtitude = this.cursor.getDouble(this.cursor.getColumnIndex("longtitude"));
-				
+				if(isNetworkConnected()){
 				double apostasi = GPSTracker.getDistance(this.curlatitude, this.curlongtitude, latitude, longtitude);
 				double distanceInKm = apostasi/1000;
 				
@@ -324,7 +336,7 @@ public class CloseExpandableListFragment extends Fragment implements OnClickList
 					barrestDistances.put(name, distanceInKm);
 					//Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT).show();
 				}
-				
+				}
 			}while(cursor.moveToNext());
 		}
 		
@@ -339,7 +351,7 @@ public class CloseExpandableListFragment extends Fragment implements OnClickList
 			  }
 				Double latitude = this.cursor.getDouble(this.cursor.getColumnIndex("latitude"));
 				Double longtitude = this.cursor.getDouble(this.cursor.getColumnIndex("longtitude"));
-				
+				if(isNetworkConnected()){
 				double apostasi = GPSTracker.getDistance(this.curlatitude, this.curlongtitude, latitude, longtitude);
 				double distanceInKm = apostasi/1000;
 			
@@ -347,7 +359,7 @@ public class CloseExpandableListFragment extends Fragment implements OnClickList
 					restDistances.put(name, distanceInKm);
 					//Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT).show();
 				}
-				
+				}
 			}while(cursor.moveToNext());
 		}
 		
@@ -362,7 +374,7 @@ public class CloseExpandableListFragment extends Fragment implements OnClickList
 			  }
 				Double latitude = this.cursor.getDouble(this.cursor.getColumnIndex("latitude"));
 				Double longtitude = this.cursor.getDouble(this.cursor.getColumnIndex("longtitude"));
-				
+				if(isNetworkConnected()){
 				double apostasi = GPSTracker.getDistance(this.curlatitude, this.curlongtitude, latitude, longtitude);
 				double distanceInKm = apostasi/1000;
 			
@@ -370,7 +382,7 @@ public class CloseExpandableListFragment extends Fragment implements OnClickList
 					intercDistances.put(name, distanceInKm);
 					//Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT).show();
 				}
-				
+				}
 			}while(cursor.moveToNext());
 		}
 		
@@ -385,7 +397,7 @@ public class CloseExpandableListFragment extends Fragment implements OnClickList
 			  }
 				Double latitude = this.cursor.getDouble(this.cursor.getColumnIndex("latitude"));
 				Double longtitude = this.cursor.getDouble(this.cursor.getColumnIndex("longtitude"));
-				
+				if(isNetworkConnected()){
 				double apostasi = GPSTracker.getDistance(this.curlatitude, this.curlongtitude, latitude, longtitude);
 				double distanceInKm = apostasi/1000;
 			
@@ -393,7 +405,7 @@ public class CloseExpandableListFragment extends Fragment implements OnClickList
 					seafDistances.put(name, distanceInKm);
 					//Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT).show();
 				}
-				
+				}
 			}while(cursor.moveToNext());
 		}
 		
@@ -408,7 +420,7 @@ public class CloseExpandableListFragment extends Fragment implements OnClickList
 			  }
 				Double latitude = this.cursor.getDouble(this.cursor.getColumnIndex("latitude"));
 				Double longtitude = this.cursor.getDouble(this.cursor.getColumnIndex("longtitude"));
-				
+				if(isNetworkConnected()){
 				double apostasi = GPSTracker.getDistance(this.curlatitude, this.curlongtitude, latitude, longtitude);
 				double distanceInKm = apostasi/1000;
 		
@@ -416,7 +428,7 @@ public class CloseExpandableListFragment extends Fragment implements OnClickList
 					byzDistances.put(name, distanceInKm);
 					//Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT).show();
 				}
-				
+				}
 			}while(cursor.moveToNext());
 		}
 		
@@ -431,7 +443,7 @@ public class CloseExpandableListFragment extends Fragment implements OnClickList
 			  }
 				Double latitude = this.cursor.getDouble(this.cursor.getColumnIndex("latitude"));
 				Double longtitude = this.cursor.getDouble(this.cursor.getColumnIndex("longtitude"));
-				
+				if(isNetworkConnected()){
 				double apostasi = GPSTracker.getDistance(this.curlatitude, this.curlongtitude, latitude, longtitude);
 				double distanceInKm = apostasi/1000;
 		
@@ -439,7 +451,7 @@ public class CloseExpandableListFragment extends Fragment implements OnClickList
 					basDistances.put(name, distanceInKm);
 					//Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT).show();
 				}
-				
+				}
 			}while(cursor.moveToNext());
 		}
 		
@@ -454,7 +466,7 @@ public class CloseExpandableListFragment extends Fragment implements OnClickList
 			  }
 				Double latitude = this.cursor.getDouble(this.cursor.getColumnIndex("latitude"));
 				Double longtitude = this.cursor.getDouble(this.cursor.getColumnIndex("longtitude"));
-				
+				if(isNetworkConnected()){
 				double apostasi = GPSTracker.getDistance(this.curlatitude, this.curlongtitude, latitude, longtitude);
 				double distanceInKm = apostasi/1000;
 		
@@ -462,7 +474,7 @@ public class CloseExpandableListFragment extends Fragment implements OnClickList
 					paleoDistances.put(name, distanceInKm);
 					//Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT).show();
 				}
-				
+				}
 			}while(cursor.moveToNext());
 		}
 		
@@ -477,7 +489,7 @@ public class CloseExpandableListFragment extends Fragment implements OnClickList
 			  }
 				Double latitude = this.cursor.getDouble(this.cursor.getColumnIndex("latitude"));
 				Double longtitude = this.cursor.getDouble(this.cursor.getColumnIndex("longtitude"));
-				
+				if(isNetworkConnected()){
 				double apostasi = GPSTracker.getDistance(this.curlatitude, this.curlongtitude, latitude, longtitude);
 				double distanceInKm = apostasi/1000;
 			
@@ -485,7 +497,7 @@ public class CloseExpandableListFragment extends Fragment implements OnClickList
 					macDistances.put(name, distanceInKm);
 					//Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT).show();
 				}
-				
+				}
 			}while(cursor.moveToNext());
 		}
 		
@@ -500,7 +512,7 @@ public class CloseExpandableListFragment extends Fragment implements OnClickList
 			  }
 				Double latitude = this.cursor.getDouble(this.cursor.getColumnIndex("latitude"));
 				Double longtitude = this.cursor.getDouble(this.cursor.getColumnIndex("longtitude"));
-				
+				if(isNetworkConnected()){
 				double apostasi = GPSTracker.getDistance(this.curlatitude, this.curlongtitude, latitude, longtitude);
 				double distanceInKm = apostasi/1000;
 			
@@ -508,7 +520,7 @@ public class CloseExpandableListFragment extends Fragment implements OnClickList
 					clubsDistances.put(name, distanceInKm);
 					//Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT).show();
 				}
-				
+				}
 			}while(cursor.moveToNext());
 		}
 		
@@ -523,7 +535,7 @@ public class CloseExpandableListFragment extends Fragment implements OnClickList
 			  }
 				Double latitude = this.cursor.getDouble(this.cursor.getColumnIndex("latitude"));
 				Double longtitude = this.cursor.getDouble(this.cursor.getColumnIndex("longtitude"));
-				
+				if(isNetworkConnected()){
 				double apostasi = GPSTracker.getDistance(this.curlatitude, this.curlongtitude, latitude, longtitude);
 				double distanceInKm = apostasi/1000;
 			
@@ -531,7 +543,7 @@ public class CloseExpandableListFragment extends Fragment implements OnClickList
 					barsDistances.put(name, distanceInKm);
 					//Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT).show();
 				}
-				
+				}
 			}while(cursor.moveToNext());
 		}
 		
@@ -546,7 +558,7 @@ public class CloseExpandableListFragment extends Fragment implements OnClickList
 			  }
 				Double latitude = this.cursor.getDouble(this.cursor.getColumnIndex("latitude"));
 				Double longtitude = this.cursor.getDouble(this.cursor.getColumnIndex("longtitude"));
-				
+				if(isNetworkConnected()){
 				double apostasi = GPSTracker.getDistance(this.curlatitude, this.curlongtitude, latitude, longtitude);
 				double distanceInKm = apostasi/1000;
 			
@@ -554,7 +566,7 @@ public class CloseExpandableListFragment extends Fragment implements OnClickList
 					pubsDistances.put(name, distanceInKm);
 					//Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT).show();
 				}
-				
+				}
 			}while(cursor.moveToNext());
 		}
 		
@@ -583,6 +595,7 @@ public class CloseExpandableListFragment extends Fragment implements OnClickList
 		
 		// Adding child data
 		if (language.equals("English")){
+			//listDataHeader.add("Events:");
 			listDataHeader.add("Sightseeings:");
 			listDataHeader.add("Museums:");
 			listDataHeader.add("Hospitals:");
@@ -591,6 +604,7 @@ public class CloseExpandableListFragment extends Fragment implements OnClickList
 			listDataHeader.add("Churches:");
 			
         }else{
+        	//listDataHeader.add("Εκδηλώσεις:");
         	listDataHeader.add("Αξιοθέατα:");
 			listDataHeader.add("Μουσεία:");
 			listDataHeader.add("Νοσοκομεία:");
@@ -904,7 +918,7 @@ public class CloseExpandableListFragment extends Fragment implements OnClickList
       			  Iterator barrestIterator = barrestDistances.keySet().iterator();
       			  while(barrestIterator.hasNext()) {
      	        	String key=(String) barrestIterator.next();
-     	            Double value=(Double) barrestDistances.get(key);
+     	           // Double value=(Double) barrestDistances.get(key);
      	        	
      	            barrest.add(key);
      	            sum_barrest = sum_barrest + 1;
@@ -915,7 +929,7 @@ public class CloseExpandableListFragment extends Fragment implements OnClickList
      			  Iterator restIterator = restDistances.keySet().iterator();
      			  while(restIterator.hasNext()) {
     	        	String key=(String) restIterator.next();
-    	            Double value=(Double) restDistances.get(key);
+    	           // Double value=(Double) restDistances.get(key);
     	        	
     	            rest.add(key);
     	            sum_rest = sum_rest + 1;
@@ -926,7 +940,7 @@ public class CloseExpandableListFragment extends Fragment implements OnClickList
       			  Iterator intIterator = intercDistances.keySet().iterator();
      			  while(intIterator.hasNext()) {
     	        	String key=(String) intIterator.next();
-    	            Double value=(Double) intercDistances.get(key);
+    	           // Double value=(Double) intercDistances.get(key);
     	        	
     	            interc.add(key);
     	            sum_intcuis = sum_intcuis + 1;
@@ -937,7 +951,7 @@ public class CloseExpandableListFragment extends Fragment implements OnClickList
      			  Iterator seafIterator = seafDistances.keySet().iterator();
      			  while(seafIterator.hasNext()) {
     	        	String key=(String) seafIterator.next();
-    	            Double value=(Double) seafDistances.get(key);
+    	           // Double value=(Double) seafDistances.get(key);
     	        	
     	            seaf.add(key);
     	            sum_seafood = sum_seafood + 1;
@@ -966,7 +980,7 @@ public class CloseExpandableListFragment extends Fragment implements OnClickList
        			  Iterator byzIterator = byzDistances.keySet().iterator();
        			  while(byzIterator.hasNext()) {
       	        	String key=(String) byzIterator.next();
-      	            Double value=(Double) byzDistances.get(key);
+      	            //Double value=(Double) byzDistances.get(key);
       	        	
       	            byz.add(key);
       	            sum_byz = sum_byz + 1;
@@ -977,7 +991,7 @@ public class CloseExpandableListFragment extends Fragment implements OnClickList
       			  Iterator basIterator = basDistances.keySet().iterator();
       			  while(basIterator.hasNext()) {
      	        	String key=(String) basIterator.next();
-     	            Double value=(Double) basDistances.get(key);
+     	            //Double value=(Double) basDistances.get(key);
      	        	
      	            bas.add(key);
      	            sum_bas = sum_bas + 1;
@@ -988,7 +1002,7 @@ public class CloseExpandableListFragment extends Fragment implements OnClickList
        			  Iterator palIterator = paleoDistances.keySet().iterator();
       			  while(palIterator.hasNext()) {
      	        	String key=(String) palIterator.next();
-     	            Double value=(Double) paleoDistances.get(key);
+     	            //Double value=(Double) paleoDistances.get(key);
      	        	
      	            pal.add(key);
      	            sum_pal = sum_pal + 1;
@@ -999,7 +1013,7 @@ public class CloseExpandableListFragment extends Fragment implements OnClickList
       			  Iterator macIterator = macDistances.keySet().iterator();
       			  while(macIterator.hasNext()) {
      	        	String key=(String) macIterator.next();
-     	            Double value=(Double) macDistances.get(key);
+     	           // Double value=(Double) macDistances.get(key);
      	        	
      	            mac.add(key);
      	            sum_mac = sum_mac + 1;
@@ -1380,6 +1394,16 @@ public class CloseExpandableListFragment extends Fragment implements OnClickList
 
   }
 
+	 private boolean isNetworkConnected() {
+			ConnectivityManager cm = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+			NetworkInfo ni = cm.getActiveNetworkInfo();
+			if (ni == null) {
+				// There are no active networks.
+				return false;
+			} else
+				return true;
+		}
+	 
 	@Override
 	public void onClick(DialogInterface arg0, int arg1) {
 		// TODO Auto-generated method stub

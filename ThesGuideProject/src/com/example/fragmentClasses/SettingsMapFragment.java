@@ -183,9 +183,9 @@ public class SettingsMapFragment extends ListFragment implements DialogInterface
 				Log.i("dest contents =>", destpointcontent);
 				if (ls > 5 && !startpointcontent.toString().equals(destpointcontent)){
 					flag = true;
-					Toast.makeText(getActivity(), "contents not equal", Toast.LENGTH_SHORT).show();
+					//Toast.makeText(getActivity(), "contents not equal", Toast.LENGTH_SHORT).show();
 				}else{
-					Toast.makeText(getActivity(), "contents equal", Toast.LENGTH_SHORT).show();
+					//Toast.makeText(getActivity(), "contents equal", Toast.LENGTH_SHORT).show();
 					
 				}
 		
@@ -286,12 +286,22 @@ public class SettingsMapFragment extends ListFragment implements DialogInterface
 					
 				}
 				else {
-					AlertDialog ald = new AlertDialog.Builder(getActivity())
+					
+				 if (language.equals("English")){	
+					 AlertDialog ald = new AlertDialog.Builder(getActivity())
 					.setMessage("Destination must differ from Starting Point")
-					//.setNeutralButton("Cancel", this)
-					//.setPositiveButton("OK", this)
 					.create();
 					ald.show();	
+				 }
+				 else{
+					 AlertDialog ald = new AlertDialog.Builder(getActivity())
+					 .setMessage("Ο προορισμός πρέπει να διαφέρει από την αφετηρία")
+					 .create();
+					 ald.show();	
+				 }
+					//.setNeutralButton("Cancel", this)
+					//.setPositiveButton("OK", this)
+					
 				}
 			}
 			@Override
@@ -329,12 +339,12 @@ public class SettingsMapFragment extends ListFragment implements DialogInterface
 				boolean flag = false;
 				if (ld > 5 && !startpointcontent.toString().equals(destpointcontent)){
 					flag = true;
-					Toast.makeText(getActivity(), "contents not equal", Toast.LENGTH_SHORT).show();
+					//Toast.makeText(getActivity(), "contents not equal", Toast.LENGTH_SHORT).show();
 				}else if (destinationpointtv.getText().toString().equals("")){
 					flag = false;
 				}
 				else{
-					Toast.makeText(getActivity(), "contents equal", Toast.LENGTH_SHORT).show();	
+					//Toast.makeText(getActivity(), "contents equal", Toast.LENGTH_SHORT).show();	
 				}
 			
 				if (destinationpointtv.getText().length() > 0 && startingpointtv.getText().length() > 0 && flag == true){
@@ -434,12 +444,18 @@ public class SettingsMapFragment extends ListFragment implements DialogInterface
 					
 				}
 				else{
-					AlertDialog ald = new AlertDialog.Builder(getActivity())
-					.setMessage("Starting Point must differ from Destination")
-					//.setNeutralButton("Cancel", this)
-					//.setPositiveButton("OK", this)
-					.create();
-					ald.show();
+					 if (language.equals("English")){	
+						AlertDialog ald = new AlertDialog.Builder(getActivity())
+						.setMessage("Starting Point must differ from Destination")
+						.create();
+						ald.show();	
+					 }
+					 else{
+						 AlertDialog ald = new AlertDialog.Builder(getActivity())
+						 .setMessage("Η αφετηρία πρέπει να διαφέρει από τον προορισμό")
+						 .create();
+						 ald.show();	
+					 }
 				}
 			}
 
@@ -601,7 +617,6 @@ public class SettingsMapFragment extends ListFragment implements DialogInterface
 		if (v.getId() == R.id.selectcategoryb){
 			MenuInflater menuInflater = getActivity().getMenuInflater();
 			menuInflater.inflate(R.menu.all_places_menu, menu);
-			MenuItem eventsitem = menu.findItem(R.id.events);
 			MenuItem sightsitem = menu.findItem(R.id.axiotheata);
 			MenuItem barrestitem = menu.findItem(R.id.barrest);
 			MenuItem restitem = menu.findItem(R.id.rest);
@@ -614,7 +629,7 @@ public class SettingsMapFragment extends ListFragment implements DialogInterface
 			MenuItem ekkitem = menu.findItem(R.id.ekklisies);
 			MenuItem nosokomeiaitem = menu.findItem(R.id.nosokomeia);
 			if (language.equals("Greek")){
-				eventsitem.setTitle("Εκδηλώσεις");
+				//eventsitem.setTitle("Εκδηλώσεις");
 				sightsitem.setTitle("Αξιοθέατα");
 				barrestitem.setTitle("Μπάρ-Ρεστοράν");
 				restitem.setTitle("Ρεστοράν");
@@ -631,7 +646,6 @@ public class SettingsMapFragment extends ListFragment implements DialogInterface
 		else{
 			MenuInflater menuInflater = getActivity().getMenuInflater();
 			menuInflater.inflate(R.menu.destination_menu, menu);
-			MenuItem eventsitem = menu.findItem(R.id.eventsd);
 			MenuItem sightsitem = menu.findItem(R.id.axiotheatad);
 			MenuItem barrestitem = menu.findItem(R.id.barrestd);
 			MenuItem restitem = menu.findItem(R.id.restd);
@@ -644,7 +658,6 @@ public class SettingsMapFragment extends ListFragment implements DialogInterface
 			MenuItem ekkitem = menu.findItem(R.id.ekklisiesd);
 			MenuItem nosokomeiaitem = menu.findItem(R.id.nosokomeiad);
 			if (language.equals("Greek")){
-				eventsitem.setTitle("Εκδηλώσεις");
 				sightsitem.setTitle("Αξιοθέατα");
 				barrestitem.setTitle("Μπάρ-Ρεστοράν");
 				restitem.setTitle("Ρεστοράν");
@@ -794,7 +807,7 @@ public class SettingsMapFragment extends ListFragment implements DialogInterface
 						}
 				});
 			break;
-		case R.id.eventsd:
+		/*case R.id.eventsd:
 			list = new ArrayList<String>();
 			returnCategoryCursor("events", list);
 				  
@@ -809,7 +822,7 @@ public class SettingsMapFragment extends ListFragment implements DialogInterface
 							onListItemClickDestination(text);
 						}
 				});
-			break;
+			break;*/
 		case R.id.axiotheatad:
 			list = new ArrayList<String>();
 			returnCategoryCursor("sightseeings", list);
@@ -890,7 +903,7 @@ public class SettingsMapFragment extends ListFragment implements DialogInterface
 					}
 			});
 		break;
-		case R.id.events:
+		/*case R.id.events:
 			list = new ArrayList<String>();
 			returnCategoryCursor("events", list);
 			  
@@ -905,7 +918,7 @@ public class SettingsMapFragment extends ListFragment implements DialogInterface
 						onListItemClickStarting(text1);
 					}
 			});
-		break;
+		break;*/
 		case R.id.axiotheata:
 			list = new ArrayList<String>();
 			returnCategoryCursor("sightseeings", list);

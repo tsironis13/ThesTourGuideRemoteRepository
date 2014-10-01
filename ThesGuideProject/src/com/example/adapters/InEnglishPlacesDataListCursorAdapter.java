@@ -16,6 +16,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.v4.widget.SimpleCursorAdapter;
@@ -50,6 +52,7 @@ public class InEnglishPlacesDataListCursorAdapter extends SimpleCursorAdapter im
 	private ActionBar act;
 	private Boolean imagessavedFlag;
 	private Bitmap bitmap;
+	private String fontcolor="";
 	
 	GPSTracker gps;
 	ArrayList<PlacesData> placesDataArray = new ArrayList<PlacesData>();
@@ -67,7 +70,7 @@ public class InEnglishPlacesDataListCursorAdapter extends SimpleCursorAdapter im
 		// TODO Auto-generated constructor stub
 	}*/
 	
-	public InEnglishPlacesDataListCursorAdapter(String button_pressed, SearchPlaceResultListFragment searchPlaceResultListFragment, Context context, int layout, Cursor cursor, String[] from, int[] to, double current_latitude, double current_longtitude, boolean imagessavedFlag) {
+	public InEnglishPlacesDataListCursorAdapter(String button_pressed, SearchPlaceResultListFragment searchPlaceResultListFragment, Context context, int layout, Cursor cursor, String[] from, int[] to, double current_latitude, double current_longtitude, boolean imagessavedFlag, String fontcolor) {
 		super(context, layout, cursor, from, to);
 		this.button_pressed = button_pressed;
 		this.searchPlaceResultListFragment = searchPlaceResultListFragment;
@@ -78,6 +81,7 @@ public class InEnglishPlacesDataListCursorAdapter extends SimpleCursorAdapter im
 		this.current_latitude = current_latitude;
 		this.current_longtitude = current_longtitude;
 		this.imagessavedFlag = imagessavedFlag;
+		this.fontcolor = fontcolor;
 		// TODO Auto-generated constructor stub
 	}
 	
@@ -293,10 +297,21 @@ public class InEnglishPlacesDataListCursorAdapter extends SimpleCursorAdapter im
 		viewHolder.photoLink3hiddentv.setText(link3);
 		viewHolder.photoLink4hiddentv.setText(link4);
 		viewHolder.placeNametv.setText(placeNameEl);
+		if (fontcolor.equals("black")){	
+			viewHolder.placeNametv.setText(placeNameEl);
+			viewHolder.distance.setText(dx + " km");
+			viewHolder.distance.setTextColor(Color.BLACK);
+			viewHolder.distance.setTypeface(null, Typeface.BOLD);
+			viewHolder.placeNametv.setTextColor(Color.BLACK);
+			viewHolder.placeNametv.setTypeface(null, Typeface.BOLD);
+		}
+		else{
+			viewHolder.placeNametv.setText(placeNameEl);
+			viewHolder.distance.setText(dx + " km");
+		}
 		//viewHolder.surnametv.setTag(surname);
 		viewHolder.latitudetv.setText(str_placelatitude);
 		viewHolder.longtitudetv.setText(str_placelongtitude);
-		viewHolder.distance.setText(dx + " km");
 		viewHolder.hiddenoncalltv.setText(menu);
 		if (viewHolder.hiddenoncalltv.getText().equals("yes")){
 			viewHolder.oncallButton.setVisibility(View.VISIBLE);

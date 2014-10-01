@@ -362,12 +362,18 @@ public class PlacesDetailsTabs extends ActionBarActivity implements OnGoogleMapF
 	public boolean onOptionsItemSelected(MenuItem item) {
 	    // Handle presses on the action bar items
 	    switch (item.getItemId()) {
-	        case R.id.action_search:
-	            Toast.makeText(getApplicationContext(), "Action Search!!", Toast.LENGTH_SHORT).show();
-	            return true;
-	        case R.id.action_settings:
-	            //openSettings();
-	            return true;
+	    case R.id.action_path:
+        	Intent i = new Intent(PlacesDetailsTabs.this, FindPathFragmentActivity.class);
+        	i.putExtra("imagessavedFlag", imagessavedFlag);
+        	i.putExtra("language", language);
+        	startActivity(i);
+        	return true;
+        case R.id.close:
+        	Intent closeIntent = new Intent(PlacesDetailsTabs.this, CloseExpandableListFragmentActivity.class);
+        	closeIntent.putExtra("imagessavedFlag", imagessavedFlag);
+        	closeIntent.putExtra("language", language);
+        	startActivity(closeIntent);
+        	return true;
 	        default:
 	            return super.onOptionsItemSelected(item);
 	    }

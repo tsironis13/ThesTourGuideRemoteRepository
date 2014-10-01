@@ -4,11 +4,11 @@
     xmlns:hmkcode="http://schemas.android.com/apk/res-auto"
     tools:context="com.example.thesguideproject.MainActivity" >
 
-    <item
+    <!-- <item
         android:id="@+id/action_settings"
         android:orderInCategory="100"
         android:title="@string/action_settings"
-        app:showAsAction="never"/>
+        app:showAsAction="never"/> -->
     
     <!-- Search / will display always  -->
      <!-- Saerch widget -->

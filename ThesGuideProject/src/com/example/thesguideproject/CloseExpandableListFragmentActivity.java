@@ -12,6 +12,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.MatrixCursor;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.MenuItemCompat;
@@ -23,6 +25,9 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
 
 public class CloseExpandableListFragmentActivity extends ActionBarActivity implements OnQueryTextListener{
 
@@ -36,6 +41,8 @@ public class CloseExpandableListFragmentActivity extends ActionBarActivity imple
 	private TestLocalSqliteDatabase testDB;
 	private static final String debugTag = "CloseExpandableListFragmentActivity";
 	private boolean imagessavedFlag;
+	private Button hiddenrefreshbutton;
+	private TextView hiddenresfreshtv;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +50,8 @@ public class CloseExpandableListFragmentActivity extends ActionBarActivity imple
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.closeexplistfragmentactivity);
 		
+		hiddenrefreshbutton = (Button) findViewById(R.id.hiddenrefreshbutton);
+		hiddenresfreshtv = (TextView) findViewById(R.id.hiddenresfreshtv);
 		testDB = new TestLocalSqliteDatabase(this);
         testDB.openDataBase(debugTag);
         
@@ -61,12 +70,39 @@ public class CloseExpandableListFragmentActivity extends ActionBarActivity imple
 		closeExpListFragment = new CloseExpandableListFragment();
 		Bundle langbundle = new Bundle();
 		langbundle.putString("language", language);
+	 if (isNetworkConnected()){	
 		if (savedInstanceState == null){
+			hiddenrefreshbutton.setVisibility(View.GONE);
+			hiddenresfreshtv.setVisibility(View.GONE);
 			closeExpListFragment.setArguments(langbundle);
 			fragmentTransaction = getSupportFragmentManager().beginTransaction().add(R.id.close, closeExpListFragment);
 			fragmentTransaction.commit();
 		}
-		
+	 }
+	 else{
+			if (!language.equals("English")){
+				hiddenrefreshbutton.setText("Παρακαλώ Ξαναπροσπάθησε");
+				hiddenresfreshtv.setText("Χωρίς σύνδεση στο Διαδίκτυο");
+			}
+		 hiddenresfreshtv.setVisibility(View.VISIBLE);
+		 hiddenrefreshbutton.setVisibility(View.VISIBLE);
+		 hiddenrefreshbutton.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				if (isNetworkConnected()){
+					hiddenresfreshtv.setVisibility(View.GONE);
+					hiddenrefreshbutton.setVisibility(View.GONE);
+					closeExpListFragment = new CloseExpandableListFragment();
+					Bundle langbundle = new Bundle();
+					langbundle.putString("language", language);
+					closeExpListFragment.setArguments(langbundle);
+					fragmentTransaction = getSupportFragmentManager().beginTransaction().replace(R.id.close, closeExpListFragment);
+					fragmentTransaction.commit();
+				}
+			}
+		});
+	 }
 	}
 	
 	@Override
@@ -153,6 +189,16 @@ public class CloseExpandableListFragmentActivity extends ActionBarActivity imple
 		testDB.close(debugTag);
 	}
 
+	 private boolean isNetworkConnected() {
+			ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+			NetworkInfo ni = cm.getActiveNetworkInfo();
+			if (ni == null) {
+				// There are no active networks.
+				return false;
+			} else
+				return true;
+		}
+	
 	private void loadData(String query){
 		
 		items.clear();
