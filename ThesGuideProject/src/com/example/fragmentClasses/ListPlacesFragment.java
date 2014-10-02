@@ -1,28 +1,16 @@
 package com.example.fragmentClasses;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.Locale;
-
-import com.example.adapters.EventsBaseAdapter;
-import com.example.adapters.InEnglishEventsBaseAdapter;
 import com.example.adapters.InEnglishPlacesDataListCursorAdapter;
 import com.example.adapters.PlacesDataListCursorAdapter;
-import com.example.locationData.LocationData;
 import com.example.locationData.PlacesData;
 import com.example.sqlHelper.TestLocalSqliteDatabase;
 import com.example.tasks.BitmapTask;
 import com.example.thesguideproject.R;
-
 import android.annotation.SuppressLint;
 import android.database.Cursor;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,7 +18,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 @SuppressLint("ValidFragment") 
 public class ListPlacesFragment extends ListFragment{
@@ -38,8 +25,6 @@ public class ListPlacesFragment extends ListFragment{
 	private ListView listExample;
 	private BitmapTask imgFetcher = new BitmapTask(getActivity());
 	private Cursor specificPlacecursor;
-	private Cursor allDisplayImageLinkcursor;
-	private Cursor currenteventsCursor;
 	private String[] columns;
 	private int[] to;
 	//private String genre;
@@ -51,8 +36,6 @@ public class ListPlacesFragment extends ListFragment{
 	private static final String debugTag = "ListPlacesFragment";
 	private String language;
 	private String date;
-	private ArrayList<PlacesData> currenteventslist = new ArrayList<PlacesData>();
-	private LayoutInflater layoutInflater;
 	private String flag;
 	private boolean imagessavedFlag;
 	

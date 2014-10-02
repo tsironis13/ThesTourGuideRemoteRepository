@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.HashMap;
 import com.example.adapters.InEnglishPlacesDataListCursorAdapter;
 import com.example.adapters.PlacesDataListCursorAdapter;
 import com.example.fragmentClasses.SearchPlaceResultListFragment;
@@ -17,12 +16,10 @@ import android.os.AsyncTask;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.util.Log;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 public class BitmapTask  {
 
 	private static final String debugTag = "BitmapTask";
-    private HashMap<String, Bitmap> imageCache;
     private static Bitmap DEFAULT_ICON = null;
     private static SimpleCursorAdapter adapt;
     //private BaseAdapter adapt;
@@ -35,7 +32,7 @@ public class BitmapTask  {
     
     public BitmapTask(Context ctx)
     {
-        imageCache = new HashMap<String, Bitmap>();
+        //imageCache = new HashMap<String, Bitmap>();
     }
     
     public BitmapTask(InEnglishPlacesDataListCursorAdapter inEnglishPlacesAdapter){

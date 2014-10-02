@@ -246,7 +246,7 @@ public class CalendarFragment extends Fragment{
 					   Toast.makeText(getActivity(), "Enable WIFI to refresh current events!", Toast.LENGTH_SHORT).show();
 				   }
 				   else{
-					   Toast.makeText(getActivity(), "Ενεργοποίησε το WIFI για να δεις τα τρέχων εκδηλώσεις!", Toast.LENGTH_SHORT).show();
+					   Toast.makeText(getActivity(), "Ενεργοποίησε το WIFI για να δεις τις τρέχων εκδηλώσεις!", Toast.LENGTH_SHORT).show();
 				   }
 				}
 			}

@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.MatrixCursor;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
@@ -88,7 +87,7 @@ public class SearchPlaceResutlActivity extends ActionBarActivity implements OnQu
 		}
 		
 		
-		SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+		//SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
 		
 		//Retrieve the SearchView
 		searchView  = (SearchView) MenuItemCompat.getActionView(searchItem);

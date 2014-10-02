@@ -1,18 +1,13 @@
 package com.example.thesguideproject;
 
-
 import java.util.ArrayList;
-
 import com.example.adapters.InEnglishSearchAdapter;
 import com.example.adapters.SearchAdapter;
 import com.example.fragmentClasses.GoogleMapFragment.OnGoogleMapFragmentListener;
 import com.example.fragmentClasses.SettingsMapFragment;
 import com.example.sqlHelper.TestLocalSqliteDatabase;
 import com.google.android.gms.maps.GoogleMap;
-
 import android.annotation.TargetApi;
-import android.app.SearchManager;
-import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.MatrixCursor;
@@ -95,7 +90,7 @@ public class FindPathFragmentActivity extends ActionBarActivity implements OnGoo
 		}
 		
 		
-		SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+		//SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
 		
 		//Retrieve the SearchView
 		searchView  = (SearchView) MenuItemCompat.getActionView(searchItem);

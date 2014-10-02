@@ -1,26 +1,17 @@
 package com.example.thesguideproject;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map.Entry;
-
 import com.example.adapters.InEnglishSearchAdapter;
 import com.example.adapters.SearchAdapter;
 import com.example.fragmentClasses.MenuFragment;
-import com.example.fragmentClasses.NoInternetConnectionFragment;
 import com.example.sqlHelper.TestLocalSqliteDatabase;
-import com.example.storage.InternalStorage;
 import com.example.tasks.BitmapTask;
 import com.example.thesguideproject.R;
-
 import android.app.ProgressDialog;
-import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.MatrixCursor;
-import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
@@ -32,13 +23,11 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.SearchView;
 import android.util.Log;
-import android.view.ContextMenu;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -167,7 +156,7 @@ import android.widget.Toast;
 			//getSupportFragmentManager().popBackStack("d", 0);
 			//getSupportFragmentManager().popBackStack();
 			getSupportFragmentManager().popBackStack();
-			Toast.makeText(getApplicationContext(), "Fragments in back stack are =>" + fragments, Toast.LENGTH_SHORT).show();
+			//Toast.makeText(getApplicationContext(), "Fragments in back stack are =>" + fragments, Toast.LENGTH_SHORT).show();
 		}
 		else if (fragments >2){
 			//getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
@@ -212,7 +201,7 @@ import android.widget.Toast;
 		}
 		
 		
-		SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+		//SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
 		
 		//Retrieve the SearchView
 		searchView  = (SearchView) MenuItemCompat.getActionView(searchItem);

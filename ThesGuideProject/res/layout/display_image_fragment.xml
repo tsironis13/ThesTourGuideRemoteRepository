@@ -1,24 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/background"
-    android:orientation="horizontal" >
+<ScrollView 
+     xmlns:android="http://schemas.android.com/apk/res/android"
+     android:layout_width="match_parent"
+     android:background="@drawable/top_back"
+     android:layout_height="match_parent" >
+
+	<RelativeLayout 
+    	android:layout_width="match_parent"
+    	android:layout_height="match_parent"
+    	android:orientation="vertical" >
     
-    <TextView 
-        android:id="@+id/textviewdisplay"
-        android:layout_weight="1"
-        android:ellipsize="end"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    </TextView>
+    	<TextView 
+        	android:id="@+id/description_text"
+        	android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            android:textSize="18sp" 
+        	android:maxLines="10"
+        	android:layout_width="match_parent"
+        	android:layout_height="wrap_content">
+        </TextView>
+        
+    	<Button
+            android:id="@+id/show"
+            android:textSize="20sp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/description_text"
+            android:textColor="#ff8d00"
+            android:text="More..."
+            android:clickable="true" />
+
+       <!--  <View
+            android:id="@+id/view1"
+            android:layout_width="wrap_content"
+            android:layout_height="2dp"
+            android:layout_below="@+id/description_text"
+            android:layout_marginTop="10dp"
+            android:layout_toLeftOf="@+id/show"
+            android:background="#000" />   -->
+
+        <Button
+            android:id="@+id/hide"
+            android:textSize="20sp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:textColor="#ff8d00"
+            android:background="@android:color/transparent"
+            android:layout_below="@+id/description_text"
+            android:text="Less..."
+            android:clickable="true"
+            android:visibility="invisible" />
     
-	<Button 
-	    android:id="@+id/im"
-	    android:layout_weight="1"
-	    android:layout_width="200dp"
-	    android:layout_marginTop="10dp"
-	    android:layout_height="wrap_content"
-	    />
-    
-</RelativeLayout>
+	</RelativeLayout>
+
+</ScrollView>

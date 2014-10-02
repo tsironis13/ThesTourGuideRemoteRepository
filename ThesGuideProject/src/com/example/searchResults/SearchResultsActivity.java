@@ -3,16 +3,11 @@ package com.example.searchResults;
 //import com.example.thesguideproject.R;
 
 import com.example.thesguideproject.R;
-
-import android.annotation.TargetApi;
-import android.app.Activity;
 import android.app.SearchManager;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.provider.SearchRecentSuggestions;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.widget.TextView;

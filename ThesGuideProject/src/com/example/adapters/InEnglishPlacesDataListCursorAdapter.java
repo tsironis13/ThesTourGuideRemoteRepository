@@ -2,7 +2,6 @@ package com.example.adapters;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-
 import com.example.fragmentClasses.ListPlacesFragment;
 import com.example.fragmentClasses.SearchPlaceResultListFragment;
 import com.example.locationData.PlacesData;
@@ -11,7 +10,6 @@ import com.example.storage.InternalStorage;
 import com.example.tasks.BitmapTask;
 import com.example.thesguideproject.PlacesDetailsTabs;
 import com.example.thesguideproject.R;
-
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -21,8 +19,6 @@ import android.graphics.Typeface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.v4.widget.SimpleCursorAdapter;
-import android.support.v4.widget.SimpleCursorAdapter.ViewBinder;
-import android.support.v7.app.ActionBar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,19 +33,13 @@ public class InEnglishPlacesDataListCursorAdapter extends SimpleCursorAdapter im
 
 	private ListPlacesFragment activity;
 	private SearchPlaceResultListFragment searchPlaceResultListFragment;
-	
-	//private CursorAdapterExample activity;
-	private LayoutInflater layoutInflater;
 	private BitmapTask imgFetcher;
 	private Context context;
-	private SimpleCursorAdapter dataAdapter;
 	private int layout;
-	private BitmapTask bitTask;
 	private Cursor cursor;
 	private double current_latitude;
 	private double current_longtitude;
 	private String button_pressed;
-	private ActionBar act;
 	private Boolean imagessavedFlag;
 	private Bitmap bitmap;
 	private String fontcolor="";
@@ -116,7 +106,7 @@ public class InEnglishPlacesDataListCursorAdapter extends SimpleCursorAdapter im
 	private static class ViewHolder{
 		TextView nametv, placeNametv, distance, latitudetv, longtitudetv, desc_infohiddentv, menuhiddentv,
 		telhiddentv, linkhiddentv, fbLinkhiddentv, emailhiddentv, exhibitionhiddentv,
-		photoLink1hiddentv, photoLink2hiddentv, photoLink3hiddentv, photoLink4hiddentv, hiddenoncalltv;
+		photoLink1hiddentv, photoLink2hiddentv, photoLink3hiddentv, photoLink4hiddentv;
 		ImageView icon;
 		Button infoButton, oncallButton;
 		
@@ -139,8 +129,6 @@ public class InEnglishPlacesDataListCursorAdapter extends SimpleCursorAdapter im
 			distance = (TextView) v.findViewById(R.id.distance);
 			icon = (ImageView) v.findViewById(R.id.locationImage);
 			infoButton = (Button) v.findViewById(R.id.info_button);
-			oncallButton = (Button) v.findViewById(R.id.oncallbutton);
-			hiddenoncalltv = (TextView) v.findViewById(R.id.hiddenoncalltv);
 		}
 	}
 	
@@ -205,8 +193,6 @@ public class InEnglishPlacesDataListCursorAdapter extends SimpleCursorAdapter im
             viewHolder.icon = (ImageView) v.findViewById(R.id.locationImage);
             viewHolder.infoButton = (Button) v.findViewById(R.id.info_button);
             viewHolder.infoButton.setTag(viewHolder);
-            viewHolder.oncallButton = (Button) v.findViewById(R.id.oncallbutton);
-            viewHolder.hiddenoncalltv = (TextView) v.findViewById(R.id.hiddenoncalltv);
             v.setTag(viewHolder);   
         }
 		else{
@@ -312,13 +298,6 @@ public class InEnglishPlacesDataListCursorAdapter extends SimpleCursorAdapter im
 		//viewHolder.surnametv.setTag(surname);
 		viewHolder.latitudetv.setText(str_placelatitude);
 		viewHolder.longtitudetv.setText(str_placelongtitude);
-		viewHolder.hiddenoncalltv.setText(menu);
-		if (viewHolder.hiddenoncalltv.getText().equals("yes")){
-			viewHolder.oncallButton.setVisibility(View.VISIBLE);
-		}
-		else{
-			viewHolder.oncallButton.setVisibility(View.INVISIBLE);
-		}
 		viewHolder.infoButton.setOnClickListener(this);
 		
 		//InternalStorage intStorage = new InternalStorage();

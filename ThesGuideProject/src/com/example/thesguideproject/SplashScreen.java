@@ -1,52 +1,24 @@
 package com.example.thesguideproject;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Locale;
 import com.example.sqlHelper.TestLocalSqliteDatabase;
-import com.example.storage.InternalStorage;
-import com.example.tasks.BitmapTask;
 import com.example.tasks.PlacesJsonWebApiTask;
-
-import android.annotation.TargetApi;
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.net.Uri;
-import android.net.wifi.WifiManager;
-import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
-import android.view.GestureDetector;
-import android.view.GestureDetector.SimpleOnGestureListener;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.ViewGroup.LayoutParams;
-import android.view.Window;
-import android.view.WindowManager;
-import android.view.animation.AnimationUtils;
 import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.Toast;
-import android.widget.ViewFlipper;
+
 
 public class SplashScreen extends ActionBarActivity{
 
@@ -168,7 +140,7 @@ public class SplashScreen extends ActionBarActivity{
 							// TODO Auto-generated method stub
 							Intent i = new Intent(SplashScreen.this, PlacesListFragmentActivity.class);
 							i.putExtra("language", "Greek");
-							Toast.makeText(getApplicationContext(), "Greek", Toast.LENGTH_SHORT).show();
+							//Toast.makeText(getApplicationContext(), "Greek", Toast.LENGTH_SHORT).show();
 							startActivity(i);
 
 							// close this activity
@@ -183,7 +155,7 @@ public class SplashScreen extends ActionBarActivity{
 							// TODO Auto-generated method stub
 							Intent i = new Intent(SplashScreen.this, PlacesListFragmentActivity.class);
 							i.putExtra("language", "English");
-							Toast.makeText(getApplicationContext(), "English", Toast.LENGTH_SHORT).show();
+							//Toast.makeText(getApplicationContext(), "English", Toast.LENGTH_SHORT).show();
 							startActivity(i);
 						}
 					});

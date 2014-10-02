@@ -1,15 +1,9 @@
 package com.example.tasks;
 
-import java.io.File;
-import java.io.FileNotFoundException;
+
 import java.io.FileOutputStream;
-import java.io.IOException;
-
 import android.content.Context;
-import android.content.ContextWrapper;
 import android.graphics.Bitmap;
-import android.util.Log;
-
 public class ImageInternalStorage {
 
 	private Context myContext;

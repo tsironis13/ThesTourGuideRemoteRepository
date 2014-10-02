@@ -14,8 +14,6 @@ public class ToAndFromFragment extends Fragment{
 	private TextView fromlocation;
 	private TextView tolocation;
 	private String language;
-	private String fromlocationarg;
-	private String tolocationarg;
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

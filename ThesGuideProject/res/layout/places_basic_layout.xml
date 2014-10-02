@@ -154,23 +154,9 @@
             android:visibility="invisible" >
          </TextView>
          
-         <TextView 
-            android:id="@+id/hiddenoncalltv"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:visibility="invisible" >
-         </TextView> 
+        
          
-           <Button 
-               android:id="@+id/oncallbutton"
-               android:layout_toRightOf="@+id/placeNametv"
-               android:layout_below="@+id/locationName"
-               android:layout_height="25dp"
-               android:layout_width="30dp"
-               android:layout_marginLeft="10dp"
-               android:visibility="invisible"
-               android:background="@drawable/redcross">    
-          </Button>
+      
           
       <!--  <Button
               android:id="@+id/info_button"

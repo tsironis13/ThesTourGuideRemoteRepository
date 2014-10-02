@@ -1,8 +1,7 @@
 package com.example.thesguideproject;
 
-import java.io.Serializable;
-import java.util.ArrayList;
 
+import java.util.ArrayList;
 import com.example.adapters.InEnglishSearchAdapter;
 import com.example.adapters.SearchAdapter;
 import com.example.adapters.TabsPagerAdapter;
@@ -17,7 +16,6 @@ import com.example.myLocation.GPSTracker;
 import com.example.sqlHelper.TestLocalSqliteDatabase;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.LatLng;
-
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -35,7 +33,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -73,13 +70,8 @@ public class PlacesDetailsTabs extends ActionBarActivity implements OnGoogleMapF
     private String current_longtitude;
     private static final String debugTag = "PlacesDetailsTabs";
     private TestLocalSqliteDatabase testDB;
-    //private Button onMapButton;
-    //private ActionBar act;
-    private TextView t;
-  	//private android.app.ActionBar actionBar;
   	private ViewPager viewPager;
     private TabsPagerAdapter tabsPagerAdapter;
-    private Context context;
     private SearchView searchView;
     private String language;
     private  Bundle exhibitionBundle = new Bundle();
@@ -132,7 +124,7 @@ public class PlacesDetailsTabs extends ActionBarActivity implements OnGoogleMapF
 		longtitude = i.getStringExtra("longtitude");
 		current_latitude = i.getStringExtra("current latitude");
 		current_longtitude = i.getStringExtra("current longtitude");
-		Toast.makeText(getApplicationContext(), current_latitude + " " + current_longtitude, Toast.LENGTH_SHORT).show();
+		//Toast.makeText(getApplicationContext(), current_latitude + " " + current_longtitude, Toast.LENGTH_SHORT).show();
 		
 		
 		doublelatitude = Double.parseDouble(latitude);

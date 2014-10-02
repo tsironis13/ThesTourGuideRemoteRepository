@@ -3,13 +3,10 @@ package com.example.adapters;
 import java.util.List;
 
 import com.example.fragmentClasses.SettingsMapFragment;
-import com.example.thesguideproject.FindPathFragmentActivity;
 import com.example.thesguideproject.R;
-
 import android.content.Context;
 import android.database.Cursor;
 import android.support.v4.widget.CursorAdapter;
-import android.support.v4.widget.SimpleCursorAdapter;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,7 +14,6 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class DisarableLocationCursorAdapter extends CursorAdapter implements OnClickListener{
 

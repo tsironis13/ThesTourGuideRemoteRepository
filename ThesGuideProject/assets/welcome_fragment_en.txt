@@ -1,22 +1,15 @@
-text here text here text here!!!text here text here text here!!!text here text here text here!!!
-text here text here text here!!!text here text here text here!!!text here text here text here!!!
-text here text here text here!!!text here text here text here!!!text here text here text here!!!
-text here text here text here!!!text here text here text here!!!text here text here text here!!!
-text here text here text here!!!text here text here text here!!!text here text here text here!!!
-text here text here text here!!!text here text here text here!!!text here text here text here!!!
-text here text here text here!!!text here text here text here!!!text here text here text here!!!
-text here text here text here!!!text here text here text here!!!text here text here text here!!!
-text here text here text here!!!text here text here text here!!!text here text here text here!!!
-text here text here text here!!!text here text here text here!!!text here text here text here!!!
-text here text here text here!!!text here text here text here!!!text here text here text here!!!
-text here text here text here!!!text here text here text here!!!text here text here text here!!!
-text here text here text here!!!text here text here text here!!!text here text here text here!!!
-text here text here text here!!!text here text here text here!!!text here text here text here!!!
-text here text here text here!!!text here text here text here!!!text here text here text here!!!
-text here text here text here!!!text here text here text here!!!text here text here text here!!!
-text here text here text here!!!text here text here text here!!!text here text here text here!!!
-text here text here text here!!!text here text here text here!!!text here text here text here!!!
-text here text here text here!!!text here text here text here!!!text here text here text here!!!
-text here text here text here!!!text here text here text here!!!text here text here text here!!!
-text here text here text here!!!text here text here text here!!!text here text here text here!!!
-text here text here text here!!!text here text here text here!!!text here text here text here!!!
+﻿   
+   ThessTourGuide is a tourist guide of the city of Thessaloniki and was created to make the city tour easier, more comfortable and also to offer both residents, the student and of course the many tourists who visit it for the first time the opportunity to discover the city better.
+
+   The functions available are multiple. Starting with the several options of the main menu, the user can select the events organized during the current date and search if there are other available a specific date of interest. Also he can find categories for all types and specifically in the food section he can choose the kind of restaurant that he is interested in and see the best recommendations for each category, learn more about each place like, the menu served, the operating hours of each one, and in several of them the estimated meal ​​prices per person.
+   
+   Furthermore, for lovers of night life of Thessaloniki the city offers endless opportunities for fun and this tourist guide comes to propose the best and most popular bars, clubs and pubs in town.
+   Regarding landmarks options do not stop. To start with, there are museums of great interest, in each one of these information is available for both the museum itself and for the permanent or current exhibitions each organizes, and of course pictures of the interior and exterior of each one. Then, the main churches of Thessaloniki and its attractions that will fully reward anyone who will visit them.
+
+   Finally, for emergency purposes you can find the biggest state hospitals of the city.
+   It is worth noting that you can contact with most sites by phone or email; and also you are capable of finding additional information from websites as well as the facebook address where it is available. Under each location the distance between the current position of the user and the specified location is shown. Also with the help of google maps each location is located on the map and the user can find how long it will take and which path to follow to reach the chosen destination using either the bus or car, or be on foot.
+
+   Other functions offered are the option to pick a location as a starting point and another one as a destination, and the tracking of all useful information mentioned above using map. Finally, the appearance of less than two kilometers away from the current position of the user locations.
+   Most functions are available both on-line and off-line, except those that need Internet connection such as, the tracking of each location on the map and the listing of closest to the user locations. Have fun!!!
+
+ 

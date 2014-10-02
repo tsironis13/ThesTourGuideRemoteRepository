@@ -19,7 +19,6 @@ import org.apache.http.util.EntityUtils;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.net.http.AndroidHttpClient;
 import android.util.Log;
 
 public class ServiceHandler {
@@ -73,7 +72,6 @@ public class ServiceHandler {
 	                InputStream inputStream = null;
 	                try {
 	                    inputStream = httpEntity.getContent(); 
-	                    Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
 	                } finally {
 	                    if (inputStream != null) {
 	                        inputStream.close();  

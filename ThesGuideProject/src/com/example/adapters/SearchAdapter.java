@@ -1,38 +1,13 @@
 package com.example.adapters;
 
 import java.util.List;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-import com.example.fragmentClasses.MenuFragment;
-import com.example.sqlHelper.TestLocalSqliteDatabase;
 import com.example.thesguideproject.R;
 import com.example.thesguideproject.SearchPlaceResutlActivity;
-
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.CursorAdapter;
-import android.support.v4.widget.SimpleCursorAdapter;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -40,9 +15,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class SearchAdapter extends CursorAdapter implements OnClickListener{
 

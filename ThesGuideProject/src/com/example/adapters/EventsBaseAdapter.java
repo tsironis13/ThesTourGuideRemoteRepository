@@ -11,10 +11,8 @@ import com.example.myLocation.GPSTracker;
 import com.example.tasks.PlacesJsonWebApiTask;
 import com.example.thesguideproject.PlacesDetailsTabs;
 import com.example.thesguideproject.R;
-
 import android.content.Context;
 import android.content.Intent;
-import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;

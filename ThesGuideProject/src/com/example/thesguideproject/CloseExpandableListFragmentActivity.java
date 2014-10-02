@@ -1,13 +1,10 @@
 package com.example.thesguideproject;
 
 import java.util.ArrayList;
-
 import com.example.adapters.InEnglishSearchAdapter;
 import com.example.adapters.SearchAdapter;
 import com.example.fragmentClasses.CloseExpandableListFragment;
 import com.example.sqlHelper.TestLocalSqliteDatabase;
-
-import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -27,7 +24,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
+
 
 public class CloseExpandableListFragmentActivity extends ActionBarActivity implements OnQueryTextListener{
 
@@ -113,7 +110,7 @@ public class CloseExpandableListFragmentActivity extends ActionBarActivity imple
 		//Find the search item
 		searchItem = menu.findItem(R.id.action_search);
 		//Find the path item
-		MenuItem pathItem = menu.findItem(R.id.action_path);
+		//MenuItem pathItem = menu.findItem(R.id.action_path);
 		//this.invalidateOptionsMenu();
 		//Find the close item
 		MenuItem closeItem = menu.findItem(R.id.close);
@@ -126,7 +123,7 @@ public class CloseExpandableListFragmentActivity extends ActionBarActivity imple
 		}
 		
 		
-		SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+		//SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
 		
 		//Retrieve the SearchView
 		searchView  = (SearchView) MenuItemCompat.getActionView(searchItem);

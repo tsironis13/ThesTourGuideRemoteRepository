@@ -4,12 +4,9 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Locale;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -19,10 +16,8 @@ import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.widget.ListView;
 import android.widget.Toast;
-
 import com.example.adapters.EventsBaseAdapter;
 import com.example.adapters.InEnglishEventsBaseAdapter;
-import com.example.fragmentClasses.CalendarFragment;
 import com.example.locationData.PlacesData;
 import com.example.sqlHelper.TestLocalSqliteDatabase;
 import com.example.storage.InternalStorage;
@@ -38,7 +33,7 @@ public class PlacesJsonWebApiTask extends AsyncTask<Void, Integer, String> {
 	 private Context context;
 	 private static final String debugTag = "PlacesJsonWebApiTask";
 	 public String encodedUrl;
-	 private String languagePhone = Locale.getDefault().getLanguage();
+	 //private String languagePhone = Locale.getDefault().getLanguage();
 	 
 	 ServiceHandler sh = new ServiceHandler();
 	 
@@ -258,9 +253,9 @@ public class PlacesJsonWebApiTask extends AsyncTask<Void, Integer, String> {
 			dbtest.openDataBase(debugTag);
 			//Log.d("Insert: ", "Inserting .."); 
 			//dbholder.addLocation(new LocationData(integer_id, genre, photo_link, name_el, latitude, longtitude));
-			  for (PlacesData td : placesDataArray){
+			  //for (PlacesData td : placesDataArray){
 		        	//dbtest.addTestData(td);
-		      }
+		      //}
 			  Log.d("Reading: ", "Reading all places..");
 		        
 		     /*   for (PlacesData td : placesDataArray) {

@@ -17,7 +17,6 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class CalendarAdapter extends BaseAdapter {
 	private Context mContext;

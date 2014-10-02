@@ -1,70 +1,44 @@
 package com.example.adapters;
 
-import java.io.InputStream;
-import java.text.DecimalFormat;
-import java.util.ArrayList;
 
+import java.text.DecimalFormat;
 import com.example.fragmentClasses.ListPlacesFragment;
 import com.example.fragmentClasses.SearchPlaceResultListFragment;
-import com.example.locationData.PlacesData;
 import com.example.myLocation.GPSTracker;
-import com.example.sqlHelper.TestLocalSqliteDatabase;
 import com.example.storage.InternalStorage;
 import com.example.tasks.BitmapTask;
-import com.example.tasks.ImageTask;
-import com.example.thesguideproject.CursorAdapterExample;
-import com.example.thesguideproject.PlacesListFragmentActivity;
 import com.example.thesguideproject.R;
 import com.example.thesguideproject.PlacesDetailsTabs;
-
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.os.AsyncTask;
-import android.os.Build;
-import android.os.Bundle;
 import android.support.v4.widget.SimpleCursorAdapter;
-import android.support.v4.widget.SimpleCursorAdapter.ViewBinder;
-import android.support.v7.app.ActionBar;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class PlacesDataListCursorAdapter extends SimpleCursorAdapter implements OnClickListener {
 
 	private ListPlacesFragment activity;
 	private SearchPlaceResultListFragment searchPlaceResultListFragment;
-	
-	//private CursorAdapterExample activity;
-	private LayoutInflater layoutInflater;
 	private BitmapTask imgFetcher;
 	private Context context;
-	private SimpleCursorAdapter dataAdapter;
 	private int layout;
-	private BitmapTask bitTask;
 	private Cursor cursor;
 	private double current_latitude;
 	private double current_longtitude;
 	private String button_pressed;
-	private ActionBar act;
 	private Bitmap bitmap;
 	private Boolean imagessavedFlag;
 	private String fontcolor="";
@@ -131,7 +105,7 @@ public class PlacesDataListCursorAdapter extends SimpleCursorAdapter implements 
 	private static class ViewHolder{
 		TextView nametv, placeNametv, nameEllower, distance, latitudetv, longtitudetv, desc_infohiddentv, menuhiddentv,
 		telhiddentv, linkhiddentv, fbLinkhiddentv, emailhiddentv, exhibitionhiddentv,
-		photoLink1hiddentv, photoLink2hiddentv, photoLink3hiddentv, photoLink4hiddentv, hiddenoncalltv;
+		photoLink1hiddentv, photoLink2hiddentv, photoLink3hiddentv, photoLink4hiddentv;
 		ImageView icon;
 		Button infoButton;
 		Button oncallButton;
@@ -156,8 +130,6 @@ public class PlacesDataListCursorAdapter extends SimpleCursorAdapter implements 
 			distance = (TextView) v.findViewById(R.id.distance);
 			icon = (ImageView) v.findViewById(R.id.locationImage);
 			infoButton = (Button) v.findViewById(R.id.info_button);
-			oncallButton = (Button) v.findViewById(R.id.oncallbutton);
-			hiddenoncalltv = (TextView) v.findViewById(R.id.hiddenoncalltv);
 		}
 	}
 	
@@ -221,10 +193,7 @@ public class PlacesDataListCursorAdapter extends SimpleCursorAdapter implements 
             viewHolder.longtitudetv = (TextView) v.findViewById(R.id.longtitudetv);
             viewHolder.distance = (TextView) v.findViewById(R.id.distance);
             viewHolder.icon = (ImageView) v.findViewById(R.id.locationImage);
-            viewHolder.hiddenoncalltv = (TextView) v.findViewById(R.id.hiddenoncalltv);
             viewHolder.infoButton = (Button) v.findViewById(R.id.info_button);
-            viewHolder.oncallButton = (Button) v.findViewById(R.id.oncallbutton);
-            viewHolder.oncallButton.setTag(viewHolder);
             viewHolder.infoButton.setTag(viewHolder);
             v.setTag(viewHolder);   
         }
@@ -337,14 +306,6 @@ public class PlacesDataListCursorAdapter extends SimpleCursorAdapter implements 
 		
 		
 		viewHolder.infoButton.setOnClickListener(this);
-		viewHolder.hiddenoncalltv.setText(menu);
-		if (viewHolder.hiddenoncalltv.getText().equals("yes")){
-			viewHolder.oncallButton.setVisibility(View.VISIBLE);
-		}
-		else{
-			viewHolder.oncallButton.setVisibility(View.INVISIBLE);
-		}
-		
 		//InternalStorage intStorage = new InternalStorage();
 		//String path = "/data/data/com.example.thesguideproject/app_imageDir";
 		//Bitmap b = intStorage.loadImageFromStorage(path, name);
