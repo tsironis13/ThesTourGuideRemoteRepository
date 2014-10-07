@@ -43,6 +43,7 @@ public class InEnglishPlacesDataListCursorAdapter extends SimpleCursorAdapter im
 	private Boolean imagessavedFlag;
 	private Bitmap bitmap;
 	private String fontcolor="";
+	private Bitmap bit;
 	
 	GPSTracker gps;
 	ArrayList<PlacesData> placesDataArray = new ArrayList<PlacesData>();
@@ -213,7 +214,7 @@ public class InEnglishPlacesDataListCursorAdapter extends SimpleCursorAdapter im
 		String fbLink = this.cursor.getString(this.cursor.getColumnIndex("fb_link"));
 		String email = this.cursor.getString(this.cursor.getColumnIndex("email"));
 		String exhibition = this.cursor.getString(this.cursor.getColumnIndex("exhibition_en"));
-		String menu = this.cursor.getString(this.cursor.getColumnIndex("menu"));
+		String menu = this.cursor.getString(this.cursor.getColumnIndex("menu_en"));
 		String link1 = this.cursor.getString(this.cursor.getColumnIndex("link1"));
 		String link2 = this.cursor.getString(this.cursor.getColumnIndex("link2"));
 		String link3 = this.cursor.getString(this.cursor.getColumnIndex("link3"));
@@ -230,7 +231,7 @@ public class InEnglishPlacesDataListCursorAdapter extends SimpleCursorAdapter im
 		bindView(v, context, cursor);
 		InternalStorage i = new InternalStorage();
 		String path = "/data/data/com.example.thesguideproject/app_imageDir";
-		Bitmap bit = i.loadImageFromStorage(path, name);
+		bit = i.loadImageFromStorage(path, name);
 		
 		if(!image_link .equals("")) {
 			viewHolder.icon.setTag(image_link);

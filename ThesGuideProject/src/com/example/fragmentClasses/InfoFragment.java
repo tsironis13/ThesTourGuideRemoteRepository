@@ -20,6 +20,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 @SuppressLint("DefaultLocale") 
 public class InfoFragment extends Fragment{
@@ -29,7 +30,7 @@ public class InfoFragment extends Fragment{
 	private TextView telFragmenttv;
 	private TextView linkFragmenttv;
 	private TextView fbLinkFragmenttv;
-	private TextView emailFragmenttv;
+	private TextView emailFragmenttv, infosourcetv;
 	private Button telFragmentButton;
 	private Button emailFragmentButton;
 	private String name;
@@ -52,7 +53,7 @@ public class InfoFragment extends Fragment{
 		this.emailFragmenttv = (TextView) view.findViewById(R.id.emailFragmentTextView);
 		this.telFragmentButton = (Button) view.findViewById(R.id.telFragmentButton);
 		this.emailFragmentButton = (Button) view.findViewById(R.id.emailFragmentButton);
-		
+		this.infosourcetv = (TextView) view.findViewById(R.id.infosourcetv);
 		
 		return view;
 	}
@@ -73,6 +74,7 @@ public class InfoFragment extends Fragment{
 		String link = getArguments().getString("link");	
 		String fbLink = getArguments().getString("fbLink");
 		String email = getArguments().getString("email");
+		String button_pressed = getArguments().getString("button_pressed");
 		
 		//placenameElFragmenttv.setText(place_nameEl.toUpperCase());
 		String pattern = "^[A-Za-z0-9.& ]+$";
@@ -230,6 +232,67 @@ public class InfoFragment extends Fragment{
 				
 			}
 		});
+        
+        if (button_pressed.equals("Byzantine") || button_pressed.equals("Basiliki") || button_pressed.equals("PaleoChristian") || button_pressed.equals("Macedonian")){
+        	if (language.equals("English")){
+        		infosourcetv.setText("Source: http://www.it.uom.gr");
+        	}
+        	else{
+        		infosourcetv.setText("ÐçãÞ: http://www.it.uom.gr");
+        	}
+        }
+        else if (button_pressed.equals("museums")){
+        	if (language.equals("English")){
+        		infosourcetv.setText("Source: http://www.thessalonikicityguide.gr");
+        	}
+        	else{
+        		infosourcetv.setText("ÐçãÞ: http://www.thessalonikicityguide.gr");
+        	}
+        }
+        else if (button_pressed.equals("sightseeings")){
+        	if (language.equals("English")){
+        		infosourcetv.setText("Source: http://www.taxidologio.gr");
+        	}
+        	else{
+        		infosourcetv.setText("ÐçãÞ: http://www.taxidologio.gr");
+        	}
+        }
+        else if (button_pressed.equals("seafood") || button_pressed.equals("restaurants") || button_pressed.equals("bar-restaurant") || button_pressed.equals("intcuisine")){
+        	if (language.equals("English")){
+        		infosourcetv.setText("Source: www.biscotto.gr");
+        	}
+        	else{
+        		infosourcetv.setText("ÐçãÞ: www.biscotto.gr");
+        	}
+        }
+        else if (button_pressed.equals("bars") || button_pressed.equals("clubs") || button_pressed.equals("pubs")){
+        	if (language.equals("English")){
+        		if (place_nameEl.equals("Art House")){
+         		   infosourcetv.setText("ÐçãÞ: www.in2life.gr");
+         		}else{
+         		   infosourcetv.setText("ÐçãÞ: www.biscotto.gr");
+         		}
+        		
+        		if (place_nameEl.equals("Habanita Latin Club")){
+          		   infosourcetv.setText("ÐçãÞ: www.monopoli.gr");
+          		}else{
+          		   infosourcetv.setText("ÐçãÞ: www.biscotto.gr");
+          		} 
+        	}
+        	else{
+        		if (place_nameEl.equals("Art House")){
+        		   infosourcetv.setText("ÐçãÞ: www.in2life.gr");
+        		}else{
+        		   infosourcetv.setText("ÐçãÞ: www.biscotto.gr");
+        		}
+        		
+        		if (place_nameEl.equals("Habanita Latin Club")){
+          		   infosourcetv.setText("ÐçãÞ: www.monopoli.gr");
+          		}else{
+          		   infosourcetv.setText("ÐçãÞ: www.biscotto.gr");
+          		}
+        	}
+        }
 	}
 
 	

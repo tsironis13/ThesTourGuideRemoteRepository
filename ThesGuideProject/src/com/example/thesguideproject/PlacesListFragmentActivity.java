@@ -29,7 +29,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
  public class PlacesListFragmentActivity extends ActionBarActivity implements SearchView.OnQueryTextListener, SearchView.OnCloseListener{
 

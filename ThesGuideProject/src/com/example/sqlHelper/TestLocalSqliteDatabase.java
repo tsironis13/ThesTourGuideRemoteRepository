@@ -581,11 +581,11 @@ public class TestLocalSqliteDatabase extends SQLiteOpenHelper {
 	    		if (cursor.getString(3).toString().equals("null")){
 	    			
 		    		 //photoListArrayList.add(cursor.getString(3));
-	    			Toast.makeText(myContext, "Is Null", Toast.LENGTH_SHORT).show();
+	    			//Toast.makeText(myContext, "Is Null", Toast.LENGTH_SHORT).show();
 		    	}
 	    		else{
 	    			photoListArrayList.add(cursor.getString(3));
-	    			Toast.makeText(myContext, "Not Null", Toast.LENGTH_SHORT).show();
+	    			//Toast.makeText(myContext, "Not Null", Toast.LENGTH_SHORT).show();
 	    		}
 	    		if (cursor.getString(4) != null){
 		    		 photoListArrayList.add(cursor.getString(4));
@@ -629,11 +629,11 @@ public class TestLocalSqliteDatabase extends SQLiteOpenHelper {
 	    		if (cursor.getString(3).toString().equals("null")){
 	    			
 		    		 //photoListArrayList.add(cursor.getString(3));
-	    			Toast.makeText(myContext, "Is Null", Toast.LENGTH_SHORT).show();
+	    			//Toast.makeText(myContext, "Is Null", Toast.LENGTH_SHORT).show();
 		    	}
 	    		else{
 	    			photoListArrayList.add(cursor.getString(3));
-	    			Toast.makeText(myContext, "Not Null", Toast.LENGTH_SHORT).show();
+	    			//Toast.makeText(myContext, "Not Null", Toast.LENGTH_SHORT).show();
 	    		}
 	    		if (cursor.getString(4) != null){
 		    		 photoListArrayList.add(cursor.getString(4));

@@ -1,12 +1,14 @@
 package com.example.thesguideproject;
 
 import java.util.ArrayList;
+
 import com.example.adapters.InEnglishSearchAdapter;
 import com.example.adapters.SearchAdapter;
 import com.example.fragmentClasses.GoogleMapFragment.OnGoogleMapFragmentListener;
 import com.example.fragmentClasses.SettingsMapFragment;
 import com.example.sqlHelper.TestLocalSqliteDatabase;
 import com.google.android.gms.maps.GoogleMap;
+
 import android.annotation.TargetApi;
 import android.content.Intent;
 import android.database.Cursor;
@@ -14,6 +16,8 @@ import android.database.MatrixCursor;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.NavUtils;
+import android.support.v4.app.TaskStackBuilder;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
@@ -54,8 +58,8 @@ public class FindPathFragmentActivity extends ActionBarActivity implements OnGoo
 		
 		mActionBar = getSupportActionBar();
 		mActionBar.setBackgroundDrawable(null);
-		mActionBar.setHomeButtonEnabled(false);
-		mActionBar.setDisplayHomeAsUpEnabled(false);
+		mActionBar.setHomeButtonEnabled(true);
+		mActionBar.setDisplayHomeAsUpEnabled(true);
 		mActionBar.setDisplayShowHomeEnabled(true);
 		mActionBar.setIcon(R.drawable.ic_launcher);
 		mActionBar.setDisplayShowTitleEnabled(false);
@@ -120,6 +124,12 @@ public class FindPathFragmentActivity extends ActionBarActivity implements OnGoo
 	public boolean onOptionsItemSelected(MenuItem item) {
 		 // Take appropriate action for each action item click
         switch (item.getItemId()) {
+        case R.id.home:
+        	/*Intent upIntent = new Intent(this, PlacesListFragmentActivity.class);
+        	//upIntent.putExtra("language", language);
+        	startActivity(upIntent);
+        	finish();*/
+        	return true;
         case R.id.close:
         	Intent closeIntent = new Intent(FindPathFragmentActivity.this, CloseExpandableListFragmentActivity.class);
         	closeIntent.putExtra("language", language);

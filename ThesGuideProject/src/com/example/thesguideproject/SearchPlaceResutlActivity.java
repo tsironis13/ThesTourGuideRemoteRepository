@@ -17,6 +17,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.adapters.InEnglishSearchAdapter;
 import com.example.adapters.SearchAdapter;
@@ -52,8 +53,8 @@ public class SearchPlaceResutlActivity extends ActionBarActivity implements OnQu
 		
 		mActionBar= getSupportActionBar();
 		mActionBar.setBackgroundDrawable(null);
-		mActionBar.setHomeButtonEnabled(false);
-		mActionBar.setDisplayHomeAsUpEnabled(false);
+		mActionBar.setHomeButtonEnabled(true);
+		mActionBar.setDisplayHomeAsUpEnabled(true);
 		mActionBar.setDisplayShowHomeEnabled(true);
 		mActionBar.setIcon(R.drawable.ic_launcher);
 		mActionBar.setDisplayShowTitleEnabled(false);
@@ -117,6 +118,9 @@ public class SearchPlaceResutlActivity extends ActionBarActivity implements OnQu
 	public boolean onOptionsItemSelected(MenuItem item) {
 		 // Take appropriate action for each action item click
         switch (item.getItemId()) {
+        case R.id.home:
+        	Toast.makeText(getApplicationContext(), "Back!", Toast.LENGTH_SHORT).show();
+        	return true;
         case R.id.action_path:
         	Intent i = new Intent(SearchPlaceResutlActivity.this, FindPathFragmentActivity.class);
         	i.putExtra("imagessavedFlag", imagessavedFlag);

@@ -2,6 +2,7 @@ package com.example.thesguideproject;
 
 
 import java.util.ArrayList;
+
 import com.example.adapters.InEnglishSearchAdapter;
 import com.example.adapters.SearchAdapter;
 import com.example.adapters.TabsPagerAdapter;
@@ -16,12 +17,14 @@ import com.example.myLocation.GPSTracker;
 import com.example.sqlHelper.TestLocalSqliteDatabase;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.LatLng;
+
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.MatrixCursor;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
+import android.support.v4.app.NavUtils;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
@@ -33,7 +36,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
 import android.widget.Toast;
 
 public class PlacesDetailsTabs extends ActionBarActivity implements OnGoogleMapFragmentListener, SearchView.OnQueryTextListener, SearchView.OnCloseListener{
@@ -94,8 +96,8 @@ public class PlacesDetailsTabs extends ActionBarActivity implements OnGoogleMapF
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.testlayout);
 		mActionBar = getSupportActionBar();
-		mActionBar.setHomeButtonEnabled(false);
-		mActionBar.setDisplayHomeAsUpEnabled(false);
+		mActionBar.setHomeButtonEnabled(true);
+		mActionBar.setDisplayHomeAsUpEnabled(true);
 		mActionBar.setDisplayShowHomeEnabled(true);
 		mActionBar.setIcon(R.drawable.ic_launcher);
 		mActionBar.setDisplayShowTitleEnabled(false);
@@ -157,6 +159,7 @@ public class PlacesDetailsTabs extends ActionBarActivity implements OnGoogleMapF
         infoBundle.putString("link", link);
         infoBundle.putString("fbLink", fbLink);
         infoBundle.putString("email", email);
+        infoBundle.putString("button_pressed", button_pressed);
        // tabsPagerAdapter.addTab(actionBar.newTab().setText("Info"), InfoFragment.class, infoBundle);
        if (language.equals("Greek")){
     	   tabsPagerAdapter.addTab(mActionBar.newTab().setText("Πληροφοριες"), InfoFragment.class, infoBundle);
@@ -165,6 +168,7 @@ public class PlacesDetailsTabs extends ActionBarActivity implements OnGoogleMapF
        }
        
        Bundle menuBundle = new Bundle();
+       menuBundle.putString("language", language);
        menuBundle.putString("menu", menu);
        if (!menu.equals("null") && !(menu.length() == 3)){ 
        		if (language.equals("Greek")){
@@ -176,6 +180,7 @@ public class PlacesDetailsTabs extends ActionBarActivity implements OnGoogleMapF
        
         exhibitionBundle = new Bundle();
         exhibitionBundle.putString("exhibition", exhibition);
+        exhibitionBundle.putString("language", language);
         //tabsPagerAdapter.addTab(actionBar.newTab().setText("Exhibition"), ExhibitionFragment.class, exhibitionBundle);
         if (!exhibition.equals("null") && !(exhibition.length() == 10)){
         	if (language.equals("Greek")){

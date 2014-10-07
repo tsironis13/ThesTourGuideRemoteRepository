@@ -88,7 +88,7 @@ public class SplashScreen extends ActionBarActivity{
 				public void onClick(View v) {
 					Intent i = new Intent(SplashScreen.this, PlacesListFragmentActivity.class);
 					i.putExtra("language", "English");
-					Toast.makeText(getApplicationContext(), "English", Toast.LENGTH_SHORT).show();
+					//Toast.makeText(getApplicationContext(), "English", Toast.LENGTH_SHORT).show();
 					startActivity(i);
 				}
 			});

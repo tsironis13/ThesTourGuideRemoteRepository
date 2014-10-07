@@ -54,8 +54,8 @@ public class CloseExpandableListFragmentActivity extends ActionBarActivity imple
         
 		mActionBar = getSupportActionBar();
 		mActionBar.setBackgroundDrawable(null);
-		mActionBar.setHomeButtonEnabled(false);
-		mActionBar.setDisplayHomeAsUpEnabled(false);
+		mActionBar.setHomeButtonEnabled(true);
+		mActionBar.setDisplayHomeAsUpEnabled(true);
 		mActionBar.setDisplayShowHomeEnabled(true);
 		mActionBar.setIcon(R.drawable.ic_launcher);
 		mActionBar.setDisplayShowTitleEnabled(false);
