@@ -6,17 +6,8 @@
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.DEPENDENCIES"/>
 	<classpathentry kind="src" path="/google-play-services_lib"/>
-	<classpathentry kind="src" path="/DevsmartAndroid"/>
 	<classpathentry kind="lib" path="C:/Users/user/workspace/HomeActivity/libs/universal-image-loader-1.9.3-SNAPSHOT.jar"/>
-	<classpathentry kind="lib" path="libs/android-support-v4.jar"/>
 	<classpathentry kind="src" path="/library"/>
-	<classpathentry kind="lib" path="C:/adt-bundle-windows-x86_64-20140321/sdk/platforms/android-19/android.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="http://developer.android.com/reference/"/>
-		</attributes>
-		<accessrules>
-			<accessrule kind="nonaccessible" pattern="com/android/internal/**"/>
-		</accessrules>
-	</classpathentry>
+	<classpathentry combineaccessrules="false" kind="src" path="/android-support-v7-appcompat"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>

@@ -268,15 +268,15 @@ public class InfoFragment extends Fragment{
         else if (button_pressed.equals("bars") || button_pressed.equals("clubs") || button_pressed.equals("pubs")){
         	if (language.equals("English")){
         		if (place_nameEl.equals("Art House")){
-         		   infosourcetv.setText("ÐçãÞ: www.in2life.gr");
+         		   infosourcetv.setText("Source: www.in2life.gr");
          		}else{
-         		   infosourcetv.setText("ÐçãÞ: www.biscotto.gr");
+         		   infosourcetv.setText("Source: www.biscotto.gr");
          		}
         		
         		if (place_nameEl.equals("Habanita Latin Club")){
-          		   infosourcetv.setText("ÐçãÞ: www.monopoli.gr");
+          		   infosourcetv.setText("Source: www.monopoli.gr");
           		}else{
-          		   infosourcetv.setText("ÐçãÞ: www.biscotto.gr");
+          		   infosourcetv.setText("Source: www.biscotto.gr");
           		} 
         	}
         	else{

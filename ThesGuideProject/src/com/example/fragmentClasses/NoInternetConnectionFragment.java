@@ -58,7 +58,7 @@ public class NoInternetConnectionFragment extends Fragment{
 		retrybutton.setOnClickListener(new View.OnClickListener() {		
 				@Override
 				public void onClick(View v) {
-					Toast.makeText(getActivity(), "Retry Button!", Toast.LENGTH_SHORT).show();
+					//Toast.makeText(getActivity(), "Retry Button!", Toast.LENGTH_SHORT).show();
 					WifiManager wifi = (WifiManager) getActivity().getSystemService(Context.WIFI_SERVICE);
 					if (wifi.isWifiEnabled()){
 						nonetcontv.setVisibility(View.GONE);
