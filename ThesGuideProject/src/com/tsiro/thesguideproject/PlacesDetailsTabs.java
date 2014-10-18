@@ -3,7 +3,7 @@ package com.tsiro.thesguideproject;
 
 import java.util.ArrayList;
 
-import com.example.thesguideproject.R;
+import com.tsiro.thesguideproject.R;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.LatLng;
 import com.tsiro.adapters.InEnglishSearchAdapter;
@@ -23,6 +23,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.MatrixCursor;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
@@ -84,6 +86,7 @@ public class PlacesDetailsTabs extends ActionBarActivity implements OnGoogleMapF
     private MenuItem searchItem;
     private boolean imagessavedFlag;
     private String displaycurrentPoint;
+    private Context context;
     
 	@Override
 	public void onMapReady(GoogleMap map) {
@@ -148,7 +151,7 @@ public class PlacesDetailsTabs extends ActionBarActivity implements OnGoogleMapF
 		mActionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
         
         //this.tabsPagerAdapter = new TabsPagerAdapter(this, viewPager, name, doublelatitude, doublelongtitude, doubleCurrentLatitude, doubleCurrentLongtitude);
-        this.tabsPagerAdapter = new TabsPagerAdapter(this, viewPager, mActionBar);
+		this.tabsPagerAdapter = new TabsPagerAdapter(this, viewPager, mActionBar);
         tabsPagerAdapter.createHistory();
         
         Bundle infoBundle = new Bundle();
@@ -191,18 +194,19 @@ public class PlacesDetailsTabs extends ActionBarActivity implements OnGoogleMapF
         	}
         }
         
-        testDB = new TestLocalSqliteDatabase(this);
-        testDB.openDataBase(debugTag);
+        //testDB = new TestLocalSqliteDatabase(this);
+        testDB = TestLocalSqliteDatabase.getInstance(this);
+        //testDB.openDataBase(debugTag);
         
         DisplayMetrics metrics = new DisplayMetrics();
-     		getWindowManager().getDefaultDisplay().getMetrics(metrics);
+     	getWindowManager().getDefaultDisplay().getMetrics(metrics);
      		
-     		int scr_height = metrics.heightPixels;
-     		int scr_width = metrics.widthPixels;
-     		String s_height = Integer.toString(scr_height);
-     		String s_width = Integer.toString(scr_width);
-     		Log.i("SCRENN HEIGHT => ", s_height);
-     		Log.i("SCRENN WIDTH => ", s_width);
+     	int scr_height = metrics.heightPixels;
+     	int scr_width = metrics.widthPixels;
+     	String s_height = Integer.toString(scr_height);
+     	String s_width = Integer.toString(scr_width);
+     	Log.i("SCRENN HEIGHT => ", s_height);
+     	Log.i("SCRENN WIDTH => ", s_width);
         
      //   if (button_pressed.equals("museums")){
         	
@@ -253,8 +257,8 @@ public class PlacesDetailsTabs extends ActionBarActivity implements OnGoogleMapF
           onmapBundle.putString("displaycurrentPoint", displaycurrentPoint);
           onmapBundle.putString("place_nameEl_info", placenameEl);
      	 
-          WifiManager wifi = (WifiManager) this.getSystemService(Context.WIFI_SERVICE);
-          	if (wifi.isWifiEnabled()){
+          //WifiManager wifi = (WifiManager) this.getSystemService(Context.WIFI_SERVICE);
+          if (isNetworkConnected()){
 			
           		 if (language.equals("Greek")){
                  	tabsPagerAdapter.addTab(mActionBar.newTab().setText("Στο χαρτη"), GoogleMapFragment.class, onmapBundle);
@@ -318,11 +322,21 @@ public class PlacesDetailsTabs extends ActionBarActivity implements OnGoogleMapF
 
 	}
 
+	private boolean isNetworkConnected() {
+		ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+		NetworkInfo ni = cm.getActiveNetworkInfo();
+		if (ni == null) {
+			// There are no active networks.
+			return false;
+		} else
+			return true;
+	}
+	
 	@Override
 	protected void onDestroy() {
 		// TODO Auto-generated method stub
 		super.onDestroy();
-		testDB.close(debugTag);
+		//testDB.close(debugTag);
 	}
 
 	public boolean onCreateOptionsMenu(Menu menu){

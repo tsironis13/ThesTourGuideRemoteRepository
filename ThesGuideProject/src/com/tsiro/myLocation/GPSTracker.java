@@ -1,5 +1,6 @@
 package com.tsiro.myLocation;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Service;
 import android.content.Context;
@@ -13,6 +14,7 @@ import android.os.IBinder;
 import android.provider.Settings;
 import android.util.Log;
 
+@SuppressLint("Instantiatable") 
 public class GPSTracker extends Service implements LocationListener {
 	 
     private final Context mContext;
@@ -42,7 +44,7 @@ public class GPSTracker extends Service implements LocationListener {
     protected LocationManager locationManager;
  
     public GPSTracker(Context context) {
-        this.mContext = context;
+        this.mContext = context.getApplicationContext();
         getLocation();
     }
  

@@ -24,10 +24,11 @@ import android.widget.Toast;
 
 public class TestLocalSqliteDatabase extends SQLiteOpenHelper {
 
-	private static TestLocalSqliteDatabase mInstance = null;
-	private  Context myContext;
+	private static TestLocalSqliteDatabase sInstance;
+	
+	private Context myContext;
 	//The Android's default system path of your application database.
-	private static String DB_PATH = "/data/data/com.example.thesguideproject/databases/";
+	private static String DB_PATH = "/data/data/com.tsiro.thesguideproject/databases/";
 	
 	//private static String DB_NAME = "MyLocationsForThessTourGuideProject";
 	private static String DB_NAME = "mydb";
@@ -45,27 +46,31 @@ public class TestLocalSqliteDatabase extends SQLiteOpenHelper {
 	private Date strDate;
 	//private static String flag;
 	//private static final String TABLE_RECORD = "TestTable"; 
-	public static TestLocalSqliteDatabase getInstance(Context myContext){
+	public static TestLocalSqliteDatabase getInstance(Context context){
 		 // Use the application context, which will ensure that you 
 	    // don't accidentally leak an Activity's context.
 	    // See this article for more information: http://bit.ly/6LRzfx
-	    if (mInstance == null) {
-	      //mInstance = new TestLocalSqliteDatabase(myContext.getApplicationContext());
+	    if (sInstance == null) {
+	       sInstance = new TestLocalSqliteDatabase(context.getApplicationContext());
 	    }
-	    return mInstance;
+	    return sInstance;
 	}
 	
+	private TestLocalSqliteDatabase(Context context){
+		super(context, DB_NAME, null, 1);
+		myContext = context;
+	}
 	
 	 /**
 	  * Constructor
 	  * Takes and keeps a reference of the passed context in order to access to the application assets and resources.
 	  * @param context
 	  */
-	public TestLocalSqliteDatabase(Context context) {
+	/*public TestLocalSqliteDatabase(Context context) {
 	    super(context, DB_NAME, null, 1);
 	    this.myContext = context;
 	    //DB_PATH = "/data/data/" + myContext.getApplicationContext().getPackageName() + "/databases/";
-	}
+	}*/
 	
 	
 	 /**

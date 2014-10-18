@@ -2,7 +2,7 @@ package com.tsiro.thesguideproject;
 
 import java.util.ArrayList;
 
-import com.example.thesguideproject.R;
+import com.tsiro.thesguideproject.R;
 import com.google.android.gms.maps.GoogleMap;
 import com.tsiro.adapters.InEnglishSearchAdapter;
 import com.tsiro.adapters.SearchAdapter;
@@ -50,8 +50,9 @@ public class FindPathFragmentActivity extends ActionBarActivity implements OnGoo
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.findpathfragmentactivity);	
 
-		testDB = new TestLocalSqliteDatabase(this);
-        testDB.openDataBase(debugTag);
+		//testDB = new TestLocalSqliteDatabase(this);
+		testDB = TestLocalSqliteDatabase.getInstance(this);
+		testDB.openDataBase(debugTag);
 		
 		Bundle extras = getIntent().getExtras();
 		language = extras.getString("language");

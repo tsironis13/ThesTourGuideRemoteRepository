@@ -5,15 +5,19 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Stack;
 
-import com.example.thesguideproject.R;
+import com.tsiro.sqlHelper.TestLocalSqliteDatabase;
+import com.tsiro.thesguideproject.R;
 import com.tsiro.thesguideproject.PlacesDetailsTabs;
 
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBar.Tab;
 import android.support.v7.app.ActionBar.TabListener;
 import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
@@ -23,14 +27,14 @@ import android.util.Log;
 public class TabsPagerAdapter extends FragmentStatePagerAdapter implements OnPageChangeListener, TabListener {
 	
 	//private final Context mContext;
+	private Context context;
 	private final ActionBar mActionBar;
 	private final ViewPager mViewPager;
 	private final ArrayList<TabInfo> mTabs = new ArrayList<TabInfo>();
 	private final String TAG = "";
 	private Map<Integer, Stack<TabInfo>> history = new HashMap<Integer, Stack<TabInfo>>();
-	private final PlacesDetailsTabs activity;
+	//private final PlacesDetailsTabs activity;
 	private int TOTAL_TABS;
-	
 	
 	static final class TabInfo{
 		private final Class<?> clss;
@@ -55,10 +59,25 @@ public class TabsPagerAdapter extends FragmentStatePagerAdapter implements OnPag
         //this.doubleLongtitude = doubleLongtitude;
         //this.doubleCurrentLatitude = doubleCurrentLatitude;
         //this.doubleCurrentLongtitude = doubleCurrentLongtitude;
-	//}
+	//}	
+	public TabsPagerAdapter(Context context, ViewPager pager, ActionBar mActionBar) {
+		super(((FragmentActivity) context).getSupportFragmentManager());
+		this.context = context.getApplicationContext();
+		//mActionBar = activity.getSupportActionBar();
+		//mActionBar = activity.getSupportActionBar();
+		this.mActionBar = mActionBar;
+		mViewPager = pager;
+		mViewPager.setAdapter(this);
+		mViewPager.setOnPageChangeListener(this);
+        //this.name = name;
+        //this.doubleLatitude = doubleLatitude;
+        //this.doubleLongtitude = doubleLongtitude;
+        //this.doubleCurrentLatitude = doubleCurrentLatitude;
+        //this.doubleCurrentLongtitude = doubleCurrentLongtitude;
+	}	
 	
-	
-	public TabsPagerAdapter(PlacesDetailsTabs activity, ViewPager pager, ActionBar mActionBar) {
+	/*
+  public TabsPagerAdapter(PlacesDetailsTabs activity, ViewPager pager, ActionBar mActionBar) {
 		super(activity.getSupportFragmentManager());
 		this.activity = activity;
 		//mActionBar = activity.getSupportActionBar();
@@ -74,7 +93,7 @@ public class TabsPagerAdapter extends FragmentStatePagerAdapter implements OnPag
         //this.doubleLongtitude = doubleLongtitude;
         //this.doubleCurrentLatitude = doubleCurrentLatitude;
         //this.doubleCurrentLongtitude = doubleCurrentLongtitude;
-	}
+	}*/
 	
 	
 	public void addTab(Tab tab, Class<?> clss, Bundle args){
@@ -117,14 +136,14 @@ public class TabsPagerAdapter extends FragmentStatePagerAdapter implements OnPag
 		//Toast.makeText(mContext, info.clss.getName(), Toast.LENGTH_SHORT).show();
 		if (info.clss.getName().equals("com.example.fragmentClasses.PhotoGridViewFragment")){
 			//Toast.makeText(mContext, "!!PhotoGridViewFragment", Toast.LENGTH_SHORT).show();
-			return Fragment.instantiate(activity, "com.example.fragmentClasses.PhotoGridViewFragment", info.args);
+			return Fragment.instantiate(context, "com.example.fragmentClasses.PhotoGridViewFragment", info.args);
 		}
 		else if (info.clss.getName().equals("com.example.fragmentClasses.OnMapFragment")) {
 			//Toast.makeText(mContext, "!!OnMapFragment", Toast.LENGTH_SHORT).show();
-			return Fragment.instantiate(activity, "com.example.fragmentClasses.OnMapFragment", info.args);
+			return Fragment.instantiate(context, "com.example.fragmentClasses.OnMapFragment", info.args);
 		}	
 		else{	
-			return Fragment.instantiate(activity, info.clss.getName(), info.args);
+			return Fragment.instantiate(context, info.clss.getName(), info.args);
 		}
 	}
 
@@ -198,7 +217,7 @@ public class TabsPagerAdapter extends FragmentStatePagerAdapter implements OnPag
 	@SuppressWarnings("rawtypes")
 	public void replace(final int position, final Class fragmentClass, final Bundle args) {
 	    /* Save the fragment to the history. */
-		activity.getSupportFragmentManager().beginTransaction().addToBackStack(null).commit();
+		((FragmentActivity) context).getSupportFragmentManager().beginTransaction().addToBackStack(null).commit();
 
 	    /* Update the tabs. */
 	    updateTabs(new TabInfo(fragmentClass, args), position);
@@ -233,7 +252,7 @@ public class TabsPagerAdapter extends FragmentStatePagerAdapter implements OnPag
 	    if (!historyIsEmpty(position)) {
 	        /* In case there is not any other item in the history, then finalize the activity. */
 	        if (isLastItemInHistory(position)) {
-	            activity.finish();
+	            ((Activity) context).finish();
 	        }
 	        final TabInfo currentTabInfo = getPrevious(position);
 	        mTabs.clear();

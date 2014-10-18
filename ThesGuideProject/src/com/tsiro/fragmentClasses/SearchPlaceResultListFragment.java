@@ -1,6 +1,6 @@
 package com.tsiro.fragmentClasses;
 
-import com.example.thesguideproject.R;
+import com.tsiro.thesguideproject.R;
 import com.tsiro.adapters.InEnglishPlacesDataListCursorAdapter;
 import com.tsiro.adapters.PlacesDataListCursorAdapter;
 import com.tsiro.myLocation.GPSTracker;
@@ -62,7 +62,8 @@ public class SearchPlaceResultListFragment extends ListFragment{
 	        gps.showSettingsAlert();
 	    }
 		
-		testDB = new TestLocalSqliteDatabase(getActivity());
+		//testDB = new TestLocalSqliteDatabase(getActivity());
+		testDB = TestLocalSqliteDatabase.getInstance(getActivity());
 		testDB.openDataBase(debugTag);
 		/*getPlaceImageLink = testDB.getPlacePhotoDisplayImageLink(nameEl);
 			if (getPlaceImageLink.moveToFirst()){

@@ -2,7 +2,7 @@ package com.tsiro.adapters;
 
 
 import java.text.DecimalFormat;
-import com.example.thesguideproject.R;
+import com.tsiro.thesguideproject.R;
 import com.tsiro.fragmentClasses.ListPlacesFragment;
 import com.tsiro.fragmentClasses.SearchPlaceResultListFragment;
 import com.tsiro.myLocation.GPSTracker;
@@ -64,7 +64,7 @@ public class PlacesDataListCursorAdapter extends SimpleCursorAdapter implements 
 		super(context, layout, cursor, from, to);
 		this.button_pressed = button_pressed;
 		this.searchPlaceResultListFragment = searchPlaceResultListFragment;
-		this.context = context;
+		this.context = context.getApplicationContext();
 		this.layout = layout;
 		this.cursor = cursor;
 		//this.imgFetcher = i;
@@ -109,7 +109,6 @@ public class PlacesDataListCursorAdapter extends SimpleCursorAdapter implements 
 		photoLink1hiddentv, photoLink2hiddentv, photoLink3hiddentv, photoLink4hiddentv;
 		ImageView icon;
 		Button infoButton;
-		Button oncallButton;
 		
 		ViewHolder(View v){
 			desc_infohiddentv = (TextView) v.findViewById(R.id.descinfohiddentv);
@@ -167,16 +166,16 @@ public class PlacesDataListCursorAdapter extends SimpleCursorAdapter implements 
 	
 	
 	public View getView(int pos, View inView, ViewGroup parent){
-		ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+		ConnectivityManager cm = (ConnectivityManager) context.getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
 		NetworkInfo ni = cm.getActiveNetworkInfo();
-		imgFetcher = new BitmapTask(this);
+		imgFetcher = new BitmapTask(context.getApplicationContext());
 		View v = inView;
 		ViewHolder viewHolder;
 		if (v == null) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            v = inflater.inflate(layout, parent, false);
+            v = inflater.inflate(R.layout.places_basic_layout, parent, false);
             viewHolder = new ViewHolder(v);
-            viewHolder.desc_infohiddentv = (TextView) v.findViewById(R.id.descinfohiddentv);
+            /*viewHolder.desc_infohiddentv = (TextView) v.findViewById(R.id.descinfohiddentv);
             viewHolder.menuhiddentv = (TextView) v.findViewById(R.id.menuhiddentv);
             viewHolder.telhiddentv = (TextView) v.findViewById(R.id.telhiddentv);
             viewHolder.linkhiddentv = (TextView) v.findViewById(R.id.linkhiddentv);
@@ -194,7 +193,7 @@ public class PlacesDataListCursorAdapter extends SimpleCursorAdapter implements 
             viewHolder.longtitudetv = (TextView) v.findViewById(R.id.longtitudetv);
             viewHolder.distance = (TextView) v.findViewById(R.id.distance);
             viewHolder.icon = (ImageView) v.findViewById(R.id.locationImage);
-            viewHolder.infoButton = (Button) v.findViewById(R.id.info_button);
+            viewHolder.infoButton = (Button) v.findViewById(R.id.info_button);*/
             viewHolder.infoButton.setTag(viewHolder);
             v.setTag(viewHolder);   
         }
@@ -231,12 +230,12 @@ public class PlacesDataListCursorAdapter extends SimpleCursorAdapter implements 
 		String dx=df.format(distanceInKm);
 		//String str_distanceInKm = Double.toString(distanceInKm);
 		
-		bindView(v, context, cursor);
+		//bindView(v, context, cursor);
 		InternalStorage i = new InternalStorage();
 		String path = "/data/data/com.example.thesguideproject/app_imageDir";
 		Bitmap bit = i.loadImageFromStorage(path, name);
 
-		if(!image_link .equals("")) {
+		/*if(!image_link .equals("")) {
 			viewHolder.icon.setTag(image_link);
    			//Drawable dr = imgFetcher.loadImage(this, viewHolder.icon);
 			//BitmapTask bit = new BitmapTask(this);
@@ -251,7 +250,7 @@ public class PlacesDataListCursorAdapter extends SimpleCursorAdapter implements 
 			
    			if(imagessavedFlag == true) {
    				//viewHolder.icon.setImageDrawable(dr);
-   				bitmap = imgFetcher.loadImage(this, viewHolder.icon, context, name);
+   				bitmap = imgFetcher.loadImage(this, viewHolder.icon, context.getApplicationContext(), name);
    				viewHolder.icon.setImageBitmap(bitmap);
    			}
    			else if (ni == null && bit == null){
@@ -264,7 +263,7 @@ public class PlacesDataListCursorAdapter extends SimpleCursorAdapter implements 
    			}
    			else if (ni != null && imagessavedFlag == false){
    				//imgFetcher.loadImage(image_link, context, name);
-   				Bitmap bitm = imgFetcher.loadImage(this, viewHolder.icon, context, name);
+   				Bitmap bitm = imgFetcher.loadImage(this, viewHolder.icon, context.getApplicationContext(), name);
    				viewHolder.icon.setImageBitmap(bitm);
    				viewHolder.icon.invalidate();
    			}
@@ -274,7 +273,7 @@ public class PlacesDataListCursorAdapter extends SimpleCursorAdapter implements 
    			RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(0, 0);
    			viewHolder.icon.setLayoutParams(params);
    			
-   		}
+   		}*/
 		
 		//viewHolder.nametv.setText(name);
 		viewHolder.desc_infohiddentv.setText(descInfo);
@@ -454,7 +453,7 @@ public class PlacesDataListCursorAdapter extends SimpleCursorAdapter implements 
 		ViewHolder vH = (ViewHolder) v.getTag();
 		//String url = (String) vH.surnametv.getTag();
 		//Toast.makeText(this.context, url, Toast.LENGTH_SHORT).show();
-		Intent intent = new Intent(context, PlacesDetailsTabs.class);
+		Intent intent = new Intent(context.getApplicationContext(), PlacesDetailsTabs.class);
 		//Intent intent = new Intent(this.activity, PlacesListFragmentActivityTest.class);
 		//intent.putExtra("nameEl", vH.surnametv.getTag().toString());
 		String str_current_latitude = Double.toString(current_latitude);

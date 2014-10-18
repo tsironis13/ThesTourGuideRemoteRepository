@@ -1,6 +1,6 @@
 package com.tsiro.fragmentClasses;
 
-import com.example.thesguideproject.R;
+import com.tsiro.thesguideproject.R;
 import com.tsiro.thesguideproject.PlacesDetailsTabs;
 
 import android.annotation.SuppressLint;
@@ -35,7 +35,7 @@ public class InfoFragment extends Fragment{
 	private Button emailFragmentButton;
 	private String name;
 	private String language;
-	PlacesDetailsTabs pdt = new PlacesDetailsTabs();
+	//PlacesDetailsTabs pdt = new PlacesDetailsTabs();
 	public InfoFragment(){}
 	
 	

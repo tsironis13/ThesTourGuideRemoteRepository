@@ -19,7 +19,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
-import com.example.thesguideproject.R;
+import com.tsiro.thesguideproject.R;
 import com.tsiro.adapters.InEnglishSearchAdapter;
 import com.tsiro.adapters.SearchAdapter;
 import com.tsiro.fragmentClasses.SearchPlaceResultListFragment;
@@ -31,7 +31,7 @@ public class SearchPlaceResutlActivity extends ActionBarActivity implements OnQu
 	private SearchView searchView;
 	private SearchPlaceResultListFragment searchPlaceResultListFragment;
 	private String language;
-	private TestLocalSqliteDatabase t = new TestLocalSqliteDatabase(this);
+	private TestLocalSqliteDatabase t;
 	private ArrayList<String> items = new ArrayList<String>();
 	private MenuItem searchItem;
 	private static final String debugTag = "SearchPlaceResutlActivity";
@@ -49,6 +49,7 @@ public class SearchPlaceResutlActivity extends ActionBarActivity implements OnQu
 		String nameEl = intent.getStringExtra("PlaceName");
 	    language = intent.getStringExtra("language");
 		imagessavedFlag = intent.getExtras().getBoolean("imagessavedFlag");
+		t = TestLocalSqliteDatabase.getInstance(this);
 		t.openDataBase(debugTag);
 		
 		mActionBar= getSupportActionBar();

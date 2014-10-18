@@ -2,7 +2,7 @@ package com.tsiro.adapters;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import com.example.thesguideproject.R;
+import com.tsiro.thesguideproject.R;
 import com.tsiro.fragmentClasses.ListPlacesFragment;
 import com.tsiro.fragmentClasses.SearchPlaceResultListFragment;
 import com.tsiro.locationData.PlacesData;
@@ -45,28 +45,17 @@ public class InEnglishPlacesDataListCursorAdapter extends SimpleCursorAdapter im
 	private Bitmap bitmap;
 	private String fontcolor="";
 	private Bitmap bit;
+	private LayoutInflater mLayoutInflater;
 	
 	GPSTracker gps;
 	ArrayList<PlacesData> placesDataArray = new ArrayList<PlacesData>();
 	
-	/*public PLacesDataListCursorAdapter(String button_pressed, ListPlacesFragment activity, Context context, int layout, Cursor cursor, String[] from, int[] to, BitmapTask i, double current_latitude, double current_longtitude) {
-		super(context, layout, cursor, from, to);
-		this.button_pressed = button_pressed;
-		this.activity = activity;
-		this.context = context;
-		this.layout = layout;
-		this.cursor = cursor;
-		this.imgFetcher = i;
-		this.current_latitude = current_latitude;
-		this.current_longtitude = current_longtitude;
-		// TODO Auto-generated constructor stub
-	}*/
 	
 	public InEnglishPlacesDataListCursorAdapter(String button_pressed, SearchPlaceResultListFragment searchPlaceResultListFragment, Context context, int layout, Cursor cursor, String[] from, int[] to, double current_latitude, double current_longtitude, boolean imagessavedFlag, String fontcolor) {
 		super(context, layout, cursor, from, to);
 		this.button_pressed = button_pressed;
 		this.searchPlaceResultListFragment = searchPlaceResultListFragment;
-		this.context = context;
+		this.context = context.getApplicationContext();
 		this.layout = layout;
 		this.cursor = cursor;
 		//this.imgFetcher = i;
@@ -105,78 +94,48 @@ public class InEnglishPlacesDataListCursorAdapter extends SimpleCursorAdapter im
 		// TODO Auto-generated constructor stub
 	}*/
 	
-	private static class ViewHolder{
-		TextView nametv, placeNametv, distance, latitudetv, longtitudetv, desc_infohiddentv, menuhiddentv,
-		telhiddentv, linkhiddentv, fbLinkhiddentv, emailhiddentv, exhibitionhiddentv,
-		photoLink1hiddentv, photoLink2hiddentv, photoLink3hiddentv, photoLink4hiddentv;
-		ImageView icon;
-		Button infoButton, oncallButton;
-		
-		ViewHolder(View v){
-			desc_infohiddentv = (TextView) v.findViewById(R.id.descinfohiddentv);
-			menuhiddentv = (TextView) v.findViewById(R.id.menuhiddentv);
-			telhiddentv = (TextView) v.findViewById(R.id.telhiddentv);
-			linkhiddentv = (TextView) v.findViewById(R.id.linkhiddentv);
-			fbLinkhiddentv = (TextView) v.findViewById(R.id.fbLinkhiddentv);
-			emailhiddentv = (TextView) v.findViewById(R.id.emailhiddentv);
-			exhibitionhiddentv = (TextView) v.findViewById(R.id.exhibitionhiddentv);
-			photoLink1hiddentv = (TextView) v.findViewById(R.id.photoLink1hiddentv);
-			photoLink2hiddentv = (TextView) v.findViewById(R.id.photoLink2hiddentv);
-			photoLink3hiddentv = (TextView) v.findViewById(R.id.photoLink3hiddentv);
-			photoLink4hiddentv = (TextView) v.findViewById(R.id.photoLink4hiddentv);
-			nametv = (TextView) v.findViewById(R.id.locationName);
-			placeNametv = (TextView) v.findViewById(R.id.placeNametv);
-			latitudetv = (TextView) v.findViewById(R.id.latitudetv);
-			longtitudetv = (TextView) v.findViewById(R.id.longtitudetv);
-			distance = (TextView) v.findViewById(R.id.distance);
-			icon = (ImageView) v.findViewById(R.id.locationImage);
-			infoButton = (Button) v.findViewById(R.id.info_button);
-		}
+	static class ViewHolder{
+			public TextView nametv, placeNametv, distance, latitudetv, longtitudetv, desc_infohiddentv, menuhiddentv,
+			telhiddentv, linkhiddentv, fbLinkhiddentv, emailhiddentv, exhibitionhiddentv,
+			photoLink1hiddentv, photoLink2hiddentv, photoLink3hiddentv, photoLink4hiddentv;
+			public ImageView icon;
+			public Button infoButton;
+			
+			public ViewHolder(View v){
+				desc_infohiddentv = (TextView) v.findViewById(R.id.descinfohiddentv);
+				menuhiddentv = (TextView) v.findViewById(R.id.menuhiddentv);
+				telhiddentv = (TextView) v.findViewById(R.id.telhiddentv);
+				linkhiddentv = (TextView) v.findViewById(R.id.linkhiddentv);
+				fbLinkhiddentv = (TextView) v.findViewById(R.id.fbLinkhiddentv);
+				emailhiddentv = (TextView) v.findViewById(R.id.emailhiddentv);
+				exhibitionhiddentv = (TextView) v.findViewById(R.id.exhibitionhiddentv);
+				photoLink1hiddentv = (TextView) v.findViewById(R.id.photoLink1hiddentv);
+				photoLink2hiddentv = (TextView) v.findViewById(R.id.photoLink2hiddentv);
+				photoLink3hiddentv = (TextView) v.findViewById(R.id.photoLink3hiddentv);
+				photoLink4hiddentv = (TextView) v.findViewById(R.id.photoLink4hiddentv);
+				nametv = (TextView) v.findViewById(R.id.locationName);
+				placeNametv = (TextView) v.findViewById(R.id.placeNametv);
+				latitudetv = (TextView) v.findViewById(R.id.latitudetv);
+				longtitudetv = (TextView) v.findViewById(R.id.longtitudetv);
+				distance = (TextView) v.findViewById(R.id.distance);
+				icon = (ImageView) v.findViewById(R.id.locationImage);
+				infoButton = (Button) v.findViewById(R.id.info_button);
+			}
 	}
 	
-
-	
-	/*
-	
-	public View newView(Context context, Cursor cursor, ViewGroup parent){
-		Cursor c = getCursor();
-		 
-        final LayoutInflater inflater = LayoutInflater.from(context);
-        View v = inflater.inflate(layout, parent, false);
-    
-        v.setTag(new ViewHolder(v));
-
-        int nameCol = c.getColumnIndex("_id");
-        int surnameCol = c.getColumnIndex("surname");
- 
-        String name = c.getString(nameCol);
-        String surname = c.getString(surnameCol);
-      
-        //TextView name_text = (TextView) v.findViewById(R.id.name_entry);
-        //TextView surname_text = (TextView) v.findViewById(R.id.surname_entry);
-        TextView name_text = (TextView) v.findViewById(R.id.locationName);
-        TextView surname_text = (TextView) v.findViewById(R.id.nameEl);
-        if (surname_text != null && name_text != null) {
-        	name_text.setText(name);
-            surname_text.setText(surname);
-        }
- 
-        return v;
-	}*/
-	
-	
-	
 	public View getView(int pos, View inView, ViewGroup parent){
-		ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-		NetworkInfo ni = cm.getActiveNetworkInfo();
-		imgFetcher = new BitmapTask(this);
+		//ConnectivityManager cm = (ConnectivityManager) context.getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+		//NetworkInfo ni = cm.getActiveNetworkInfo();
+		//imgFetcher = new BitmapTask(context.getApplicationContext());
 		View v = inView;
-		ViewHolder viewHolder;
+		ViewHolder viewHolder = null;
 		if (v == null) {
-            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            v = inflater.inflate(layout, parent, false);
+            //LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            //v = inflater.inflate(R.layout.places_basic_layout, parent, false);
+			mLayoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            v = mLayoutInflater.inflate(R.layout.places_basic_layout, parent, false);
             viewHolder = new ViewHolder(v);
-            viewHolder.desc_infohiddentv = (TextView) v.findViewById(R.id.descinfohiddentv);
+            /*viewHolder.desc_infohiddentv = (TextView) v.findViewById(R.id.descinfohiddentv);
             viewHolder.menuhiddentv = (TextView) v.findViewById(R.id.menuhiddentv);
             viewHolder.telhiddentv = (TextView) v.findViewById(R.id.telhiddentv);
             viewHolder.linkhiddentv = (TextView) v.findViewById(R.id.linkhiddentv);
@@ -193,7 +152,7 @@ public class InEnglishPlacesDataListCursorAdapter extends SimpleCursorAdapter im
             viewHolder.longtitudetv = (TextView) v.findViewById(R.id.longtitudetv);
             viewHolder.distance = (TextView) v.findViewById(R.id.distance);
             viewHolder.icon = (ImageView) v.findViewById(R.id.locationImage);
-            viewHolder.infoButton = (Button) v.findViewById(R.id.info_button);
+            viewHolder.infoButton = (Button) v.findViewById(R.id.info_button);*/
             viewHolder.infoButton.setTag(viewHolder);
             v.setTag(viewHolder);   
         }
@@ -229,10 +188,10 @@ public class InEnglishPlacesDataListCursorAdapter extends SimpleCursorAdapter im
 		String dx=df.format(distanceInKm);
 		//String str_distanceInKm = Double.toString(distanceInKm);
 		
-		bindView(v, context, cursor);
-		InternalStorage i = new InternalStorage();
-		String path = "/data/data/com.example.thesguideproject/app_imageDir";
-		bit = i.loadImageFromStorage(path, name);
+		//bindView(v, context, cursor);
+		//InternalStorage i = new InternalStorage();
+		//String path = "/data/data/com.example.thesguideproject/app_imageDir";
+		/*bit = i.loadImageFromStorage(path, name);
 		
 		if(!image_link .equals("")) {
 			viewHolder.icon.setTag(image_link);
@@ -248,7 +207,7 @@ public class InEnglishPlacesDataListCursorAdapter extends SimpleCursorAdapter im
 			
 			if(imagessavedFlag == true) {
    				//viewHolder.icon.setImageDrawable(dr);
-   				bitmap = imgFetcher.loadImage(this, viewHolder.icon, context, name);
+   				bitmap = imgFetcher.loadImage(this, viewHolder.icon, context.getApplicationContext(), name);
    				viewHolder.icon.setImageBitmap(bitmap);
    			}
    			else if (ni == null && bit == null){
@@ -261,16 +220,16 @@ public class InEnglishPlacesDataListCursorAdapter extends SimpleCursorAdapter im
    			}
    			else if (ni != null && imagessavedFlag == false){
    				//imgFetcher.loadImage(image_link, context, name);
-   				Bitmap bitm = imgFetcher.loadImage(this, viewHolder.icon, context, name);
+   				Bitmap bitm = imgFetcher.loadImage(this, viewHolder.icon, context.getApplicationContext(), name);
    				viewHolder.icon.setImageBitmap(bitm);
    				viewHolder.icon.invalidate();
    			}
    		} else {
    			//viewHolder.icon.setImageResource(R.drawable.filler_icon);
-   			RelativeLayout imgHolder = (RelativeLayout) v.findViewById(R.id.relativeLayout);
+   			//RelativeLayout imgHolder = (RelativeLayout) v.findViewById(R.id.relativeLayout);
    			RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(0, 0);
    			viewHolder.icon.setLayoutParams(params);
-   		}
+   		}*/
 		
 		viewHolder.nametv.setText(name);
 		viewHolder.desc_infohiddentv.setText(descInfo);
@@ -334,110 +293,7 @@ public class InEnglishPlacesDataListCursorAdapter extends SimpleCursorAdapter im
 		return v;
 	}
 	
-	@Override
-	public void bindView(View view, Context context, Cursor cursor) {
-		// TODO Auto-generated method stub
-		super.bindView(view, context, cursor);
-	}
 	
-	/*
-	@Override
-    public void bindView(View v, Context context, Cursor c) {
-		
-		int nameCol = c.getColumnIndex("_id");
-        int surnameCol = c.getColumnIndex("surname");
-        int image_link = c.getColumnIndex("image_link");
- 
-        String name = c.getString(nameCol);
-        String surname = c.getString(surnameCol);
-        String link = c.getString(image_link);
-     
-        int cursor_position = c.getPosition();
-        String cur_position = Integer.toString(cursor_position);
-        //Log.i("Cursor position => ", cur_position + " " + link);
-        
-        ViewHolder vh = (ViewHolder) v.getTag();
- 
-        //Bitmap bitmap = BitmapFactory.decodeResource(v.getContext().getResources(), R.drawable.android_icon);
-        
-       
-        
-        if (vh.nametv != null && vh.surnametv != null) {
-            vh.nametv.setText(name);
-            vh.surnametv.setText(surname);
-            //vh.icon.setImageResource(R.drawable.android_icon);
-           // vh.icon.setImageBitmap(bitmap);
-        }
-        
-      if (link != null){
-    	  vh.icon.setTag(c.getString(image_link));
-    	  //new DownloadImageTask(vh.icon).execute(link);
-    	 // vh.icon.setTag(link);
-    	  //new DownloadImageTask(vh.icon).execute(link);
-    	  load(vh.icon);
-    	  
-    	 BitmapTask bitTask = new BitmapTask(this);
-    	 Bitmap bit = bitTask.loadBitmapImage(this, vh.icon);
-    	 if(bit != null) {
-    		 vh.icon.setImageBitmap(bit);
-		}
-		 else {
-			vh.icon.setImageResource(R.drawable.filler_icon);
-		}
-    	 
-      }
-
-        
-       
-        if (link != null){
-        	vh.icon.setTag(link);
-        	//vh.icon.getTag();
-        	Bitmap bitmap = bitTask.loadBitmapImage(this, vh.icon);
-        	if (bitmap != null){
-        		vh.icon.setImageBitmap(bitmap);
-        		//((ImageView) vh.icon.getTag(R.id.locationImage)).setImageBitmap(bitmap);
-        	}else
-        	{
-        		Log.i("Bitmap is loaded => ", "false");
-        	}
-        }
-        
-        
-        
-        //vh.icon.setTag(link);
-			Drawable dr = imgFetcher.loadImage(this, (ImageView) vh.icon.getTag());
-			if(dr != null) {
-				vh.icon.setImageDrawable(dr);
-			}
-			else 
-			{
-			vh.icon.setImageResource(R.drawable.filler_icon);
-		    }
-        
-          
-        //TextView surname_text = (TextView) v.findViewById(R.id.surname_entry);
-       
-    }
-	*/
-	
-	
-
-
-
-	@Override
-	public void setViewBinder(ViewBinder viewBinder) {
-		// TODO Auto-generated method stub
-		super.setViewBinder(viewBinder);
-	}
-
-	@Override
-	public void setViewImage(ImageView imageView, String imageviewCursor) {
-		// TODO Auto-generated method stub
-		super.setViewImage(imageView, imageviewCursor);
-	}
-
-	
-			
 	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
@@ -449,7 +305,7 @@ public class InEnglishPlacesDataListCursorAdapter extends SimpleCursorAdapter im
 		ViewHolder vH = (ViewHolder) v.getTag();
 		//String url = (String) vH.surnametv.getTag();
 		//Toast.makeText(this.context, url, Toast.LENGTH_SHORT).show();
-		Intent intent = new Intent(context, PlacesDetailsTabs.class);
+		Intent intent = new Intent(context.getApplicationContext(), PlacesDetailsTabs.class);
 		//Intent intent = new Intent(this.activity, PlacesListFragmentActivityTest.class);
 		//intent.putExtra("nameEl", vH.surnametv.getTag().toString());
 		String str_current_latitude = Double.toString(current_latitude);

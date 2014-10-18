@@ -2,7 +2,7 @@ package com.tsiro.searchResults;
 
 //import com.example.thesguideproject.R;
 
-import com.example.thesguideproject.R;
+import com.tsiro.thesguideproject.R;
 import android.app.SearchManager;
 import android.content.Intent;
 import android.net.Uri;

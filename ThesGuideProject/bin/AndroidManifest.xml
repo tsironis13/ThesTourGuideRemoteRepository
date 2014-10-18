@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.thesguideproject"
+    package="com.tsiro.thesguideproject"
     android:versionCode="1"
     android:versionName="1.0" >
 
@@ -8,10 +8,10 @@
     <uses-permission android:name="android.permission.INTERNET" />
     
     <permission
-        android:name="com.example.thesguideproject.permission.MAPS_RECEIVE"
+        android:name="com.tsiro.thesguideproject.permission.MAPS_RECEIVE"
         android:protectionLevel="signature" />
  
-    <uses-permission android:name="com.example.thesguideproject.permission.MAPS_RECEIVE" />
+    <uses-permission android:name="com.tsiro.thesguideproject.permission.MAPS_RECEIVE" />
     
     <uses-permission android:name="android.permission.CALL_PHONE"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -34,22 +34,18 @@
         android:required="true" />
     
     <uses-sdk
-        android:minSdkVersion="4"
-        android:targetSdkVersion="19" />
+        android:minSdkVersion="5"
+        android:targetSdkVersion="20" />
 
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:hardwareAccelerated="true"
-       
-        android:theme="@style/Theme.AppCompat.Light"
-         >
-        
+        android:theme="@style/Theme.AppCompat.Light">
         
         <provider
             android:name="com.tsiro.searchResults.SearchSuggestionsProvider"
-            android:authorities="com.example.searchResults.MySuggestionProvider"
+            android:authorities="com.tsiro.searchResults.MySuggestionProvider"
         />   
         
         
@@ -73,13 +69,11 @@
             android:name="com.tsiro.thesguideproject.CloseExpandableListFragmentActivity"
             android:label="@string/app_name"
             android:windowSoftInputMode="adjustPan"
-            android:hardwareAccelerated="true"
-            android:parentActivityName="com.tsiro.thesguideproject.PlacesListFragmentActivity"
             android:configChanges="orientation|keyboardHidden|screenLayout|uiMode|screenSize|smallestScreenSize">
             
              <meta-data
             	android:name="android.support.PARENT_ACTIVITY"
-            	android:value="com.example.thesguideproject.PlacesListFragmentActivity" /> 
+            	android:value="com.tsiro.thesguideproject.PlacesListFragmentActivity" /> 
             	
         </activity>
          
@@ -97,28 +91,24 @@
         <activity 
             android:name="com.tsiro.thesguideproject.FindPathFragmentActivity"
             android:windowSoftInputMode="adjustPan"
-            android:hardwareAccelerated="true"
-            android:parentActivityName="com.tsiro.thesguideproject.PlacesListFragmentActivity"
             android:configChanges="orientation|keyboardHidden|screenLayout|uiMode|screenSize|smallestScreenSize"
             android:label="@string/app_name" >   
             
             <meta-data
             	android:name="android.support.PARENT_ACTIVITY"
-            	android:value="com.example.thesguideproject.PlacesListFragmentActivity" /> 
+            	android:value="com.tsiro.thesguideproject.PlacesListFragmentActivity" /> 
             
         </activity> 
          
         <activity 
             android:name="com.tsiro.thesguideproject.PlacesDetailsTabs"
             android:label="@string/app_name"
-            android:hardwareAccelerated="true"
             android:windowSoftInputMode="adjustPan"
-            android:parentActivityName="com.tsiro.thesguideproject.PlacesListFragmentActivity"
             android:configChanges="orientation|keyboardHidden|screenLayout|uiMode|screenSize|smallestScreenSize" >     
             
             <meta-data
             	android:name="android.support.PARENT_ACTIVITY"
-            	android:value="com.example.thesguideproject.PlacesListFragmentActivity" /> 
+            	android:value="com.tsiro.thesguideproject.PlacesListFragmentActivity" /> 
             	
         </activity>
         
@@ -129,15 +119,13 @@
         
         <activity 
             android:name="com.tsiro.thesguideproject.SearchPlaceResutlActivity"
-            android:label="@string/app_name"
-            android:hardwareAccelerated="true"
+            android:label="@string/app_name"          
             android:windowSoftInputMode="adjustPan"
-            android:parentActivityName="com.tsiro.thesguideproject.PlacesListFragmentActivity"
             android:configChanges="orientation|keyboardHidden|screenLayout|uiMode|screenSize|smallestScreenSize" >     
             
              <meta-data
             	android:name="android.support.PARENT_ACTIVITY"
-            	android:value="com.example.thesguideproject.PlacesListFragmentActivity" />
+            	android:value="com.tsiro.thesguideproject.PlacesListFragmentActivity" />
            
         </activity>
        
@@ -155,7 +143,7 @@
             
             <meta-data
                 android:name="android.app.default_searchable"
-                android:value="com.example.searchResults.SearchResultsActivity" />
+                android:value="com.tsiro.searchResults.SearchResultsActivity" />
             
         </activity>
 
@@ -184,8 +172,7 @@
         </activity>  --> 
         
         <!-- Search results activity -->
-        <activity android:name="com.tsiro.searchResults.SearchResultsActivity"
-            android:parentActivityName="com.tsiro.thesguideproject.ActBarTest" >
+        <activity android:name="com.tsiro.searchResults.SearchResultsActivity" >
           	
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />

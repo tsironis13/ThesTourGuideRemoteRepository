@@ -8,7 +8,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Locale;
 
-import com.example.thesguideproject.R;
+import com.tsiro.thesguideproject.R;
 import com.tsiro.adapters.CalendarAdapter;
 import com.tsiro.adapters.EventsBaseAdapter;
 import com.tsiro.adapters.InEnglishEventsBaseAdapter;
@@ -86,7 +86,8 @@ public class CalendarFragment extends Fragment{
 		imagessavedFlag = getArguments().getBoolean("imagessavedFlag");
 		refresheventsButton = (Button) view.findViewById(R.id.refresheventsbutton);
 		eventslistview = (ListView) view.findViewById(R.id.eventslistview);
-		testDB = new TestLocalSqliteDatabase(getActivity());
+		//testDB = new TestLocalSqliteDatabase(getActivity());
+		testDB = TestLocalSqliteDatabase.getInstance(getActivity());
 		testDB.openDataBase(debugTag);
 		
 		

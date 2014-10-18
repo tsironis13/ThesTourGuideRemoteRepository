@@ -3,7 +3,7 @@ package com.tsiro.fragmentClasses;
 import java.io.IOException;
 import java.io.InputStream;
 
-import com.example.thesguideproject.R;
+import com.tsiro.thesguideproject.R;
 import com.tsiro.thesguideproject.SplashScreen;
 
 import android.annotation.SuppressLint;

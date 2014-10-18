@@ -5,10 +5,10 @@
  * should not be modified by hand.
  */
 
-package com.example.thesguideproject;
+package com.tsiro.thesguideproject;
 
 public final class Manifest {
     public static final class permission {
-        public static final String MAPS_RECEIVE="com.example.thesguideproject.permission.MAPS_RECEIVE";
+        public static final String MAPS_RECEIVE="com.tsiro.thesguideproject.permission.MAPS_RECEIVE";
     }
 }

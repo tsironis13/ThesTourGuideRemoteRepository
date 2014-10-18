@@ -1,6 +1,6 @@
 package com.tsiro.fragmentClasses;
 
-import com.example.thesguideproject.R;
+import com.tsiro.thesguideproject.R;
 import com.tsiro.myLocation.GPSTracker;
 
 import android.graphics.Color;
@@ -40,12 +40,20 @@ public class MenuFragment extends Fragment {
 	private LinearLayout menulinearlayout;
 	private boolean success;
 	private boolean imagessavedFlag;
+	private View view;
 	
 	public MenuFragment(){}
 	
 	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		super.onCreate(savedInstanceState);
+		//setRetainInstance(true);
+	}
+	
+	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		View view = inflater.inflate(R.layout.menu_fragment, container, false);
+		view = inflater.inflate(R.layout.menu_fragment, container, false);
 		
 		imagessavedFlag = getArguments().getBoolean("imagessavedFlag");
 		language = getArguments().getString("language");
@@ -165,6 +173,7 @@ public class MenuFragment extends Fragment {
 				replaceFragmentFunction(listMuseumsFragment);
 				deleteFromBackStack();
 				fragmentTransaction.addToBackStack("sig");
+				setRetainInstance(true);
 				fragmentTransaction.commit();	
 			}
 		});
@@ -235,10 +244,22 @@ public class MenuFragment extends Fragment {
 		
 	}
 	
+	
+	
+	@Override
+	public void onDestroyView() {
+		// TODO Auto-generated method stub
+		super.onDestroyView();
+		view = null;
+	}
+
 	@Override
 	public void onDestroy() {
 		// TODO Auto-generated method stub
 		super.onDestroy();
+		sightseeingsButton.setOnClickListener(null);
+		museumsButton.setOnClickListener(null);
+		
 	}
 
 	@Override

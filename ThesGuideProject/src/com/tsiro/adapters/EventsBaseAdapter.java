@@ -3,7 +3,7 @@ package com.tsiro.adapters;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
-import com.example.thesguideproject.R;
+import com.tsiro.thesguideproject.R;
 import com.tsiro.fragmentClasses.CalendarFragment;
 import com.tsiro.fragmentClasses.ListPlacesFragment;
 import com.tsiro.fragmentClasses.ListPlacesFragment.MyViewHolder;

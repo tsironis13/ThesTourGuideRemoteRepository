@@ -2,7 +2,7 @@ package com.tsiro.adapters;
 
 import java.util.List;
 
-import com.example.thesguideproject.R;
+import com.tsiro.thesguideproject.R;
 import com.tsiro.thesguideproject.SearchPlaceResutlActivity;
 
 import android.content.Context;

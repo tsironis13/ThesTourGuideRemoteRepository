@@ -1,6 +1,6 @@
 package com.tsiro.fragmentClasses;
 
-import com.example.thesguideproject.R;
+import com.tsiro.thesguideproject.R;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

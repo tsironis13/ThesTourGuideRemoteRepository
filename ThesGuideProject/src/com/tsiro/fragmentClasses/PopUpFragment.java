@@ -2,7 +2,7 @@ package com.tsiro.fragmentClasses;
 
 import java.util.ArrayList;
 
-import com.example.thesguideproject.R;
+import com.tsiro.thesguideproject.R;
 import com.tsiro.adapters.SettingsListAdapter;
 import com.tsiro.adapters.SettingsListAdapterEnglish;
 import com.tsiro.sqlHelper.TestLocalSqliteDatabase;
@@ -38,7 +38,8 @@ public class PopUpFragment extends Fragment{
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.popuplayout, container, false);
 		
-		testDB = new TestLocalSqliteDatabase(getActivity());
+		//testDB = new TestLocalSqliteDatabase(getActivity());
+		testDB = TestLocalSqliteDatabase.getInstance(getActivity());
 		testDB.openDataBase(debugTag);
 		helpingtv = (TextView) view.findViewById(R.id.helpingtv);
 		startingpointtv = (TextView) getActivity().findViewById(R.id.startingpointtv);

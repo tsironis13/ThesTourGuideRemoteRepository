@@ -46,7 +46,7 @@ public class InternalStorage {
 	}
 	
 	public String saveToInternalSorage(Bitmap bitmapImage, Context context, String name){
-        ContextWrapper cw = new ContextWrapper(context);
+        ContextWrapper cw = new ContextWrapper(context.getApplicationContext());
          // path to /data/data/yourapp/app_data/imageDir
        directory = cw.getDir("imageDir", Context.MODE_PRIVATE);
        Log.i("Directory => ", directory.toString());

@@ -1,7 +1,7 @@
 package com.tsiro.fragmentClasses;
 
 import java.util.ArrayList;
-import com.example.thesguideproject.R;
+import com.tsiro.thesguideproject.R;
 import com.tsiro.adapters.InEnglishPlacesDataListCursorAdapter;
 import com.tsiro.adapters.PlacesDataListCursorAdapter;
 import com.tsiro.locationData.PlacesData;
@@ -9,6 +9,7 @@ import com.tsiro.sqlHelper.TestLocalSqliteDatabase;
 import com.tsiro.tasks.BitmapTask;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
@@ -19,12 +20,13 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 @SuppressLint("ValidFragment") 
 public class ListPlacesFragment extends ListFragment{
 
 	private ListView listExample;
-	private BitmapTask imgFetcher = new BitmapTask(getActivity());
+	private BitmapTask imgFetcher; 
 	private Cursor specificPlacecursor;
 	private String[] columns;
 	private int[] to;
@@ -39,6 +41,9 @@ public class ListPlacesFragment extends ListFragment{
 	private String date;
 	private String flag;
 	private boolean imagessavedFlag;
+	private Context context;
+	private InEnglishPlacesDataListCursorAdapter englishAdapter;
+	private View view;
 	
 	public ListPlacesFragment(){}
 	
@@ -70,13 +75,22 @@ public class ListPlacesFragment extends ListFragment{
 //	}
 	
 	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		super.onCreate(savedInstanceState);
+		//setRetainInstance(true);
+	}
+	
+	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
-		View view = inflater.inflate(R.layout.list_fragment, container, false);	
+		view = inflater.inflate(R.layout.list_fragment, container, false);	
 		language = getArguments().getString("language");
 		imagessavedFlag = getArguments().getBoolean("imagessavedFlag");
-		testDB = new TestLocalSqliteDatabase(getActivity());
-		testDB.openDataBase(debugTag);
+		//testDB = new TestLocalSqliteDatabase(getActivity());
+		testDB = TestLocalSqliteDatabase.getInstance(getActivity());
+		//testDB.openDataBase(debugTag);
+		
 		//String s = getArguments().getString("genre");
 		//allDisplayImageLinkcursor = testDB.getAllPhotoDisplayImageLink(); 
 		//imageLinkNotNullList = new ArrayList<String>();
@@ -88,7 +102,8 @@ public class ListPlacesFragment extends ListFragment{
 	public void onActivityCreated(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onActivityCreated(savedInstanceState);
-		
+		context = getActivity().getApplicationContext();
+		imgFetcher = new BitmapTask(context);
 		//button_pressed = "church";
 		if (genre.equals("events")){
 				//HelperMethodDependingOnCurrentEvents(genre, date);
@@ -147,10 +162,25 @@ public class ListPlacesFragment extends ListFragment{
 		}
 	}
 
+	
+	
+	@Override
+	public void onPause() {
+		// TODO Auto-generated method stub
+		super.onPause();
+		Toast.makeText(getActivity(), "Fragment paused!", Toast.LENGTH_SHORT).show();
+		setListAdapter(null);
+		englishAdapter.notifyDataSetChanged();
+	}
+
 	@Override
 	public void onDestroy() {
 		super.onDestroy();
-		testDB.close(debugTag);
+		//testDB.close(debugTag);
+		//setListAdapter(null);
+		//Toast.makeText(getActivity(), "Fragment destroyed!", Toast.LENGTH_SHORT).show();
+		//setListAdapter(null);
+		//englishAdapter.notifyDataSetChanged();
 	}
 
 	public void HelperMethodDependingOnSearchQuery(String nameEl){
@@ -207,8 +237,20 @@ public class ListPlacesFragment extends ListFragment{
 	}
 
 	
+	
+	
+	@Override
+	public void onDestroyView() {
+		// TODO Auto-generated method stub
+		super.onDestroyView();
+		//Toast.makeText(getActivity(), "View destroyed!", Toast.LENGTH_SHORT).show();
+		view = null;
+	}
+	
 	private void inEnglishSetAdapterFromSpecificCursor(String button_pressed, ListView listExample, Cursor cursor, String[] columns, int[] to, double current_latitude, double current_longtitude){
-		setListAdapter(new InEnglishPlacesDataListCursorAdapter(button_pressed, this, getActivity(),  R.layout.places_basic_layout, cursor, columns, to, current_latitude, current_longtitude, imagessavedFlag) );
+		englishAdapter = new InEnglishPlacesDataListCursorAdapter(button_pressed, this, getActivity().getApplicationContext(),  R.layout.places_basic_layout, cursor, columns, to, current_latitude, current_longtitude, imagessavedFlag);
+		setListAdapter(englishAdapter);
+		englishAdapter.notifyDataSetChanged();
 	}
 	//private void setAdapterFromSpecificCursor(String button_pressed, ListView listExample, Cursor cursor, String[] columns, int[] to, double current_latitude, double current_longtitude){
 	//	setListAdapter(new PLacesDataListCursorAdapter(button_pressed, this, getActivity(),  R.layout.places_basic_layout, cursor, columns, to, current_latitude, current_longtitude) );

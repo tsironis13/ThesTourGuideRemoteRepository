@@ -7,7 +7,7 @@ import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Locale;
 
-import com.example.thesguideproject.R;
+import com.tsiro.thesguideproject.R;
 
 import android.content.Context;
 import android.graphics.Color;

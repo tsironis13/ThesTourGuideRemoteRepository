@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 
-import com.example.thesguideproject.R;
+import com.tsiro.thesguideproject.R;
 import com.tsiro.myLocation.GPSTracker;
 import com.tsiro.sqlHelper.TestLocalSqliteDatabase;
 import com.tsiro.thesguideproject.CloseExpandableListFragmentActivity;
@@ -105,8 +105,8 @@ public class CloseExpandableListFragment extends Fragment implements OnClickList
 		View view = inflater.inflate(R.layout.expandablelistfragment, container, false);
 		language = getArguments().getString("language");
 		
-		WifiManager wifi = (WifiManager) getActivity().getSystemService(Context.WIFI_SERVICE);
-		if (wifi.isWifiEnabled()){
+		//WifiManager wifi = (WifiManager) getActivity().getSystemService(Context.WIFI_SERVICE);
+		if (isNetworkConnected()){
 			gps = new GPSTracker(getActivity());
 			
 			if (gps.canGetLocation()){
@@ -169,7 +169,8 @@ public class CloseExpandableListFragment extends Fragment implements OnClickList
 		}
 		
 		
-		testDB = new TestLocalSqliteDatabase(getActivity());
+		//testDB = new TestLocalSqliteDatabase(getActivity());
+		testDB = TestLocalSqliteDatabase.getInstance(getActivity());
 		testDB.openDataBase(debugTag);
 		
 		museumsDistances = new HashMap<String, Double>();

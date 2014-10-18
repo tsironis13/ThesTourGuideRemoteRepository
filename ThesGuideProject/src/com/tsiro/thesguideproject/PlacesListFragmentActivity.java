@@ -1,11 +1,12 @@
 package com.tsiro.thesguideproject;
 
 import java.util.ArrayList;
-import com.example.thesguideproject.R;
+
+import com.tsiro.sqlHelper.TestLocalSqliteDatabase;
+import com.tsiro.thesguideproject.R;
 import com.tsiro.adapters.InEnglishSearchAdapter;
 import com.tsiro.adapters.SearchAdapter;
 import com.tsiro.fragmentClasses.MenuFragment;
-import com.tsiro.sqlHelper.TestLocalSqliteDatabase;
 import com.tsiro.tasks.BitmapTask;
 
 import android.app.ProgressDialog;
@@ -43,12 +44,14 @@ import android.widget.LinearLayout;
 	private String name;
 	private String url;
 	private String language;
-	private BitmapTask imgFetcher = new BitmapTask(this);
+	private BitmapTask imgFetcher;
 	
 	public PlacesListFragmentActivity(){}
 	
 	private MenuItem searchItem;
-	private TestLocalSqliteDatabase t = new TestLocalSqliteDatabase(this);
+	
+	private TestLocalSqliteDatabase t; 
+	
 	//TestLocalSqliteDatabase t1 = new TestLocalSqliteDatabase(this);
 	
 	private ArrayList<String> items = new ArrayList<String>();
@@ -64,7 +67,8 @@ import android.widget.LinearLayout;
 		
 		Bundle extras = getIntent().getExtras();
 		language = extras.getString("language");
-		t.openDataBase(debugTag);
+		t = TestLocalSqliteDatabase.getInstance(this);
+		//t.openDataBase(debugTag);
 		
 		//imgFetcher = new BitmapTask(this);
 		
@@ -77,7 +81,9 @@ import android.widget.LinearLayout;
 		mActionBar.setIcon(R.drawable.ic_launcher);
 		mActionBar.setDisplayShowTitleEnabled(false);
 		
-		
+		Context context;
+		context = getApplicationContext();
+		imgFetcher = new BitmapTask(context);
 		//searchView = (SearchView) findViewById(R.id.action_search);	
 	
 		WifiManager wifi = (WifiManager) getSystemService(Context.WIFI_SERVICE);
@@ -112,7 +118,7 @@ import android.widget.LinearLayout;
 			menuFragment = new MenuFragment();
 			menuFragment.setArguments(langbundle);
 			fragmentTransaction = getSupportFragmentManager().beginTransaction().add(R.id.containermenu, menuFragment);
-			t.close(debugTag);
+			//t.close(debugTag);
 			//fragmentTransaction.addToBackStack("menu");
 			fragmentTransaction.commit();
 		}

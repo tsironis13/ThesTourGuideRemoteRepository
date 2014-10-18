@@ -1,7 +1,7 @@
 package com.tsiro.thesguideproject;
 
 import java.util.ArrayList;
-import com.example.thesguideproject.R;
+import com.tsiro.thesguideproject.R;
 import com.tsiro.adapters.InEnglishSearchAdapter;
 import com.tsiro.adapters.SearchAdapter;
 import com.tsiro.fragmentClasses.CloseExpandableListFragment;
@@ -51,7 +51,8 @@ public class CloseExpandableListFragmentActivity extends ActionBarActivity imple
 		
 		hiddenrefreshbutton = (Button) findViewById(R.id.hiddenrefreshbutton);
 		hiddenresfreshtv = (TextView) findViewById(R.id.hiddenresfreshtv);
-		testDB = new TestLocalSqliteDatabase(this);
+		//testDB = new TestLocalSqliteDatabase(this);
+		testDB = TestLocalSqliteDatabase.getInstance(this);
         testDB.openDataBase(debugTag);
         
 		mActionBar = getSupportActionBar();

@@ -5,7 +5,7 @@
  * should not be modified by hand.
  */
 
-package com.example.thesguideproject;
+package com.tsiro.thesguideproject;
 
 public final class R {
     public static final class anim {
@@ -1509,24 +1509,24 @@ containing a value of this type.
         public static final int action_menu_divider=0x7f060016;
         public static final int action_menu_presenter=0x7f060017;
         public static final int action_mode_close_button=0x7f060036;
-        public static final int action_path=0x7f0600fa;
-        public static final int action_search=0x7f0600f9;
+        public static final int action_path=0x7f0600fb;
+        public static final int action_search=0x7f0600fa;
         public static final int activity_chooser_view_content=0x7f060037;
         public static final int always=0x7f06000b;
-        public static final int androilist=0x7f0600c3;
-        public static final int axiotheata=0x7f0600dc;
-        public static final int axiotheatad=0x7f0600eb;
-        public static final int barrest=0x7f0600dd;
-        public static final int barrestaurants=0x7f0600f6;
-        public static final int barrestd=0x7f0600ec;
-        public static final int bars=0x7f0600e1;
-        public static final int barsd=0x7f0600f0;
-        public static final int basiliki=0x7f0600e9;
+        public static final int androilist=0x7f0600c4;
+        public static final int axiotheata=0x7f0600dd;
+        public static final int axiotheatad=0x7f0600ec;
+        public static final int barrest=0x7f0600de;
+        public static final int barrestaurants=0x7f0600f7;
+        public static final int barrestd=0x7f0600ed;
+        public static final int bars=0x7f0600e2;
+        public static final int barsd=0x7f0600f1;
+        public static final int basiliki=0x7f0600ea;
         public static final int beginning=0x7f060011;
-        public static final int bizantines=0x7f0600e7;
+        public static final int bizantines=0x7f0600e8;
         public static final int book_now=0x7f060028;
         public static final int button=0x7f0600a5;
-        public static final int buttonffragmentsearc=0x7f0600c4;
+        public static final int buttonffragmentsearc=0x7f0600c5;
         public static final int buyButton=0x7f060022;
         public static final int buy_now=0x7f060027;
         public static final int buy_with_google=0x7f060026;
@@ -1535,60 +1535,60 @@ containing a value of this type.
         public static final int classic=0x7f060029;
         public static final int clearDataDBbutton=0x7f060095;
         public static final int close=0x7f060064;
-        public static final int clubs=0x7f0600e2;
-        public static final int clubsd=0x7f0600f1;
+        public static final int clubs=0x7f0600e3;
+        public static final int clubsd=0x7f0600f2;
         public static final int collapseActionView=0x7f06000d;
-        public static final int containerlist=0x7f0600c0;
-        public static final int containermenu=0x7f0600bf;
+        public static final int containerlist=0x7f0600c1;
+        public static final int containermenu=0x7f0600c0;
         public static final int containersettings=0x7f060072;
         public static final int containertv=0x7f060070;
-        public static final int currentpositioncb=0x7f0600cb;
-        public static final int currentpositiondestcb=0x7f0600d1;
+        public static final int currentpositioncb=0x7f0600cc;
+        public static final int currentpositiondestcb=0x7f0600d2;
         public static final int date=0x7f060062;
         public static final int date_icon=0x7f060063;
         public static final int default_activity_button=0x7f06003a;
-        public static final int descinfohiddentv=0x7f0600b0;
+        public static final int descinfohiddentv=0x7f0600b1;
         public static final int description_text=0x7f060069;
-        public static final int destinationpointlabeltv=0x7f0600d0;
-        public static final int destinationpointtv=0x7f0600d5;
+        public static final int destinationpointlabeltv=0x7f0600d1;
+        public static final int destinationpointtv=0x7f0600d6;
         public static final int dialog=0x7f06000e;
         public static final int disableHome=0x7f060008;
-        public static final int distance=0x7f0600ba;
+        public static final int distance=0x7f0600bb;
         public static final int dropdown=0x7f06000f;
         public static final int edit_query=0x7f060042;
-        public static final int ekklisies=0x7f0600e5;
-        public static final int ekklisiesd=0x7f0600f4;
+        public static final int ekklisies=0x7f0600e6;
+        public static final int ekklisiesd=0x7f0600f5;
         public static final int emailFragmentButton=0x7f060081;
         public static final int emailFragmentTextView=0x7f060080;
-        public static final int emailhiddentv=0x7f0600b4;
+        public static final int emailhiddentv=0x7f0600b5;
         public static final int end=0x7f060013;
-        public static final int englishButton=0x7f0600da;
+        public static final int englishButton=0x7f0600db;
         public static final int eventsbutton=0x7f06009d;
         public static final int eventslabeltv=0x7f06005e;
         public static final int eventslistview=0x7f060061;
         public static final int exhibitionfragmenttv=0x7f06006c;
-        public static final int exhibitionhiddentv=0x7f0600b5;
+        public static final int exhibitionhiddentv=0x7f0600b6;
         public static final int exhibitionsourcetv=0x7f06006d;
         public static final int expand_activities_button=0x7f060038;
         public static final int expanded_menu=0x7f06003e;
         public static final int explistview=0x7f06006f;
         public static final int fbLinkFragmentTextView=0x7f06007f;
-        public static final int fbLinkhiddentv=0x7f0600b3;
+        public static final int fbLinkhiddentv=0x7f0600b4;
         public static final int flag=0x7f060075;
         public static final int foodButton=0x7f06009e;
         public static final int framemap=0x7f0600a3;
-        public static final int fromlocationtv=0x7f0600d6;
-        public static final int fromtv=0x7f0600ce;
+        public static final int fromlocationtv=0x7f0600d7;
+        public static final int fromtv=0x7f0600cf;
         public static final int grayscale=0x7f06002a;
-        public static final int greekButton=0x7f0600d9;
+        public static final int greekButton=0x7f0600da;
         public static final int grid_image=0x7f060076;
         public static final int grid_text=0x7f060077;
         public static final int gridview=0x7f06005d;
         public static final int header=0x7f06004f;
-        public static final int helpingtv=0x7f0600c2;
+        public static final int helpingtv=0x7f0600c3;
         public static final int hiddenrefreshbutton=0x7f060066;
         public static final int hiddenresfreshtv=0x7f060065;
-        public static final int hiddentv=0x7f0600c1;
+        public static final int hiddentv=0x7f0600c2;
         public static final int hide=0x7f06006b;
         public static final int holo_dark=0x7f06001d;
         public static final int holo_light=0x7f06001e;
@@ -1602,31 +1602,31 @@ containing a value of this type.
         public static final int image=0x7f060039;
         public static final int imageview=0x7f060078;
         public static final int infoFragmentTextView=0x7f06007b;
-        public static final int info_button=0x7f0600bd;
+        public static final int info_button=0x7f0600be;
         public static final int infosourcetv=0x7f060082;
         public static final int innerrelative1=0x7f060052;
         public static final int innerrelative2=0x7f06005c;
         public static final int innerrelative3=0x7f060060;
-        public static final int intcuis=0x7f0600df;
-        public static final int intcuisd=0x7f0600ee;
-        public static final int intercuisine=0x7f0600f8;
+        public static final int intcuis=0x7f0600e0;
+        public static final int intcuisd=0x7f0600ef;
+        public static final int intercuisine=0x7f0600f9;
         public static final int internalStorage=0x7f06009a;
-        public static final int item_clear_disc_cache=0x7f0600fc;
-        public static final int item_clear_memory_cache=0x7f0600fb;
-        public static final int item_pause_on_fling=0x7f0600fe;
-        public static final int item_pause_on_scroll=0x7f0600fd;
+        public static final int item_clear_disc_cache=0x7f0600fd;
+        public static final int item_clear_memory_cache=0x7f0600fc;
+        public static final int item_pause_on_fling=0x7f0600ff;
+        public static final int item_pause_on_scroll=0x7f0600fe;
         public static final int katalogfragmentmenutitletv=0x7f060086;
         public static final int katalogfragmenttv=0x7f060087;
         public static final int kodikos=0x7f06008c;
-        public static final int latitudetv=0x7f0600bb;
+        public static final int latitudetv=0x7f0600bc;
         public static final int layoutlinear=0x7f060074;
         public static final int lblListHeader=0x7f06008f;
         public static final int lblListItem=0x7f060091;
-        public static final int lin=0x7f0600be;
+        public static final int lin=0x7f0600bf;
         public static final int linearlayout1=0x7f060094;
         public static final int link=0x7f06008d;
         public static final int linkFragmentTextView=0x7f06007e;
-        public static final int linkhiddentv=0x7f0600b2;
+        public static final int linkhiddentv=0x7f0600b3;
         public static final int listMode=0x7f060001;
         public static final int listView1=0x7f060073;
         public static final int list_exam=0x7f060089;
@@ -1634,24 +1634,24 @@ containing a value of this type.
         public static final int listview1=0x7f06009b;
         public static final int ll=0x7f0600a7;
         public static final int loading=0x7f060085;
-        public static final int locationImage=0x7f0600ac;
-        public static final int locationName=0x7f0600ad;
-        public static final int longtitudetv=0x7f0600bc;
-        public static final int macedonian=0x7f0600ea;
+        public static final int locationImage=0x7f0600ad;
+        public static final int locationName=0x7f0600ae;
+        public static final int longtitudetv=0x7f0600bd;
+        public static final int macedonian=0x7f0600eb;
         public static final int map=0x7f06009c;
         public static final int mapfragment=0x7f0600a6;
         public static final int match_parent=0x7f060024;
-        public static final int menuhiddentv=0x7f0600af;
+        public static final int menuhiddentv=0x7f0600b0;
         public static final int menusourcetv=0x7f060088;
         public static final int messageclosetv=0x7f06006e;
         public static final int middle=0x7f060012;
         public static final int monochrome=0x7f06002b;
-        public static final int mouseia=0x7f0600e4;
-        public static final int mouseiad=0x7f0600f3;
+        public static final int mouseia=0x7f0600e5;
+        public static final int mouseiad=0x7f0600f4;
         public static final int museumsbutton=0x7f060096;
         public static final int nameElinfo=0x7f0600aa;
         public static final int name_entry=0x7f06008a;
-        public static final int nameellower=0x7f0600ae;
+        public static final int nameellower=0x7f0600af;
         public static final int never=0x7f060009;
         public static final int next=0x7f060051;
         public static final int nightlifebutton=0x7f06009f;
@@ -1659,43 +1659,44 @@ containing a value of this type.
         public static final int none=0x7f060010;
         public static final int nonetconnectiontv=0x7f0600a1;
         public static final int normal=0x7f060000;
-        public static final int nosokomeia=0x7f0600e6;
-        public static final int nosokomeiad=0x7f0600f5;
+        public static final int nosokomeia=0x7f0600e7;
+        public static final int nosokomeiad=0x7f0600f6;
         public static final int number=0x7f06008e;
         public static final int onmaptv=0x7f0600a4;
         public static final int pager=0x7f06004e;
-        public static final int paleochristianikes=0x7f0600e8;
-        public static final int photoLink1hiddentv=0x7f0600b6;
-        public static final int photoLink2hiddentv=0x7f0600b7;
-        public static final int photoLink3hiddentv=0x7f0600b8;
-        public static final int photoLink4hiddentv=0x7f0600b9;
+        public static final int paleochristianikes=0x7f0600e9;
+        public static final int photoLink1hiddentv=0x7f0600b7;
+        public static final int photoLink2hiddentv=0x7f0600b8;
+        public static final int photoLink3hiddentv=0x7f0600b9;
+        public static final int photoLink4hiddentv=0x7f0600ba;
         public static final int photofragmentGridView=0x7f0600a9;
-        public static final int pickyourdisarabledestlocationet=0x7f0600d3;
-        public static final int pickyourdisarablelocationet=0x7f0600cd;
+        public static final int pickyourdisarabledestlocationet=0x7f0600d4;
+        public static final int pickyourdisarablelocationet=0x7f0600ce;
         public static final int placeNameFragmentTextView=0x7f06007a;
         public static final int placeNametv=0x7f060068;
+        public static final int placesbasiclayoutmainrellayout=0x7f0600ab;
         public static final int popupcontainer=0x7f060071;
         public static final int previous=0x7f060050;
         public static final int production=0x7f06001f;
         public static final int progress=0x7f060084;
         public static final int progress_circular=0x7f060018;
         public static final int progress_horizontal=0x7f060019;
-        public static final int pubs=0x7f0600e3;
-        public static final int pubsd=0x7f0600f2;
+        public static final int pubs=0x7f0600e4;
+        public static final int pubsd=0x7f0600f3;
         public static final int radio=0x7f060041;
         public static final int refresheventsbutton=0x7f06005f;
         public static final int refreshgridviewbutton=0x7f0600a8;
-        public static final int relativeLayout=0x7f0600ab;
-        public static final int rest=0x7f0600de;
-        public static final int restaurants=0x7f0600f7;
-        public static final int restd=0x7f0600ed;
+        public static final int relativeLayout=0x7f0600ac;
+        public static final int rest=0x7f0600df;
+        public static final int restaurants=0x7f0600f8;
+        public static final int restd=0x7f0600ee;
         public static final int retrybuttton=0x7f0600a2;
         public static final int rl=0x7f060079;
         public static final int sandbox=0x7f060020;
         public static final int satellite=0x7f06001a;
         public static final int scrollview1=0x7f060092;
-        public static final int seafood=0x7f0600e0;
-        public static final int seafoodd=0x7f0600ef;
+        public static final int seafood=0x7f0600e1;
+        public static final int seafoodd=0x7f0600f0;
         public static final int search_badge=0x7f060044;
         public static final int search_bar=0x7f060043;
         public static final int search_button=0x7f060045;
@@ -1706,22 +1707,22 @@ containing a value of this type.
         public static final int search_plate=0x7f060048;
         public static final int search_src_text=0x7f060049;
         public static final int search_voice_btn=0x7f06004d;
-        public static final int searchresultlist=0x7f0600c5;
-        public static final int secondlevelsumtv=0x7f0600c8;
-        public static final int selectcategoryb=0x7f0600cc;
-        public static final int selectdestcategoryb=0x7f0600d2;
+        public static final int searchresultlist=0x7f0600c6;
+        public static final int secondlevelsumtv=0x7f0600c9;
+        public static final int selectcategoryb=0x7f0600cd;
+        public static final int selectdestcategoryb=0x7f0600d3;
         public static final int selectionDetails=0x7f060023;
-        public static final int settingslinearlayout=0x7f0600c9;
+        public static final int settingslinearlayout=0x7f0600ca;
         public static final int shortcut=0x7f060040;
         public static final int show=0x7f06006a;
         public static final int showCustom=0x7f060007;
         public static final int showHome=0x7f060004;
         public static final int showTitle=0x7f060006;
         public static final int sightseeingsbutton=0x7f060098;
-        public static final int splashscreenrelativelayout=0x7f0600d8;
+        public static final int splashscreenrelativelayout=0x7f0600d9;
         public static final int split_action_bar=0x7f060030;
-        public static final int startingpointtv=0x7f0600d4;
-        public static final int startpointlabeltv=0x7f0600ca;
+        public static final int startingpointtv=0x7f0600d5;
+        public static final int startpointlabeltv=0x7f0600cb;
         public static final int strict_sandbox=0x7f060021;
         public static final int submit_area=0x7f06004b;
         public static final int sumtv=0x7f060090;
@@ -1730,16 +1731,16 @@ containing a value of this type.
         public static final int tabMode=0x7f060002;
         public static final int tableRow1=0x7f060054;
         public static final int tablelayout=0x7f060053;
-        public static final int te=0x7f0600c6;
+        public static final int te=0x7f0600c7;
         public static final int telFragmentButton=0x7f06007d;
         public static final int telFragmentTextView=0x7f06007c;
-        public static final int telhiddentv=0x7f0600b1;
+        public static final int telhiddentv=0x7f0600b2;
         public static final int terrain=0x7f06001b;
-        public static final int textButton=0x7f0600db;
+        public static final int textButton=0x7f0600dc;
         public static final int title=0x7f06003d;
-        public static final int tolocationtv=0x7f0600d7;
+        public static final int tolocationtv=0x7f0600d8;
         public static final int top_action_bar=0x7f060032;
-        public static final int totv=0x7f0600cf;
+        public static final int totv=0x7f0600d0;
         public static final int tttt=0x7f060067;
         public static final int tvfriday=0x7f06005a;
         public static final int tvmonday=0x7f060056;
@@ -1748,7 +1749,7 @@ containing a value of this type.
         public static final int tvthursday=0x7f060059;
         public static final int tvtuesday=0x7f060057;
         public static final int tvwednesday=0x7f060058;
-        public static final int txtQuery=0x7f0600c7;
+        public static final int txtQuery=0x7f0600c8;
         public static final int up=0x7f060033;
         public static final int useLogo=0x7f060003;
         public static final int withText=0x7f06000c;
@@ -2334,26 +2335,26 @@ containing a value of this type.
            <colgroup align="left" />
            <colgroup align="left" />
            <tr><th>Attribute</th><th>Description</th></tr>
-           <tr><td><code>{@link #ActionBar_background com.example.thesguideproject:background}</code></td><td> Specifies a background drawable for the action bar.</td></tr>
-           <tr><td><code>{@link #ActionBar_backgroundSplit com.example.thesguideproject:backgroundSplit}</code></td><td> Specifies a background drawable for the bottom component of a split action bar.</td></tr>
-           <tr><td><code>{@link #ActionBar_backgroundStacked com.example.thesguideproject:backgroundStacked}</code></td><td> Specifies a background drawable for a second stacked row of the action bar.</td></tr>
-           <tr><td><code>{@link #ActionBar_customNavigationLayout com.example.thesguideproject:customNavigationLayout}</code></td><td> Specifies a layout for custom navigation.</td></tr>
-           <tr><td><code>{@link #ActionBar_displayOptions com.example.thesguideproject:displayOptions}</code></td><td> Options affecting how the action bar is displayed.</td></tr>
-           <tr><td><code>{@link #ActionBar_divider com.example.thesguideproject:divider}</code></td><td> Specifies the drawable used for item dividers.</td></tr>
-           <tr><td><code>{@link #ActionBar_height com.example.thesguideproject:height}</code></td><td> Specifies a fixed height.</td></tr>
-           <tr><td><code>{@link #ActionBar_homeLayout com.example.thesguideproject:homeLayout}</code></td><td> Specifies a layout to use for the "home" section of the action bar.</td></tr>
-           <tr><td><code>{@link #ActionBar_icon com.example.thesguideproject:icon}</code></td><td> Specifies the drawable used for the application icon.</td></tr>
-           <tr><td><code>{@link #ActionBar_indeterminateProgressStyle com.example.thesguideproject:indeterminateProgressStyle}</code></td><td> Specifies a style resource to use for an indeterminate progress spinner.</td></tr>
-           <tr><td><code>{@link #ActionBar_itemPadding com.example.thesguideproject:itemPadding}</code></td><td> Specifies padding that should be applied to the left and right sides of
+           <tr><td><code>{@link #ActionBar_background com.tsiro.thesguideproject:background}</code></td><td> Specifies a background drawable for the action bar.</td></tr>
+           <tr><td><code>{@link #ActionBar_backgroundSplit com.tsiro.thesguideproject:backgroundSplit}</code></td><td> Specifies a background drawable for the bottom component of a split action bar.</td></tr>
+           <tr><td><code>{@link #ActionBar_backgroundStacked com.tsiro.thesguideproject:backgroundStacked}</code></td><td> Specifies a background drawable for a second stacked row of the action bar.</td></tr>
+           <tr><td><code>{@link #ActionBar_customNavigationLayout com.tsiro.thesguideproject:customNavigationLayout}</code></td><td> Specifies a layout for custom navigation.</td></tr>
+           <tr><td><code>{@link #ActionBar_displayOptions com.tsiro.thesguideproject:displayOptions}</code></td><td> Options affecting how the action bar is displayed.</td></tr>
+           <tr><td><code>{@link #ActionBar_divider com.tsiro.thesguideproject:divider}</code></td><td> Specifies the drawable used for item dividers.</td></tr>
+           <tr><td><code>{@link #ActionBar_height com.tsiro.thesguideproject:height}</code></td><td> Specifies a fixed height.</td></tr>
+           <tr><td><code>{@link #ActionBar_homeLayout com.tsiro.thesguideproject:homeLayout}</code></td><td> Specifies a layout to use for the "home" section of the action bar.</td></tr>
+           <tr><td><code>{@link #ActionBar_icon com.tsiro.thesguideproject:icon}</code></td><td> Specifies the drawable used for the application icon.</td></tr>
+           <tr><td><code>{@link #ActionBar_indeterminateProgressStyle com.tsiro.thesguideproject:indeterminateProgressStyle}</code></td><td> Specifies a style resource to use for an indeterminate progress spinner.</td></tr>
+           <tr><td><code>{@link #ActionBar_itemPadding com.tsiro.thesguideproject:itemPadding}</code></td><td> Specifies padding that should be applied to the left and right sides of
              system-provided items in the bar.</td></tr>
-           <tr><td><code>{@link #ActionBar_logo com.example.thesguideproject:logo}</code></td><td> Specifies the drawable used for the application logo.</td></tr>
-           <tr><td><code>{@link #ActionBar_navigationMode com.example.thesguideproject:navigationMode}</code></td><td> The type of navigation to use.</td></tr>
-           <tr><td><code>{@link #ActionBar_progressBarPadding com.example.thesguideproject:progressBarPadding}</code></td><td> Specifies the horizontal padding on either end for an embedded progress bar.</td></tr>
-           <tr><td><code>{@link #ActionBar_progressBarStyle com.example.thesguideproject:progressBarStyle}</code></td><td> Specifies a style resource to use for an embedded progress bar.</td></tr>
-           <tr><td><code>{@link #ActionBar_subtitle com.example.thesguideproject:subtitle}</code></td><td> Specifies subtitle text used for navigationMode="normal" </td></tr>
-           <tr><td><code>{@link #ActionBar_subtitleTextStyle com.example.thesguideproject:subtitleTextStyle}</code></td><td> Specifies a style to use for subtitle text.</td></tr>
-           <tr><td><code>{@link #ActionBar_title com.example.thesguideproject:title}</code></td><td> Specifies title text used for navigationMode="normal" </td></tr>
-           <tr><td><code>{@link #ActionBar_titleTextStyle com.example.thesguideproject:titleTextStyle}</code></td><td> Specifies a style to use for title text.</td></tr>
+           <tr><td><code>{@link #ActionBar_logo com.tsiro.thesguideproject:logo}</code></td><td> Specifies the drawable used for the application logo.</td></tr>
+           <tr><td><code>{@link #ActionBar_navigationMode com.tsiro.thesguideproject:navigationMode}</code></td><td> The type of navigation to use.</td></tr>
+           <tr><td><code>{@link #ActionBar_progressBarPadding com.tsiro.thesguideproject:progressBarPadding}</code></td><td> Specifies the horizontal padding on either end for an embedded progress bar.</td></tr>
+           <tr><td><code>{@link #ActionBar_progressBarStyle com.tsiro.thesguideproject:progressBarStyle}</code></td><td> Specifies a style resource to use for an embedded progress bar.</td></tr>
+           <tr><td><code>{@link #ActionBar_subtitle com.tsiro.thesguideproject:subtitle}</code></td><td> Specifies subtitle text used for navigationMode="normal" </td></tr>
+           <tr><td><code>{@link #ActionBar_subtitleTextStyle com.tsiro.thesguideproject:subtitleTextStyle}</code></td><td> Specifies a style to use for subtitle text.</td></tr>
+           <tr><td><code>{@link #ActionBar_title com.tsiro.thesguideproject:title}</code></td><td> Specifies title text used for navigationMode="normal" </td></tr>
+           <tr><td><code>{@link #ActionBar_titleTextStyle com.tsiro.thesguideproject:titleTextStyle}</code></td><td> Specifies a style to use for title text.</td></tr>
            </table>
            @see #ActionBar_background
            @see #ActionBar_backgroundSplit
@@ -2391,7 +2392,7 @@ containing a value of this type.
           <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           <p>This is a private symbol.
-          @attr name com.example.thesguideproject:background
+          @attr name com.tsiro.thesguideproject:background
         */
         public static final int ActionBar_background = 10;
         /**
@@ -2405,7 +2406,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 <p>May be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
 "<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
           <p>This is a private symbol.
-          @attr name com.example.thesguideproject:backgroundSplit
+          @attr name com.tsiro.thesguideproject:backgroundSplit
         */
         public static final int ActionBar_backgroundSplit = 12;
         /**
@@ -2419,7 +2420,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 <p>May be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
 "<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
           <p>This is a private symbol.
-          @attr name com.example.thesguideproject:backgroundStacked
+          @attr name com.tsiro.thesguideproject:backgroundStacked
         */
         public static final int ActionBar_backgroundStacked = 11;
         /**
@@ -2431,7 +2432,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           <p>This is a private symbol.
-          @attr name com.example.thesguideproject:customNavigationLayout
+          @attr name com.tsiro.thesguideproject:customNavigationLayout
         */
         public static final int ActionBar_customNavigationLayout = 13;
         /**
@@ -2454,7 +2455,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 <tr><td><code>disableHome</code></td><td>0x20</td><td></td></tr>
 </table>
           <p>This is a private symbol.
-          @attr name com.example.thesguideproject:displayOptions
+          @attr name com.tsiro.thesguideproject:displayOptions
         */
         public static final int ActionBar_displayOptions = 3;
         /**
@@ -2466,7 +2467,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           <p>This is a private symbol.
-          @attr name com.example.thesguideproject:divider
+          @attr name com.tsiro.thesguideproject:divider
         */
         public static final int ActionBar_divider = 9;
         /**
@@ -2484,7 +2485,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name com.example.thesguideproject:height
+          @attr name com.tsiro.thesguideproject:height
         */
         public static final int ActionBar_height = 1;
         /**
@@ -2496,7 +2497,7 @@ containing a value of this type.
           <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           <p>This is a private symbol.
-          @attr name com.example.thesguideproject:homeLayout
+          @attr name com.tsiro.thesguideproject:homeLayout
         */
         public static final int ActionBar_homeLayout = 14;
         /**
@@ -2508,7 +2509,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           <p>This is a private symbol.
-          @attr name com.example.thesguideproject:icon
+          @attr name com.tsiro.thesguideproject:icon
         */
         public static final int ActionBar_icon = 7;
         /**
@@ -2520,7 +2521,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           <p>This is a private symbol.
-          @attr name com.example.thesguideproject:indeterminateProgressStyle
+          @attr name com.tsiro.thesguideproject:indeterminateProgressStyle
         */
         public static final int ActionBar_indeterminateProgressStyle = 16;
         /**
@@ -2539,7 +2540,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name com.example.thesguideproject:itemPadding
+          @attr name com.tsiro.thesguideproject:itemPadding
         */
         public static final int ActionBar_itemPadding = 18;
         /**
@@ -2551,7 +2552,7 @@ containing a value of this type.
           <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           <p>This is a private symbol.
-          @attr name com.example.thesguideproject:logo
+          @attr name com.tsiro.thesguideproject:logo
         */
         public static final int ActionBar_logo = 8;
         /**
@@ -2571,7 +2572,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 <tr><td><code>tabMode</code></td><td>2</td><td> The action bar will use a series of horizontal tabs for navigation. </td></tr>
 </table>
           <p>This is a private symbol.
-          @attr name com.example.thesguideproject:navigationMode
+          @attr name com.tsiro.thesguideproject:navigationMode
         */
         public static final int ActionBar_navigationMode = 2;
         /**
@@ -2589,7 +2590,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name com.example.thesguideproject:progressBarPadding
+          @attr name com.tsiro.thesguideproject:progressBarPadding
         */
         public static final int ActionBar_progressBarPadding = 17;
         /**
@@ -2601,7 +2602,7 @@ containing a value of this type.
           <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           <p>This is a private symbol.
-          @attr name com.example.thesguideproject:progressBarStyle
+          @attr name com.tsiro.thesguideproject:progressBarStyle
         */
         public static final int ActionBar_progressBarStyle = 15;
         /**
@@ -2617,7 +2618,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name com.example.thesguideproject:subtitle
+          @attr name com.tsiro.thesguideproject:subtitle
         */
         public static final int ActionBar_subtitle = 4;
         /**
@@ -2629,7 +2630,7 @@ containing a value of this type.
           <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           <p>This is a private symbol.
-          @attr name com.example.thesguideproject:subtitleTextStyle
+          @attr name com.tsiro.thesguideproject:subtitleTextStyle
         */
         public static final int ActionBar_subtitleTextStyle = 6;
         /**
@@ -2645,7 +2646,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name com.example.thesguideproject:title
+          @attr name com.tsiro.thesguideproject:title
         */
         public static final int ActionBar_title = 0;
         /**
@@ -2657,7 +2658,7 @@ containing a value of this type.
           <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           <p>This is a private symbol.
-          @attr name com.example.thesguideproject:titleTextStyle
+          @attr name com.tsiro.thesguideproject:titleTextStyle
         */
         public static final int ActionBar_titleTextStyle = 5;
         /**  Valid LayoutParams for views placed in the action bar as custom views. 
@@ -2688,17 +2689,17 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
            <colgroup align="left" />
            <colgroup align="left" />
            <tr><th>Attribute</th><th>Description</th></tr>
-           <tr><td><code>{@link #ActionBarWindow_windowActionBar com.example.thesguideproject:windowActionBar}</code></td><td></td></tr>
-           <tr><td><code>{@link #ActionBarWindow_windowActionBarOverlay com.example.thesguideproject:windowActionBarOverlay}</code></td><td></td></tr>
-           <tr><td><code>{@link #ActionBarWindow_windowFixedHeightMajor com.example.thesguideproject:windowFixedHeightMajor}</code></td><td> A fixed height for the window along the major axis of the screen,
+           <tr><td><code>{@link #ActionBarWindow_windowActionBar com.tsiro.thesguideproject:windowActionBar}</code></td><td></td></tr>
+           <tr><td><code>{@link #ActionBarWindow_windowActionBarOverlay com.tsiro.thesguideproject:windowActionBarOverlay}</code></td><td></td></tr>
+           <tr><td><code>{@link #ActionBarWindow_windowFixedHeightMajor com.tsiro.thesguideproject:windowFixedHeightMajor}</code></td><td> A fixed height for the window along the major axis of the screen,
              that is, when in portrait.</td></tr>
-           <tr><td><code>{@link #ActionBarWindow_windowFixedHeightMinor com.example.thesguideproject:windowFixedHeightMinor}</code></td><td> A fixed height for the window along the minor axis of the screen,
+           <tr><td><code>{@link #ActionBarWindow_windowFixedHeightMinor com.tsiro.thesguideproject:windowFixedHeightMinor}</code></td><td> A fixed height for the window along the minor axis of the screen,
              that is, when in landscape.</td></tr>
-           <tr><td><code>{@link #ActionBarWindow_windowFixedWidthMajor com.example.thesguideproject:windowFixedWidthMajor}</code></td><td> A fixed width for the window along the major axis of the screen,
+           <tr><td><code>{@link #ActionBarWindow_windowFixedWidthMajor com.tsiro.thesguideproject:windowFixedWidthMajor}</code></td><td> A fixed width for the window along the major axis of the screen,
              that is, when in landscape.</td></tr>
-           <tr><td><code>{@link #ActionBarWindow_windowFixedWidthMinor com.example.thesguideproject:windowFixedWidthMinor}</code></td><td> A fixed width for the window along the minor axis of the screen,
+           <tr><td><code>{@link #ActionBarWindow_windowFixedWidthMinor com.tsiro.thesguideproject:windowFixedWidthMinor}</code></td><td> A fixed width for the window along the minor axis of the screen,
              that is, when in portrait.</td></tr>
-           <tr><td><code>{@link #ActionBarWindow_windowSplitActionBar com.example.thesguideproject:windowSplitActionBar}</code></td><td></td></tr>
+           <tr><td><code>{@link #ActionBarWindow_windowSplitActionBar com.tsiro.thesguideproject:windowSplitActionBar}</code></td><td></td></tr>
            </table>
            @see #ActionBarWindow_windowActionBar
            @see #ActionBarWindow_windowActionBarOverlay
@@ -2713,7 +2714,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
             0x7f010004, 0x7f010005, 0x7f010006
         };
         /**
-          <p>This symbol is the offset where the {@link com.example.thesguideproject.R.attr#windowActionBar}
+          <p>This symbol is the offset where the {@link com.tsiro.thesguideproject.R.attr#windowActionBar}
           attribute's value can be found in the {@link #ActionBarWindow} array.
 
 
@@ -2723,11 +2724,11 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name com.example.thesguideproject:windowActionBar
+          @attr name com.tsiro.thesguideproject:windowActionBar
         */
         public static final int ActionBarWindow_windowActionBar = 0;
         /**
-          <p>This symbol is the offset where the {@link com.example.thesguideproject.R.attr#windowActionBarOverlay}
+          <p>This symbol is the offset where the {@link com.tsiro.thesguideproject.R.attr#windowActionBarOverlay}
           attribute's value can be found in the {@link #ActionBarWindow} array.
 
 
@@ -2737,7 +2738,7 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name com.example.thesguideproject:windowActionBarOverlay
+          @attr name com.tsiro.thesguideproject:windowActionBarOverlay
         */
         public static final int ActionBarWindow_windowActionBarOverlay = 1;
         /**
@@ -2760,7 +2761,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name com.example.thesguideproject:windowFixedHeightMajor
+          @attr name com.tsiro.thesguideproject:windowFixedHeightMajor
         */
         public static final int ActionBarWindow_windowFixedHeightMajor = 6;
         /**
@@ -2783,7 +2784,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name com.example.thesguideproject:windowFixedHeightMinor
+          @attr name com.tsiro.thesguideproject:windowFixedHeightMinor
         */
         public static final int ActionBarWindow_windowFixedHeightMinor = 4;
         /**
@@ -2806,7 +2807,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name com.example.thesguideproject:windowFixedWidthMajor
+          @attr name com.tsiro.thesguideproject:windowFixedWidthMajor
         */
         public static final int ActionBarWindow_windowFixedWidthMajor = 3;
         /**
@@ -2829,11 +2830,11 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name com.example.thesguideproject:windowFixedWidthMinor
+          @attr name com.tsiro.thesguideproject:windowFixedWidthMinor
         */
         public static final int ActionBarWindow_windowFixedWidthMinor = 5;
         /**
-          <p>This symbol is the offset where the {@link com.example.thesguideproject.R.attr#windowSplitActionBar}
+          <p>This symbol is the offset where the {@link com.tsiro.thesguideproject.R.attr#windowSplitActionBar}
           attribute's value can be found in the {@link #ActionBarWindow} array.
 
 
@@ -2843,7 +2844,7 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name com.example.thesguideproject:windowSplitActionBar
+          @attr name com.tsiro.thesguideproject:windowSplitActionBar
         */
         public static final int ActionBarWindow_windowSplitActionBar = 2;
         /** Attributes that can be used with a ActionMenuItemView.
@@ -2876,11 +2877,11 @@ containing a value of this type.
            <colgroup align="left" />
            <colgroup align="left" />
            <tr><th>Attribute</th><th>Description</th></tr>
-           <tr><td><code>{@link #ActionMode_background com.example.thesguideproject:background}</code></td><td> Specifies a background for the action mode bar.</td></tr>
-           <tr><td><code>{@link #ActionMode_backgroundSplit com.example.thesguideproject:backgroundSplit}</code></td><td> Specifies a background for the split action mode bar.</td></tr>
-           <tr><td><code>{@link #ActionMode_height com.example.thesguideproject:height}</code></td><td> Specifies a fixed height for the action mode bar.</td></tr>
-           <tr><td><code>{@link #ActionMode_subtitleTextStyle com.example.thesguideproject:subtitleTextStyle}</code></td><td> Specifies a style to use for subtitle text.</td></tr>
-           <tr><td><code>{@link #ActionMode_titleTextStyle com.example.thesguideproject:titleTextStyle}</code></td><td> Specifies a style to use for title text.</td></tr>
+           <tr><td><code>{@link #ActionMode_background com.tsiro.thesguideproject:background}</code></td><td> Specifies a background for the action mode bar.</td></tr>
+           <tr><td><code>{@link #ActionMode_backgroundSplit com.tsiro.thesguideproject:backgroundSplit}</code></td><td> Specifies a background for the split action mode bar.</td></tr>
+           <tr><td><code>{@link #ActionMode_height com.tsiro.thesguideproject:height}</code></td><td> Specifies a fixed height for the action mode bar.</td></tr>
+           <tr><td><code>{@link #ActionMode_subtitleTextStyle com.tsiro.thesguideproject:subtitleTextStyle}</code></td><td> Specifies a style to use for subtitle text.</td></tr>
+           <tr><td><code>{@link #ActionMode_titleTextStyle com.tsiro.thesguideproject:titleTextStyle}</code></td><td> Specifies a style to use for title text.</td></tr>
            </table>
            @see #ActionMode_background
            @see #ActionMode_backgroundSplit
@@ -2901,7 +2902,7 @@ containing a value of this type.
           <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           <p>This is a private symbol.
-          @attr name com.example.thesguideproject:background
+          @attr name com.tsiro.thesguideproject:background
         */
         public static final int ActionMode_background = 3;
         /**
@@ -2915,7 +2916,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 <p>May be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
 "<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
           <p>This is a private symbol.
-          @attr name com.example.thesguideproject:backgroundSplit
+          @attr name com.tsiro.thesguideproject:backgroundSplit
         */
         public static final int ActionMode_backgroundSplit = 4;
         /**
@@ -2933,7 +2934,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name com.example.thesguideproject:height
+          @attr name com.tsiro.thesguideproject:height
         */
         public static final int ActionMode_height = 0;
         /**
@@ -2945,7 +2946,7 @@ containing a value of this type.
           <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           <p>This is a private symbol.
-          @attr name com.example.thesguideproject:subtitleTextStyle
+          @attr name com.tsiro.thesguideproject:subtitleTextStyle
         */
         public static final int ActionMode_subtitleTextStyle = 2;
         /**
@@ -2957,7 +2958,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           <p>This is a private symbol.
-          @attr name com.example.thesguideproject:titleTextStyle
+          @attr name com.tsiro.thesguideproject:titleTextStyle
         */
         public static final int ActionMode_titleTextStyle = 1;
         /**  Attrbitutes for a ActivityChooserView. 
@@ -2966,8 +2967,8 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
            <colgroup align="left" />
            <colgroup align="left" />
            <tr><th>Attribute</th><th>Description</th></tr>
-           <tr><td><code>{@link #ActivityChooserView_expandActivityOverflowButtonDrawable com.example.thesguideproject:expandActivityOverflowButtonDrawable}</code></td><td> The drawable to show in the button for expanding the activities overflow popup.</td></tr>
-           <tr><td><code>{@link #ActivityChooserView_initialActivityCount com.example.thesguideproject:initialActivityCount}</code></td><td> The maximal number of items initially shown in the activity list.</td></tr>
+           <tr><td><code>{@link #ActivityChooserView_expandActivityOverflowButtonDrawable com.tsiro.thesguideproject:expandActivityOverflowButtonDrawable}</code></td><td> The drawable to show in the button for expanding the activities overflow popup.</td></tr>
+           <tr><td><code>{@link #ActivityChooserView_initialActivityCount com.tsiro.thesguideproject:initialActivityCount}</code></td><td> The maximal number of items initially shown in the activity list.</td></tr>
            </table>
            @see #ActivityChooserView_expandActivityOverflowButtonDrawable
            @see #ActivityChooserView_initialActivityCount
@@ -2989,7 +2990,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           <p>This is a private symbol.
-          @attr name com.example.thesguideproject:expandActivityOverflowButtonDrawable
+          @attr name com.tsiro.thesguideproject:expandActivityOverflowButtonDrawable
         */
         public static final int ActivityChooserView_expandActivityOverflowButtonDrawable = 1;
         /**
@@ -3005,7 +3006,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name com.example.thesguideproject:initialActivityCount
+          @attr name com.tsiro.thesguideproject:initialActivityCount
         */
         public static final int ActivityChooserView_initialActivityCount = 0;
         /** Attributes that can be used with a AdsAttrs.
@@ -3014,11 +3015,11 @@ containing a value of this type.
            <colgroup align="left" />
            <colgroup align="left" />
            <tr><th>Attribute</th><th>Description</th></tr>
-           <tr><td><code>{@link #AdsAttrs_adSize com.example.thesguideproject:adSize}</code></td><td>
+           <tr><td><code>{@link #AdsAttrs_adSize com.tsiro.thesguideproject:adSize}</code></td><td>
     The size of the ad.</td></tr>
-           <tr><td><code>{@link #AdsAttrs_adSizes com.example.thesguideproject:adSizes}</code></td><td>
+           <tr><td><code>{@link #AdsAttrs_adSizes com.tsiro.thesguideproject:adSizes}</code></td><td>
     A comma-separated list of the supported ad sizes.</td></tr>
-           <tr><td><code>{@link #AdsAttrs_adUnitId com.example.thesguideproject:adUnitId}</code></td><td> The ad unit ID.</td></tr>
+           <tr><td><code>{@link #AdsAttrs_adUnitId com.tsiro.thesguideproject:adUnitId}</code></td><td> The ad unit ID.</td></tr>
            </table>
            @see #AdsAttrs_adSize
            @see #AdsAttrs_adSizes
@@ -3044,7 +3045,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name com.example.thesguideproject:adSize
+          @attr name com.tsiro.thesguideproject:adSize
         */
         public static final int AdsAttrs_adSize = 0;
         /**
@@ -3064,7 +3065,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name com.example.thesguideproject:adSizes
+          @attr name com.tsiro.thesguideproject:adSizes
         */
         public static final int AdsAttrs_adSizes = 1;
         /**
@@ -3080,7 +3081,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name com.example.thesguideproject:adUnitId
+          @attr name com.tsiro.thesguideproject:adUnitId
         */
         public static final int AdsAttrs_adUnitId = 2;
         /** Attributes that can be used with a CompatTextView.
@@ -3089,7 +3090,7 @@ containing a value of this type.
            <colgroup align="left" />
            <colgroup align="left" />
            <tr><th>Attribute</th><th>Description</th></tr>
-           <tr><td><code>{@link #CompatTextView_textAllCaps com.example.thesguideproject:textAllCaps}</code></td><td> Present the text in ALL CAPS.</td></tr>
+           <tr><td><code>{@link #CompatTextView_textAllCaps com.tsiro.thesguideproject:textAllCaps}</code></td><td> Present the text in ALL CAPS.</td></tr>
            </table>
            @see #CompatTextView_textAllCaps
          */
@@ -3106,7 +3107,7 @@ containing a value of this type.
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
 <p>May be a boolean value, either "<code>true</code>" or "<code>false</code>".
           <p>This is a private symbol.
-          @attr name com.example.thesguideproject:textAllCaps
+          @attr name com.tsiro.thesguideproject:textAllCaps
         */
         public static final int CompatTextView_textAllCaps = 0;
         /** Attributes that can be used with a LinearLayoutICS.
@@ -3115,9 +3116,9 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
            <colgroup align="left" />
            <colgroup align="left" />
            <tr><th>Attribute</th><th>Description</th></tr>
-           <tr><td><code>{@link #LinearLayoutICS_divider com.example.thesguideproject:divider}</code></td><td> Drawable to use as a vertical divider between buttons.</td></tr>
-           <tr><td><code>{@link #LinearLayoutICS_dividerPadding com.example.thesguideproject:dividerPadding}</code></td><td> Size of padding on either end of a divider.</td></tr>
-           <tr><td><code>{@link #LinearLayoutICS_showDividers com.example.thesguideproject:showDividers}</code></td><td> Setting for which dividers to show.</td></tr>
+           <tr><td><code>{@link #LinearLayoutICS_divider com.tsiro.thesguideproject:divider}</code></td><td> Drawable to use as a vertical divider between buttons.</td></tr>
+           <tr><td><code>{@link #LinearLayoutICS_dividerPadding com.tsiro.thesguideproject:dividerPadding}</code></td><td> Size of padding on either end of a divider.</td></tr>
+           <tr><td><code>{@link #LinearLayoutICS_showDividers com.tsiro.thesguideproject:showDividers}</code></td><td> Setting for which dividers to show.</td></tr>
            </table>
            @see #LinearLayoutICS_divider
            @see #LinearLayoutICS_dividerPadding
@@ -3135,7 +3136,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           <p>This is a private symbol.
-          @attr name com.example.thesguideproject:divider
+          @attr name com.tsiro.thesguideproject:divider
         */
         public static final int LinearLayoutICS_divider = 0;
         /**
@@ -3153,7 +3154,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name com.example.thesguideproject:dividerPadding
+          @attr name com.tsiro.thesguideproject:dividerPadding
         */
         public static final int LinearLayoutICS_dividerPadding = 2;
         /**
@@ -3174,7 +3175,7 @@ containing a value of this type.
 <tr><td><code>end</code></td><td>4</td><td></td></tr>
 </table>
           <p>This is a private symbol.
-          @attr name com.example.thesguideproject:showDividers
+          @attr name com.tsiro.thesguideproject:showDividers
         */
         public static final int LinearLayoutICS_showDividers = 1;
         /** Attributes that can be used with a MapAttrs.
@@ -3183,20 +3184,20 @@ containing a value of this type.
            <colgroup align="left" />
            <colgroup align="left" />
            <tr><th>Attribute</th><th>Description</th></tr>
-           <tr><td><code>{@link #MapAttrs_cameraBearing com.example.thesguideproject:cameraBearing}</code></td><td></td></tr>
-           <tr><td><code>{@link #MapAttrs_cameraTargetLat com.example.thesguideproject:cameraTargetLat}</code></td><td></td></tr>
-           <tr><td><code>{@link #MapAttrs_cameraTargetLng com.example.thesguideproject:cameraTargetLng}</code></td><td></td></tr>
-           <tr><td><code>{@link #MapAttrs_cameraTilt com.example.thesguideproject:cameraTilt}</code></td><td></td></tr>
-           <tr><td><code>{@link #MapAttrs_cameraZoom com.example.thesguideproject:cameraZoom}</code></td><td></td></tr>
-           <tr><td><code>{@link #MapAttrs_mapType com.example.thesguideproject:mapType}</code></td><td></td></tr>
-           <tr><td><code>{@link #MapAttrs_uiCompass com.example.thesguideproject:uiCompass}</code></td><td></td></tr>
-           <tr><td><code>{@link #MapAttrs_uiRotateGestures com.example.thesguideproject:uiRotateGestures}</code></td><td></td></tr>
-           <tr><td><code>{@link #MapAttrs_uiScrollGestures com.example.thesguideproject:uiScrollGestures}</code></td><td></td></tr>
-           <tr><td><code>{@link #MapAttrs_uiTiltGestures com.example.thesguideproject:uiTiltGestures}</code></td><td></td></tr>
-           <tr><td><code>{@link #MapAttrs_uiZoomControls com.example.thesguideproject:uiZoomControls}</code></td><td></td></tr>
-           <tr><td><code>{@link #MapAttrs_uiZoomGestures com.example.thesguideproject:uiZoomGestures}</code></td><td></td></tr>
-           <tr><td><code>{@link #MapAttrs_useViewLifecycle com.example.thesguideproject:useViewLifecycle}</code></td><td></td></tr>
-           <tr><td><code>{@link #MapAttrs_zOrderOnTop com.example.thesguideproject:zOrderOnTop}</code></td><td></td></tr>
+           <tr><td><code>{@link #MapAttrs_cameraBearing com.tsiro.thesguideproject:cameraBearing}</code></td><td></td></tr>
+           <tr><td><code>{@link #MapAttrs_cameraTargetLat com.tsiro.thesguideproject:cameraTargetLat}</code></td><td></td></tr>
+           <tr><td><code>{@link #MapAttrs_cameraTargetLng com.tsiro.thesguideproject:cameraTargetLng}</code></td><td></td></tr>
+           <tr><td><code>{@link #MapAttrs_cameraTilt com.tsiro.thesguideproject:cameraTilt}</code></td><td></td></tr>
+           <tr><td><code>{@link #MapAttrs_cameraZoom com.tsiro.thesguideproject:cameraZoom}</code></td><td></td></tr>
+           <tr><td><code>{@link #MapAttrs_mapType com.tsiro.thesguideproject:mapType}</code></td><td></td></tr>
+           <tr><td><code>{@link #MapAttrs_uiCompass com.tsiro.thesguideproject:uiCompass}</code></td><td></td></tr>
+           <tr><td><code>{@link #MapAttrs_uiRotateGestures com.tsiro.thesguideproject:uiRotateGestures}</code></td><td></td></tr>
+           <tr><td><code>{@link #MapAttrs_uiScrollGestures com.tsiro.thesguideproject:uiScrollGestures}</code></td><td></td></tr>
+           <tr><td><code>{@link #MapAttrs_uiTiltGestures com.tsiro.thesguideproject:uiTiltGestures}</code></td><td></td></tr>
+           <tr><td><code>{@link #MapAttrs_uiZoomControls com.tsiro.thesguideproject:uiZoomControls}</code></td><td></td></tr>
+           <tr><td><code>{@link #MapAttrs_uiZoomGestures com.tsiro.thesguideproject:uiZoomGestures}</code></td><td></td></tr>
+           <tr><td><code>{@link #MapAttrs_useViewLifecycle com.tsiro.thesguideproject:useViewLifecycle}</code></td><td></td></tr>
+           <tr><td><code>{@link #MapAttrs_zOrderOnTop com.tsiro.thesguideproject:zOrderOnTop}</code></td><td></td></tr>
            </table>
            @see #MapAttrs_cameraBearing
            @see #MapAttrs_cameraTargetLat
@@ -3220,7 +3221,7 @@ containing a value of this type.
             0x7f01007d, 0x7f01007e
         };
         /**
-          <p>This symbol is the offset where the {@link com.example.thesguideproject.R.attr#cameraBearing}
+          <p>This symbol is the offset where the {@link com.tsiro.thesguideproject.R.attr#cameraBearing}
           attribute's value can be found in the {@link #MapAttrs} array.
 
 
@@ -3230,11 +3231,11 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name com.example.thesguideproject:cameraBearing
+          @attr name com.tsiro.thesguideproject:cameraBearing
         */
         public static final int MapAttrs_cameraBearing = 1;
         /**
-          <p>This symbol is the offset where the {@link com.example.thesguideproject.R.attr#cameraTargetLat}
+          <p>This symbol is the offset where the {@link com.tsiro.thesguideproject.R.attr#cameraTargetLat}
           attribute's value can be found in the {@link #MapAttrs} array.
 
 
@@ -3244,11 +3245,11 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name com.example.thesguideproject:cameraTargetLat
+          @attr name com.tsiro.thesguideproject:cameraTargetLat
         */
         public static final int MapAttrs_cameraTargetLat = 2;
         /**
-          <p>This symbol is the offset where the {@link com.example.thesguideproject.R.attr#cameraTargetLng}
+          <p>This symbol is the offset where the {@link com.tsiro.thesguideproject.R.attr#cameraTargetLng}
           attribute's value can be found in the {@link #MapAttrs} array.
 
 
@@ -3258,11 +3259,11 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name com.example.thesguideproject:cameraTargetLng
+          @attr name com.tsiro.thesguideproject:cameraTargetLng
         */
         public static final int MapAttrs_cameraTargetLng = 3;
         /**
-          <p>This symbol is the offset where the {@link com.example.thesguideproject.R.attr#cameraTilt}
+          <p>This symbol is the offset where the {@link com.tsiro.thesguideproject.R.attr#cameraTilt}
           attribute's value can be found in the {@link #MapAttrs} array.
 
 
@@ -3272,11 +3273,11 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name com.example.thesguideproject:cameraTilt
+          @attr name com.tsiro.thesguideproject:cameraTilt
         */
         public static final int MapAttrs_cameraTilt = 4;
         /**
-          <p>This symbol is the offset where the {@link com.example.thesguideproject.R.attr#cameraZoom}
+          <p>This symbol is the offset where the {@link com.tsiro.thesguideproject.R.attr#cameraZoom}
           attribute's value can be found in the {@link #MapAttrs} array.
 
 
@@ -3286,11 +3287,11 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name com.example.thesguideproject:cameraZoom
+          @attr name com.tsiro.thesguideproject:cameraZoom
         */
         public static final int MapAttrs_cameraZoom = 5;
         /**
-          <p>This symbol is the offset where the {@link com.example.thesguideproject.R.attr#mapType}
+          <p>This symbol is the offset where the {@link com.tsiro.thesguideproject.R.attr#mapType}
           attribute's value can be found in the {@link #MapAttrs} array.
 
 
@@ -3306,11 +3307,11 @@ containing a value of this type.
 <tr><td><code>terrain</code></td><td>3</td><td></td></tr>
 <tr><td><code>hybrid</code></td><td>4</td><td></td></tr>
 </table>
-          @attr name com.example.thesguideproject:mapType
+          @attr name com.tsiro.thesguideproject:mapType
         */
         public static final int MapAttrs_mapType = 0;
         /**
-          <p>This symbol is the offset where the {@link com.example.thesguideproject.R.attr#uiCompass}
+          <p>This symbol is the offset where the {@link com.tsiro.thesguideproject.R.attr#uiCompass}
           attribute's value can be found in the {@link #MapAttrs} array.
 
 
@@ -3320,11 +3321,11 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name com.example.thesguideproject:uiCompass
+          @attr name com.tsiro.thesguideproject:uiCompass
         */
         public static final int MapAttrs_uiCompass = 6;
         /**
-          <p>This symbol is the offset where the {@link com.example.thesguideproject.R.attr#uiRotateGestures}
+          <p>This symbol is the offset where the {@link com.tsiro.thesguideproject.R.attr#uiRotateGestures}
           attribute's value can be found in the {@link #MapAttrs} array.
 
 
@@ -3334,11 +3335,11 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name com.example.thesguideproject:uiRotateGestures
+          @attr name com.tsiro.thesguideproject:uiRotateGestures
         */
         public static final int MapAttrs_uiRotateGestures = 7;
         /**
-          <p>This symbol is the offset where the {@link com.example.thesguideproject.R.attr#uiScrollGestures}
+          <p>This symbol is the offset where the {@link com.tsiro.thesguideproject.R.attr#uiScrollGestures}
           attribute's value can be found in the {@link #MapAttrs} array.
 
 
@@ -3348,11 +3349,11 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name com.example.thesguideproject:uiScrollGestures
+          @attr name com.tsiro.thesguideproject:uiScrollGestures
         */
         public static final int MapAttrs_uiScrollGestures = 8;
         /**
-          <p>This symbol is the offset where the {@link com.example.thesguideproject.R.attr#uiTiltGestures}
+          <p>This symbol is the offset where the {@link com.tsiro.thesguideproject.R.attr#uiTiltGestures}
           attribute's value can be found in the {@link #MapAttrs} array.
 
 
@@ -3362,11 +3363,11 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name com.example.thesguideproject:uiTiltGestures
+          @attr name com.tsiro.thesguideproject:uiTiltGestures
         */
         public static final int MapAttrs_uiTiltGestures = 9;
         /**
-          <p>This symbol is the offset where the {@link com.example.thesguideproject.R.attr#uiZoomControls}
+          <p>This symbol is the offset where the {@link com.tsiro.thesguideproject.R.attr#uiZoomControls}
           attribute's value can be found in the {@link #MapAttrs} array.
 
 
@@ -3376,11 +3377,11 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name com.example.thesguideproject:uiZoomControls
+          @attr name com.tsiro.thesguideproject:uiZoomControls
         */
         public static final int MapAttrs_uiZoomControls = 10;
         /**
-          <p>This symbol is the offset where the {@link com.example.thesguideproject.R.attr#uiZoomGestures}
+          <p>This symbol is the offset where the {@link com.tsiro.thesguideproject.R.attr#uiZoomGestures}
           attribute's value can be found in the {@link #MapAttrs} array.
 
 
@@ -3390,11 +3391,11 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name com.example.thesguideproject:uiZoomGestures
+          @attr name com.tsiro.thesguideproject:uiZoomGestures
         */
         public static final int MapAttrs_uiZoomGestures = 11;
         /**
-          <p>This symbol is the offset where the {@link com.example.thesguideproject.R.attr#useViewLifecycle}
+          <p>This symbol is the offset where the {@link com.tsiro.thesguideproject.R.attr#useViewLifecycle}
           attribute's value can be found in the {@link #MapAttrs} array.
 
 
@@ -3404,11 +3405,11 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name com.example.thesguideproject:useViewLifecycle
+          @attr name com.tsiro.thesguideproject:useViewLifecycle
         */
         public static final int MapAttrs_useViewLifecycle = 12;
         /**
-          <p>This symbol is the offset where the {@link com.example.thesguideproject.R.attr#zOrderOnTop}
+          <p>This symbol is the offset where the {@link com.tsiro.thesguideproject.R.attr#zOrderOnTop}
           attribute's value can be found in the {@link #MapAttrs} array.
 
 
@@ -3418,7 +3419,7 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name com.example.thesguideproject:zOrderOnTop
+          @attr name com.tsiro.thesguideproject:zOrderOnTop
         */
         public static final int MapAttrs_zOrderOnTop = 13;
         /**  Base attributes that are available to all groups. 
@@ -3507,10 +3508,10 @@ containing a value of this type.
            <colgroup align="left" />
            <colgroup align="left" />
            <tr><th>Attribute</th><th>Description</th></tr>
-           <tr><td><code>{@link #MenuItem_actionLayout com.example.thesguideproject:actionLayout}</code></td><td> An optional layout to be used as an action view.</td></tr>
-           <tr><td><code>{@link #MenuItem_actionProviderClass com.example.thesguideproject:actionProviderClass}</code></td><td> The name of an optional ActionProvider class to instantiate an action view
+           <tr><td><code>{@link #MenuItem_actionLayout com.tsiro.thesguideproject:actionLayout}</code></td><td> An optional layout to be used as an action view.</td></tr>
+           <tr><td><code>{@link #MenuItem_actionProviderClass com.tsiro.thesguideproject:actionProviderClass}</code></td><td> The name of an optional ActionProvider class to instantiate an action view
              and perform operations such as default action for that menu item.</td></tr>
-           <tr><td><code>{@link #MenuItem_actionViewClass com.example.thesguideproject:actionViewClass}</code></td><td> The name of an optional View class to instantiate and use as an
+           <tr><td><code>{@link #MenuItem_actionViewClass com.tsiro.thesguideproject:actionViewClass}</code></td><td> The name of an optional View class to instantiate and use as an
              action view.</td></tr>
            <tr><td><code>{@link #MenuItem_android_alphabeticShortcut android:alphabeticShortcut}</code></td><td> The alphabetic shortcut key.</td></tr>
            <tr><td><code>{@link #MenuItem_android_checkable android:checkable}</code></td><td> Whether the item is capable of displaying a check mark.</td></tr>
@@ -3526,7 +3527,7 @@ containing a value of this type.
            <tr><td><code>{@link #MenuItem_android_title android:title}</code></td><td> The title associated with the item.</td></tr>
            <tr><td><code>{@link #MenuItem_android_titleCondensed android:titleCondensed}</code></td><td> The condensed title associated with the item.</td></tr>
            <tr><td><code>{@link #MenuItem_android_visible android:visible}</code></td><td> Whether the item is shown/visible.</td></tr>
-           <tr><td><code>{@link #MenuItem_showAsAction com.example.thesguideproject:showAsAction}</code></td><td> How this item should display in the Action Bar, if present.</td></tr>
+           <tr><td><code>{@link #MenuItem_showAsAction com.tsiro.thesguideproject:showAsAction}</code></td><td> How this item should display in the Action Bar, if present.</td></tr>
            </table>
            @see #MenuItem_actionLayout
            @see #MenuItem_actionProviderClass
@@ -3564,7 +3565,7 @@ containing a value of this type.
           <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           <p>This is a private symbol.
-          @attr name com.example.thesguideproject:actionLayout
+          @attr name com.tsiro.thesguideproject:actionLayout
         */
         public static final int MenuItem_actionLayout = 14;
         /**
@@ -3583,7 +3584,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name com.example.thesguideproject:actionProviderClass
+          @attr name com.tsiro.thesguideproject:actionProviderClass
         */
         public static final int MenuItem_actionProviderClass = 16;
         /**
@@ -3601,7 +3602,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name com.example.thesguideproject:actionViewClass
+          @attr name com.tsiro.thesguideproject:actionViewClass
         */
         public static final int MenuItem_actionViewClass = 15;
         /**
@@ -3757,7 +3758,7 @@ containing a value of this type.
                  larger segment of its container. </td></tr>
 </table>
           <p>This is a private symbol.
-          @attr name com.example.thesguideproject:showAsAction
+          @attr name com.tsiro.thesguideproject:showAsAction
         */
         public static final int MenuItem_showAsAction = 13;
         /** Attributes that can be used with a MenuView.
@@ -3868,8 +3869,8 @@ containing a value of this type.
            <tr><td><code>{@link #SearchView_android_imeOptions android:imeOptions}</code></td><td> The IME options to set on the query text field.</td></tr>
            <tr><td><code>{@link #SearchView_android_inputType android:inputType}</code></td><td> The input type to set on the query text field.</td></tr>
            <tr><td><code>{@link #SearchView_android_maxWidth android:maxWidth}</code></td><td> An optional maximum width of the SearchView.</td></tr>
-           <tr><td><code>{@link #SearchView_iconifiedByDefault com.example.thesguideproject:iconifiedByDefault}</code></td><td> The default state of the SearchView.</td></tr>
-           <tr><td><code>{@link #SearchView_queryHint com.example.thesguideproject:queryHint}</code></td><td> An optional query hint string to be displayed in the empty query field.</td></tr>
+           <tr><td><code>{@link #SearchView_iconifiedByDefault com.tsiro.thesguideproject:iconifiedByDefault}</code></td><td> The default state of the SearchView.</td></tr>
+           <tr><td><code>{@link #SearchView_queryHint com.tsiro.thesguideproject:queryHint}</code></td><td> An optional query hint string to be displayed in the empty query field.</td></tr>
            </table>
            @see #SearchView_android_imeOptions
            @see #SearchView_android_inputType
@@ -3922,7 +3923,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name com.example.thesguideproject:iconifiedByDefault
+          @attr name com.tsiro.thesguideproject:iconifiedByDefault
         */
         public static final int SearchView_iconifiedByDefault = 3;
         /**
@@ -3938,7 +3939,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name com.example.thesguideproject:queryHint
+          @attr name com.tsiro.thesguideproject:queryHint
         */
         public static final int SearchView_queryHint = 4;
         /** Attributes that can be used with a Spinner.
@@ -3955,12 +3956,12 @@ containing a value of this type.
            <tr><td><code>{@link #Spinner_android_dropDownWidth android:dropDownWidth}</code></td><td> Width of the dropdown in spinnerMode="dropdown".</td></tr>
            <tr><td><code>{@link #Spinner_android_gravity android:gravity}</code></td><td> Gravity setting for positioning the currently selected item.</td></tr>
            <tr><td><code>{@link #Spinner_android_popupBackground android:popupBackground}</code></td><td> Background drawable to use for the dropdown in spinnerMode="dropdown".</td></tr>
-           <tr><td><code>{@link #Spinner_disableChildrenWhenDisabled com.example.thesguideproject:disableChildrenWhenDisabled}</code></td><td> Whether this spinner should mark child views as enabled/disabled when
+           <tr><td><code>{@link #Spinner_disableChildrenWhenDisabled com.tsiro.thesguideproject:disableChildrenWhenDisabled}</code></td><td> Whether this spinner should mark child views as enabled/disabled when
              the spinner itself is enabled/disabled.</td></tr>
-           <tr><td><code>{@link #Spinner_popupPromptView com.example.thesguideproject:popupPromptView}</code></td><td> Reference to a layout to use for displaying a prompt in the dropdown for
+           <tr><td><code>{@link #Spinner_popupPromptView com.tsiro.thesguideproject:popupPromptView}</code></td><td> Reference to a layout to use for displaying a prompt in the dropdown for
              spinnerMode="dropdown".</td></tr>
-           <tr><td><code>{@link #Spinner_prompt com.example.thesguideproject:prompt}</code></td><td> The prompt to display when the spinner's dialog is shown.</td></tr>
-           <tr><td><code>{@link #Spinner_spinnerMode com.example.thesguideproject:spinnerMode}</code></td><td> Display mode for spinner options.</td></tr>
+           <tr><td><code>{@link #Spinner_prompt com.tsiro.thesguideproject:prompt}</code></td><td> The prompt to display when the spinner's dialog is shown.</td></tr>
+           <tr><td><code>{@link #Spinner_spinnerMode com.tsiro.thesguideproject:spinnerMode}</code></td><td> Display mode for spinner options.</td></tr>
            </table>
            @see #Spinner_android_dropDownHorizontalOffset
            @see #Spinner_android_dropDownSelector
@@ -4048,7 +4049,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name com.example.thesguideproject:disableChildrenWhenDisabled
+          @attr name com.tsiro.thesguideproject:disableChildrenWhenDisabled
         */
         public static final int Spinner_disableChildrenWhenDisabled = 9;
         /**
@@ -4062,7 +4063,7 @@ containing a value of this type.
           <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           <p>This is a private symbol.
-          @attr name com.example.thesguideproject:popupPromptView
+          @attr name com.tsiro.thesguideproject:popupPromptView
         */
         public static final int Spinner_popupPromptView = 8;
         /**
@@ -4074,7 +4075,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           <p>This is a private symbol.
-          @attr name com.example.thesguideproject:prompt
+          @attr name com.tsiro.thesguideproject:prompt
         */
         public static final int Spinner_prompt = 6;
         /**
@@ -4094,7 +4095,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
                  anchored to the spinner widget itself. </td></tr>
 </table>
           <p>This is a private symbol.
-          @attr name com.example.thesguideproject:spinnerMode
+          @attr name com.tsiro.thesguideproject:spinnerMode
         */
         public static final int Spinner_spinnerMode = 7;
         /**  These are the standard attributes that make up a complete theme. 
@@ -4103,12 +4104,12 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
            <colgroup align="left" />
            <colgroup align="left" />
            <tr><th>Attribute</th><th>Description</th></tr>
-           <tr><td><code>{@link #Theme_actionDropDownStyle com.example.thesguideproject:actionDropDownStyle}</code></td><td> Default ActionBar dropdown style.</td></tr>
-           <tr><td><code>{@link #Theme_dropdownListPreferredItemHeight com.example.thesguideproject:dropdownListPreferredItemHeight}</code></td><td> The preferred item height for dropdown lists.</td></tr>
-           <tr><td><code>{@link #Theme_listChoiceBackgroundIndicator com.example.thesguideproject:listChoiceBackgroundIndicator}</code></td><td> Drawable used as a background for selected list items.</td></tr>
-           <tr><td><code>{@link #Theme_panelMenuListTheme com.example.thesguideproject:panelMenuListTheme}</code></td><td> Default Panel Menu style.</td></tr>
-           <tr><td><code>{@link #Theme_panelMenuListWidth com.example.thesguideproject:panelMenuListWidth}</code></td><td> Default Panel Menu width.</td></tr>
-           <tr><td><code>{@link #Theme_popupMenuStyle com.example.thesguideproject:popupMenuStyle}</code></td><td> Default PopupMenu style.</td></tr>
+           <tr><td><code>{@link #Theme_actionDropDownStyle com.tsiro.thesguideproject:actionDropDownStyle}</code></td><td> Default ActionBar dropdown style.</td></tr>
+           <tr><td><code>{@link #Theme_dropdownListPreferredItemHeight com.tsiro.thesguideproject:dropdownListPreferredItemHeight}</code></td><td> The preferred item height for dropdown lists.</td></tr>
+           <tr><td><code>{@link #Theme_listChoiceBackgroundIndicator com.tsiro.thesguideproject:listChoiceBackgroundIndicator}</code></td><td> Drawable used as a background for selected list items.</td></tr>
+           <tr><td><code>{@link #Theme_panelMenuListTheme com.tsiro.thesguideproject:panelMenuListTheme}</code></td><td> Default Panel Menu style.</td></tr>
+           <tr><td><code>{@link #Theme_panelMenuListWidth com.tsiro.thesguideproject:panelMenuListWidth}</code></td><td> Default Panel Menu width.</td></tr>
+           <tr><td><code>{@link #Theme_popupMenuStyle com.tsiro.thesguideproject:popupMenuStyle}</code></td><td> Default PopupMenu style.</td></tr>
            </table>
            @see #Theme_actionDropDownStyle
            @see #Theme_dropdownListPreferredItemHeight
@@ -4130,7 +4131,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           <p>This is a private symbol.
-          @attr name com.example.thesguideproject:actionDropDownStyle
+          @attr name com.tsiro.thesguideproject:actionDropDownStyle
         */
         public static final int Theme_actionDropDownStyle = 0;
         /**
@@ -4148,7 +4149,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name com.example.thesguideproject:dropdownListPreferredItemHeight
+          @attr name com.tsiro.thesguideproject:dropdownListPreferredItemHeight
         */
         public static final int Theme_dropdownListPreferredItemHeight = 1;
         /**
@@ -4160,7 +4161,7 @@ containing a value of this type.
           <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           <p>This is a private symbol.
-          @attr name com.example.thesguideproject:listChoiceBackgroundIndicator
+          @attr name com.tsiro.thesguideproject:listChoiceBackgroundIndicator
         */
         public static final int Theme_listChoiceBackgroundIndicator = 5;
         /**
@@ -4172,7 +4173,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           <p>This is a private symbol.
-          @attr name com.example.thesguideproject:panelMenuListTheme
+          @attr name com.tsiro.thesguideproject:panelMenuListTheme
         */
         public static final int Theme_panelMenuListTheme = 4;
         /**
@@ -4190,7 +4191,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name com.example.thesguideproject:panelMenuListWidth
+          @attr name com.tsiro.thesguideproject:panelMenuListWidth
         */
         public static final int Theme_panelMenuListWidth = 3;
         /**
@@ -4202,7 +4203,7 @@ containing a value of this type.
           <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           <p>This is a private symbol.
-          @attr name com.example.thesguideproject:popupMenuStyle
+          @attr name com.tsiro.thesguideproject:popupMenuStyle
         */
         public static final int Theme_popupMenuStyle = 2;
         /** Attributes that can be used with a View.
@@ -4212,8 +4213,8 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
            <colgroup align="left" />
            <tr><th>Attribute</th><th>Description</th></tr>
            <tr><td><code>{@link #View_android_focusable android:focusable}</code></td><td> Boolean that controls whether a view can take focus.</td></tr>
-           <tr><td><code>{@link #View_paddingEnd com.example.thesguideproject:paddingEnd}</code></td><td> Sets the padding, in pixels, of the end edge; see {@link android.R.attr#padding}.</td></tr>
-           <tr><td><code>{@link #View_paddingStart com.example.thesguideproject:paddingStart}</code></td><td> Sets the padding, in pixels, of the start edge; see {@link android.R.attr#padding}.</td></tr>
+           <tr><td><code>{@link #View_paddingEnd com.tsiro.thesguideproject:paddingEnd}</code></td><td> Sets the padding, in pixels, of the end edge; see {@link android.R.attr#padding}.</td></tr>
+           <tr><td><code>{@link #View_paddingStart com.tsiro.thesguideproject:paddingStart}</code></td><td> Sets the padding, in pixels, of the start edge; see {@link android.R.attr#padding}.</td></tr>
            </table>
            @see #View_android_focusable
            @see #View_paddingEnd
@@ -4251,7 +4252,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name com.example.thesguideproject:paddingEnd
+          @attr name com.tsiro.thesguideproject:paddingEnd
         */
         public static final int View_paddingEnd = 2;
         /**
@@ -4269,7 +4270,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name com.example.thesguideproject:paddingStart
+          @attr name com.tsiro.thesguideproject:paddingStart
         */
         public static final int View_paddingStart = 1;
         /**  Attributes for the WalletFragment &lt;fragment&gt; tag 
@@ -4278,10 +4279,10 @@ containing a value of this type.
            <colgroup align="left" />
            <colgroup align="left" />
            <tr><th>Attribute</th><th>Description</th></tr>
-           <tr><td><code>{@link #WalletFragmentOptions_environment com.example.thesguideproject:environment}</code></td><td> Google Wallet environment to use </td></tr>
-           <tr><td><code>{@link #WalletFragmentOptions_fragmentMode com.example.thesguideproject:fragmentMode}</code></td><td> Fragment mode </td></tr>
-           <tr><td><code>{@link #WalletFragmentOptions_fragmentStyle com.example.thesguideproject:fragmentStyle}</code></td><td> A style resource specifing attributes to customize the look and feel of WalletFragment </td></tr>
-           <tr><td><code>{@link #WalletFragmentOptions_theme com.example.thesguideproject:theme}</code></td><td> Theme to be used for the Wallet selector </td></tr>
+           <tr><td><code>{@link #WalletFragmentOptions_environment com.tsiro.thesguideproject:environment}</code></td><td> Google Wallet environment to use </td></tr>
+           <tr><td><code>{@link #WalletFragmentOptions_fragmentMode com.tsiro.thesguideproject:fragmentMode}</code></td><td> Fragment mode </td></tr>
+           <tr><td><code>{@link #WalletFragmentOptions_fragmentStyle com.tsiro.thesguideproject:fragmentStyle}</code></td><td> A style resource specifing attributes to customize the look and feel of WalletFragment </td></tr>
+           <tr><td><code>{@link #WalletFragmentOptions_theme com.tsiro.thesguideproject:theme}</code></td><td> Theme to be used for the Wallet selector </td></tr>
            </table>
            @see #WalletFragmentOptions_environment
            @see #WalletFragmentOptions_fragmentMode
@@ -4308,7 +4309,7 @@ containing a value of this type.
 <tr><td><code>strict_sandbox</code></td><td>2</td><td></td></tr>
 </table>
           <p>This is a private symbol.
-          @attr name com.example.thesguideproject:environment
+          @attr name com.tsiro.thesguideproject:environment
         */
         public static final int WalletFragmentOptions_environment = 1;
         /**
@@ -4327,7 +4328,7 @@ containing a value of this type.
 <tr><td><code>selectionDetails</code></td><td>2</td><td></td></tr>
 </table>
           <p>This is a private symbol.
-          @attr name com.example.thesguideproject:fragmentMode
+          @attr name com.tsiro.thesguideproject:fragmentMode
         */
         public static final int WalletFragmentOptions_fragmentMode = 3;
         /**
@@ -4339,7 +4340,7 @@ containing a value of this type.
           <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           <p>This is a private symbol.
-          @attr name com.example.thesguideproject:fragmentStyle
+          @attr name com.tsiro.thesguideproject:fragmentStyle
         */
         public static final int WalletFragmentOptions_fragmentStyle = 2;
         /**
@@ -4358,7 +4359,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 <tr><td><code>holo_light</code></td><td>1</td><td></td></tr>
 </table>
           <p>This is a private symbol.
-          @attr name com.example.thesguideproject:theme
+          @attr name com.tsiro.thesguideproject:theme
         */
         public static final int WalletFragmentOptions_theme = 0;
         /**  Attributes that may be specified in a style resource to customize the look and feel of
@@ -4368,17 +4369,17 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
            <colgroup align="left" />
            <colgroup align="left" />
            <tr><th>Attribute</th><th>Description</th></tr>
-           <tr><td><code>{@link #WalletFragmentStyle_buyButtonAppearance com.example.thesguideproject:buyButtonAppearance}</code></td><td> Appearance of the buy button.</td></tr>
-           <tr><td><code>{@link #WalletFragmentStyle_buyButtonHeight com.example.thesguideproject:buyButtonHeight}</code></td><td> Height of the buy button.</td></tr>
-           <tr><td><code>{@link #WalletFragmentStyle_buyButtonText com.example.thesguideproject:buyButtonText}</code></td><td> Text on the buy button.</td></tr>
-           <tr><td><code>{@link #WalletFragmentStyle_buyButtonWidth com.example.thesguideproject:buyButtonWidth}</code></td><td> Width of the buy button.</td></tr>
-           <tr><td><code>{@link #WalletFragmentStyle_maskedWalletDetailsBackground com.example.thesguideproject:maskedWalletDetailsBackground}</code></td><td> Masked wallet details background </td></tr>
-           <tr><td><code>{@link #WalletFragmentStyle_maskedWalletDetailsButtonBackground com.example.thesguideproject:maskedWalletDetailsButtonBackground}</code></td><td> "Change" button background in masked wallet details view </td></tr>
-           <tr><td><code>{@link #WalletFragmentStyle_maskedWalletDetailsButtonTextAppearance com.example.thesguideproject:maskedWalletDetailsButtonTextAppearance}</code></td><td> TextAppearance for the "Change" button in masked wallet details view </td></tr>
-           <tr><td><code>{@link #WalletFragmentStyle_maskedWalletDetailsHeaderTextAppearance com.example.thesguideproject:maskedWalletDetailsHeaderTextAppearance}</code></td><td> TextAppearance for headers describing masked wallet details </td></tr>
-           <tr><td><code>{@link #WalletFragmentStyle_maskedWalletDetailsLogoImageType com.example.thesguideproject:maskedWalletDetailsLogoImageType}</code></td><td> Type of the wallet logo image in masked wallet details view </td></tr>
-           <tr><td><code>{@link #WalletFragmentStyle_maskedWalletDetailsLogoTextColor com.example.thesguideproject:maskedWalletDetailsLogoTextColor}</code></td><td> Color of the Google Wallet logo text in masked wallet details view </td></tr>
-           <tr><td><code>{@link #WalletFragmentStyle_maskedWalletDetailsTextAppearance com.example.thesguideproject:maskedWalletDetailsTextAppearance}</code></td><td> TextAppearance for masked wallet details </td></tr>
+           <tr><td><code>{@link #WalletFragmentStyle_buyButtonAppearance com.tsiro.thesguideproject:buyButtonAppearance}</code></td><td> Appearance of the buy button.</td></tr>
+           <tr><td><code>{@link #WalletFragmentStyle_buyButtonHeight com.tsiro.thesguideproject:buyButtonHeight}</code></td><td> Height of the buy button.</td></tr>
+           <tr><td><code>{@link #WalletFragmentStyle_buyButtonText com.tsiro.thesguideproject:buyButtonText}</code></td><td> Text on the buy button.</td></tr>
+           <tr><td><code>{@link #WalletFragmentStyle_buyButtonWidth com.tsiro.thesguideproject:buyButtonWidth}</code></td><td> Width of the buy button.</td></tr>
+           <tr><td><code>{@link #WalletFragmentStyle_maskedWalletDetailsBackground com.tsiro.thesguideproject:maskedWalletDetailsBackground}</code></td><td> Masked wallet details background </td></tr>
+           <tr><td><code>{@link #WalletFragmentStyle_maskedWalletDetailsButtonBackground com.tsiro.thesguideproject:maskedWalletDetailsButtonBackground}</code></td><td> "Change" button background in masked wallet details view </td></tr>
+           <tr><td><code>{@link #WalletFragmentStyle_maskedWalletDetailsButtonTextAppearance com.tsiro.thesguideproject:maskedWalletDetailsButtonTextAppearance}</code></td><td> TextAppearance for the "Change" button in masked wallet details view </td></tr>
+           <tr><td><code>{@link #WalletFragmentStyle_maskedWalletDetailsHeaderTextAppearance com.tsiro.thesguideproject:maskedWalletDetailsHeaderTextAppearance}</code></td><td> TextAppearance for headers describing masked wallet details </td></tr>
+           <tr><td><code>{@link #WalletFragmentStyle_maskedWalletDetailsLogoImageType com.tsiro.thesguideproject:maskedWalletDetailsLogoImageType}</code></td><td> Type of the wallet logo image in masked wallet details view </td></tr>
+           <tr><td><code>{@link #WalletFragmentStyle_maskedWalletDetailsLogoTextColor com.tsiro.thesguideproject:maskedWalletDetailsLogoTextColor}</code></td><td> Color of the Google Wallet logo text in masked wallet details view </td></tr>
+           <tr><td><code>{@link #WalletFragmentStyle_maskedWalletDetailsTextAppearance com.tsiro.thesguideproject:maskedWalletDetailsTextAppearance}</code></td><td> TextAppearance for masked wallet details </td></tr>
            </table>
            @see #WalletFragmentStyle_buyButtonAppearance
            @see #WalletFragmentStyle_buyButtonHeight
@@ -4414,7 +4415,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 <tr><td><code>monochrome</code></td><td>3</td><td></td></tr>
 </table>
           <p>This is a private symbol.
-          @attr name com.example.thesguideproject:buyButtonAppearance
+          @attr name com.tsiro.thesguideproject:buyButtonAppearance
         */
         public static final int WalletFragmentStyle_buyButtonAppearance = 3;
         /**
@@ -4443,7 +4444,7 @@ containing a value of this type.
 <tr><td><code>wrap_content</code></td><td>-2</td><td></td></tr>
 </table>
           <p>This is a private symbol.
-          @attr name com.example.thesguideproject:buyButtonHeight
+          @attr name com.tsiro.thesguideproject:buyButtonHeight
         */
         public static final int WalletFragmentStyle_buyButtonHeight = 0;
         /**
@@ -4463,7 +4464,7 @@ containing a value of this type.
 <tr><td><code>book_now</code></td><td>3</td><td></td></tr>
 </table>
           <p>This is a private symbol.
-          @attr name com.example.thesguideproject:buyButtonText
+          @attr name com.tsiro.thesguideproject:buyButtonText
         */
         public static final int WalletFragmentStyle_buyButtonText = 2;
         /**
@@ -4492,7 +4493,7 @@ containing a value of this type.
 <tr><td><code>wrap_content</code></td><td>-2</td><td></td></tr>
 </table>
           <p>This is a private symbol.
-          @attr name com.example.thesguideproject:buyButtonWidth
+          @attr name com.tsiro.thesguideproject:buyButtonWidth
         */
         public static final int WalletFragmentStyle_buyButtonWidth = 1;
         /**
@@ -4506,7 +4507,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 <p>May be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
 "<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
           <p>This is a private symbol.
-          @attr name com.example.thesguideproject:maskedWalletDetailsBackground
+          @attr name com.tsiro.thesguideproject:maskedWalletDetailsBackground
         */
         public static final int WalletFragmentStyle_maskedWalletDetailsBackground = 6;
         /**
@@ -4520,7 +4521,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 <p>May be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
 "<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
           <p>This is a private symbol.
-          @attr name com.example.thesguideproject:maskedWalletDetailsButtonBackground
+          @attr name com.tsiro.thesguideproject:maskedWalletDetailsButtonBackground
         */
         public static final int WalletFragmentStyle_maskedWalletDetailsButtonBackground = 8;
         /**
@@ -4532,7 +4533,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           <p>This is a private symbol.
-          @attr name com.example.thesguideproject:maskedWalletDetailsButtonTextAppearance
+          @attr name com.tsiro.thesguideproject:maskedWalletDetailsButtonTextAppearance
         */
         public static final int WalletFragmentStyle_maskedWalletDetailsButtonTextAppearance = 7;
         /**
@@ -4544,7 +4545,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           <p>This is a private symbol.
-          @attr name com.example.thesguideproject:maskedWalletDetailsHeaderTextAppearance
+          @attr name com.tsiro.thesguideproject:maskedWalletDetailsHeaderTextAppearance
         */
         public static final int WalletFragmentStyle_maskedWalletDetailsHeaderTextAppearance = 5;
         /**
@@ -4563,7 +4564,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 <tr><td><code>monochrome</code></td><td>2</td><td></td></tr>
 </table>
           <p>This is a private symbol.
-          @attr name com.example.thesguideproject:maskedWalletDetailsLogoImageType
+          @attr name com.tsiro.thesguideproject:maskedWalletDetailsLogoImageType
         */
         public static final int WalletFragmentStyle_maskedWalletDetailsLogoImageType = 10;
         /**
@@ -4580,7 +4581,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name com.example.thesguideproject:maskedWalletDetailsLogoTextColor
+          @attr name com.tsiro.thesguideproject:maskedWalletDetailsLogoTextColor
         */
         public static final int WalletFragmentStyle_maskedWalletDetailsLogoTextColor = 9;
         /**
@@ -4592,7 +4593,7 @@ containing a value of this type.
           <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           <p>This is a private symbol.
-          @attr name com.example.thesguideproject:maskedWalletDetailsTextAppearance
+          @attr name com.tsiro.thesguideproject:maskedWalletDetailsTextAppearance
         */
         public static final int WalletFragmentStyle_maskedWalletDetailsTextAppearance = 4;
     };

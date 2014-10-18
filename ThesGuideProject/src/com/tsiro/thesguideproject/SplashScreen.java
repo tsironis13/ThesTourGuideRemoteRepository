@@ -2,7 +2,7 @@ package com.tsiro.thesguideproject;
 
 import java.io.IOException;
 import java.util.Locale;
-import com.example.thesguideproject.R;
+import com.tsiro.thesguideproject.R;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.tsiro.sqlHelper.TestLocalSqliteDatabase;
@@ -52,7 +52,8 @@ public class SplashScreen extends ActionBarActivity{
 		languagePhone = Locale.getDefault().getLanguage();
 		Log.i("Language phone =>", languagePhone);
 		
-		testDB = new TestLocalSqliteDatabase(this);
+		//testDB = new TestLocalSqliteDatabase(this);
+		testDB = TestLocalSqliteDatabase.getInstance(this);
 		
 		final Button englishButton = (Button) findViewById(R.id.englishButton);
 		final Button greekButton = (Button) findViewById(R.id.greekButton);
@@ -64,7 +65,7 @@ public class SplashScreen extends ActionBarActivity{
 			
 		try {
 			testDB.createDataBase();
-			testDB.openDataBase(debugTag);
+			//testDB.openDataBase(debugTag);
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
@@ -186,7 +187,7 @@ public class SplashScreen extends ActionBarActivity{
    	protected void onDestroy() {
    		// TODO Auto-generated method stub
    		super.onDestroy();
-   		testDB.close(debugTag);
+   		//testDB.close(debugTag);
    	}
   
 }

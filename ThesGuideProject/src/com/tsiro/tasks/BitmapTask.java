@@ -29,11 +29,13 @@ public class BitmapTask  {
     private InEnglishPlacesDataListCursorAdapter inEngPlacesAdapter;
     
     static InternalStorage intStorage = new InternalStorage();
-    private String path = "/data/data/com.example.thesguideproject/app_imageDir";
+    private String path = "/data/data/com.tsiro.thesguideproject/app_imageDir";
     PlacesJsonWebApiTask loadViewTask;
+    private Context context;
     
-    public BitmapTask(Context ctx)
+    public BitmapTask(Context context)
     {
+    	this.context = context.getApplicationContext();
         //imageCache = new HashMap<String, Bitmap>();
     }
     
@@ -41,10 +43,11 @@ public class BitmapTask  {
     	this.inEngPlacesAdapter = inEnglishPlacesAdapter; 
     }
     
-    public BitmapTask(PlacesDataListCursorAdapter pLacesDataListCursorAdapter) {
+    
+    /*public BitmapTask(PlacesDataListCursorAdapter pLacesDataListCursorAdapter) {
 		// TODO Auto-generated constructor stub
     	this.p = pLacesDataListCursorAdapter;
-	}
+	}*/
 
 	public Bitmap loadImage(PlacesListFragmentActivity mainActivity, String url, Context context, String name){
     	Bitmap b = intStorage.loadImageFromStorage(path, name);
@@ -72,7 +75,7 @@ public class BitmapTask  {
     	 } 
     	 else
     	 {
-    	 new NestedImageTask(context, name).execute(url);
+    	 new NestedImageTask(context.getApplicationContext(), name).execute(url);
         // Log.d(debugTag, "Image Fetched!!");
         // Log.i("Image Fetched: ", url);
          return DEFAULT_ICON;
@@ -97,7 +100,7 @@ public class BitmapTask  {
         	return b;
         }
         else {
-        		new NestedImageTask(context, name).execute(url);
+        		new NestedImageTask(context.getApplicationContext(), name).execute(url);
         		// Log.d(debugTag, "Image Fetched!!");
         		// Log.i("Image Fetched: ", url);
         		return DEFAULT_ICON;	
@@ -132,7 +135,7 @@ public class BitmapTask  {
         private String name;
         
         public NestedStartUpImageTask(Context context, String name){
-        	this.context = context;
+        	this.context = context.getApplicationContext();
         	this.name = name;
         }
         
@@ -167,7 +170,7 @@ public class BitmapTask  {
             super.onPostExecute(result);
             synchronized (this) {
                 //imageCache.put(s_url, result);
-                intStorage.saveToInternalSorage(result, context, name);
+                intStorage.saveToInternalSorage(result, context.getApplicationContext(), name);
                 Log.i("IMAGE SAVED TO INTERNAL STORAGE =>", "OPERATION COMPLETED!");
             }
             //adapt.notifyDataSetChanged();
@@ -182,7 +185,7 @@ public class BitmapTask  {
         private String name;
         
         public NestedImageTask(Context context, String name){
-        	this.context = context;
+        	this.context = context.getApplicationContext();
         	this.name = name;
         }
         
@@ -218,7 +221,7 @@ public class BitmapTask  {
             super.onPostExecute(result);
             synchronized (this) {
                 //imageCache.put(s_url, result);
-                intStorage.saveToInternalSorage(result, context, name);
+                intStorage.saveToInternalSorage(result, context.getApplicationContext(), name);
                 Log.i("IMAGE SAVED TO INTERNAL STORAGE =>", "OPERATION COMPLETED!");
             }
             adapt.notifyDataSetChanged();

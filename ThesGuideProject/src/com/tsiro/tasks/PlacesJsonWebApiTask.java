@@ -16,7 +16,7 @@ import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.widget.ListView;
 import android.widget.Toast;
-import com.example.thesguideproject.R;
+import com.tsiro.thesguideproject.R;
 import com.tsiro.adapters.EventsBaseAdapter;
 import com.tsiro.adapters.InEnglishEventsBaseAdapter;
 import com.tsiro.locationData.PlacesData;
@@ -249,8 +249,10 @@ public class PlacesJsonWebApiTask extends AsyncTask<Void, Integer, String> {
         	}
         	
       	
-        	TestLocalSqliteDatabase dbtest = new TestLocalSqliteDatabase(context);
-			dbtest.openDataBase(debugTag);
+        	//TestLocalSqliteDatabase dbtest = new TestLocalSqliteDatabase(context);
+        	TestLocalSqliteDatabase dbtest;
+        	dbtest = TestLocalSqliteDatabase.getInstance(context);
+        	dbtest.openDataBase(debugTag);
 			//Log.d("Insert: ", "Inserting .."); 
 			//dbholder.addLocation(new LocationData(integer_id, genre, photo_link, name_el, latitude, longtitude));
 			  //for (PlacesData td : placesDataArray){

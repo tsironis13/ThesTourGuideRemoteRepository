@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-import com.example.thesguideproject.R;
+import com.tsiro.thesguideproject.R;
 import com.tsiro.adapters.DisarableLocationCursorAdapter;
 import com.tsiro.adapters.InEnglishSearchAdapter;
 import com.tsiro.adapters.SearchAdapter;
@@ -52,7 +52,7 @@ import android.widget.Toast;
 
 public class SettingsMapFragment extends ListFragment implements DialogInterface.OnClickListener {
 
-	private static LinearLayout settinglinearlayout;
+	//private static LinearLayout settinglinearlayout;
 	private static EditText disarableLocationEditText;
 	private static EditText disarabledestLocationEditText;
 	private static ListView listView;
@@ -101,11 +101,12 @@ public class SettingsMapFragment extends ListFragment implements DialogInterface
 		View view = inflater.inflate(R.layout.settingsmapfragment, container, false);	
 		language = getArguments().getString("language");
 	    
-		testDB = new TestLocalSqliteDatabase(getActivity());
+		//testDB = new TestLocalSqliteDatabase(getActivity());
+		testDB = TestLocalSqliteDatabase.getInstance(getActivity());
 		testDB.openDataBase(debugTag);
 		categoryPlacesList = new ArrayList<String>();
 		
-		settinglinearlayout = (LinearLayout) view.findViewById(R.id.settingslinearlayout);
+		//settinglinearlayout = (LinearLayout) view.findViewById(R.id.settingslinearlayout);
 		startpointlabeltv = (TextView) view.findViewById(R.id.startpointlabeltv);
 		destinationpointtv = (TextView) view.findViewById(R.id.destinationpointlabeltv);
 		currentpositioncb = (CheckBox) view.findViewById(R.id.currentpositioncb);
